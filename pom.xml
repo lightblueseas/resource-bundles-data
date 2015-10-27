@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>de.alpharogroup</groupId>
+		<artifactId>mvn-persistence-parent</artifactId>
+		<version>2.0.0</version>
+		<relativePath></relativePath>
+	</parent>
+
+	<artifactId>resource-bundles-data</artifactId>
+	<packaging>pom</packaging>
+	<version>3.1.0</version>
+	<inceptionYear>2015</inceptionYear>
+
+	<name>${project.artifactId}</name>
+
+	<description>
+		Parent project that holds module projects for the persistence of address data.
+	</description>
+
+	<url>https://github.com/lightblueseas/resource-bundles-data</url>
+
+	<scm>
+		<connection>scm:git:git:@github.com:lightblueseas/resource-bundles-data.git</connection>
+		<developerConnection>scm:git:git@github.com:lightblueseas/resource-bundles-data.git</developerConnection>
+		<url>git:@github.com:lightblueseas/resource-bundles-data.git</url>
+	</scm>
+
+	<ciManagement>
+		<system>travis-ci</system>
+		<url>https://travis-ci.org/lightblueseas/resource-bundles-data</url>
+	</ciManagement>
+
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/lightblueseas/resource-bundles-data/issues</url>
+	</issueManagement>
+
+	<modules>
+		<module>resource-bundles-entities</module>
+		<module>resource-bundles-business</module>
+	</modules>
+
+	<dependencies>
+		<!-- LOMBOK DEPENDENCIES -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+		</dependency>
+
+	</dependencies>
+	
+</project>
