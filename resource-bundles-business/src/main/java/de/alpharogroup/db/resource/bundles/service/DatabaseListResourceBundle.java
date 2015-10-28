@@ -10,12 +10,11 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 
 /**
- * The Class DatabaseResources.
+ * The Class {@link DatabaseListResourceBundle}.
  */
-public class DatabaseResourceBundle extends ListResourceBundle { 
+public class DatabaseListResourceBundle extends ListResourceBundle { 
 
-	public DatabaseResourceBundle() {
-		super();
+	public DatabaseListResourceBundle() {
 	}
 
 	/** The base name. */
@@ -34,7 +33,7 @@ public class DatabaseResourceBundle extends ListResourceBundle {
      * @param baseName the base name
      * @param locale the locale
      */
-    public DatabaseResourceBundle(String baseName, Locale locale) {
+    public DatabaseListResourceBundle(String baseName, Locale locale) {
         this.locale = locale;        
         this.baseName = baseName;
     }
@@ -46,8 +45,8 @@ public class DatabaseResourceBundle extends ListResourceBundle {
      * @param locale the locale
      * @param resourcebundlesService the resourcebundles service
      */
-    public DatabaseResourceBundle(String baseName, Locale locale, ResourcebundlesService resourcebundlesService) {
-    	this.resourcebundlesService = resourcebundlesService;
+    public DatabaseListResourceBundle(String baseName, Locale locale, ResourcebundlesService resourcebundlesService) {
+    	setResourcebundlesService(resourcebundlesService);
         this.locale = locale;        
         this.baseName = baseName;
     }

@@ -4,43 +4,72 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.ResourceBundle.Control;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+import lombok.Getter;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 
 /**
- * The class DatabaseControl can be used to load ResourceBundle from the database.
+ * The class {@link DatabaseControl} can be used to load ResourceBundle from the database.
  */
-public class DatabaseControl extends Control {
-	public DatabaseControl() {
-		super();
-	}
-	public DatabaseControl(ResourcebundlesService resourcebundlesService) {
-		super();
-		this.resourcebundlesService = resourcebundlesService;
+public class DatabaseControl extends Control
+{
+
+	/** the singleton instance of DatabaseControl. */
+	private final static DatabaseControl INSTANCE = new DatabaseControl();
+
+	/**
+	 * Gets the single instance of DatabaseControl.
+	 *
+	 * @return single instance of DatabaseControl
+	 */
+	public static DatabaseControl getInstance()
+	{
+		return INSTANCE;
 	}
 
-	/** The Constant LOGGER. */
-	private final static Logger LOGGER = Logger.getLogger(DatabaseControl.class
-			.getName());
+	/** The resourcebundles service. */
+	@Getter
 	private ResourcebundlesService resourcebundlesService;
 
 	/**
-     * {@inheritDoc}
-     */
+	 * Instantiates a new {@link DatabaseControl}.
+	 */
+	private DatabaseControl()
+	{
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public ResourceBundle newBundle(String baseName, Locale locale,
-			String format, ClassLoader loader, boolean reload)
-			throws IllegalAccessException, InstantiationException, IOException {
-		LOGGER.log(Level.INFO, "reload {0} ", reload);
+	public ResourceBundle newBundle(String baseName, Locale locale, String format,
+		ClassLoader loader, boolean reload) throws IllegalAccessException, InstantiationException,
+		IOException
+	{
 		DatabaseResourceBundle databaseResourceBundle;
-		if(resourcebundlesService!=null) {
-			databaseResourceBundle = new DatabaseResourceBundle(baseName, locale, resourcebundlesService);
-		} else {
+		if (resourcebundlesService != null)
+		{
+			databaseResourceBundle = new DatabaseResourceBundle(baseName, locale,
+				resourcebundlesService);
+		}
+		else
+		{
 			databaseResourceBundle = new DatabaseResourceBundle(baseName, locale);
 		}
 		return databaseResourceBundle;
+	}
+
+	/**
+	 * Sets the resourcebundles service.
+	 *
+	 * @param resourcebundlesService the resourcebundles service
+	 * @return this {@link DatabaseControl} object.
+	 */
+	public synchronized DatabaseControl setResourcebundlesService(
+		ResourcebundlesService resourcebundlesService)
+	{
+		this.resourcebundlesService = resourcebundlesService;
+		return this;
 	}
 
 }

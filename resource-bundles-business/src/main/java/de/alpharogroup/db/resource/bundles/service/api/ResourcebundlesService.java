@@ -40,6 +40,16 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the key
 	 */
 	Resourcebundles getKey(String baseName, Locale locale, String key);
+
+	/**
+	 * Checks if a resource exists with the given parameters.
+	 *
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param key the key
+	 * @return the {@link Resourcebundles} or null if it does not exists.
+	 */
+	Resourcebundles contains(String baseName, Locale locale, String key);
 	
 	/**
 	 * Update the given properties to the db.

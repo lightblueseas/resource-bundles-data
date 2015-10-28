@@ -15,57 +15,72 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 
 @ContextConfiguration(locations = "classpath:test-applicationContext.xml")
-public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests {
+public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
+{
 
-	
+
 	/** The resourcebundles service. */
 	@Autowired
-	private ResourcebundlesService resourcebundlesService; 
+	private ResourcebundlesService resourcebundlesService;
 
-    /**
-     * Gets the resourcebundles service.
-     *
-     * @return the resourcebundles service
-     */
-    public ResourcebundlesService getResourcebundlesService() {
+	/**
+	 * Gets the resourcebundles service.
+	 *
+	 * @return the resourcebundles service
+	 */
+	public ResourcebundlesService getResourcebundlesService()
+	{
 		return resourcebundlesService;
 	}
 
-    /**
-     * Sets the resourcebundles service.
-     *
-     * @param resourcebundlesService the new resourcebundles service
-     */
-    public void setResourcebundlesService(
-			ResourcebundlesService resourcebundlesService) {
+	/**
+	 * Sets the resourcebundles service.
+	 *
+	 * @param resourcebundlesService
+	 *            the new resourcebundles service
+	 */
+	public void setResourcebundlesService(ResourcebundlesService resourcebundlesService)
+	{
 		this.resourcebundlesService = resourcebundlesService;
 	}
-    
-	@Test(enabled=false)
-	public void testFindResourceBundles() {
+
+	@Test(enabled = true)
+	public void testFindResourceBundles()
+	{
 		initResourcebundles();
-		DatabaseResourceBundle databaseResourceBundle = new DatabaseResourceBundle("resource.bundles", Locale.UK, resourcebundlesService);
+		DatabaseListResourceBundle databaseResourceBundle = new DatabaseListResourceBundle(
+			"resource.bundles", Locale.UK, resourcebundlesService);
 		String actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		String expected = "First label";
 		AssertJUnit.assertEquals(expected, actual);
-		databaseResourceBundle = new DatabaseResourceBundle("resource.bundles", Locale.GERMAN, resourcebundlesService);
+		databaseResourceBundle = new DatabaseListResourceBundle("resource.bundles", Locale.GERMAN,
+			resourcebundlesService);
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";
 		AssertJUnit.assertEquals(expected, actual);
 		List<Resourcebundles> rb = resourcebundlesService.findAll();
 		resourcebundlesService.delete(rb);
 	}
-	
-	private void initResourcebundles() {
-		Resourcebundles resourcebundles = ResourceBundlesDomainObjectFactory
-				.getInstance().newResourcebundles("resource.bundles",
-						"de", "resource.bundles.test.label", "Erstes label");
-		resourcebundlesService.merge(resourcebundles);
 
-		resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles("resource.bundles", "en",
-						"resource.bundles.test.label", "First label");
-		resourcebundlesService.merge(resourcebundles);
+	protected void initResourcebundles()
+	{
+		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
+			Locale.GERMAN, "resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
+				"resource.bundles", Locale.GERMAN, "resource.bundles.test.label", "Erstes label");
+			resourcebundlesService.merge(resourcebundles);
+		}
+
+		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
+			"resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
+				"resource.bundles", Locale.UK, "resource.bundles.test.label", "First label");
+			resourcebundlesService.merge(resourcebundles);
+		}
 
 	}
 

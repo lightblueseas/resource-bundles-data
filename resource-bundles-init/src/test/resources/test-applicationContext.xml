@@ -4,17 +4,18 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans 
-		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
 		http://www.springframework.org/schema/context 
-		http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+		http://www.springframework.org/schema/context/spring-context.xsd 
 		http://www.springframework.org/schema/tx 
-		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- Enable annotation configuration -->
 	<context:annotation-config />
 	<!-- Scan sample packages for Spring annotations -->
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 		
@@ -27,20 +28,42 @@
 				<value>classpath:jdbc.properties</value>
 			</list>
 		</property>
-	</bean>
-	
-	<!-- PostgreSQL DataSource -->
-	<bean id="dataSource" class="org.apache.tomcat.dbcp.dbcp.BasicDataSource">
+	</bean>	
+
+	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.base.url}${jdbc.db.name}" />
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="10" /><!-- default:10 -->
+		<property name="maxActive" value="5000" /><!-- default:100 -->
+		<property name="maxIdle" value="200" /><!-- default:100 -->
+		<property name="minIdle" value="20" /><!-- default:10 -->
+		<property name="maxWait" value="3000" /><!-- default:30000 -->
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="validationQueryTimeout" value="-1" /><!-- default:-1 -->
+		<property name="testWhileIdle" value="true" /><!-- default:false -->
+		<property name="testOnBorrow" value="true" /><!-- default:false -->
+		<property name="testOnReturn" value="false" /><!-- default:false -->
+		<property name="logAbandoned" value="true" /><!-- default:false -->
+		<property name="removeAbandoned" value="true" /><!-- default:false -->
+		<property name="removeAbandonedTimeout" value="60" /><!-- default:60 -->
+	</bean>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseResourceBundle">
+	<bean id="jpaVendorAdapter"	class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="generateDdl" value="true" />
+		<property name="showSql" value="true" />
+		<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+	</bean>	
+
+	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
-
 
 	<bean id="persistenceUnitManager"
 		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
@@ -50,20 +73,14 @@
 			</list>
 		</property>
 		<property name="defaultDataSource" ref="dataSource" />
-	</bean>
-
+	</bean>	
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+
 		<property name="persistenceUnitName" value="resourcebundles" />
 		<property name="dataSource" ref="dataSource" />
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="generateDdl" value="true" />
-				<property name="showSql" value="true" />
-				<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
-			</bean>
-		</property>
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -71,5 +88,6 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
+	
 </beans>
 

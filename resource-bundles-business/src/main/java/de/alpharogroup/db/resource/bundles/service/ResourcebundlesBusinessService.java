@@ -57,6 +57,13 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 
 	/**
      * {@inheritDoc}
+     */
+	public Resourcebundles contains(String baseName, Locale locale, String key) {
+		return getKey(baseName, locale, key);
+	}
+
+	/**
+     * {@inheritDoc}
      */	
 	public void updateProperties(Properties properties, String baseName, Locale locale) {
 		if(baseName == null || baseName.isEmpty()) {
