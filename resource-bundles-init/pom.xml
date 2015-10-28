@@ -1,0 +1,109 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>de.alpharogroup</groupId>
+    <artifactId>resource-bundles-data</artifactId>
+    <version>3.1.0</version>
+  </parent>
+  
+  <artifactId>resource-bundles-init</artifactId>
+  
+	<dependencies>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>data-initialization</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>resource-bundles-entities</artifactId>
+		</dependency>
+		<!-- JDBC DEPENDENCIES -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<profiles>
+
+		<profile>
+			<id>createdb</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>properties-maven-plugin</artifactId>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>hibernate3-maven-plugin</artifactId>
+						<configuration>
+							<components>
+								<component>
+									<name>hbm2ddl</name>
+									<implementation>jpaconfiguration</implementation>
+								</component>
+							</components>
+							<componentProperties>
+								<drop>true</drop>
+								<!-- optional, but useful for later inspection -->
+								<outputfilename>schema.ddl</outputfilename>
+								<persistenceunit>resourcebundles</persistenceunit>
+							</componentProperties>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>sql-maven-plugin</artifactId>
+
+						<!-- configurations for the jdbc drivers -->
+						<configuration>
+							<driver>${jdbc.driver}</driver>
+							<url>${jdbc.base.url}${jdbc.db.name}</url>
+							<username>${jdbc.user}</username>
+							<password>${jdbc.password}</password>
+						</configuration>
+					</plugin>
+
+					<!--This plugin is used to execute java classes with a main method. -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>java</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<mainClass>de.alpharogroup.address.book.db.init.InitializeDbAddressbook</mainClass>
+							<arguments>
+								<argument>delete</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+
+				</plugins>
+
+			</build>
+
+		</profile>
+
+	</profiles>
+	
+</project>

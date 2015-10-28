@@ -41,7 +41,90 @@
 	<modules>
 		<module>resource-bundles-entities</module>
 		<module>resource-bundles-business</module>
+		<module>resource-bundles-init</module>
 	</modules>
+	
+	<properties>
+		<!-- JAVAX.INJECT version -->
+		<javax.inject.version>1</javax.inject.version>
+		<!-- CONNECTION POOL versions -->
+		<tomcat.version>7.0.57</tomcat.version>
+		<tomcat-dbcp.version>7.0.57</tomcat-dbcp.version>
+		<!-- MYSTIC-CRYPT versions -->
+		<mystic-crypt.version>4.2.0</mystic-crypt.version>
+		<randomizer.version>${mystic-crypt.version}</randomizer.version>
+		<!-- JGEOHASH version -->
+		<jgeohash.version>2.0.0</jgeohash.version>
+
+	</properties>	
+	
+	<dependencyManagement>
+
+		<dependencies>
+			<!-- PROJECT-DATA DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>resource-bundles-entities</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>resource-bundles-business</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- SPRING DEPENDENCIES -->
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<!-- JAVAX INJECT DEPENDENCIES -->
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>${javax.inject.version}</version>
+			</dependency>
+			<!-- MYSTIC-CRYPT DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>randomizer</artifactId>
+				<version>${randomizer.version}</version>
+			</dependency>
+			<!-- CONNECTION-POOL DEPENDENCIES -->
+			<dependency>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>tomcat-dbcp</artifactId>
+				<version>${tomcat-dbcp.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>tomcat-jdbc</artifactId>
+				<version>${tomcat.version}</version>
+			</dependency>
+			<!-- JDBC DEPENDENCIES -->
+			<dependency>
+				<groupId>org.postgresql</groupId>
+				<artifactId>postgresql</artifactId>
+				<version>${postgresql.version}</version>
+			</dependency>
+			<!-- JGEOHASH DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jgeohash</artifactId>
+				<version>${jgeohash.version}</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
 
 	<dependencies>
 		<!-- LOMBOK DEPENDENCIES -->

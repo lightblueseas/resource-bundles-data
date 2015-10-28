@@ -19,7 +19,6 @@
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-entities</artifactId>
-			<version>3.1.0</version>
 		</dependency>
 
 	</dependencies>
