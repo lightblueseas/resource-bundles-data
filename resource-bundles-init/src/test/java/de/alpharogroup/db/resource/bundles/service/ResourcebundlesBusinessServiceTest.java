@@ -9,7 +9,6 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.db.resource.bundles.application.DatabaseResourceBundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
@@ -70,7 +69,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		{
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
 				"resource.bundles", Locale.GERMAN, "resource.bundles.test.label", "Erstes label");
-			resourcebundlesService.merge(resourcebundles);
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 
 		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
@@ -79,7 +78,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		{
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
 				"resource.bundles", Locale.UK, "resource.bundles.test.label", "First label");
-			resourcebundlesService.merge(resourcebundles);
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 
 	}
