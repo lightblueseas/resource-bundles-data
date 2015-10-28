@@ -20,10 +20,26 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-entities</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>resource-bundles-business</artifactId>
+		</dependency>
 		<!-- JDBC DEPENDENCIES -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
+		</dependency>
+		<!-- UNIT TESTS DEPENDENCIES -->
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
 		</dependency>
 
 	</dependencies>
