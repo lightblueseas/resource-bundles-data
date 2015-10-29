@@ -144,7 +144,7 @@
 							</execution>
 						</executions>
 						<configuration>
-							<mainClass>de.alpharogroup.address.book.db.init.InitializeDbAddressbook</mainClass>
+							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
 							<arguments>
 								<argument>delete</argument>
 							</arguments>
