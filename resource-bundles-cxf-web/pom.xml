@@ -6,11 +6,12 @@
 		<artifactId>resource-bundles-data</artifactId>
 		<version>3.1.0</version>
 	</parent>
+	
 	<artifactId>resource-bundles-cxf-web</artifactId>
 	<packaging>war</packaging>
-	
+
 	<properties>
-	<war-name>resource-bundles-rest-webapp</war-name>
+		<war-name>resource-bundles-rest-webapp</war-name>
 	</properties>
 
 	<dependencies>
@@ -18,7 +19,6 @@
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-cxf-api</artifactId>
-			<version>3.1.0</version>
 		</dependency>
 
 		<dependency>
@@ -27,38 +27,28 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
 		</dependency>
 
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
-		</dependency>		
-		
-		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
-			<version>${spring.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
-			<version>3.0.2</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
-			<version>2.4.4</version>
 		</dependency>
 		<!-- HIBERNATE DEPENDENCIES -->
 		<dependency>
