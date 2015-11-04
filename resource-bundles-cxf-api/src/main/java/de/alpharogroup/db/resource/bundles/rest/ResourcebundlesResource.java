@@ -19,8 +19,8 @@ public class ResourcebundlesResource extends AbstractRestfulResource<Integer, Re
     
     @GET
     @Path("/get/{id}")
-    @Produces({"application/xml","application/json"})
-    @Consumes({"application/xml","application/json"})    
+    @Produces({"application/json"})
+    @Consumes({"application/json"})    
     public Resourcebundle get(@PathParam("id")String id) {
     	Resourcebundle resourcebundle = getBusinessMapperService().read(Integer.valueOf(id));
     	return resourcebundle;

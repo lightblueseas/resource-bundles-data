@@ -21,6 +21,7 @@
 # maven generated files #
 #########################
 /target
+/javadoc-options-javadoc-resources.xml
 
 #############
 # Zip files #
