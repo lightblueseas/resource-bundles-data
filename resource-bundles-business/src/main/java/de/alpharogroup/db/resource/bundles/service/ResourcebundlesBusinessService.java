@@ -24,9 +24,7 @@ import de.alpharogroup.locale.LocaleUtils;
 @Service("resourcebundlesService")
 public class ResourcebundlesBusinessService extends AbstractBusinessService<Resourcebundles, Integer, ResourcebundlesDao> implements ResourcebundlesService {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
@@ -66,6 +64,16 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
      * {@inheritDoc}
      */	
 	public void updateProperties(Properties properties, String baseName, Locale locale) {
+		updateProperties(properties, baseName, locale, true);
+	}
+
+	/**
+     * {@inheritDoc}
+     */	
+	@Override
+	public void updateProperties(Properties properties, String baseName, Locale locale,
+		boolean update)
+	{
 		if(baseName == null || baseName.isEmpty()) {
 			throw new IllegalArgumentException("Parameter baseName should not be null or empty.");
 		}
@@ -74,8 +82,10 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 			String key = element.getKey().toString().trim();
 			String value = element.getValue().toString().trim();
 			Resourcebundles resourcebundle = getKey(baseName, locale, key);
-			if(resourcebundle != null){
-				resourcebundle.setValue(value);
+			if(resourcebundle != null) {
+				if(update) {
+					resourcebundle.setValue(value);
+				}
 			} else {
 				resourcebundle = ResourceBundlesDomainObjectFactory
 				.getInstance().newResourcebundles(baseName,
@@ -89,7 +99,7 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
      * {@inheritDoc}
      */	
 	@SuppressWarnings("unchecked")
-	public List<Resourcebundles> find(String baseName, String locale,String key, String value) {
+	public List<Resourcebundles> find(String baseName, String locale, String key, String value) {
 		String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key, value);
 		final Query query = getQuery(hqlString);
 		if(baseName != null && !baseName.isEmpty()){

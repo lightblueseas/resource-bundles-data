@@ -61,6 +61,16 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	void updateProperties(Properties properties, String baseName, Locale locale);
 	
 	/**
+	 * Update the given properties to the db.
+	 *
+	 * @param properties the properties
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param update flag that indicates if an existing property shell be updated
+	 */
+	void updateProperties(Properties properties, String baseName, Locale locale, boolean update);
+	
+	/**
 	 * Finds all entries from the given parameters that can be null if it shell be ignored.
 	 *
 	 * @param baseName the base name
