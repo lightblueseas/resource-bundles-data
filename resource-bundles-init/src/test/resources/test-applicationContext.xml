@@ -17,6 +17,7 @@
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />	
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 		
 	<bean id="propertyPlaceholder"

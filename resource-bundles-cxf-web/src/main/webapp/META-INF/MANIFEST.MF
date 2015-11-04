@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Class-Path: resource-bundles-cxf-api.jar resource-bundles-business.jar
+  business-api-3.1.0.jar data-api-3.1.0.jar hibernate-core-4.3.8.Final
+ .jar jboss-logging-3.1.3.GA.jar jboss-logging-annotations-1.2.0.Beta1
+ .jar jboss-transaction-api_1.2_spec-1.0.0.Final.jar dom4j-1.6.1.jar x
+ ml-apis-1.0.b2.jar hibernate-commons-annotations-4.0.5.Final.jar hibe
+ rnate-jpa-2.1-api-1.0.0.Final.jar javassist-3.18.1-GA.jar antlr-2.7.7
+ .jar jandex-1.1.0.Final.jar spring-core-4.1.5.RELEASE.jar commons-log
+ ging-1.2.jar spring-orm-4.1.5.RELEASE.jar spring-beans-4.1.5.RELEASE.
+ jar spring-jdbc-4.1.5.RELEASE.jar spring-tx-4.1.5.RELEASE.jar jaulp.l
+ ang-4.2.0.jar commons-beanutils-1.9.2.jar commons-collections-3.2.1.j
+ ar commons-collections4-4.0.jar commons-io-2.4.jar velocity-1.7.jar c
+ ommons-lang-2.4.jar commons-codec-1.10.jar jaulp.collections-4.2.0.ja
+ r lombok-1.16.6.jar slf4j-log4j12-1.6.4.jar slf4j-api-1.6.4.jar log4j
+ -1.2.16.jar joda-time-2.7.jar jaulp.xml-4.2.0.jar xercesImpl-2.9.0.ja
+ r xmlbeans-2.4.0.jar stax-api-1.0.1.jar jettison-1.3.1.jar xstream-1.
+ 4.4.jar xmlpull-1.1.3.1.jar xpp3_min-1.1.4c.jar jaulp.file-4.2.0.jar 
+ poi-3.11.jar poi-ooxml-3.11.jar poi-ooxml-schemas-3.11.jar zip4j-1.3.
+ 2.jar jackson-databind-2.4.4.jar jackson-annotations-2.4.0.jar jackso
+ n-core-2.4.4.jar dozer-5.5.1.jar commons-lang3-3.2.1.jar jcl-over-slf
+ 4j-1.7.5.jar javax.ws.rs-api-2.0.1.jar resource-bundles-entities.jar 
+ spring-context-4.1.5.RELEASE.jar spring-aop-4.1.5.RELEASE.jar aopalli
+ ance-1.0.jar spring-expression-4.1.5.RELEASE.jar h2-1.4.182.jar javax
+ .servlet-api-3.1.0.jar spring-web-4.1.5.RELEASE.jar cxf-rt-frontend-j
+ axrs-3.0.2.jar cxf-core-3.0.2.jar woodstox-core-asl-4.4.1.jar stax2-a
+ pi-3.1.4.jar xmlschema-core-2.1.0.jar javax.annotation-api-1.2.jar cx
+ f-rt-transports-http-3.0.2.jar jackson-jaxrs-json-provider-2.4.4.jar 
+ jackson-jaxrs-base-2.4.4.jar jackson-module-jaxb-annotations-2.4.4.ja
+ r
+

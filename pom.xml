@@ -42,11 +42,14 @@
 		<module>resource-bundles-entities</module>
 		<module>resource-bundles-business</module>
 		<module>resource-bundles-init</module>
+		<module>resource-bundles-cxf-api</module>
+		<module>resource-bundles-cxf-web</module>
 	</modules>
-	
+
 	<properties>
-	</properties>	
-	
+		<h2.version>1.4.182</h2.version>
+	</properties>
+
 	<dependencyManagement>
 
 		<dependencies>
@@ -62,6 +65,12 @@
 				<artifactId>resource-bundles-business</artifactId>
 				<version>${project.version}</version>
 			</dependency>
+			
+			<dependency>
+				<groupId>com.h2database</groupId>
+				<artifactId>h2</artifactId>
+				<version>${h2.version}</version>
+			</dependency>
 
 		</dependencies>
 
@@ -75,5 +84,5 @@
 		</dependency>
 
 	</dependencies>
-	
+
 </project>

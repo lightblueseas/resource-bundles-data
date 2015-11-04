@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc-4.1.xsd">
+
+	<!-- Enable annotation configuration -->
+	<context:annotation-config />
+	<!-- Scan sample packages for Spring annotations -->
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />	
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest" />
+		
+	<bean id="propertyPlaceholder"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
+		<property name="ignoreResourceNotFound" value="true" />
+		<property name="locations">
+			<list>
+				<value>classpath:jdbc.properties</value>
+			</list>
+		</property>
+	</bean>	
+
+	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
+	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.base.url}${jdbc.db.name}" />
+		<property name="username" value="${jdbc.user}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="initialSize" value="10" /><!-- default:10 -->
+		<property name="maxActive" value="5000" /><!-- default:100 -->
+		<property name="maxIdle" value="200" /><!-- default:100 -->
+		<property name="minIdle" value="20" /><!-- default:10 -->
+		<property name="maxWait" value="3000" /><!-- default:30000 -->
+		<property name="validationQuery" value="SELECT 1" />
+		<property name="validationQueryTimeout" value="-1" /><!-- default:-1 -->
+		<property name="testWhileIdle" value="true" /><!-- default:false -->
+		<property name="testOnBorrow" value="true" /><!-- default:false -->
+		<property name="testOnReturn" value="false" /><!-- default:false -->
+		<property name="logAbandoned" value="true" /><!-- default:false -->
+		<property name="removeAbandoned" value="true" /><!-- default:false -->
+		<property name="removeAbandonedTimeout" value="60" /><!-- default:60 -->
+	</bean>	
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+
+	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
+		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
+	</bean>
+
+	<bean id="jpaVendorAdapter"	class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="generateDdl" value="true" />
+		<property name="showSql" value="true" />
+		<property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" />
+	</bean>	
+
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence.xml</value>
+			</list>
+		</property>
+		<property name="defaultDataSource" ref="dataSource" />
+	</bean>	
+	
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+
+		<property name="persistenceUnitName" value="resourcebundles" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	
+</beans>

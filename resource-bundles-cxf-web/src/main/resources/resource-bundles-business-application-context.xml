@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Enable annotation configuration -->
+	<context:annotation-config />
+	<!-- Scan sample packages for Spring annotations -->
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />	
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
+	
+</beans>
