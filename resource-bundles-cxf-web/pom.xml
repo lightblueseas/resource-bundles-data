@@ -181,6 +181,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-war-plugin</artifactId>
+					<version>${maven-war-plugin.version}</version>
 				<configuration>
 					<warName>${war-name}</warName>
 				</configuration>
