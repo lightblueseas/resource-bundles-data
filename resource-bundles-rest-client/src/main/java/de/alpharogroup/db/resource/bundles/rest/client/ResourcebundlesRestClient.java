@@ -10,7 +10,7 @@ import org.apache.cxf.jaxrs.client.WebClient;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
-import de.alpharogroup.db.resource.bundles.rest.ResourcebundlesResource;
+import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import lombok.Getter;
 
 public class ResourcebundlesRestClient

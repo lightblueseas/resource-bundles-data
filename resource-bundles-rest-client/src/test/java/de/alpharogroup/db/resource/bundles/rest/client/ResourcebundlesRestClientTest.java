@@ -4,7 +4,7 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.db.resource.bundles.rest.ResourcebundlesResource;
+import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
 public class ResourcebundlesRestClientTest
 {

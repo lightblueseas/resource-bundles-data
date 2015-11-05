@@ -1,4 +1,4 @@
-package de.alpharogroup.db.resource.bundles.rest;
+package de.alpharogroup.db.resource.bundles.rest.api;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -8,11 +8,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
+import de.alpharogroup.db.service.rs.RestfulResource;
 
 @Path("/resourcebundle/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public interface ResourcebundlesResource
+public interface ResourcebundlesResource extends RestfulResource<Integer, Resourcebundle>
 {
 
     @GET
