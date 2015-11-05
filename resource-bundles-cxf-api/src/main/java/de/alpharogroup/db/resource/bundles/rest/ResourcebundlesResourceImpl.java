@@ -1,13 +1,10 @@
 package de.alpharogroup.db.resource.bundles.rest;
 
-import org.springframework.stereotype.Component;
-
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import de.alpharogroup.db.resource.bundles.service.mapper.ResourcebundleService;
 import de.alpharogroup.db.service.rs.AbstractRestfulResource;
 
-@Component
 public class ResourcebundlesResourceImpl
 	extends AbstractRestfulResource<Integer, Resourcebundle, ResourcebundleService>
 	implements ResourcebundlesResource
