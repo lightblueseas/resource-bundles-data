@@ -27,7 +27,7 @@
 	</jaxrs:server>
 
 	<!-- web resources -->
-	<bean id="resourcebundlesResource" class="de.alpharogroup.db.resource.bundles.rest.ResourcebundlesResource">
+	<bean id="resourcebundlesResource" class="de.alpharogroup.db.resource.bundles.rest.ResourcebundlesResourceImpl">
 		<property name="businessMapperService" ref="resourcebundleMapperService"></property>
 	</bean>
 </beans>
