@@ -13,10 +13,12 @@ import de.alpharogroup.lang.PropertiesUtils;
 public class InitializeDatabase {
 
 	/**
-	 * @param args
-	 * @throws SQLException
-	 * @throws ClassNotFoundException
-	 * @throws IOException
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws SQLException the SQL exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static void main(final String[] args) throws ClassNotFoundException,
 			SQLException, IOException {
