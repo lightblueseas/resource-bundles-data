@@ -17,7 +17,7 @@ Class-Path: resource-bundles-cxf-api.jar resource-bundles-business.jar
  4.4.jar xmlpull-1.1.3.1.jar xpp3_min-1.1.4c.jar jaulp.file-4.2.0.jar 
  poi-3.11.jar poi-ooxml-3.11.jar poi-ooxml-schemas-3.11.jar zip4j-1.3.
  2.jar jackson-databind-2.6.3.jar jackson-annotations-2.6.0.jar jackso
- n-core-2.6.3.jar dozer-5.5.1.jar commons-lang3-3.2.1.jar jcl-over-slf
+ n-core-2.6.3.jar dozer-5.5.1.jar commons-lang3-3.3.1.jar jcl-over-slf
  4j-1.7.5.jar javax.ws.rs-api-2.0.1.jar resource-bundles-entities.jar 
  spring-context-4.1.5.RELEASE.jar spring-aop-4.1.5.RELEASE.jar aopalli
  ance-1.0.jar spring-expression-4.1.5.RELEASE.jar javax.servlet-api-3.
@@ -29,5 +29,5 @@ Class-Path: resource-bundles-cxf-api.jar resource-bundles-business.jar
  itymanager-4.3.8.Final.jar hibernate-ehcache-4.3.8.Final.jar ehcache-
  core-2.4.3.jar hibernate-validator-5.1.3.Final.jar validation-api-1.1
  .0.Final.jar classmate-1.0.0.jar cglib-2.2.2.jar asm-3.3.1.jar postgr
- esql-9.2-1003-jdbc4.jar
+ esql-9.2-1003-jdbc4.jar jetty-jmx-9.3.0.v20150612.jar
 

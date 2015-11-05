@@ -4,9 +4,9 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>resource-bundles-data</artifactId>
-		<version>3.1.0</version>
+		<version>3.2.0</version>
 	</parent>
-	
+
 	<artifactId>resource-bundles-cxf-web</artifactId>
 	<packaging>war</packaging>
 
@@ -80,11 +80,70 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
+		<!-- JETTY 9 DEPENDENCIES FOR TESTING -->
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-util</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jmx</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-deploy</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-runner</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- JETTY9-RUNNER DEPENDENCIES -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>jetty-runner-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>jetty-runner-config</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- CONNECTION-POOL DEPENDENCIES -->
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-dbcp</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
-
 	<build>
+
 		<resources>
 
 			<resource>
@@ -126,66 +185,9 @@
 					<warName>${war-name}</warName>
 				</configuration>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-java2wadl-plugin</artifactId>
-				<version>3.0.0</version>
-				<executions>
-					<execution>
-						<id>parsejavadoc</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>parsejavadoc</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>process-classes</id>
-						<phase>process-classes</phase>
-						<goals>
-							<goal>java2wadl</goal>
-						</goals>
-						<configuration>
-							<classResourceNames>
-								<classResourceName>de.alpharogroup.db.resource.bundles.rest.ResourcebundlesResource</classResourceName>
-							</classResourceNames>
-							<docProvider>org.apache.cxf.maven_plugin.javatowadl.ResourceMapJavaDocProvider</docProvider>
-							<attachWadl>true</attachWadl>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+
 		</plugins>
-		<pluginManagement>
-			<plugins>
-				<!--This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself. -->
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.cxf</groupId>
-										<artifactId>cxf-java2wadl-plugin</artifactId>
-										<versionRange>[3.0.0,)</versionRange>
-										<goals>
-											<goal>parsejavadoc</goal>
-											<goal>java2wadl</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
+
 	</build>
 
 </project>
