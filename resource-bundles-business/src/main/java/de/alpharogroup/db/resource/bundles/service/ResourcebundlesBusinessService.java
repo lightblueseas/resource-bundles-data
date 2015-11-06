@@ -20,6 +20,9 @@ import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 import de.alpharogroup.locale.LocaleUtils;
 
+/**
+ * The class {@link ResourcebundlesBusinessService}.
+ */
 @Transactional
 @Service("resourcebundlesService")
 public class ResourcebundlesBusinessService extends AbstractBusinessService<Resourcebundles, Integer, ResourcebundlesDao> implements ResourcebundlesService {
