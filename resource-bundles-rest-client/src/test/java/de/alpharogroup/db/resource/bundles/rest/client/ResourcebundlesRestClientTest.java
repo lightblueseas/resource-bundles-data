@@ -6,6 +6,9 @@ import org.testng.annotations.Test;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
+/**
+ * The class {@link ResourcebundlesRestClientTest}.
+ */
 public class ResourcebundlesRestClientTest
 {
 
@@ -13,7 +16,7 @@ public class ResourcebundlesRestClientTest
 	 * Test get resourcebundles resource. 
 	 * Note: you have to start a rest server to test this or you have to mock it.
 	 */
-	@Test(enabled=false)
+	@Test(enabled=true)
 	public void testGetResourcebundlesResource()
 	{
 		ResourcebundlesRestClient restClient = new ResourcebundlesRestClient("http://localhost:8080");

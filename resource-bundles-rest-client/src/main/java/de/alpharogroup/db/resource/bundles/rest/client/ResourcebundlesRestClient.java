@@ -13,11 +13,25 @@ import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import lombok.Getter;
 
+/**
+ * The class {@link ResourcebundlesRestClient} is a rest client for the resource-bundles that are persists in the database.
+ */
 public class ResourcebundlesRestClient
 {
+	
+	/**
+	 * Gets the resourcebundles resource.
+	 *
+	 * @return the resourcebundles resource
+	 */
 	@Getter
 	private final ResourcebundlesResource resourcebundlesResource;
 
+	/**
+	 * Instantiates a new {@link ResourcebundlesRestClient}.
+	 *
+	 * @param baseUrl the base url
+	 */
 	public ResourcebundlesRestClient(String baseUrl)
 	{
         List<Object> providers = new ArrayList<>();

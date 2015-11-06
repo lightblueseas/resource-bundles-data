@@ -13,10 +13,12 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 
+/**
+ * The class {@link ResourcebundlesBusinessServiceTest}.
+ */
 @ContextConfiguration(locations = "classpath:test-applicationContext.xml")
 public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
 {
-
 
 	/** The resourcebundles service. */
 	@Autowired
@@ -43,6 +45,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		this.resourcebundlesService = resourcebundlesService;
 	}
 
+	/**
+	 * Test find resource bundles.
+	 */
 	@Test(enabled = true)
 	public void testFindResourceBundles()
 	{
@@ -61,6 +66,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		resourcebundlesService.delete(rb);
 	}
 
+	/**
+	 * Inits the resourcebundles.
+	 */
 	protected void initResourcebundles()
 	{
 		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",

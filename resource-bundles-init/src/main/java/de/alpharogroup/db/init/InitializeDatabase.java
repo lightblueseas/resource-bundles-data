@@ -13,7 +13,7 @@ import de.alpharogroup.lang.PropertiesUtils;
 public class InitializeDatabase {
 
 	/**
-	 * The main method.
+	 * The main method to initialize the specific database.
 	 *
 	 * @param args the arguments
 	 * @throws ClassNotFoundException the class not found exception

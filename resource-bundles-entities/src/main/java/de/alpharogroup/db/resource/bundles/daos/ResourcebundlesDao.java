@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 import de.alpharogroup.db.dao.jpa.JpaEntityManagerDao;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 
+/**
+ * The class {@link ResourcebundlesDao}.
+ */
 @Repository("resourcebundlesDao")
 public class ResourcebundlesDao extends JpaEntityManagerDao<Resourcebundles, Integer> {
 	/**
@@ -15,14 +18,21 @@ public class ResourcebundlesDao extends JpaEntityManagerDao<Resourcebundles, Int
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/** The entity manager. */
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void setEntityManager(EntityManager entityManager) {
 		this.entityManager = entityManager;		
