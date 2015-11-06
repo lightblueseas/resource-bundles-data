@@ -18,7 +18,8 @@ public class ResourcebundlesRestResource
 	 */
 	public Resourcebundle get(String id)
 	{
-		Resourcebundle resourcebundle = getBusinessMapperService().read(Integer.valueOf(id));
+		final ResourcebundleService resourcebundleService = getBusinessMapperService();
+		Resourcebundle resourcebundle = resourcebundleService.read(Integer.valueOf(id));
 		return resourcebundle;
 	}
 
