@@ -18,6 +18,9 @@ import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.entitymapper.AbstractBusinessMapperService;
 import de.alpharogroup.locale.LocaleUtils;
 
+/**
+ * The class {@link ResourcebundleMapperService}.
+ */
 @Transactional
 @Service("resourcebundleMapperService")
 public class ResourcebundleMapperService
@@ -26,18 +29,31 @@ public class ResourcebundleMapperService
 	implements ResourcebundleService
 {
 
+	/**
+	 * Sets the resourcebundles dao.
+	 *
+	 * @param resourcebundlesDao the new resourcebundles dao
+	 */
 	@Autowired
 	public void setResourcebundlesDao(ResourcebundlesDao resourcebundlesDao)
 	{
 		setDao(resourcebundlesDao);
 	}
 
+	/**
+	 * Sets the resourcebundles mapper.
+	 *
+	 * @param resourcebundlesMapper the new resourcebundles mapper
+	 */
 	@Autowired
 	public void setResourcebundlesMapper(ResourcebundlesMapper resourcebundlesMapper)
 	{
 		setMapper(resourcebundlesMapper);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Resourcebundle> find(String baseName, String locale, String key, String value)
 	{
@@ -60,16 +76,40 @@ public class ResourcebundleMapperService
 		return bos;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Resourcebundle find(String baseName, Locale locale, String key)
 	{
 		return find(baseName, LocaleUtils.getLocaleFilenameSuffix(locale), key);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Resourcebundle find(String baseName, String locale, String key)
 	{
 		return ListExtensions.getFirst(find(baseName, locale, key, null));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundle> findResourceBundles(String baseName, Locale locale)
+	{
+		return find(baseName, LocaleUtils.getLocaleFilenameSuffix(locale), null, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Resourcebundle contains(String baseName, Locale locale, String key)
+	{
+		return find(baseName, locale, key);
 	}
 
 }

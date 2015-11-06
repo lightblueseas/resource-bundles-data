@@ -8,7 +8,7 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.jpa.BusinessService;
 
 /**
- * The Interface ResourcebundlesService.
+ * The interface {@link ResourcebundlesService}.
  */
 public interface ResourcebundlesService extends BusinessService<Resourcebundles, Integer> {
 	

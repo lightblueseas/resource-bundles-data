@@ -17,9 +17,18 @@ import de.alpharogroup.jetty9.runner.config.ServletContextHandlerConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletHolderConfiguration;
 import de.alpharogroup.jetty9.runner.factories.ServletContextHandlerFactory;
 
+/**
+ * The Class ApplicationJettyRunner holds the main method that starts a jetty server with the rest services for the resource-bundle-data.
+ */
 public class ApplicationJettyRunner
 {
 
+	/**
+	 * The main method starts a jetty server with the rest services for the resource-bundle-data.
+	 *
+	 * @param args the arguments
+	 * @throws Exception the exception
+	 */
 	public static void main(String[] args) throws Exception
 	{
 		int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...

@@ -1,12 +1,33 @@
 package de.alpharogroup.db.resource.bundles.service.util;
 
+/**
+ * The class {@link HqlStringCreator} creates hql queries as string objects.
+ */
 public class HqlStringCreator
 {
+	
+	/**
+	 * Creates hql query for resourcebundles.
+	 *
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param key the key
+	 * @return the string
+	 */
 	public static String forResourcebundles(String baseName, String locale, String key)
 	{
 		return forResourcebundles(baseName, locale, key, null);
 	}
 
+	/**
+	 * Creates hql query for resourcebundles.
+	 *
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param key the key
+	 * @param value the value
+	 * @return the string
+	 */
 	public static String forResourcebundles(String baseName, String locale, String key,
 		String value)
 	{

@@ -5,17 +5,26 @@ import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import de.alpharogroup.db.resource.bundles.service.mapper.ResourcebundleService;
 import de.alpharogroup.db.service.rs.AbstractRestfulResource;
 
+/**
+ * The class {@link ResourcebundlesResourceImpl} provides an implementation of the inteface {@link ResourcebundlesResource}.
+ */
 public class ResourcebundlesResourceImpl
 	extends AbstractRestfulResource<Integer, Resourcebundle, ResourcebundleService>
 	implements ResourcebundlesResource
 {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Resourcebundle get(String id)
 	{
 		Resourcebundle resourcebundle = getBusinessMapperService().read(Integer.valueOf(id));
 		return resourcebundle;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public Resourcebundle find(String baseName, String locale, String key)
 	{
 		Resourcebundle resourcebundle = getBusinessMapperService().find(baseName, locale, key);

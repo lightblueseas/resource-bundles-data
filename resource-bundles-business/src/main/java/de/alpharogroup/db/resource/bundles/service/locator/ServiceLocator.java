@@ -2,6 +2,9 @@ package de.alpharogroup.db.resource.bundles.service.locator;
 
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 
+/**
+ * The interface {@link ServiceLocator}.
+ */
 public interface ServiceLocator {
 
 	/**
