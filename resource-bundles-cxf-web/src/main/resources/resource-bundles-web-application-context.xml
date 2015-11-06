@@ -25,9 +25,10 @@
 			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
 		</jaxrs:providers>
 	</jaxrs:server>
-
+	
 	<!-- web resources -->
 	<bean id="resourcebundlesResource" class="de.alpharogroup.db.resource.bundles.rest.ResourcebundlesResourceImpl">
 		<property name="businessMapperService" ref="resourcebundleMapperService"></property>
 	</bean>
+	
 </beans>
