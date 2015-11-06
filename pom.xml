@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-persistence-parent</artifactId>
-		<version>2.4.0</version>
+		<version>2.5.0</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -42,7 +42,7 @@
 		<module>resource-bundles-entities</module>
 		<module>resource-bundles-business</module>
 		<module>resource-bundles-init</module>
-		<module>resource-bundles-cxf-api</module>
+		<module>resource-bundles-rest-api</module>
 		<module>resource-bundles-cxf-web</module>
 		<module>resource-bundles-rest-client</module>
 	</modules>
@@ -65,7 +65,7 @@
 
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-cxf-api</artifactId>
+				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

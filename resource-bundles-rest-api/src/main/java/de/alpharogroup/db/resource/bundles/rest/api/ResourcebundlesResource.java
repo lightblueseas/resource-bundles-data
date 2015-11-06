@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.db.service.rs.RestfulResource;
+import de.alpharogroup.service.rs.RestfulResource;
 
 /**
  * The interface {@link ResourcebundlesResource} provides methods for resolving resource bundles.

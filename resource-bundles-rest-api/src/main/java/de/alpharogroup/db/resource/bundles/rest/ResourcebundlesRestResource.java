@@ -3,7 +3,7 @@ package de.alpharogroup.db.resource.bundles.rest;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import de.alpharogroup.db.resource.bundles.service.mapper.api.ResourcebundleService;
-import de.alpharogroup.db.service.rs.AbstractRestfulResource;
+import de.alpharogroup.service.rs.AbstractRestfulResource;
 
 /**
  * The class {@link ResourcebundlesRestResource} provides an implementation of the inteface {@link ResourcebundlesResource}.
