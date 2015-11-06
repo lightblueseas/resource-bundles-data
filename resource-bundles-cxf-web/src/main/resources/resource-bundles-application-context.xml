@@ -8,12 +8,10 @@
 						http://www.springframework.org/schema/beans/spring-beans.xsd 
 						http://www.springframework.org/schema/aop  
 						http://www.springframework.org/schema/aop/spring-aop.xsd 
-						http://www.springframework.org/schema/security  
-						http://www.springframework.org/schema/security/spring-security-2.0.4.xsd 
-						http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+						http://cxf.apache.org/jaxrs 
+						http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<import resource="classpath:resource-bundles-web-application-context.xml" />
-	<import resource="classpath:resource-bundles-business-application-context.xml" />
 	<import resource="classpath:resource-bundles-data-application-context.xml" />
 
 </beans>
