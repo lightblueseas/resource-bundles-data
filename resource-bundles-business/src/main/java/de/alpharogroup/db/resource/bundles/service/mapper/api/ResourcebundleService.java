@@ -1,4 +1,4 @@
-package de.alpharogroup.db.resource.bundles.service.mapper;
+package de.alpharogroup.db.resource.bundles.service.mapper.api;
 
 import java.util.List;
 import java.util.Locale;

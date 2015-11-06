@@ -14,6 +14,7 @@ import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.mapper.ResourcebundlesMapper;
+import de.alpharogroup.db.resource.bundles.service.mapper.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.entitymapper.AbstractBusinessMapperService;
 import de.alpharogroup.locale.LocaleUtils;

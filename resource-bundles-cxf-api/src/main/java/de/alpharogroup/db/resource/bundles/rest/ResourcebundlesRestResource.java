@@ -2,13 +2,13 @@ package de.alpharogroup.db.resource.bundles.rest;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
-import de.alpharogroup.db.resource.bundles.service.mapper.ResourcebundleService;
+import de.alpharogroup.db.resource.bundles.service.mapper.api.ResourcebundleService;
 import de.alpharogroup.db.service.rs.AbstractRestfulResource;
 
 /**
- * The class {@link ResourcebundlesResourceImpl} provides an implementation of the inteface {@link ResourcebundlesResource}.
+ * The class {@link ResourcebundlesRestResource} provides an implementation of the inteface {@link ResourcebundlesResource}.
  */
-public class ResourcebundlesResourceImpl
+public class ResourcebundlesRestResource
 	extends AbstractRestfulResource<Integer, Resourcebundle, ResourcebundleService>
 	implements ResourcebundlesResource
 {
