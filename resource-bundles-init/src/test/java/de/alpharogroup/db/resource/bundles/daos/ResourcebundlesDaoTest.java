@@ -1,6 +1,7 @@
 package de.alpharogroup.db.resource.bundles.daos;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -17,7 +18,7 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 /**
  * The class {@link ResourcebundlesDaoTest}.
  */
-@ContextConfiguration(locations = "classpath:test-applicationContext.xml")
+@ContextConfiguration(locations = "classpath:test-h2-applicationContext.xml")
 public class ResourcebundlesDaoTest extends AbstractTestNGSpringContextTests {
 
 	/** The resourcebundles dao. */
@@ -33,7 +34,7 @@ public class ResourcebundlesDaoTest extends AbstractTestNGSpringContextTests {
 	 *
 	 * @return the all resourcebundles
 	 */
-	@Test(enabled=false)
+	@Test(enabled=true)
 	public void getAllResourcebundles() {
 		initResourcebundles();
 		List<Resourcebundles> list = resourcebundlesService.findAll();
@@ -46,17 +47,26 @@ public class ResourcebundlesDaoTest extends AbstractTestNGSpringContextTests {
 	 * Inits the resourcebundles.
 	 */
 	@Transactional
-	private void initResourcebundles() {
-		Resourcebundles resourcebundles = ResourceBundlesDomainObjectFactory
-				.getInstance().newResourcebundles("resource.bundles",
-						"de_DE", "resource.bundles.test.label", "Erstes label");
-		resourcebundles = (Resourcebundles) 
-				resourcebundlesService.merge(resourcebundles);
+	protected void initResourcebundles()
+	{
+		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
+			Locale.GERMAN, "resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
+				"resource.bundles", Locale.GERMAN, "resource.bundles.test.label", "Erstes label");
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
+		}
 
-		resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles("resource.bundles", "UK",
-						"resource.bundles.test.label", "First label");
-		resourcebundlesService.merge(resourcebundles);
+		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
+			"resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
+				"resource.bundles", Locale.UK, "resource.bundles.test.label", "First label");
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
+		}
+
 	}
 
 }
