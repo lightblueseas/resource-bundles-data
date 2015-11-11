@@ -2,6 +2,7 @@ package de.alpharogroup.db.resource.bundles.service.mapper.api;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.service.entitymapper.BusinessMapperService;
@@ -63,4 +64,37 @@ public interface ResourcebundleService extends BusinessMapperService<Integer, Re
 	 * @return the {@link Resourcebundle} or null if it does not exists.
 	 */
 	Resourcebundle contains(String baseName, Locale locale, String key);
+	
+	//============================0
+	
+		
+	/**
+	 * Gets the entry from the given parameters.
+	 *
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param key the key
+	 * @return the key
+	 */
+	Resourcebundle getResourcebundle(String baseName, Locale locale, String key);
+	
+	/**
+	 * Update the given properties to the db.
+	 *
+	 * @param properties the properties
+	 * @param baseName the base name
+	 * @param locale the locale
+	 */
+	void updateProperties(Properties properties, String baseName, Locale locale);
+	
+	/**
+	 * Update the given properties to the db.
+	 *
+	 * @param properties the properties
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param update flag that indicates if an existing property shell be updated
+	 */
+	void updateProperties(Properties properties, String baseName, Locale locale, boolean update);
+
 }

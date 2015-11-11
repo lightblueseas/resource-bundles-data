@@ -2,6 +2,7 @@ package de.alpharogroup.db.resource.bundles.service.mapper;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.persistence.Query;
 
@@ -14,6 +15,7 @@ import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.mapper.ResourcebundlesMapper;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.mapper.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.entitymapper.AbstractBusinessMapperService;
@@ -29,6 +31,9 @@ public class ResourcebundleMapperService
 	AbstractBusinessMapperService<Integer, Resourcebundle, Resourcebundles, ResourcebundlesDao, ResourcebundlesMapper>
 	implements ResourcebundleService
 {
+
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
 
 	/**
 	 * Sets the resourcebundles dao.
@@ -111,6 +116,30 @@ public class ResourcebundleMapperService
 	public Resourcebundle contains(String baseName, Locale locale, String key)
 	{
 		return find(baseName, locale, key);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Resourcebundle getResourcebundle(String baseName, Locale locale, String key) {
+		return find(baseName, locale, key);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void updateProperties(Properties properties, String baseName, Locale locale) {
+		resourcebundlesService.updateProperties(properties, baseName, locale);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void updateProperties(Properties properties, String baseName, Locale locale, boolean update) {
+		resourcebundlesService.updateProperties(properties, baseName, locale, update);
 	}
 
 }

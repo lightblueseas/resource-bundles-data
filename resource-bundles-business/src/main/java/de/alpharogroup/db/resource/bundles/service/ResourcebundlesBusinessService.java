@@ -52,7 +52,7 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 	/**
      * {@inheritDoc}
      */
-	public Resourcebundles getKey(String baseName, Locale locale, String key) {
+	public Resourcebundles getResourcebundle(String baseName, Locale locale, String key) {
 		return ListExtensions.getFirst(findResourceBundles(baseName, locale, key));		
 	}
 
@@ -60,7 +60,7 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
      * {@inheritDoc}
      */
 	public Resourcebundles contains(String baseName, Locale locale, String key) {
-		return getKey(baseName, locale, key);
+		return getResourcebundle(baseName, locale, key);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 		for (Map.Entry<Object,Object> element : properties.entrySet()) {
 			String key = element.getKey().toString().trim();
 			String value = element.getValue().toString().trim();
-			Resourcebundles resourcebundle = getKey(baseName, locale, key);
+			Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
 			if(resourcebundle != null) {
 				if(update) {
 					resourcebundle.setValue(value);

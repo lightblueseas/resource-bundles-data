@@ -39,7 +39,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @param key the key
 	 * @return the key
 	 */
-	Resourcebundles getKey(String baseName, Locale locale, String key);
+	Resourcebundles getResourcebundle(String baseName, Locale locale, String key);
 
 	/**
 	 * Checks if a resource exists with the given parameters.
