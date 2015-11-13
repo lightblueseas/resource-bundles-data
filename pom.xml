@@ -43,7 +43,7 @@
 		<module>resource-bundles-business</module>
 		<module>resource-bundles-init</module>
 		<module>resource-bundles-rest-api</module>
-		<module>resource-bundles-cxf-web</module>
+		<module>resource-bundles-rest-web</module>
 		<module>resource-bundles-rest-client</module>
 	</modules>
 	
