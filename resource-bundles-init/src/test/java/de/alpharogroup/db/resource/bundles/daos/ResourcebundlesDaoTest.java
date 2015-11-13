@@ -66,8 +66,6 @@ public class ResourcebundlesDaoTest extends AbstractTestNGSpringContextTests {
 				"resource.bundles", Locale.UK, "resource.bundles.test.label", "First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
-		// TODO provide resourcebundle with parameters
-		
 
 	}
 

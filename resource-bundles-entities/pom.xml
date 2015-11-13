@@ -22,6 +22,11 @@
 			<artifactId>data-api</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>resourcebundle-inspector</artifactId>
+		</dependency>
+
 	</dependencies>
 	
 </project>

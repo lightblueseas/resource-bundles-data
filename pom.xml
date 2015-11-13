@@ -46,6 +46,10 @@
 		<module>resource-bundles-cxf-web</module>
 		<module>resource-bundles-rest-client</module>
 	</modules>
+	
+	<properties>
+	<resourcebundle-inspector.version>2.3.0</resourcebundle-inspector.version>
+	</properties>
 
 	<dependencyManagement>
 
@@ -67,6 +71,12 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>resourcebundle-inspector</artifactId>
+				<version>${resourcebundle-inspector.version}</version>
 			</dependency>
 
 		</dependencies>

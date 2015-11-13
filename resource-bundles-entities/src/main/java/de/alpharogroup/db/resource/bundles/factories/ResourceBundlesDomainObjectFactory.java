@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.locale.LocaleUtils;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
  * A factory for creating Domain objects for the resource bundles.
@@ -67,7 +67,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 			String value) {
 		Resourcebundles resourcebundles = new Resourcebundles();
 		resourcebundles.setBaseName(baseName);
-		resourcebundles.setLocale(LocaleUtils.getLocaleFilenameSuffix(locale));
+		resourcebundles.setLocale(LocaleExtensions.getLocaleFilenameSuffix(locale));
 		resourcebundles.setKey(propertieskey);
 		resourcebundles.setValue(value);
 		return resourcebundles;

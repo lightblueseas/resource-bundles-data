@@ -18,7 +18,7 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
-import de.alpharogroup.locale.LocaleUtils;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
  * The class {@link ResourcebundlesBusinessService}.
@@ -39,14 +39,14 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
      * {@inheritDoc}
      */
 	public List<Resourcebundles> findResourceBundles(String baseName, Locale locale) {
-		return find(baseName, LocaleUtils.getLocaleFilenameSuffix(locale), null, null);		
+		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);		
 	}
 
 	/**
      * {@inheritDoc}
      */
 	public List<Resourcebundles> findResourceBundles(String baseName, Locale locale, String key) {
-		return find(baseName, LocaleUtils.getLocaleFilenameSuffix(locale), key, null);		
+		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), key, null);		
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 		if(baseName == null || baseName.isEmpty()) {
 			throw new IllegalArgumentException("Parameter baseName should not be null or empty.");
 		}
-		String localeName = LocaleUtils.getLocaleFilenameSuffix(locale);
+		String localeName = LocaleExtensions.getLocaleFilenameSuffix(locale);
 		for (Map.Entry<Object,Object> element : properties.entrySet()) {
 			String key = element.getKey().toString().trim();
 			String value = element.getValue().toString().trim();

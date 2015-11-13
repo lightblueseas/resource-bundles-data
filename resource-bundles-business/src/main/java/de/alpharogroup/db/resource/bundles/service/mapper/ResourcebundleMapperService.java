@@ -19,7 +19,7 @@ import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.mapper.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.entitymapper.AbstractBusinessMapperService;
-import de.alpharogroup.locale.LocaleUtils;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
  * The class {@link ResourcebundleMapperService}.
@@ -88,7 +88,7 @@ public class ResourcebundleMapperService
 	@Override
 	public Resourcebundle find(String baseName, Locale locale, String key)
 	{
-		return find(baseName, LocaleUtils.getLocaleFilenameSuffix(locale), key);
+		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), key);
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class ResourcebundleMapperService
 	@Override
 	public List<Resourcebundle> findResourceBundles(String baseName, Locale locale)
 	{
-		return find(baseName, LocaleUtils.getLocaleFilenameSuffix(locale), null, null);
+		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);
 	}
 
 	/**
