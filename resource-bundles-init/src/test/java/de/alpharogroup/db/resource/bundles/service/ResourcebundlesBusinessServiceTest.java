@@ -25,7 +25,7 @@ import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 /**
  * The class {@link ResourcebundlesBusinessServiceTest}.
  */
-@ContextConfiguration(locations = "classpath:test-applicationContext.xml")
+@ContextConfiguration(locations = "classpath:test-h2-applicationContext.xml")
 public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests {
 
 	/** The resourcebundles service. */
@@ -143,7 +143,6 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 					Locale.UK, "resource.bundles.test.label", "First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
-
 	}
 
 }
