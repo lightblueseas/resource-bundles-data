@@ -8,6 +8,7 @@ import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
 /**
  * The class {@link ResourcebundlesRestClientTest}.
+ * 'http://localhost:8080/resourcebundle/find/base-resource-bundles/de_DE/resource.bundles.test.label'
  */
 public class ResourcebundlesRestClientTest
 {
