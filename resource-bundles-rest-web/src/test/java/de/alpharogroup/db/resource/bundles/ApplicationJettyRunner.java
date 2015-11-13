@@ -32,7 +32,7 @@ public class ApplicationJettyRunner
 	public static void main(String[] args) throws Exception
 	{
 		int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
-		String projectname = "resource-bundles-cxf-web";
+		String projectname = "resource-bundles-rest-web";
 		File projectDirectory = PathFinder.getProjectDirectory();
 		File webapp = PathFinder.getRelativePath(projectDirectory, projectname, "src", "main",
 			"webapp");
