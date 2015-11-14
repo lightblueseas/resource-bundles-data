@@ -2,6 +2,7 @@ package de.alpharogroup.db.resource.bundles.rest.api;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -23,7 +24,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * Gets the {@link Resourcebundle} from the given id.
      *
      * @param id the id
-     * @return the resourcebundle
+     * @return the {@link Resourcebundle}
      */
     @GET
     @Path("/get/{id}")  
@@ -35,10 +36,34 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @param baseName the base name
      * @param locale the locale
      * @param key the key
-     * @return the resourcebundle
+     * @return the {@link Resourcebundle}
      */
     @GET
     @Path("/find/{basename}/{locale}/{key}") 
 	Resourcebundle find(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key);
+
+    /**
+     * Find the {@link String} from the given arguments.
+     *
+     * @param baseName the base name
+     * @param locale the locale
+     * @param key the key
+     * @return the {@link String}
+     */
+    @GET
+    @Path("/get/string/{basename}/{locale}/{key}") 
+    String getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key);
+
+    /**
+     * Find the {@link String} from the given arguments.
+     *
+     * @param baseName the base name
+     * @param locale the locale
+     * @param key the key
+     * @return the {@link String}
+     */
+    @POST
+    @Path("/get/string/{basename}/{locale}/{key}/{params}") 
+    String getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key, @PathParam("params")Object[] params);
 
 }
