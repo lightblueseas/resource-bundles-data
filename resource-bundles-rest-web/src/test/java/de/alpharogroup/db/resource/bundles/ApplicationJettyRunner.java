@@ -2,6 +2,8 @@ package de.alpharogroup.db.resource.bundles;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Properties;
 
 import org.apache.cxf.transport.servlet.CXFServlet;
 import org.apache.log4j.Logger;
@@ -11,11 +13,13 @@ import org.springframework.web.context.ContextLoaderListener;
 
 import de.alpharogroup.file.delete.DeleteFileUtils;
 import de.alpharogroup.file.search.PathFinder;
+import de.alpharogroup.jdbc.ConnectionsUtils;
 import de.alpharogroup.jetty9.runner.Jetty9Runner;
 import de.alpharogroup.jetty9.runner.config.Jetty9RunConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletContextHandlerConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletHolderConfiguration;
 import de.alpharogroup.jetty9.runner.factories.ServletContextHandlerFactory;
+import de.alpharogroup.lang.PropertiesUtils;
 
 /**
  * The Class ApplicationJettyRunner holds the main method that starts a jetty server with the rest services for the resource-bundle-data.
@@ -31,6 +35,10 @@ public class ApplicationJettyRunner
 	 */
 	public static void main(String[] args) throws Exception
 	{
+		if(!existsPostgreSQLDatabase()) {
+			Logger.getRootLogger().error("Database does not exists.");
+			System.exit(1);
+		}
 		int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
 		String projectname = "resource-bundles-rest-web";
 		File projectDirectory = PathFinder.getProjectDirectory();
@@ -74,5 +82,15 @@ public class ApplicationJettyRunner
 		Server server = new Server();
 		Jetty9Runner.runServletContextHandler(server, configuration);
 
+	}
+
+	private static boolean existsPostgreSQLDatabase() throws IOException, ClassNotFoundException, SQLException {
+		Properties databaseProperties = PropertiesUtils.loadProperties("jdbc.properties");
+		String hostname = databaseProperties.getProperty("jdbc.host");
+		String databaseName = databaseProperties.getProperty("jdbc.db.name");
+		String databaseUser = databaseProperties.getProperty("jdbc.user");
+		String databasePassword = databaseProperties.getProperty("jdbc.password");
+		boolean dbExists = ConnectionsUtils.existsPostgreSQLDatabase(hostname, databaseName, databaseUser, databasePassword);
+		return dbExists;
 	}
 }

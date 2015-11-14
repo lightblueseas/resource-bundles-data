@@ -8,7 +8,6 @@ import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
 /**
  * The class {@link ResourcebundlesRestClientTest}.
- * 'http://localhost:8080/resourcebundle/find/base-resource-bundles/de_DE/resource.bundles.test.label'
  */
 public class ResourcebundlesRestClientTest
 {
@@ -23,9 +22,14 @@ public class ResourcebundlesRestClientTest
 		ResourcebundlesRestClient restClient = new ResourcebundlesRestClient("http://localhost:8080");
 		ResourcebundlesResource resourcebundlesResource = restClient.getResourcebundlesResource();
 		AssertJUnit.assertNotNull(resourcebundlesResource);
-		Resourcebundle resourcebundle = resourcebundlesResource.get(Integer.valueOf(1).toString());
-		AssertJUnit.assertNotNull(resourcebundle);
-		AssertJUnit.assertEquals("Erstes label", resourcebundle.getValue());
+		// http://localhost:8080/resourcebundle/get/1
+		Resourcebundle resourcebundle1 = resourcebundlesResource.get(Integer.valueOf(1).toString());
+		AssertJUnit.assertNotNull(resourcebundle1);
+		AssertJUnit.assertEquals("Erstes label", resourcebundle1.getValue());
+		// http://localhost:8080/resourcebundle/find/base-resource-bundles/de_DE/resource.bundles.test.label
+		Resourcebundle resourcebundle2 = resourcebundlesResource.find("base-resource-bundles", "de_DE", "resource.bundles.test.label");
+		AssertJUnit.assertNotNull(resourcebundle2);
+		AssertJUnit.assertEquals("Erstes label", resourcebundle2.getValue());
 	}
 
 }
