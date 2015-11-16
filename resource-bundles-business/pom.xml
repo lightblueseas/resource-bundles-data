@@ -27,6 +27,11 @@
 			<artifactId>resourcebundle-inspector</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>jaulp.collections</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>

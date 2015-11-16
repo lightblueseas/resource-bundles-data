@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.service.entitymapper.BusinessMapperService;
+import de.alpharogroup.resourcebundle.locale.BundleKey;
 
 /**
  * The interface {@link ResourcebundleService}.
@@ -64,10 +65,7 @@ public interface ResourcebundleService extends BusinessMapperService<Integer, Re
 	 * @return the {@link Resourcebundle} or null if it does not exists.
 	 */
 	Resourcebundle contains(String baseName, Locale locale, String key);
-	
-	//============================0
-	
-		
+			
 	/**
 	 * Gets the entry from the given parameters.
 	 *
@@ -96,5 +94,57 @@ public interface ResourcebundleService extends BusinessMapperService<Integer, Re
 	 * @param update flag that indicates if an existing property shell be updated
 	 */
 	void updateProperties(Properties properties, String baseName, Locale locale, boolean update);
+
+    /**
+     * Gets the resource {@link String} from the given arguments.
+     *
+     * @param baseName the base name
+     * @param locale the locale
+     * @param key the key
+     * @return the {@link String}
+     */
+    String getString(String baseName, String locale, String key);
+
+    /**
+     * Gets the resource {@link String} from the given arguments.
+     *
+     * @param baseName the base name
+     * @param locale the locale
+     * @param key the key
+     * @param params the parameters
+     * @return the {@link String}
+     */
+    String getString(String baseName, String locale, String key, Object[] params);
+
+    /**
+     * Gets the resource {@link String} from the given arguments.
+     *
+     * @param baseName the base name
+     * @param locale the locale
+     * @param key the key
+     * @param defaultValue the default value
+     * @return the {@link String}
+     */
+    String getString(String baseName, String locale, String key, final String defaultValue);
+
+    /**
+     * Gets the resource {@link String} from the given arguments.
+     *
+     * @param baseName the base name
+     * @param locale the locale
+     * @param key the key
+     * @param defaultValue the default value
+     * @param params the parameters
+     * @return the {@link String}
+     */
+    String getString(String baseName, String locale, String key, final String defaultValue, Object[] params);
+    
+    /**
+     * Gets the resource {@link String} from the given {@link BundleKey}.
+     *
+     * @param bundleKey the bundle key
+     * @return the {@link String}
+     */
+    String getString(final BundleKey bundleKey);
 
 }

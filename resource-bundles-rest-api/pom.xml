@@ -20,6 +20,11 @@
 			<artifactId>resource-bundles-business</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>resourcebundle-inspector</artifactId>
+		</dependency>
+
 	</dependencies>
 
 </project>

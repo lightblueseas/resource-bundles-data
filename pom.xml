@@ -46,9 +46,10 @@
 		<module>resource-bundles-rest-web</module>
 		<module>resource-bundles-rest-client</module>
 	</modules>
-	
+
 	<properties>
-	<resourcebundle-inspector.version>2.3.0</resourcebundle-inspector.version>
+		<resourcebundle-inspector.version>2.4.0</resourcebundle-inspector.version>
+		<jaulp.collections.version>4.3.0</jaulp.collections.version>
 	</properties>
 
 	<dependencyManagement>
@@ -77,6 +78,18 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resourcebundle-inspector</artifactId>
 				<version>${resourcebundle-inspector.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jaulp.collections</artifactId>
+				<version>${jaulp.collections.version}</version>
+			</dependency>
+			<!-- REST-API versions -->
+			<dependency>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>javax.ws.rs-api</artifactId>
+				<version>${javax.ws.rs-api.version}</version>
 			</dependency>
 
 		</dependencies>

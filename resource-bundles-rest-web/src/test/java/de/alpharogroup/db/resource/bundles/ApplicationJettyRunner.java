@@ -35,10 +35,10 @@ public class ApplicationJettyRunner
 	 */
 	public static void main(String[] args) throws Exception
 	{
-		if(!existsPostgreSQLDatabase()) {
-			Logger.getRootLogger().error("Database does not exists.");
-			System.exit(1);
-		}
+//		if(!existsPostgreSQLDatabase()) {
+//			Logger.getRootLogger().error("Database does not exists.");
+//			System.exit(1);
+//		}
 		int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
 		String projectname = "resource-bundles-rest-web";
 		File projectDirectory = PathFinder.getProjectDirectory();

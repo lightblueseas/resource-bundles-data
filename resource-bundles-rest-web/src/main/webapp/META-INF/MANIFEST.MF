@@ -21,7 +21,7 @@ Class-Path: resource-bundles-rest-api.jar rest-api-3.4.0.jar business-
  ar javax.ws.rs-api-2.0.1.jar resource-bundles-business.jar resource-b
  undles-entities.jar spring-context-4.1.5.RELEASE.jar spring-aop-4.1.5
  .RELEASE.jar aopalliance-1.0.jar spring-expression-4.1.5.RELEASE.jar 
- resourcebundle-inspector-2.3.0.jar jaulp.test.objects-4.3.0.jar testn
+ resourcebundle-inspector-2.4.0.jar jaulp.test.objects-4.3.0.jar testn
  g-6.9.4.jar bsh-2.0b4.jar jcommander-1.48.jar nv-i18n-1.11.jar javax.
  servlet-api-3.1.0.jar spring-web-4.1.5.RELEASE.jar cxf-rt-frontend-ja
  xrs-3.1.3.jar cxf-core-3.1.3.jar woodstox-core-asl-4.4.1.jar stax2-ap

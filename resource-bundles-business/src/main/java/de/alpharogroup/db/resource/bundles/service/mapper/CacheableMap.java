@@ -1,4 +1,4 @@
-package de.alpharogroup.db.resource.bundles.rest;
+package de.alpharogroup.db.resource.bundles.service.mapper;
 
 import java.util.HashMap;
 import java.util.Map;
