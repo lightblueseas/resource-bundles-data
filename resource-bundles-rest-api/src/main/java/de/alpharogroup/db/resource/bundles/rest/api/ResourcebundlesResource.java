@@ -11,7 +11,6 @@ import javax.ws.rs.core.MediaType;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
-import de.alpharogroup.resourcebundle.locale.ResourceBundleKey;
 import de.alpharogroup.service.rs.RestfulResource;
 
 /**
@@ -69,6 +68,12 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
     @Path("/get/string/{basename}/{locale}/{key_and_parameters}/parameters") 
     String getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key_and_parameters")String key, @QueryParam("parameter")final String[] params);
     
+    /**
+     * Gets the resource {@link String} from the given {@link BundleKey}.
+     *
+     * @param bundleKey the bundle key
+     * @return the {@link String}
+     */
     @POST
     @Path("/get/resourcebundle/value") 
     String getString(BundleKey key);
