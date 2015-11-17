@@ -1,17 +1,17 @@
-package de.alpharogroup.db.resource.bundles.service.mapper.api;
+package de.alpharogroup.db.resource.bundles.service.domain.api;
 
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import de.alpharogroup.service.domain.DomainService;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.db.service.entitymapper.BusinessMapperService;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
 
 /**
  * The interface {@link ResourcebundleService}.
  */
-public interface ResourcebundleService extends BusinessMapperService<Integer, Resourcebundle>
+public interface ResourcebundleService extends DomainService<Integer, Resourcebundle>
 {
 	
 	/**
