@@ -24,9 +24,11 @@
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />	
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.domain" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.domain.api" />	
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest.api" />
 		
 	<bean id="propertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
