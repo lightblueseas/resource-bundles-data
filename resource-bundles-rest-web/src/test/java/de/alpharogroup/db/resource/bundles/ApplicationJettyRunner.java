@@ -23,7 +23,7 @@ import de.alpharogroup.lang.PropertiesUtils;
 import de.alpharogroup.log.LoggerExtensions;
 
 /**
- * The Class ApplicationJettyRunner holds the main method that starts a jetty server with the rest services for the resource-bundle-data.
+ * The Class {@link ApplicationJettyRunner} holds the main method that starts a jetty server with the rest services for the resource-bundle-data.
  */
 public class ApplicationJettyRunner
 {
