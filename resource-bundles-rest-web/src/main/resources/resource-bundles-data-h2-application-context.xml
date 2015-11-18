@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans 
@@ -23,10 +21,8 @@
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.domain" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.domain.api" />	
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />	
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest.api" />
 
@@ -43,8 +39,11 @@
 
 	<jdbc:embedded-database id="dataSource" type="H2">
 		<jdbc:script location="classpath:dll/inserts/initializeSchema.sql" />
-		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
 	</jdbc:embedded-database>
+	
+	<jdbc:initialize-database data-source="dataSource">
+		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
+	</jdbc:initialize-database>
 
 	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
@@ -66,15 +65,16 @@
 		<property name="removeAbandoned" value="true" /><!-- default:false -->
 		<property name="removeAbandonedTimeout" value="60" /><!-- default:60 -->
 	</bean>
-	
+
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
+	<bean id="databaseResources"
+		class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
-	
+
 	<bean id="jpaVendorAdapter"
 		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="generateDdl" value="true" />
@@ -92,7 +92,7 @@
 		</property>
 		<property name="defaultDataSource" ref="dataSource" />
 	</bean>
-	
+
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
@@ -106,5 +106,5 @@
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-	
+
 </beans>
