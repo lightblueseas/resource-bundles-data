@@ -20,6 +20,7 @@ import de.alpharogroup.jetty9.runner.config.ServletContextHandlerConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletHolderConfiguration;
 import de.alpharogroup.jetty9.runner.factories.ServletContextHandlerFactory;
 import de.alpharogroup.lang.PropertiesUtils;
+import de.alpharogroup.log.LoggerExtensions;
 
 /**
  * The Class ApplicationJettyRunner holds the main method that starts a jetty server with the rest services for the resource-bundle-data.
@@ -35,10 +36,6 @@ public class ApplicationJettyRunner
 	 */
 	public static void main(String[] args) throws Exception
 	{
-		if(!existsPostgreSQLDatabase()) {
-			Logger.getRootLogger().error("Database does not exists.");
-			System.exit(1);
-		}
 		int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
 		String projectname = "resource-bundles-rest-web";
 		File projectDirectory = PathFinder.getProjectDirectory();
@@ -55,10 +52,10 @@ public class ApplicationJettyRunner
 				Logger.getRootLogger().error("logfile could not deleted.", e);
 			}
 		}
-//		String absolutePathFromLogfile = logfile.getAbsolutePath();
 		// Add a file appender to the logger programatically
-//		Logger.getRootLogger().addFileAppender(LoggerExtensions.newFileAppender(absolutePathFromLogfile));
-
+		LoggerExtensions.addFileAppender(Logger.getRootLogger(), 
+				LoggerExtensions.newFileAppender(logfile.getAbsolutePath()));
+		
 		ServletContextHandler servletContextHandler = ServletContextHandlerFactory.getNewServletContextHandler(
 			ServletContextHandlerConfiguration.builder()
 			.servletHolderConfiguration(
@@ -84,7 +81,15 @@ public class ApplicationJettyRunner
 
 	}
 
-	private static boolean existsPostgreSQLDatabase() throws IOException, ClassNotFoundException, SQLException {
+	/**
+	 * Checks if a postgresql database exists.
+	 *
+	 * @return true, if successful
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws SQLException the SQL exception
+	 */
+	protected static boolean existsPostgreSQLDatabase() throws IOException, ClassNotFoundException, SQLException {
 		Properties databaseProperties = PropertiesUtils.loadProperties("jdbc.properties");
 		String hostname = databaseProperties.getProperty("jdbc.host");
 		String databaseName = databaseProperties.getProperty("jdbc.db.name");
@@ -93,4 +98,5 @@ public class ApplicationJettyRunner
 		boolean dbExists = ConnectionsUtils.existsPostgreSQLDatabase(hostname, databaseName, databaseUser, databasePassword);
 		return dbExists;
 	}
+	
 }
