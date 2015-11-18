@@ -2,7 +2,7 @@ package de.alpharogroup.db.resource.bundles.rest;
 
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
-import de.alpharogroup.db.resource.bundles.service.domain.api.ResourcebundleService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
 import de.alpharogroup.service.rs.AbstractRestfulResource;
 
