@@ -1,4 +1,4 @@
-package de.alpharogroup.db.resource.bundles.service.domain;
+package de.alpharogroup.db.resource.bundles.service;
 
 import java.util.List;
 import java.util.Locale;
@@ -18,7 +18,7 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.mapper.ResourcebundlesMapper;
 import de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
-import de.alpharogroup.db.resource.bundles.service.domain.api.ResourcebundleService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.service.domain.AbstractDomainService;
 import de.alpharogroup.resourcebundle.locale.BundleKey;

@@ -1,4 +1,4 @@
-package de.alpharogroup.db.resource.bundles.service.domain.api;
+package de.alpharogroup.db.resource.bundles.service.api;
 
 import java.util.List;
 import java.util.Locale;
