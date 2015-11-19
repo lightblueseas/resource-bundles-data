@@ -15,6 +15,7 @@
 			<property name="hibernate.connection.password" value="r2SB2FvFKHLcnyL0" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
             <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/> 
         </properties>
 
 	</persistence-unit>
