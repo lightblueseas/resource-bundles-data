@@ -24,10 +24,10 @@ Class-Path: resource-bundles-rest-api.jar rest-api-3.5.0.jar domain-ap
  ance-1.0.jar spring-expression-4.1.5.RELEASE.jar resourcebundle-inspe
  ctor-2.4.0.jar jaulp.test.objects-4.3.0.jar testng-6.9.4.jar bsh-2.0b
  4.jar jcommander-1.48.jar nv-i18n-1.11.jar javax.servlet-api-3.1.0.ja
- r spring-web-4.1.5.RELEASE.jar cxf-rt-frontend-jaxrs-3.1.3.jar cxf-co
- re-3.1.3.jar woodstox-core-asl-4.4.1.jar stax2-api-3.1.4.jar xmlschem
+ r spring-web-4.1.5.RELEASE.jar cxf-rt-frontend-jaxrs-3.1.4.jar cxf-co
+ re-3.1.4.jar woodstox-core-asl-4.4.1.jar stax2-api-3.1.4.jar xmlschem
  a-core-2.2.1.jar javax.annotation-api-1.2.jar cxf-rt-transports-http-
- 3.1.3.jar jackson-jaxrs-json-provider-2.6.3.jar jackson-jaxrs-base-2.
+ 3.1.4.jar jackson-jaxrs-json-provider-2.6.3.jar jackson-jaxrs-base-2.
  6.3.jar jackson-module-jaxb-annotations-2.6.3.jar hibernate-entityman
  ager-4.3.8.Final.jar hibernate-ehcache-4.3.8.Final.jar ehcache-core-2
  .4.3.jar hibernate-validator-5.1.3.Final.jar validation-api-1.1.0.Fin

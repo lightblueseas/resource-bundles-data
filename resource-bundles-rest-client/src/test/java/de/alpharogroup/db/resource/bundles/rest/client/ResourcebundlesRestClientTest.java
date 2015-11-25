@@ -2,6 +2,8 @@ package de.alpharogroup.db.resource.bundles.rest.client;
 
 import java.util.Locale;
 
+import javax.ws.rs.core.Response;
+
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
@@ -58,6 +60,12 @@ public class ResourcebundlesRestClientTest {
 								.key("com.example.gui.prop.with.params.label").parameters(paramsBritain).build())
 				.build());
 		AssertJUnit.assertNotNull(value);
+		
+		// http://localhost:8080/resourcebundle/get/r/string/base-resource-bundles/de_DE/resource.bundles.test.label
+		Response response = resourcebundlesResource.getResponseString("base-resource-bundles", "de_DE",
+				"resource.bundles.test.label");
+		AssertJUnit.assertNotNull(response);
+		AssertJUnit.assertEquals("Erstes label", response.getEntity());
 	}
 
 }

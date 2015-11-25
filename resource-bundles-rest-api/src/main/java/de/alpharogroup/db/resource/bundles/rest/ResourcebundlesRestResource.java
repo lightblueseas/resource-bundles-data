@@ -1,5 +1,11 @@
 package de.alpharogroup.db.resource.bundles.rest;
 
+import javax.ws.rs.core.Response;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
@@ -60,6 +66,16 @@ public class ResourcebundlesRestResource
 	public String getString(BundleKey key) {
 		final ResourcebundleService resourcebundleService = getDomainService();
 		return resourcebundleService.getString(key);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Response getResponseString(String baseName, String locale, String key) {
+		final ResourcebundleService resourcebundleService = getDomainService();
+		String result = resourcebundleService.getString(baseName, locale, key);
+		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
 	}
 
 }
