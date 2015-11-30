@@ -3,7 +3,7 @@
   <parent>
     <groupId>de.alpharogroup</groupId>
     <artifactId>resource-bundles-data</artifactId>
-    <version>3.4.0</version>
+    <version>3.5.0</version>
   </parent>
   <artifactId>resource-bundles-domain</artifactId>
   
@@ -29,10 +29,10 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resourcebundle-inspector</artifactId>
 		</dependency>
-
+		<!-- NEW EXTENSIONS LIB DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>jaulp.collections</artifactId>
+			<artifactId>jcommons-lang</artifactId>
 		</dependency>
 
 	</dependencies>

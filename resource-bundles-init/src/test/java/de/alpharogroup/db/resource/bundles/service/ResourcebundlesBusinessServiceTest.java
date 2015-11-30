@@ -19,7 +19,7 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.lang.ClassExtensions;
-import de.alpharogroup.lang.PropertiesUtils;
+import de.alpharogroup.lang.PropertiesExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
 /**
@@ -92,7 +92,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		File propertiesFile = ClassExtensions.getResourceAsFile(propertiesFilename);
 		String baseName = LocaleResolver.resolveBundlename(propertiesFile);
 		Locale locale = LocaleResolver.resolveLocale(propertiesFile);
-		Properties properties = PropertiesUtils.loadProperties(propertiesFile);
+		Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(properties, baseName, locale);
 		List<Resourcebundles> rb = resourcebundlesService.findAll();
 		AssertJUnit.assertEquals(4, rb.size());
@@ -116,7 +116,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		for(Entry<File, Locale> entry : fileToLocaleMap.entrySet()) {
 			File propertiesFile = entry.getKey();
 			Locale locale = entry.getValue();
-			Properties properties = PropertiesUtils.loadProperties(propertiesFile);
+			Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
 			resourcebundlesService.updateProperties(properties, bundlename, locale, false);			
 		}
 		
