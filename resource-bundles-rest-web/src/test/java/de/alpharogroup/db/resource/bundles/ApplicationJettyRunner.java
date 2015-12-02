@@ -19,8 +19,8 @@ import de.alpharogroup.jetty9.runner.config.Jetty9RunConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletContextHandlerConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletHolderConfiguration;
 import de.alpharogroup.jetty9.runner.factories.ServletContextHandlerFactory;
-import de.alpharogroup.lang.PropertiesExtensions;
 import de.alpharogroup.log.LoggerExtensions;
+import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 
 /**
  * The Class {@link ApplicationJettyRunner} holds the main method that starts a jetty server with the rest services for the resource-bundle-data.
