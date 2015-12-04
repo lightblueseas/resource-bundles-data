@@ -30,7 +30,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @return the {@link Resourcebundle}
      */
     @GET
-    @Path("/get/{id}")  
+    @Path("/get/{id}")
 	Resourcebundle get(@PathParam("id")String id);
 
     /**
@@ -42,7 +42,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @return the {@link Resourcebundle}
      */
     @GET
-    @Path("/find/{basename}/{locale}/{key}") 
+    @Path("/find/{basename}/{locale}/{key}")
 	Resourcebundle find(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key);
 
     /**
@@ -54,8 +54,8 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @return the {@link String}
      */
     @GET
-    @Path("/get/string/{basename}/{locale}/{key}") 
-    String getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key);
+    @Path("/get/string/{basename}/{locale}/{key}")
+    Response getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key);
 
     /**
      * Find the {@link String} from the given arguments.
@@ -66,9 +66,9 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @return the {@link String}
      */
     @GET
-    @Path("/get/string/{basename}/{locale}/{key_and_parameters}/parameters") 
-    String getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key_and_parameters")String key, @QueryParam("parameter")final String[] params);
-    
+    @Path("/get/string/{basename}/{locale}/{key_and_parameters}/parameters")
+    Response getString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key_and_parameters")String key, @QueryParam("parameter")final String[] params);
+
     /**
      * Gets the resource {@link String} from the given {@link BundleKey}.
      *
@@ -76,9 +76,9 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @return the {@link String}
      */
     @POST
-    @Path("/get/resourcebundle/value") 
-    String getString(BundleKey key);
-    
+    @Path("/get/resourcebundle/value")
+    Response getString(BundleKey key);
+
 
     /**
      * Find the {@link String} from the given arguments.
@@ -89,8 +89,8 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
      * @return the {@link String}
      */
     @GET
-    @Path("/get/r/string/{basename}/{locale}/{key}") 
+    @Path("/get/r/string/{basename}/{locale}/{key}")
     Response getResponseString(@PathParam("basename")String baseName, @PathParam("locale")String locale, @PathParam("key")String key);
-    
+
 
 }

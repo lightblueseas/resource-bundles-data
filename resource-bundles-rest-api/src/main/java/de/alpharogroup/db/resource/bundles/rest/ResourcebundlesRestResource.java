@@ -2,9 +2,6 @@ package de.alpharogroup.db.resource.bundles.rest;
 
 import javax.ws.rs.core.Response;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
@@ -18,16 +15,16 @@ import de.alpharogroup.service.rs.AbstractRestfulResource;
 public class ResourcebundlesRestResource
 	extends AbstractRestfulResource<Integer, Resourcebundle, ResourcebundleService>
 	implements ResourcebundlesResource
-{	
+{
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundle get(String id)
+	public Resourcebundle get(final String id)
 	{
 		final ResourcebundleService resourcebundleService = getDomainService();
-		Resourcebundle resourcebundle = resourcebundleService.read(Integer.valueOf(id));
+		final Resourcebundle resourcebundle = resourcebundleService.read(Integer.valueOf(id));
 		return resourcebundle;
 	}
 
@@ -35,9 +32,9 @@ public class ResourcebundlesRestResource
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundle find(String baseName, String locale, String key)
+	public Resourcebundle find(final String baseName, final String locale, final String key)
 	{
-		Resourcebundle resourcebundle = getDomainService().find(baseName, locale, key);
+		final Resourcebundle resourcebundle = getDomainService().find(baseName, locale, key);
 		return resourcebundle;
 	}
 
@@ -45,36 +42,39 @@ public class ResourcebundlesRestResource
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(String baseName, String locale, String key) {
+	public Response getString(final String baseName, final String locale, final String key) {
 		final ResourcebundleService resourcebundleService = getDomainService();
-		return resourcebundleService.getString(baseName, locale, key);
+		final String result = resourcebundleService.getString(baseName, locale, key);
+		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(String baseName, String locale, String key, String[] params) {
+	public Response getString(final String baseName, final String locale, final String key, final String[] params) {
 		final ResourcebundleService resourcebundleService = getDomainService();
-		return resourcebundleService.getString(baseName, locale, key, params);
+		final String result = resourcebundleService.getString(baseName, locale, key, params);
+		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(BundleKey key) {
+	public Response getString(final BundleKey key) {
 		final ResourcebundleService resourcebundleService = getDomainService();
-		return resourcebundleService.getString(key);
+		final String result = resourcebundleService.getString(key);
+		return Response.ok(KeyValuePair.builder().key(key.getResourceBundleKey().getKey()).value(result).build()).build();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Response getResponseString(String baseName, String locale, String key) {
+	public Response getResponseString(final String baseName, final String locale, final String key) {
 		final ResourcebundleService resourcebundleService = getDomainService();
-		String result = resourcebundleService.getString(baseName, locale, key);
+		final String result = resourcebundleService.getString(baseName, locale, key);
 		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
 	}
 
