@@ -17,6 +17,11 @@
 	<dependencies>
 
 		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-rest-api</artifactId>
 		</dependency>
