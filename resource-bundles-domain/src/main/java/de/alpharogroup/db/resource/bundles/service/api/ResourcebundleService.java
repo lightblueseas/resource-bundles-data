@@ -4,16 +4,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
-import de.alpharogroup.service.domain.DomainService;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
+import de.alpharogroup.service.domain.DomainService;
 
 /**
  * The interface {@link ResourcebundleService}.
  */
 public interface ResourcebundleService extends DomainService<Integer, Resourcebundle>
 {
-	
+
 	/**
 	 * Gets the entry from the given parameters.
 	 *
@@ -23,7 +23,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the key
 	 */
 	Resourcebundle find(String baseName, Locale locale, String key);
-	
+
 	/**
 	 * Gets the entry from the given parameters.
 	 *
@@ -33,7 +33,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the key
 	 */
 	Resourcebundle find(String baseName, String locale, String key);
-	
+
 	/**
 	 * Finds all entries from the given parameters that can be null if it shell be ignored.
 	 *
@@ -44,8 +44,8 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the list
 	 */
 	List<Resourcebundle> find(String baseName, String locale, String key, String value);
-	
-	
+
+
 	/**
 	 * Find resource bundles from the given parameters.
 	 *
@@ -54,7 +54,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the list
 	 */
 	List<Resourcebundle> findResourceBundles(String baseName, Locale locale);
-	
+
 
 	/**
 	 * Checks if a resource exists with the given parameters.
@@ -65,7 +65,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the {@link Resourcebundle} or null if it does not exists.
 	 */
 	Resourcebundle contains(String baseName, Locale locale, String key);
-			
+
 	/**
 	 * Gets the entry from the given parameters.
 	 *
@@ -75,7 +75,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the key
 	 */
 	Resourcebundle getResourcebundle(String baseName, Locale locale, String key);
-	
+
 	/**
 	 * Update the given properties to the db.
 	 *
@@ -84,7 +84,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @param locale the locale
 	 */
 	void updateProperties(Properties properties, String baseName, Locale locale);
-	
+
 	/**
 	 * Update the given properties to the db.
 	 *
@@ -138,7 +138,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
      * @return the {@link String}
      */
     String getString(String baseName, String locale, String key, final String defaultValue, Object[] params);
-    
+
     /**
      * Gets the resource {@link String} from the given {@link BundleKey}.
      *
@@ -146,5 +146,29 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
      * @return the {@link String}
      */
     String getString(final BundleKey bundleKey);
+
+	/**
+	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
+	 * object.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the found {@link Properties} object.
+	 */
+	Properties getProperties(final String baseName, final Locale locale);
+
+	/**
+	 * Get the {@link Properties} object from the given baseName and the given locale code as
+	 * {@link String} object.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the found {@link Properties} object.
+	 */
+	Properties getProperties(final String baseName, final String locale);
 
 }

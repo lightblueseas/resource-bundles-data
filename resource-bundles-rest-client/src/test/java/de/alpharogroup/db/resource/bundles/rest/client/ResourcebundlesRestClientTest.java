@@ -1,6 +1,7 @@
 package de.alpharogroup.db.resource.bundles.rest.client;
 
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.ws.rs.core.Response;
 
@@ -27,7 +28,7 @@ public class ResourcebundlesRestClientTest
 	private ResourcebundlesRestClient restClient;
 
 	/** The resourcebundles resource. */
-	ResourcebundlesResource resourcebundlesResource;
+	private ResourcebundlesResource resourcebundlesResource;
 
 	/**
 	 * Sets the up method.
@@ -138,6 +139,28 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
+	 * Test method for {@link ResourcebundlesResource#getProperties(String, String)}.
+	 */
+	@Test(enabled = true)
+	public void testGetProperties()
+	{
+		// http://localhost:8080/resourcebundle/get/properties/base-resource-bundles/de_DE
+		Response response = resourcebundlesResource.getProperties("base-resource-bundles",
+			"de_DE");
+
+		Properties properties = (Properties)response.readEntity(Properties.class);
+		AssertJUnit.assertNotNull(properties);
+		AssertJUnit.assertEquals("Erstes label",
+			properties.getProperty("resource.bundles.test.label"));
+
+		// http://localhost:8080/resourcebundle/get/properties/test/de_DE
+		response = resourcebundlesResource.getProperties("test", "de_DE");
+		properties = (Properties)response.readEntity(Properties.class);
+		AssertJUnit.assertNotNull(properties);
+		AssertJUnit.assertTrue(properties.size() == 4);
+	}
+
+	/**
 	 * Test method for {@link ResourcebundlesResource#find(String, String, String)}.
 	 */
 	@Test(enabled = true)
@@ -162,5 +185,6 @@ public class ResourcebundlesRestClientTest
 		AssertJUnit.assertNotNull(resourcebundle1);
 		AssertJUnit.assertEquals("Erstes label", resourcebundle1.getValue());
 	}
+
 
 }

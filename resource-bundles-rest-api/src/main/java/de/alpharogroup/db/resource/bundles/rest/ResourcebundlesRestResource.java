@@ -1,5 +1,7 @@
 package de.alpharogroup.db.resource.bundles.rest;
 
+import java.util.Properties;
+
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
@@ -76,6 +78,17 @@ public class ResourcebundlesRestResource
 		final ResourcebundleService resourcebundleService = getDomainService();
 		final String result = resourcebundleService.getString(baseName, locale, key);
 		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Response getProperties(final String baseName, final String locale)
+	{
+		final ResourcebundleService resourcebundleService = getDomainService();
+		final Properties properties = resourcebundleService.getProperties(baseName, locale);
+		return Response.ok(properties).build();
 	}
 
 }
