@@ -34,29 +34,29 @@ public class ApplicationJettyRunner
 	 * @param args the arguments
 	 * @throws Exception the exception
 	 */
-	public static void main(String[] args) throws Exception
+	public static void main(final String[] args) throws Exception
 	{
-		int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
-		String projectname = "resource-bundles-rest-web";
-		File projectDirectory = PathFinder.getProjectDirectory();
-		File webapp = PathFinder.getRelativePath(projectDirectory, projectname, "src", "main",
+		final int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
+		final String projectname = "resource-bundles-rest-web";
+		final File projectDirectory = PathFinder.getProjectDirectory();
+		final File webapp = PathFinder.getRelativePath(projectDirectory, projectname, "src", "main",
 			"webapp");
-		
-		String filterPath = "/*";
 
-		File logfile = new File(projectDirectory, "application.log");
+		final String filterPath = "/*";
+
+		final File logfile = new File(projectDirectory, "application.log");
 		if(logfile.exists()) {
 			try {
 				DeleteFileExtensions.delete(logfile);
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				Logger.getRootLogger().error("logfile could not deleted.", e);
 			}
 		}
 		// Add a file appender to the logger programatically
-		LoggerExtensions.addFileAppender(Logger.getRootLogger(), 
+		LoggerExtensions.addFileAppender(Logger.getRootLogger(),
 				LoggerExtensions.newFileAppender(logfile.getAbsolutePath()));
-		
-		ServletContextHandler servletContextHandler = ServletContextHandlerFactory.getNewServletContextHandler(
+
+		final ServletContextHandler servletContextHandler = ServletContextHandlerFactory.getNewServletContextHandler(
 			ServletContextHandlerConfiguration.builder()
 			.servletHolderConfiguration(
 				ServletHolderConfiguration.builder()
@@ -68,15 +68,15 @@ public class ApplicationJettyRunner
 			.maxInactiveInterval(sessionTimeout)
 			.filterPath(filterPath)
 			.initParameter("contextConfigLocation",
-				"classpath:resource-bundles-application-context.xml")			
+				"classpath:application-context.xml")
 			.build());
 		servletContextHandler.addEventListener(new ContextLoaderListener());
-		Jetty9RunConfiguration configuration = Jetty9RunConfiguration.builder()
+		final Jetty9RunConfiguration configuration = Jetty9RunConfiguration.builder()
 			.servletContextHandler(servletContextHandler)
 			.httpPort(8080)
 			.httpsPort(8443)
 			.build();
-		Server server = new Server();
+		final Server server = new Server();
 		Jetty9Runner.runServletContextHandler(server, configuration);
 
 	}
@@ -90,13 +90,13 @@ public class ApplicationJettyRunner
 	 * @throws SQLException the SQL exception
 	 */
 	protected static boolean existsPostgreSQLDatabase() throws IOException, ClassNotFoundException, SQLException {
-		Properties databaseProperties = PropertiesExtensions.loadProperties("jdbc.properties");
-		String hostname = databaseProperties.getProperty("jdbc.host");
-		String databaseName = databaseProperties.getProperty("jdbc.db.name");
-		String databaseUser = databaseProperties.getProperty("jdbc.user");
-		String databasePassword = databaseProperties.getProperty("jdbc.password");
-		boolean dbExists = ConnectionsExtensions.existsPostgreSQLDatabase(hostname, databaseName, databaseUser, databasePassword);
+		final Properties databaseProperties = PropertiesExtensions.loadProperties("jdbc.properties");
+		final String hostname = databaseProperties.getProperty("jdbc.host");
+		final String databaseName = databaseProperties.getProperty("jdbc.db.name");
+		final String databaseUser = databaseProperties.getProperty("jdbc.user");
+		final String databasePassword = databaseProperties.getProperty("jdbc.password");
+		final boolean dbExists = ConnectionsExtensions.existsPostgreSQLDatabase(hostname, databaseName, databaseUser, databasePassword);
 		return dbExists;
 	}
-	
+
 }
