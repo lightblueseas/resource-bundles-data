@@ -37,7 +37,7 @@ public class ApplicationJettyRunner
 	public static void main(final String[] args) throws Exception
 	{
 		final int sessionTimeout = 1800;// set timeout to 30min(60sec * 30min=1800sec)...
-		final String projectname = "resource-bundles-rest-web";
+		final String projectname = getProjectName();
 		final File projectDirectory = PathFinder.getProjectDirectory();
 		final File webapp = PathFinder.getRelativePath(projectDirectory, projectname, "src", "main",
 			"webapp");
@@ -79,6 +79,18 @@ public class ApplicationJettyRunner
 		final Server server = new Server();
 		Jetty9Runner.runServletContextHandler(server, configuration);
 
+	}
+
+	/**
+	 * Gets the project name.
+	 *
+	 * @return the project name
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	protected static String getProjectName() throws IOException {
+		final Properties projectProperties = PropertiesExtensions.loadProperties("project.properties");
+		final String projectName = projectProperties.getProperty("artifactId");
+		return projectName;
 	}
 
 	/**
