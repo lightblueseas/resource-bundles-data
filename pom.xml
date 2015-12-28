@@ -11,7 +11,7 @@
 
 	<artifactId>resource-bundles-data</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.0</version>
+	<version>3.6.0</version>
 	<inceptionYear>2015</inceptionYear>
 
 	<name>${project.artifactId}</name>
@@ -49,7 +49,7 @@
 	</modules>
 
 	<properties>
-		<resourcebundle-inspector.version>2.6.0</resourcebundle-inspector.version>
+		<resourcebundle-inspector.version>2.7.0</resourcebundle-inspector.version>
 	</properties>
 
 	<dependencyManagement>

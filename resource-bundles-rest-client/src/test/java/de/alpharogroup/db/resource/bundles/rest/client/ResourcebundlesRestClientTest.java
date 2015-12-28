@@ -62,7 +62,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getResponseString(String, String, String)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetResponseString()
 	{
 		// http://localhost:8080/resourcebundle/get/r/string/base-resource-bundles/de_DE/resource.bundles.test.label
@@ -77,7 +77,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getString(BundleKey)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetStringWithBundleKey()
 	{
 		final String baseName = "test";
@@ -98,7 +98,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetStringWithParameters()
 	{
 		// http://localhost:8080/resourcebundle/get/string/test/de_DE/com.example.gui.prop.with.params.label/parameters?parameter=Fritz&parameter=Deutschland
@@ -126,7 +126,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetString()
 	{
 		// http://localhost:8080/resourcebundle/get/string/base-resource-bundles/de_DE/resource.bundles.test.label
@@ -141,7 +141,7 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#getProperties(String, String)}.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetProperties()
 	{
 		// http://localhost:8080/resourcebundle/get/properties/base-resource-bundles/de_DE
@@ -163,7 +163,7 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#find(String, String, String)}.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFind()
 	{
 		// http://localhost:8080/resourcebundle/find/base-resource-bundles/de_DE/resource.bundles.test.label
@@ -176,7 +176,7 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#get(String)}.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGet()
 	{
 		// http://localhost:8080/resourcebundle/get/1

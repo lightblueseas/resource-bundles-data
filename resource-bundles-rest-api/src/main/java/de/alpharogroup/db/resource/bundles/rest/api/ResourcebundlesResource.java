@@ -70,7 +70,9 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	 *            the locale
 	 * @param key
 	 *            the key
-	 * @return the {@link Response} object with the
+	 * @param params
+	 *            the parameters
+	 * @return the {@link Response} object with the {@link String}
 	 */
     @GET
     @Path("/get/string/{basename}/{locale}/{key_and_parameters}/parameters")
@@ -79,7 +81,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
     /**
 	 * Gets the resource {@link String} from the given {@link BundleKey}.
 	 *
-	 * @param bundleKey
+	 * @param key
 	 *            the bundle key
 	 * @return the {@link Response} object
 	 */
