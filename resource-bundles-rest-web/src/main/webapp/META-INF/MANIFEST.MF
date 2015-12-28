@@ -22,7 +22,7 @@ Class-Path: xml-apis-1.4.01.jar resource-bundles-rest-api.jar rest-api
  urce-bundles-business.jar business-api-3.9.0.jar resource-bundles-ent
  ities.jar spring-context-4.1.5.RELEASE.jar spring-aop-4.1.5.RELEASE.j
  ar aopalliance-1.0.jar spring-expression-4.1.5.RELEASE.jar resourcebu
- ndle-inspector-2.6.0.jar test-objects-4.8.0.jar nv-i18n-1.11.jar java
+ ndle-inspector-2.7.0.jar test-objects-4.8.0.jar nv-i18n-1.11.jar java
  x.servlet-api-3.1.0.jar spring-web-4.1.5.RELEASE.jar cxf-rt-frontend-
  jaxrs-3.1.4.jar cxf-core-3.1.4.jar woodstox-core-asl-4.4.1.jar stax2-
  api-3.1.4.jar xmlschema-core-2.2.1.jar javax.annotation-api-1.2.jar c
