@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-persistence-parent</artifactId>
-		<version>2.23.0</version>
+		<version>2.25.0</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -48,10 +48,6 @@
 		<module>resource-bundles-domain</module>
 	</modules>
 
-	<properties>
-		<resourcebundle-inspector.version>2.7.0</resourcebundle-inspector.version>
-	</properties>
-
 	<dependencyManagement>
 
 		<dependencies>
@@ -78,18 +74,6 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-			<!-- RESOURCEBUNDLE-CORE DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resourcebundle-inspector</artifactId>
-				<version>${resourcebundle-inspector.version}</version>
-			</dependency>
-			<!-- NEW EXTENSIONS LIB DEPENDENCIES -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jcommons-lang</artifactId>
-				<version>${jcommons-lang.version}</version>
 			</dependency>
 
 		</dependencies>
