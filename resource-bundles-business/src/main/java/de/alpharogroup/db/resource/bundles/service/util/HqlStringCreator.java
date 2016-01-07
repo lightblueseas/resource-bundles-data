@@ -1,11 +1,13 @@
 package de.alpharogroup.db.resource.bundles.service.util;
 
+import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
+
 /**
  * The class {@link HqlStringCreator} creates hql queries as string objects.
  */
 public class HqlStringCreator
 {
-	
+
 	/**
 	 * Creates hql query for resourcebundles.
 	 *
@@ -14,7 +16,7 @@ public class HqlStringCreator
 	 * @param key the key
 	 * @return the string
 	 */
-	public static String forResourcebundles(String baseName, String locale, String key)
+	public static String forResourcebundles(final String baseName, final String locale, final String key)
 	{
 		return forResourcebundles(baseName, locale, key, null);
 	}
@@ -28,18 +30,18 @@ public class HqlStringCreator
 	 * @param value the value
 	 * @return the string
 	 */
-	public static String forResourcebundles(String baseName, String locale, String key,
-		String value)
+	public static String forResourcebundles(final String baseName, final String locale, final String key,
+		final String value)
 	{
-		StringBuilder sb = new StringBuilder();
-		sb.append("select rb from Resourcebundles rb");
-		boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select rb from " + Resourcebundles.class.getSimpleName() + " rb");
+		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
 		if (baseNameIsNotNull)
 		{
 			sb.append(" ");
 			sb.append("where rb.baseName=:baseName");
 		}
-		boolean localeIsNotNull = locale != null && !locale.isEmpty();
+		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
 		if (localeIsNotNull)
 		{
 			sb.append(" ");
@@ -52,7 +54,7 @@ public class HqlStringCreator
 				sb.append("where rb.locale=:locale");
 			}
 		}
-		boolean keyIsNotNull = key != null && !key.isEmpty();
+		final boolean keyIsNotNull = key != null && !key.isEmpty();
 		if (keyIsNotNull)
 		{
 			sb.append(" ");
@@ -65,7 +67,7 @@ public class HqlStringCreator
 				sb.append("and rb.key=:key");
 			}
 		}
-		boolean valueIsNotNull = value != null && !value.isEmpty();
+		final boolean valueIsNotNull = value != null && !value.isEmpty();
 		if (valueIsNotNull)
 		{
 			sb.append(" ");
