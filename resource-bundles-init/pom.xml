@@ -100,7 +100,7 @@
 	<profiles>
 
 		<profile>
-			<id>createdb</id>
+			<id>create-db</id>
 			<activation>
 				<property>
 					<name>performRelease</name>
@@ -163,6 +163,44 @@
 							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
 							<arguments>
 								<argument>delete</argument>
+							</arguments>
+						</configuration>
+					</plugin>
+
+				</plugins>
+
+			</build>
+
+		</profile>
+
+		<profile>
+			<id>create-empty-db</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+
+			<build>
+				<plugins>
+
+					<!--This plugin is used to execute java classes with a main method. -->
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>exec-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<phase>compile</phase>
+								<goals>
+									<goal>java</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
+							<arguments>
+								<argument>create-empty</argument>
 							</arguments>
 						</configuration>
 					</plugin>
