@@ -15,28 +15,25 @@ import lombok.Setter;
 
 
 /** 
- * Entity class for saving resource bundles in database.
+ * Entity class for saving in database bundle names with the current locale and what locale default for this bundle name.
  */
 @Entity
-@Table(name="resourcebundles")
+@Table(name="bundlenames")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Resourcebundles 
+public class BundleNames 
 extends VersionableBaseEntity<Integer>
 implements Cloneable {
 
 	/** Serial Version UID */
-	private static final long serialVersionUID = 1L;
-
-	/** The bundleName from this {@link BundleNames} object. */
+	private static final long serialVersionUID = 1L;	
+	/** The bundle name. */
+	@Column( name = "base_name", length = 1024  )
+	private String baseName;
+	/** The default locale of this bundle name. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_BUNDLENAME_ID"))
-	private BundleNames bundleName;
-	/** The properties key. */
-	@Column(name = "properties_key", length = 1024  )
-	private String key;	
-	/** The value for the properties key. */
-	@Column( name="value", length = 2048  )
-	private String value;	
+	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_LOCALE_ID"))	
+	private LanguageLocales locale;
+	
 }

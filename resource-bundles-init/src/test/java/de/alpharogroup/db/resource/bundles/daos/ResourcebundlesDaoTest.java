@@ -50,7 +50,7 @@ public class ResourcebundlesDaoTest extends AbstractTestNGSpringContextTests {
 	protected void initResourcebundles()
 	{
 		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
-			Locale.GERMAN, "resource.bundles.test.label");
+			Locale.GERMANY, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(
