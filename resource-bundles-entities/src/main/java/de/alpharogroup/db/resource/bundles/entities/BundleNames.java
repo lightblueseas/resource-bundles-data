@@ -1,7 +1,6 @@
 package de.alpharogroup.db.resource.bundles.entities;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -29,8 +28,12 @@ implements Cloneable {
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;	
 	/** The bundle name. */
-	@Column( name = "base_name", length = 1024  )
-	private String baseName;
+
+	/** The default locale of this bundle name. */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "base_name_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_BASE_NAME_ID"))	
+	private BaseNames baseName;
+	
 	/** The default locale of this bundle name. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_LOCALE_ID"))	

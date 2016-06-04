@@ -3,9 +3,11 @@ package de.alpharogroup.db.resource.bundles.factories;
 import java.io.Serializable;
 import java.util.Locale;
 
+import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNamemMap;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
@@ -51,7 +53,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 			String value) {
 		Resourcebundles resourcebundles = new Resourcebundles();
 		resourcebundles.setBundleName(newBundleName(baseName, locale));
-		resourcebundles.setKey(propertieskey);
+		resourcebundles.setKey(newPropertiesKeys(propertieskey));
 		resourcebundles.setValue(value);
 		return resourcebundles;
 	}
@@ -69,7 +71,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 			String value) {
 		Resourcebundles resourcebundles = new Resourcebundles();
 		resourcebundles.setBundleName(newBundleName(baseName, locale));
-		resourcebundles.setKey(propertieskey);
+		resourcebundles.setKey(newPropertiesKeys(propertieskey));
 		resourcebundles.setValue(value);
 		return resourcebundles;
 	}
@@ -94,7 +96,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 */
 	public BundleNames newBundleName(String baseName, String locale) {
 		BundleNames bundleNames = new BundleNames();
-		bundleNames.setBaseName(baseName);
+		bundleNames.setBaseName(newBaseNames(baseName));
 		bundleNames.setLocale(newLanguageLocales(locale));
 		return bundleNames;
 	}
@@ -111,6 +113,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 		languageLocales.setLocale(locale);
 		return languageLocales;
 	}
+	
 	
 	/**
 	 * Factory method for create a new {@link LanguageLocales}.
@@ -138,6 +141,32 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 		defaultLocaleForBaseName.setBundleName(bundleName);
 		defaultLocaleForBaseName.setDefaultLocale(defaultLocale);
 		return defaultLocaleForBaseName;
+	}
+	
+	/**
+	 * Factory method for create a new {@link BaseNames}.
+	 *
+	 * @param name the name
+	 * 
+	 * @return the new {@link BaseNames}
+	 */
+	public BaseNames newBaseNames(String name) {
+		BaseNames baseName = new BaseNames();
+		baseName.setName(name);
+		return baseName;
+	}
+	
+	/**
+	 * Factory method for create a new {@link PropertiesKeys}.
+	 *
+	 * @param name the name
+	 * 
+	 * @return the new {@link PropertiesKeys}
+	 */
+	public PropertiesKeys newPropertiesKeys(String name){
+		PropertiesKeys propertiesKeys = new PropertiesKeys();
+		propertiesKeys.setName(name);
+		return propertiesKeys;
 	}
 
 }

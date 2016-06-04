@@ -1,9 +1,13 @@
 alter table bundlenames drop constraint FKF230A806D4CC327E;
+alter table bundlenames drop constraint FKF230A80663C76715;
 alter table default_locale_basename_map drop constraint FKD0DB6E4017DEE600;
 alter table default_locale_basename_map drop constraint FKD0DB6E40BE71D570;
+alter table resourcebundles drop constraint FKD0A7106365054731;
 alter table resourcebundles drop constraint FKD0A71063BE71D570;
+drop table basenames;
 drop table bundlenames;
 drop table default_locale_basename_map;
 drop table language_locales;
+drop table properties_keys;
 drop table resourcebundles;
 drop sequence hibernate_sequence;

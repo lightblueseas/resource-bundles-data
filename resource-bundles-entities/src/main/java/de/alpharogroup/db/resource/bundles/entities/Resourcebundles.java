@@ -33,9 +33,12 @@ implements Cloneable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_BUNDLENAME_ID"))
 	private BundleNames bundleName;
-	/** The properties key. */
-	@Column(name = "properties_key", length = 1024  )
-	private String key;	
+	
+	/** The properties key from this {@link BundleNames} object. */
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "properties_key_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_KEY_ID"))
+	private PropertiesKeys key;
+	
 	/** The value for the properties key. */
 	@Column( name="value", length = 2048  )
 	private String value;	

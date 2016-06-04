@@ -69,7 +69,7 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
     	Object[][] all = new Object[resourcebundles.size()][2];
     	int i = 0;
     	for (Resourcebundles resourcebundle : resourcebundles) {
-    		all[i] = new Object[]{resourcebundle.getKey(), resourcebundle.getValue()};
+    		all[i] = new Object[]{resourcebundle.getKey().getName(), resourcebundle.getValue()};
             i++;
 		}
         return all;

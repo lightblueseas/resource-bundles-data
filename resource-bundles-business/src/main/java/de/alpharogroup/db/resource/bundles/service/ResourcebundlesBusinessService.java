@@ -140,7 +140,7 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 		final List<Resourcebundles> resourcebundles = findResourceBundles(baseName, locale);
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			properties.setProperty(resourcebundle.getKey(), resourcebundle.getValue());
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
 		}
 		return properties;
 	}

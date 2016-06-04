@@ -39,7 +39,7 @@ public class HqlStringCreator
 		if (baseNameIsNotNull)
 		{
 			sb.append(" ");
-			sb.append("where rb.bundleName.baseName=:baseName");
+			sb.append("where rb.bundleName.baseName.name=:baseName");
 		}
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
 		if (localeIsNotNull)
@@ -60,11 +60,11 @@ public class HqlStringCreator
 			sb.append(" ");
 			if (!baseNameIsNotNull && !localeIsNotNull)
 			{
-				sb.append("where rb.key=:key");
+				sb.append("where rb.key.name=:key");
 			}
 			else
 			{
-				sb.append("and rb.key=:key");
+				sb.append("and rb.key.name=:key");
 			}
 		}
 		final boolean valueIsNotNull = value != null && !value.isEmpty();
