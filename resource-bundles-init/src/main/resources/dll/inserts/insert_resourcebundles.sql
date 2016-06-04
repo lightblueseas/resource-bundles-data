@@ -10,6 +10,11 @@ INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (2, 1, 1, 
 INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (3, 1, 2, 1);
 INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (4, 1, 2, 3);
 
+INSERT INTO default_locale_basename_map (id, version, bundlename_id, default_locale_id) VALUES (1, 1, 1, 1);
+INSERT INTO default_locale_basename_map (id, version, bundlename_id, default_locale_id) VALUES (2, 1, 2, 1);
+INSERT INTO default_locale_basename_map (id, version, bundlename_id, default_locale_id) VALUES (3, 1, 3, 3);
+INSERT INTO default_locale_basename_map (id, version, bundlename_id, default_locale_id) VALUES (4, 1, 4, 3);
+
 INSERT INTO properties_keys (id, version, name) VALUES (1, 1, 'resource.bundles.test.label');
 INSERT INTO properties_keys (id, version, name) VALUES (2, 1, 'com.example.gui.window.buttons.save');
 INSERT INTO properties_keys (id, version, name) VALUES (3, 1, 'com.example.gui.window.title');
