@@ -47,11 +47,11 @@ public class HqlStringCreator
 			sb.append(" ");
 			if (baseNameIsNotNull)
 			{
-				sb.append("and rb.bundleName.locale=:locale");
+				sb.append("and rb.bundleName.locale.locale=:locale");
 			}
 			else
 			{
-				sb.append("where rb.bundleName.locale=:locale");
+				sb.append("where rb.bundleName.locale.locale=:locale");
 			}
 		}
 		final boolean keyIsNotNull = key != null && !key.isEmpty();
