@@ -7,7 +7,7 @@
 
 		<class>de.alpharogroup.db.resource.bundles.entities.BaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleNames</class>
-		<class>de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNamemMap</class>
+		<class>de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.LanguageLocales</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.PropertiesKeys</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.Resourcebundles</class>

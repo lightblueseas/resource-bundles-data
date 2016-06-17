@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DefaultLocaleBaseNamemMap 
+public class DefaultLocaleBaseNames 
 extends VersionableBaseEntity<Integer>
 implements Cloneable {
 

@@ -6,13 +6,13 @@ import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 
 import de.alpharogroup.db.dao.jpa.JpaEntityManagerDao;
-import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNamemMap;
+import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 
 /**
- * The class {@link DefaultLocaleBaseNamemMapDao}.
+ * The class {@link BaseNamesDao}.
  */
-@Repository("defaultLocaleBaseNamemMapDao")
-public class DefaultLocaleBaseNamemMapDao extends JpaEntityManagerDao<DefaultLocaleBaseNamemMap, Integer> {
+@Repository("baseNamesDao")
+public class BaseNamesDao extends JpaEntityManagerDao<BaseNames, Integer> {
 	/**
 	 * The serialVersionUID.
 	 */

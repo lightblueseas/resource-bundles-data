@@ -7,25 +7,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The class {@link Resourcebundle}.
+ * The class {@link PropertiesKey}.
  */
 @Getter
 @Setter
 @ToString(callSuper=true)
 @EqualsAndHashCode(callSuper=true)
-public class Resourcebundle extends BaseDomainObject<Integer> {
-
+public class PropertiesKey extends BaseDomainObject<Integer> {
 	/**
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/** The bundleName. */
-	private BundleName bundleName;
-	
-	/** The properties key. */
-	private PropertiesKey key;
-	
-	/** The value for the properties key. */
-	private String value;
+	private String name;
 }

@@ -5,7 +5,7 @@ import java.util.Locale;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
-import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNamemMap;
+import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
@@ -37,7 +37,6 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 * Instantiates a new MessageSystemFactory object.
 	 */
 	private ResourceBundlesDomainObjectFactory() {
-		super();
 	}
 
 	/**
@@ -129,18 +128,18 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	}
 	
 	/**
-	 * Factory method for create a new {@link DefaultLocaleBaseNamemMap}.
+	 * Factory method for create a new {@link DefaultLocaleBaseNames}.
 	 *
 	 * @param bundleName the {@link BundleNames} object
 	 * @param defaultLocale the default {@link LanguageLocales} object for the given {@link BundleNames} object
 	 * 
-	 * @return the new {@link DefaultLocaleBaseNamemMap}
+	 * @return the new {@link DefaultLocaleBaseNames}
 	 */
-	public DefaultLocaleBaseNamemMap newDefaultLocaleForBaseName(BundleNames bundleName, LanguageLocales defaultLocale) {
-		DefaultLocaleBaseNamemMap defaultLocaleForBaseName = new DefaultLocaleBaseNamemMap();
-		defaultLocaleForBaseName.setBundleName(bundleName);
-		defaultLocaleForBaseName.setDefaultLocale(defaultLocale);
-		return defaultLocaleForBaseName;
+	public DefaultLocaleBaseNames newDefaultLocaleBaseNames(BundleNames bundleName, LanguageLocales defaultLocale) {
+		DefaultLocaleBaseNames defaultLocaleBaseNames = new DefaultLocaleBaseNames();
+		defaultLocaleBaseNames.setBundleName(bundleName);
+		defaultLocaleBaseNames.setDefaultLocale(defaultLocale);
+		return defaultLocaleBaseNames;
 	}
 	
 	/**

@@ -27,14 +27,12 @@ implements Cloneable {
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;	
-	/** The bundle name. */
-
-	/** The default locale of this bundle name. */
+	/** The base name of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "base_name_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_BASE_NAME_ID"))	
 	private BaseNames baseName;
 	
-	/** The default locale of this bundle name. */
+	/** The locale of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_LOCALE_ID"))	
 	private LanguageLocales locale;
