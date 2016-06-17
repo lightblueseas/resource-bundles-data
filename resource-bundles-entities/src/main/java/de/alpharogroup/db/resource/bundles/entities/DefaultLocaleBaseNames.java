@@ -17,7 +17,7 @@ import lombok.Setter;
  * Entity class for saving in database the default {@link LanguageLocales} object for a {@link BundleNames} object.
  */
 @Entity
-@Table(name="default_locale_basename_map")
+@Table(name="default_locale_basenames")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,11 +29,11 @@ implements Cloneable {
 	private static final long serialVersionUID = 1L;	
 	/** The bundleName from this {@link BundleNames} object. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_DEFAULT_LOCALE_BASENAME_MAP_BUNDLENAME_ID"))	
+	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_DEFAULT_LOCALE_BASENAMES_BUNDLENAME_ID"))	
 	private BundleNames bundleName;
 	/** The default locale of this bundle name. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "default_locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_DEFAULT_LOCALE_BASENAME_MAP_DEFAULT_LOCALE_ID"))
+	@JoinColumn(name = "default_locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_DEFAULT_LOCALE_BASENAMES_DEFAULT_LOCALE_ID"))
 	private LanguageLocales defaultLocale;	
 	
 }
