@@ -62,14 +62,14 @@ public class ResourcebundleDomainService extends
 	}
 
 	/**
-	 * Sets the resourcebundles mapper.
+	 * Sets the specific {@link ResourcebundlesMapper}.
 	 *
-	 * @param resourcebundlesMapper
-	 *            the new resourcebundles mapper
+	 * @param mapper
+	 *            the new {@link ResourcebundlesMapper}.
 	 */
 	@Autowired
-	public void setResourcebundlesMapper(final ResourcebundlesMapper resourcebundlesMapper) {
-		setMapper(resourcebundlesMapper);
+	public void setResourcebundlesMapper(ResourcebundlesMapper mapper) {
+		setMapper(mapper);
 	}
 
 	/**
@@ -206,6 +206,9 @@ public class ResourcebundleDomainService extends
 		return resourcebundlesService.getProperties(baseName, locale);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Properties getProperties(final String baseName, final String locale)
 	{
