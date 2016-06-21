@@ -1,6 +1,21 @@
-INSERT INTO language_locales (id, version, locale) VALUES (1,1,'de_DE');
-INSERT INTO language_locales (id, version, locale) VALUES (2,1,'UK');
-INSERT INTO language_locales (id, version, locale) VALUES (3,1,'en_GB');
+INSERT INTO language_locales (id, version, locale) VALUES (1,1,'en');
+INSERT INTO language_locales (id, version, locale) VALUES (2,1,'en_GB');
+INSERT INTO language_locales (id, version, locale) VALUES (3,1,'en_US');
+INSERT INTO language_locales (id, version, locale) VALUES (4,1,'de');
+INSERT INTO language_locales (id, version, locale) VALUES (5,1,'de_AT');
+INSERT INTO language_locales (id, version, locale) VALUES (6,1,'de_CH');
+INSERT INTO language_locales (id, version, locale) VALUES (7,1,'de_DE');
+INSERT INTO language_locales (id, version, locale) VALUES (8,1,'es');
+INSERT INTO language_locales (id, version, locale) VALUES (9,1,'es_ES');
+INSERT INTO language_locales (id, version, locale) VALUES (10,1,'fr');
+INSERT INTO language_locales (id, version, locale) VALUES (11,1,'fr_BE');
+INSERT INTO language_locales (id, version, locale) VALUES (12,1,'fr_CH');
+INSERT INTO language_locales (id, version, locale) VALUES (13,1,'fr_FR');
+INSERT INTO language_locales (id, version, locale) VALUES (14,1,'it');
+INSERT INTO language_locales (id, version, locale) VALUES (15,1,'it_IT');
+INSERT INTO language_locales (id, version, locale) VALUES (16,1,'nl');
+INSERT INTO language_locales (id, version, locale) VALUES (17,1,'nl_BE');
+INSERT INTO language_locales (id, version, locale) VALUES (18,1,'nl_NL');
 
 INSERT INTO basenames (id, version, name) VALUES (1,1,'base-resource-bundles');
 INSERT INTO basenames (id, version, name) VALUES (2,1,'test');
