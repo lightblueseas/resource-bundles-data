@@ -3,11 +3,13 @@ package de.alpharogroup.db.resource.bundles.service;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,7 +27,7 @@ import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 /**
  * The class {@link ResourcebundlesBusinessServiceTest}.
  */
-@ContextConfiguration(locations = "classpath:test-h2-applicationContext.xml")
+@ContextConfiguration(locations = "classpath:test-applicationContext.xml")
 public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests {
 
 	/** The resourcebundles service. */
@@ -67,15 +69,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";
 		AssertJUnit.assertEquals(expected, actual);
-		truncate();
-	}
-
-	/**
-	 * Truncate the table 'resourcebundles'.
-	 */
-	private void truncate() {
-		List<Resourcebundles> rb = resourcebundlesService.findAll();
-		resourcebundlesService.delete(rb);
+		// truncate();
 	}
 
 	/**
@@ -96,7 +90,6 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		resourcebundlesService.updateProperties(properties, baseName, locale);
 		List<Resourcebundles> rb = resourcebundlesService.findAll();
 		AssertJUnit.assertEquals(4, rb.size());
-		truncate();
 	}
 
 	/**
@@ -120,9 +113,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			resourcebundlesService.updateProperties(properties, bundlename, locale, false);			
 		}
 		
-		List<Resourcebundles> rb = resourcebundlesService.findAll();
-		AssertJUnit.assertEquals(8, rb.size());
-		truncate();		
+		Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
+		
+		AssertJUnit.assertEquals(12, rb.size());	
 	}
 
 	/**
@@ -134,13 +127,14 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		if (resourcebundles == null) {
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles("resource.bundles",
 					Locale.GERMAN, "resource.bundles.test.label", "Erstes label");
-			resourcebundles = resourcebundlesService.merge(resourcebundles);
+			resourcebundlesService.saveOrUpdate(resourcebundles);
 		}
 
 		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK, "resource.bundles.test.label");
 		if (resourcebundles == null) {
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles("resource.bundles",
 					Locale.UK, "resource.bundles.test.label", "First label");
+			
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}

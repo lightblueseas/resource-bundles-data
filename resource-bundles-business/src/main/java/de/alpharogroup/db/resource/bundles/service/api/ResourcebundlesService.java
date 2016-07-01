@@ -5,7 +5,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.db.service.jpa.BusinessService;
+import de.alpharogroup.db.service.api.BusinessService;
 
 /**
  * The interface {@link ResourcebundlesService}.

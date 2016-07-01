@@ -25,7 +25,7 @@ implements Cloneable {
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
 	/** The locale of this entry. */
-	@Column( length = 64  )
+	@Column( unique=true, length = 64  )
 	private String locale;
 	
 }
