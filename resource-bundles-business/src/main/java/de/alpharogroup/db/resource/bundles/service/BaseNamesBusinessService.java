@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,14 @@ public class BaseNamesBusinessService extends AbstractBusinessService<BaseNames,
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+     * {@inheritDoc}
+     */
+	@Autowired
+	public void setBaseNamesDao(final BaseNamesDao dao) {
+		setDao(dao);
+	}
 
 	/**
      * {@inheritDoc}
