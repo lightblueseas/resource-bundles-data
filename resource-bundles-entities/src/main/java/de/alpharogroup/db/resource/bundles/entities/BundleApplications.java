@@ -1,23 +1,32 @@
 package de.alpharogroup.db.resource.bundles.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 import de.alpharogroup.db.entity.ExtraLargeNameBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 /** 
  * Entity class for saving in database applications with the corresponding {@link BundleNames}.
  */
 @Entity
-@Table(name="applications")
+@Table(name="bundle_applications")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Applications 
+public class BundleApplications 
 extends ExtraLargeNameBaseEntity<Integer>
 implements Cloneable {
 

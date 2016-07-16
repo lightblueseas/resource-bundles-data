@@ -1,13 +1,18 @@
+alter table application_bundlenames drop constraint FK6BD3939781FDD8D7;
+alter table application_bundlenames drop constraint FK6BD3939764F45D92;
 alter table bundlenames drop constraint FKF230A806D4CC327E;
 alter table bundlenames drop constraint FKF230A80663C76715;
 alter table default_locale_basenames drop constraint FKC87181B017DEE600;
 alter table default_locale_basenames drop constraint FKC87181B0BE71D570;
 alter table resourcebundles drop constraint FKD0A7106365054731;
 alter table resourcebundles drop constraint FKD0A71063BE71D570;
+drop table application_bundlenames;
 drop table basenames;
+drop table bundle_applications;
 drop table bundlenames;
 drop table default_locale_basenames;
 drop table language_locales;
+drop table languages;
 drop table properties_keys;
 drop table resourcebundles;
 drop sequence hibernate_sequence;

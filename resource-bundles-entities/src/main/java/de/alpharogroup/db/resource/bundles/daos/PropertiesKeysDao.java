@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import de.alpharogroup.db.dao.jpa.JpaEntityManagerDao;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The class {@link PropertiesKeysDao}.
@@ -20,21 +22,7 @@ public class PropertiesKeysDao extends JpaEntityManagerDao<PropertiesKeys, Integ
 
 	/** The entity manager. */
 	@PersistenceContext
+	@Getter
+	@Setter
 	private EntityManager entityManager;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;		
-	}
 }

@@ -1,6 +1,6 @@
 package de.alpharogroup.db.resource.bundles.domain;
 
-import de.alpharogroup.domain.BaseDomainObject;
+import de.alpharogroup.domain.VersionableBaseDomainObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -19,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DefaultLocaleBaseName extends BaseDomainObject<Integer> {
+public class DefaultLocaleBaseName extends VersionableBaseDomainObject<Integer> {
 	/**
 	 * The serialVersionUID.
 	 */
