@@ -23,6 +23,33 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+		
+	/**
+	 * Factory method for create a new {@link BundleApplications}.
+	 *
+	 * @param name the name
+	 * 
+	 * @return the new {@link BundleApplications}
+	 */
+	public BundleApplications newBundleApplications(String name){
+		BundleApplications bundleApplications = new BundleApplications();
+		bundleApplications.setName(name);
+		return bundleApplications;
+	}
+		
+	/**
+	 * Factory method for create a new {@link Languages}.
+	 *
+	 * @param name the name
+	 * 
+	 * @return the new {@link Languages}
+	 */
+	public Languages newLanguages(String name, String iso639Dash1){
+		Languages languages = new Languages();
+		languages.setName(name);
+		languages.setIso639Dash1(iso639Dash1);
+		return languages;
+	}
 
 	/**
 	 * Gets the single instance of MessageSystemFactory.
