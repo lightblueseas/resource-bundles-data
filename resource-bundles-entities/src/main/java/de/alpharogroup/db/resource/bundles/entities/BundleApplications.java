@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
-import de.alpharogroup.db.entity.ExtraLargeNameBaseEntity;
+import de.alpharogroup.db.entity.name.unique.ExtraLargeUNameBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,7 +27,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class BundleApplications 
-extends ExtraLargeNameBaseEntity<Integer>
+extends ExtraLargeUNameBaseEntity<Integer>
 implements Cloneable {
 
 	/** Serial Version UID */

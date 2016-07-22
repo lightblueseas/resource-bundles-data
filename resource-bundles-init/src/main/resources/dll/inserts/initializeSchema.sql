@@ -7,7 +7,7 @@
 create table basenames (
         id int4 not null,
         version int4,
-        name varchar(512) unique,
+        name varchar(512),
         primary key (id)
     );
 create table bundle_applications (
@@ -46,7 +46,7 @@ create table languages (
 create table properties_keys (
         id int4 not null,
         version int4,
-        name varchar(1024) unique,
+        name varchar(1024),
         primary key (id)
     );
 create table resourcebundles (

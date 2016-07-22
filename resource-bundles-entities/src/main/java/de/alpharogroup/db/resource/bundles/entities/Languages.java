@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.ExtraSmallNameBaseEntity;
+import de.alpharogroup.db.entity.name.unique.ExtraSmallUNameBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,7 +18,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Languages 
-extends ExtraSmallNameBaseEntity<Integer>
+extends ExtraSmallUNameBaseEntity<Integer>
 implements Cloneable {
 
 	/** Serial Version UID */
