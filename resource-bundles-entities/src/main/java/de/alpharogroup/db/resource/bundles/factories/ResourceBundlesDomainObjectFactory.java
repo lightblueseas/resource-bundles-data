@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.Locale;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
