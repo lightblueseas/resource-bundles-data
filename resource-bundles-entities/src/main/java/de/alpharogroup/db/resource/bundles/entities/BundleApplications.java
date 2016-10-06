@@ -10,9 +10,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
-
 import de.alpharogroup.db.entity.name.unique.ExtraLargeUNameBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,8 +32,7 @@ implements Cloneable {
 	
 		/** The bundle names of this application. */
 	@ManyToMany(fetch=FetchType.EAGER)
-    @Cascade({CascadeType.SAVE_UPDATE, CascadeType.DELETE})
-	@JoinTable(name = "application_bundlenames", joinColumns = { 
+	@JoinTable(name = "bundle_application_bundlenames", joinColumns = { 
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = { 
 			@JoinColumn(name = "bundlenames_id", referencedColumnName = "id") })
 	private Set<BundleNames> bundleNames = new HashSet<BundleNames>();
