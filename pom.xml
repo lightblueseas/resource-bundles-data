@@ -4,9 +4,9 @@
 
 	<parent>
 		<groupId>de.alpharogroup</groupId>
-		<artifactId>mvn-persistence-parent</artifactId>
-		<version>2.35.0</version>
-		<relativePath></relativePath>
+		<artifactId>persistence-api</artifactId>
+		<version>3.25.0</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>resource-bundles-data</artifactId>

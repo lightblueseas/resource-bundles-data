@@ -3,7 +3,7 @@ package de.alpharogroup.db.resource.bundles.entities;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.LargeNameBaseEntity;
+import de.alpharogroup.db.entity.name.LargeNameBaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
