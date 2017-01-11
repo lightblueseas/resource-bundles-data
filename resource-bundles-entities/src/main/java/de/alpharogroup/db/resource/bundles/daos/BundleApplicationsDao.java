@@ -5,19 +5,15 @@ import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.dao.jpa.JpaEntityManagerDao;
-import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
+
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * The class {@link DefaultLocaleBaseNamesDao}.
- */
-@Repository("defaultLocaleBaseNamesDao")
-public class DefaultLocaleBaseNamesDao extends JpaEntityManagerDao<DefaultLocaleBaseNames, Integer> {
-	/**
-	 * The serialVersionUID.
-	 */
+@Repository("bundleApplicationsDao")
+public class BundleApplicationsDao extends JpaEntityManagerDao<BundleApplications, Integer>{
+
 	private static final long serialVersionUID = 1L;
 
 	/** The entity manager. */
@@ -25,4 +21,5 @@ public class DefaultLocaleBaseNamesDao extends JpaEntityManagerDao<DefaultLocale
 	@Getter
 	@Setter
 	private EntityManager entityManager;
+
 }

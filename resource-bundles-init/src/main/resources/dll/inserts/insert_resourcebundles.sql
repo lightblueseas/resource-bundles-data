@@ -1,3 +1,5 @@
+INSERT INTO bundle_applications (id, version, name) VALUES (1, 1, 'AwesomeApp');
+
 INSERT INTO language_locales (id, version, locale) VALUES (1,1,'en');
 INSERT INTO language_locales (id, version, locale) VALUES (2,1,'en_GB');
 INSERT INTO language_locales (id, version, locale) VALUES (3,1,'en_US');
@@ -24,6 +26,11 @@ INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (1, 1, 1, 
 INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (2, 1, 1, 2);
 INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (3, 1, 2, 1);
 INSERT INTO bundlenames (id, version, base_name_id, locale_id) VALUES (4, 1, 2, 3);
+
+INSERT INTO application_bundlenames(application_id, bundlenames_id) VALUES (1, 1);
+INSERT INTO application_bundlenames(application_id, bundlenames_id) VALUES (1, 2);
+INSERT INTO application_bundlenames(application_id, bundlenames_id) VALUES (1, 3);
+INSERT INTO application_bundlenames(application_id, bundlenames_id) VALUES (1, 4);
 
 INSERT INTO default_locale_basenames (id, version, bundlename_id, default_locale_id) VALUES (1, 1, 1, 1);
 INSERT INTO default_locale_basenames (id, version, bundlename_id, default_locale_id) VALUES (2, 1, 2, 1);

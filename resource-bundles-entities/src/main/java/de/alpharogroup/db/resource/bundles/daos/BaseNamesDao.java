@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import de.alpharogroup.db.dao.jpa.JpaEntityManagerDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * The class {@link BaseNamesDao}.
@@ -20,21 +22,7 @@ public class BaseNamesDao extends JpaEntityManagerDao<BaseNames, Integer> {
 
 	/** The entity manager. */
 	@PersistenceContext
+	@Getter
+	@Setter
 	private EntityManager entityManager;
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;		
-	}
 }

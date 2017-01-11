@@ -3,7 +3,7 @@
 <suite name="Suite" parallel="none">
 	<test name="Test">
 		<classes>
-			<class name="de.alpharogroup.db.resource.bundles.service.ResourcebundlesBusinessServiceTest" />
+			<class name="de.alpharogroup.db.resource.bundles.rest.client.ResourcebundlesRestClientTest" />
 		</classes>
 	</test> <!-- Test -->
 </suite> <!-- Suite -->

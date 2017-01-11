@@ -163,7 +163,44 @@ public class ResourcebundlesBusinessService extends AbstractBusinessService<Reso
 		resourcebundles.setBundleName(bundleNames);
 		resourcebundles.setKey(propertiesKeys);
 		return super.merge(resourcebundles);
+	}	
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void saveOrUpdate(Resourcebundles resourcebundles) {
+		BaseNames baseName = baseNamesService.find(resourcebundles.getBundleName().getBaseName().getName());			
+		if(baseName == null) {
+			baseName = ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
+			baseName = baseNamesService.merge(baseName);
+		}
+		
+		LanguageLocales languageLocales = languageLocalesService.find(resourcebundles.getBundleName().getLocale().getLocale());			
+
+		if(languageLocales == null) {
+			languageLocales = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
+			languageLocales = languageLocalesService.merge(languageLocales);
+		}
+		
+		BundleNames bundleNames = bundleNamesService.find(baseName, languageLocales);
+		if(bundleNames == null) {
+			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(resourcebundles.getBundleName().getBaseName().getName(), resourcebundles.getBundleName().getLocale().getLocale());
+			bundleNames.setBaseName(baseName);
+			bundleNames.setLocale(languageLocales);
+			bundleNames = bundleNamesService.merge(bundleNames);
+		}
+		
+		PropertiesKeys propertiesKeys = propertiesKeysService.find(resourcebundles.getKey().getName());
+		if(propertiesKeys == null) {
+			propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(resourcebundles.getKey().getName());
+			propertiesKeys = propertiesKeysService.merge(propertiesKeys);
+		}
+		resourcebundles.setBundleName(bundleNames);
+		resourcebundles.setKey(propertiesKeys);
+		super.saveOrUpdate(resourcebundles);
 	}
+	
 
 	/**
 	 * {@inheritDoc}

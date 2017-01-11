@@ -1,9 +1,11 @@
 package de.alpharogroup.db.resource.bundles.service.util;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 
@@ -87,7 +89,6 @@ public class HqlStringCreator
 		}
 		return sb.toString();
 	}
-	
 
 	/**
 	 * Creates hql query for {@link BaseNames}.
@@ -104,6 +105,25 @@ public class HqlStringCreator
 		{
 			sb.append(" ");
 			sb.append("where bn.name=:baseName");
+		}
+		return sb.toString();		
+	}	
+
+	/**
+	 * Creates hql query for {@link BundleApplications}.
+	 *
+	 * @param name the name
+	 * 
+	 * @return the hql string
+	 */
+	public static String forBundleApplications(final String name) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select bn from " + BundleApplications.class.getSimpleName() + " bn");
+		final boolean baseNameIsNotNull = name != null && !name.isEmpty();
+		if (baseNameIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where bn.name=:name");
 		}
 		return sb.toString();		
 	}	
@@ -174,8 +194,6 @@ public class HqlStringCreator
 		return sb.toString();		
 	}
 
-
-
 	/**
 	 * Creates hql query for {@link LanguageLocales}.
 	 *
@@ -195,8 +213,38 @@ public class HqlStringCreator
 		return sb.toString();		
 	}
 	
-
-
+	/**
+	 * Creates hql query for {@link Languages}.
+	 *
+	 * @param name the name
+	 * @param iso639Dash1 the iso639Dash1
+	 * 
+	 * @return the hql string
+	 */
+	public static String forLanguages(final String name, final String iso639Dash1) {
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select bn from " + Languages.class.getSimpleName() + " bn");
+		final boolean nameIsNotNull = name != null && !name.isEmpty();
+		if (nameIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where bn.name=:name");
+		}
+		final boolean iso639Dash1IsNotNull = iso639Dash1 != null && !iso639Dash1.isEmpty();
+		if (iso639Dash1IsNotNull)
+		{
+			sb.append(" ");
+			if (nameIsNotNull)
+			{
+				sb.append("and bn.iso639Dash1=:iso639Dash1");
+			}
+			else
+			{
+				sb.append("where bn.iso639Dash1=:iso639Dash1");
+			}
+		}
+		return sb.toString();		
+	}
 
 	/**
 	 * Creates hql query for {@link PropertiesKeys}.

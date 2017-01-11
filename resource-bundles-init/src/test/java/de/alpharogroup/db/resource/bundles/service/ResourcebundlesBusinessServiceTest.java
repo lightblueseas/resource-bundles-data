@@ -17,8 +17,10 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
@@ -33,6 +35,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	/** The resourcebundles service. */
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
+	
+	@Autowired
+	private BundleApplicationsService bundleApplicationsService; 
 
 	/**
 	 * Gets the resourcebundles service.
@@ -144,6 +149,8 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 * Truncate the table 'resourcebundles'.
 	 */
 	private void truncate() {
+		List<BundleApplications> ba = bundleApplicationsService.findAll();
+		bundleApplicationsService.delete(ba);
 		List<Resourcebundles> rb = resourcebundlesService.findAll();
 		resourcebundlesService.delete(rb);
 	}

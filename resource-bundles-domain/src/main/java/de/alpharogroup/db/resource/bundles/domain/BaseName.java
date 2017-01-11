@@ -1,7 +1,6 @@
 package de.alpharogroup.db.resource.bundles.domain;
 
-import de.alpharogroup.domain.BaseDomainObject;
-import lombok.AllArgsConstructor;
+import de.alpharogroup.domain.NameBaseDomainObject;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -17,14 +16,11 @@ import lombok.ToString;
 @ToString(callSuper=true)
 @EqualsAndHashCode(callSuper=true)
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-public class BaseName extends BaseDomainObject<Integer> {
+public class BaseName extends NameBaseDomainObject<Integer> {
+	
 	/**
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/** The name. */
-	private String name;
 }
