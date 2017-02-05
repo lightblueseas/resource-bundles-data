@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>3.25.0</version>
+		<version>3.26.0</version>
 		<relativePath />
 	</parent>
 
 	<artifactId>resource-bundles-data</artifactId>
 	<packaging>pom</packaging>
-	<version>3.9.0</version>
+	<version>3.10.0</version>
 	<inceptionYear>2015</inceptionYear>
 
 	<name>${project.artifactId}</name>
