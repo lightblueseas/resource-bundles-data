@@ -25,6 +25,10 @@ public class DatabaseInitialization extends AbstractDatabaseInitialization {
 	 * {@inheritDoc}
 	 */
 	protected List<File> getScriptFiles() {
+		final File insertsDir = getInsertDir();
+		final List<File> scriptFiles = new ArrayList<>();
+		scriptFiles.add(new File(insertsDir, "insert_languages.sql"));
+		scriptFiles.add(new File(insertsDir, "insert_resourcebundles.sql"));
 		return new ArrayList<>();
 	}
 

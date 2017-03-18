@@ -7,11 +7,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.VersionableBaseEntity;
+import de.alpharogroup.db.entity.version.VersionableBaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.ToString;
 
 /** 
  * Entity class for saving in database the default {@link LanguageLocales} object for a {@link BundleNames} object.
@@ -20,7 +22,10 @@ import lombok.Setter;
 @Table(name="default_locale_basenames")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder=true)
 public class DefaultLocaleBaseNames 
 extends VersionableBaseEntity<Integer>
 implements Cloneable {

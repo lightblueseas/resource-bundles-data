@@ -4,11 +4,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.VersionableBaseEntity;
+import de.alpharogroup.db.entity.version.VersionableBaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.ToString;
 
 /** 
  * Entity class for saving in database the locale of {@link BundleNames} objects.
@@ -17,7 +19,10 @@ import lombok.Setter;
 @Table(name="language_locales")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder=true)
 public class LanguageLocales 
 extends VersionableBaseEntity<Integer>
 implements Cloneable {
@@ -27,5 +32,5 @@ implements Cloneable {
 	/** The locale of this entry. */
 	@Column( unique=true, length = 64  )
 	private String locale;
-	
+
 }

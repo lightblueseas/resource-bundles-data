@@ -38,16 +38,12 @@ public class DefaultLocaleBaseNamesBusinessService extends AbstractBusinessServi
      */
 	@SuppressWarnings("unchecked")
 	@Override
-	public DefaultLocaleBaseNames find(String baseName, String defaultLocale) {
-		final String hqlString = HqlStringCreator.forDefaultLocaleBaseNames(baseName, defaultLocale);
+	public DefaultLocaleBaseNames find(String baseName) {
+		final String hqlString = HqlStringCreator.forDefaultLocaleBaseNames(baseName, null);
 		final Query query = getQuery(hqlString);
 		if(baseName != null && !baseName.isEmpty()){
 			query.setParameter("baseName", baseName);
-		}
-		if(defaultLocale != null && !defaultLocale.isEmpty()){
-			query.setParameter("locale", defaultLocale);
-		}
-		
+		}		
 		final List<DefaultLocaleBaseNames> defaultLocaleBaseNames = query.getResultList();
 		return ListExtensions.getFirst(defaultLocaleBaseNames);
 	}

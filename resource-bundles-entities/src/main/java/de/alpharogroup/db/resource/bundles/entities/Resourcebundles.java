@@ -8,11 +8,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.VersionableBaseEntity;
+import de.alpharogroup.db.entity.version.VersionableBaseEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.ToString;
 
 /** 
  * Entity class for saving resource bundles in database.
@@ -21,7 +23,10 @@ import lombok.Setter;
 @Table(name="resourcebundles")
 @Getter
 @Setter
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder=true)
 public class Resourcebundles 
 extends VersionableBaseEntity<Integer>
 implements Cloneable {
