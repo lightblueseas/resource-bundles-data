@@ -5,7 +5,6 @@ import de.alpharogroup.db.service.api.BusinessService;
 
 public interface BundleApplicationsService  extends BusinessService<BundleApplications, Integer> {
 	
-
 	/**
 	 * Find the {@link BundleApplications} object from the given name.
 	 *

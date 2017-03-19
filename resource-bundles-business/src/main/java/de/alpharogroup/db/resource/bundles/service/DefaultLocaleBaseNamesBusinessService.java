@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.DefaultLocaleBaseNamesDao;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -46,6 +48,30 @@ public class DefaultLocaleBaseNamesBusinessService extends AbstractBusinessServi
 		}		
 		final List<DefaultLocaleBaseNames> defaultLocaleBaseNames = query.getResultList();
 		return ListExtensions.getFirst(defaultLocaleBaseNames);
+	}
+	
+	/**
+     * {@inheritDoc}
+     */
+	@Override
+	public LanguageLocales getDefaultLocale(BundleNames bundleNames) {
+		if(bundleNames!=null) {
+			String baseName = bundleNames.getBaseName().getName();
+			return getDefaultLocale(baseName);
+		}
+		return null;
+	}
+	
+	/**
+     * {@inheritDoc}
+     */
+	@Override
+	public LanguageLocales getDefaultLocale(String baseName) {
+		DefaultLocaleBaseNames defaultLocaleBaseNames = find(baseName);
+		if(defaultLocaleBaseNames !=null){
+			return defaultLocaleBaseNames.getDefaultLocale();
+		}
+		return null;
 	}
 
 }

@@ -14,6 +14,7 @@ import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 
@@ -26,6 +27,9 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	@Autowired
+	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;
 	
 	/**
      * {@inheritDoc}
@@ -34,14 +38,22 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	public void setBundleNamesDao(final BundleNamesDao dao) {
 		setDao(dao);
 	}
-	
+
+	/**
+     * {@inheritDoc}
+     */
+	@Override
 	public List<BundleNames> find(BaseNames baseName) {
 		if(baseName != null) {
 			return find(baseName.getName(), null);
 		}
 		return null;		
 	}
-	
+
+	/**
+     * {@inheritDoc}
+     */
+	@Override
 	public BundleNames find(BaseNames baseName, LanguageLocales languageLocales) {
 		String bn = null;
 		String ll = null;
@@ -56,6 +68,7 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 		}
 		return null;
 	}
+	
 	/**
      * {@inheritDoc}
      */
@@ -73,6 +86,22 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 		
 		final List<BundleNames> bundleNames = query.getResultList();
 		return bundleNames;
+	}
+
+	/**
+     * {@inheritDoc}
+     */
+	@Override
+	public LanguageLocales getDefaultLocale(BundleNames bundleNames) {
+		return defaultLocaleBaseNamesService.getDefaultLocale(bundleNames);
+	}
+
+	/**
+     * {@inheritDoc}
+     */
+	@Override
+	public LanguageLocales getDefaultLocale(String baseName) {
+		return defaultLocaleBaseNamesService.getDefaultLocale(baseName);
 	}
 
 }

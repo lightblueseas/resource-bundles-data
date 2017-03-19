@@ -39,10 +39,10 @@
 		<property name="url" value="${jdbc.base.url}${jdbc.db.name}" />
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
-		<property name="initialSize" value="10" /><!-- default:10 -->
-		<property name="maxActive" value="5000" /><!-- default:100 -->
-		<property name="maxIdle" value="200" /><!-- default:100 -->
-		<property name="minIdle" value="20" /><!-- default:10 -->
+		<property name="initialSize" value="100" /><!-- default:10 -->
+		<property name="maxActive" value="50000" /><!-- default:100 -->
+		<property name="maxIdle" value="2000" /><!-- default:100 -->
+		<property name="minIdle" value="200" /><!-- default:10 -->
 		<property name="maxWait" value="3000" /><!-- default:30000 -->
 		<property name="validationQuery" value="SELECT 1" />
 		<property name="validationQueryTimeout" value="-1" /><!-- default:-1 -->
@@ -51,7 +51,7 @@
 		<property name="testOnReturn" value="false" /><!-- default:false -->
 		<property name="logAbandoned" value="true" /><!-- default:false -->
 		<property name="removeAbandoned" value="true" /><!-- default:false -->
-		<property name="removeAbandonedTimeout" value="60" /><!-- default:60 -->
+		<property name="removeAbandonedTimeout" value="600" /><!-- default:60 -->
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

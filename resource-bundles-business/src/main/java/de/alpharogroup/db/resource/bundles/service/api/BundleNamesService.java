@@ -42,4 +42,20 @@ public interface BundleNamesService  extends BusinessService<BundleNames, Intege
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
 	BundleNames find(BaseNames baseName, LanguageLocales languageLocales);
+	
+	/**
+	 * Gets the default locale from the given {@link BaseNames} object.
+	 *
+	 * @param bundleNames the bundle names
+	 * @return the default locale from the given {@link BaseNames} object or null if not set.
+	 */
+	LanguageLocales getDefaultLocale(BundleNames bundleNames);
+
+	/**
+	 * Gets the default locale from the given base name as {@link String} object.
+	 *
+	 * @param baseName the base name
+	 * @return the default locale from the given base name as {@link String} object or null if not set.
+	 */
+	LanguageLocales getDefaultLocale(String baseName);
 }
