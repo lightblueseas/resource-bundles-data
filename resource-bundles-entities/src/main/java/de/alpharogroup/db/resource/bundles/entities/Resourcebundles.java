@@ -1,3 +1,27 @@
+/**
+ * The MIT License
+ *
+ * Copyright (C) 2015 Asterios Raptis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *  *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *  *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.alpharogroup.db.resource.bundles.entities;
 
 import javax.persistence.CascadeType;
@@ -16,20 +40,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-/** 
+/**
  * Entity class for saving resource bundles in database.
  */
 @Entity
-@Table(name="resourcebundles")
+@Table(name = "resourcebundles")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(toBuilder=true)
-public class Resourcebundles 
-extends VersionableBaseEntity<Integer>
-implements Cloneable {
+@Builder(toBuilder = true)
+public class Resourcebundles extends VersionableBaseEntity<Integer> implements Cloneable {
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
@@ -38,13 +60,13 @@ implements Cloneable {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_BUNDLENAME_ID"))
 	private BundleNames bundleName;
-	
+
 	/** The properties key from this {@link BundleNames} object. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "properties_key_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_KEY_ID"))
 	private PropertiesKeys key;
-	
+
 	/** The value for the properties key. */
-	@Column( name="value", length = 2048  )
-	private String value;	
+	@Column(name = "value", length = 2048)
+	private String value;
 }

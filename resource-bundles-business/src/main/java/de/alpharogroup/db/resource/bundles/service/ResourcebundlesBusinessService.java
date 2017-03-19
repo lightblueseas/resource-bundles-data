@@ -1,3 +1,27 @@
+/**
+ * The MIT License
+ *
+ * Copyright (C) 2015 Asterios Raptis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *  *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *  *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.alpharogroup.db.resource.bundles.service;
 
 import java.util.List;
@@ -56,9 +80,57 @@ public class ResourcebundlesBusinessService extends
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
 
-	@Autowired
-	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao) {
-		setDao(resourcebundlesDao);
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Resourcebundles contains(final String baseName, final Locale locale, final String key) {
+		return getResourcebundle(baseName, locale, key);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(List<Resourcebundles> resourcebundles) {
+		for (Resourcebundles resourcebundle : resourcebundles) {
+			delete(resourcebundle);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(Resourcebundles resourcebundles) {
+		resourcebundles.setBundleName(null);
+		resourcebundles = super.merge(resourcebundles);
+		super.delete(resourcebundles);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<Resourcebundles> find(final String baseName, final String locale, final String key,
+			final String value) {
+		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key, value);
+		final Query query = getQuery(hqlString);
+		if (baseName != null && !baseName.isEmpty()) {
+			query.setParameter("baseName", baseName);
+		}
+		if (locale != null && !locale.isEmpty()) {
+			query.setParameter("locale", locale);
+		}
+		if (key != null && !key.isEmpty()) {
+			query.setParameter("key", key);
+		}
+		if (value != null && !value.isEmpty()) {
+			query.setParameter("value", value);
+		}
+		final List<Resourcebundles> resourcebundles = query.getResultList();
+		return resourcebundles;
 	}
 
 	/**
@@ -81,49 +153,29 @@ public class ResourcebundlesBusinessService extends
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Properties getProperties(final String baseName, final Locale locale) {
+		final Properties properties = new Properties();
+		final List<Resourcebundles> resourcebundles = findResourceBundles(baseName, locale);
+		for (final Resourcebundles resourcebundle : resourcebundles) {
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+		}
+		return properties;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Properties getProperties(final String baseName, final String localeCode) {
+		return getProperties(baseName, LocaleResolver.resolveLocale(localeCode));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Resourcebundles getResourcebundle(final String baseName, final Locale locale, final String key) {
 		return ListExtensions.getFirst(findResourceBundles(baseName, locale, key));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Resourcebundles contains(final String baseName, final Locale locale, final String key) {
-		return getResourcebundle(baseName, locale, key);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void updateProperties(final Properties properties, final String baseName, final Locale locale) {
-		updateProperties(properties, baseName, locale, true);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void updateProperties(final Properties properties, final String baseName, final Locale locale,
-			final boolean update) {
-		if (baseName == null || baseName.isEmpty()) {
-			throw new IllegalArgumentException("Parameter baseName should not be null or empty.");
-		}
-		for (final Map.Entry<Object, Object> element : properties.entrySet()) {
-			final String key = element.getKey().toString().trim();
-			final String value = element.getValue().toString().trim();
-			Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
-			if (resourcebundle != null) {
-				if (update) {
-					resourcebundle.setValue(value);
-				}
-			} else {
-				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(baseName,
-						LocaleExtensions.getLocaleFilenameSuffix(locale), key, value);
-			}
-			merge(resourcebundle);
-		}
 	}
 
 	/**
@@ -211,70 +263,42 @@ public class ResourcebundlesBusinessService extends
 		super.saveOrUpdate(resourcebundles);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Resourcebundles> find(final String baseName, final String locale, final String key,
-			final String value) {
-		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key, value);
-		final Query query = getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty()) {
-			query.setParameter("baseName", baseName);
-		}
-		if (locale != null && !locale.isEmpty()) {
-			query.setParameter("locale", locale);
-		}
-		if (key != null && !key.isEmpty()) {
-			query.setParameter("key", key);
-		}
-		if (value != null && !value.isEmpty()) {
-			query.setParameter("value", value);
-		}
-		final List<Resourcebundles> resourcebundles = query.getResultList();
-		return resourcebundles;
+	@Autowired
+	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao) {
+		setDao(resourcebundlesDao);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Properties getProperties(final String baseName, final Locale locale) {
-		final Properties properties = new Properties();
-		final List<Resourcebundles> resourcebundles = findResourceBundles(baseName, locale);
-		for (final Resourcebundles resourcebundle : resourcebundles) {
-			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+	public void updateProperties(final Properties properties, final String baseName, final Locale locale) {
+		updateProperties(properties, baseName, locale, true);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void updateProperties(final Properties properties, final String baseName, final Locale locale,
+			final boolean update) {
+		if (baseName == null || baseName.isEmpty()) {
+			throw new IllegalArgumentException("Parameter baseName should not be null or empty.");
 		}
-		return properties;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Properties getProperties(final String baseName, final String localeCode) {
-		return getProperties(baseName, LocaleResolver.resolveLocale(localeCode));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(List<Resourcebundles> resourcebundles) {
-		for (Resourcebundles resourcebundle : resourcebundles) {
-			delete(resourcebundle);
+		for (final Map.Entry<Object, Object> element : properties.entrySet()) {
+			final String key = element.getKey().toString().trim();
+			final String value = element.getValue().toString().trim();
+			Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
+			if (resourcebundle != null) {
+				if (update) {
+					resourcebundle.setValue(value);
+				}
+			} else {
+				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(baseName,
+						LocaleExtensions.getLocaleFilenameSuffix(locale), key, value);
+			}
+			merge(resourcebundle);
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(Resourcebundles resourcebundles) {
-		resourcebundles.setBundleName(null);
-		resourcebundles = super.merge(resourcebundles);
-		super.delete(resourcebundles);
 	}
 
 }
