@@ -6,5 +6,5 @@ used also with other languages than java.
 
 # ERD-Diagramm
 
-An erd-diagramm for this database is provided at '/resource-bundles-init/src/main/resources/erd/erd-diagramm-resourcesbundles.png' or [here](https://cloud.githubusercontent.com/assets/1822320/24070510/2dd5f60c-0bbf-11e7-8524-5bfd28c0de27.png)
+An erd-diagramm for this database is provided at '/resource-bundles-init/src/main/resources/erd/erd-diagramm-resourcesbundles.png' or [here](https://cloud.githubusercontent.com/assets/1822320/24324278/d6d0cc90-1183-11e7-9417-11473d57913d.png)
 
