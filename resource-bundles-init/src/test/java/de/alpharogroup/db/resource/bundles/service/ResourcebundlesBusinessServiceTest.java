@@ -52,6 +52,7 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.file.FileExtension;
@@ -81,6 +82,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 
 	@Autowired
 	private LanguageLocalesService languageLocalesService;
+
+	@Autowired
+	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;
 
 	/**
 	 * Gets the resourcebundles service.
@@ -127,7 +131,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		this.resourcebundlesService = resourcebundlesService;
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindBaseNames()
 	{
 		// The base Name
@@ -151,9 +155,10 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		BundleApplications expected = bundleApplicationsService.find(applicationName);
 		if (expected == null)
 		{
+			final LanguageLocales languageLocales = getOrCreateNewLanguageLocales(Locale.GERMANY);
 			// and save to db...
 			expected = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBundleApplications(applicationName);
+				.newBundleApplications(applicationName, languageLocales);
 			expected = bundleApplicationsService.merge(expected);
 		}
 		final BundleApplications actual = bundleApplicationsService.find(applicationName);
@@ -161,13 +166,13 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		AssertJUnit.assertEquals(expected, actual);
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindBundleNames()
 	{
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 
-		final BaseNames actual = getOrCreateNew(baseName);
+		final BaseNames actual = getOrCreateNewBaseNames(baseName);
 		AssertJUnit.assertNotNull(actual);
 
 		// Get all bundle names as list
@@ -180,7 +185,20 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		}
 	}
 
-	public BaseNames getOrCreateNew(final String baseName)
+	BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale)
+	{
+		BundleNames bundleNames = bundleNamesService.find(baseName, locale);
+		if (bundleNames == null)
+		{
+			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(baseName,
+				locale);
+			bundleNames = bundleNamesService.merge(bundleNames);
+		}
+		return bundleNames;
+
+	}
+
+	public BaseNames getOrCreateNewBaseNames(final String baseName)
 	{
 		// check if baseNames exists...
 		BaseNames expected = baseNamesService.find(baseName);
@@ -193,7 +211,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		return actual;
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindLanguageLocales()
 	{
 		final Locale germanLocale = Locale.GERMAN;
@@ -207,6 +225,18 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		final LanguageLocales actual = languageLocalesService.find(germanLocale);
 		AssertJUnit.assertNotNull(actual);
 		AssertJUnit.assertEquals(expected, actual);
+	}
+
+	public LanguageLocales getOrCreateNewLanguageLocales(final Locale locale)
+	{
+		LanguageLocales expected = languageLocalesService.find(locale);
+		if (expected == null)
+		{
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(locale);
+			expected = languageLocalesService.merge(expected);
+		}
+		final LanguageLocales actual = languageLocalesService.find(locale);
+		return actual;
 	}
 
 	/**
@@ -296,33 +326,41 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 *             the URI syntax exception
 	 * @throws IOException
 	 */
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		final String bundlepackage = "";
 		final String bundlename = "ApplicationBasePage";
 		final Map<File, Locale> fileToLocaleMap = LocaleResolver.resolveLocales(bundlepackage,
-			bundlename);
-
-		final LanguageLocales defaultLocale = bundleNamesService.getDefaultLocale(bundlename);
-
-		if (defaultLocale == null)
-		{
-			DefaultLocaleBaseNames.builder().build();
-		}
+			bundlename, false);
 
 		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet())
 		{
 			final File propertiesFile = entry.getKey();
-			final Locale locale = entry.getValue();
+			Locale locale = entry.getValue();
+			if (locale == null)
+			{
+				final BundleNames bundleNames = getOrCreateNewBundleNames(bundlename,
+					Locale.GERMANY);
+				LanguageLocales loc = bundleNamesService.getDefaultLocale(bundlename);
+				if (loc == null)
+				{
+					loc = getOrCreateNewLanguageLocales(Locale.GERMANY);
+					DefaultLocaleBaseNames defaultLocaleBaseNames = ResourceBundlesDomainObjectFactory
+						.getInstance().newDefaultLocaleBaseNames(bundleNames, loc);
+					defaultLocaleBaseNames = defaultLocaleBaseNamesService.merge(defaultLocaleBaseNames);
+					locale = Locale.GERMANY;
+				} else {
+					locale = LocaleResolver.resolveLocale(loc.getLocale());
+				}
+			}
 			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
 			resourcebundlesService.updateProperties(properties, bundlename, locale, false);
 		}
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
-		AssertJUnit.assertEquals(8, rb.size());
-		truncate();
+		AssertJUnit.assertEquals(627, rb.size());
 	}
 
 	/**

@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.service;
 
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Query;
 
@@ -41,6 +42,7 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
  * The class {@link BundleNamesBusinessService}.
@@ -60,9 +62,9 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleNames> find(BaseNames baseName) {
+	public List<BundleNames> find(final BaseNames baseName) {
 		if (baseName != null) {
-			return find(baseName.getName(), null);
+			return find(baseName.getName(), (String)null);
 		}
 		return null;
 	}
@@ -71,7 +73,7 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames find(BaseNames baseName, LanguageLocales languageLocales) {
+	public BundleNames find(final BaseNames baseName, final LanguageLocales languageLocales) {
 		String bn = null;
 		String ll = null;
 		if (baseName != null) {
@@ -91,7 +93,7 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BundleNames> find(String baseName, String locale) {
+	public List<BundleNames> find(final String baseName, final String locale) {
 		final String hqlString = HqlStringCreator.forBundleNames(baseName, locale);
 		final Query query = getQuery(hqlString);
 		if (baseName != null && !baseName.isEmpty()) {
@@ -109,7 +111,7 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(BundleNames bundleNames) {
+	public LanguageLocales getDefaultLocale(final BundleNames bundleNames) {
 		return defaultLocaleBaseNamesService.getDefaultLocale(bundleNames);
 	}
 
@@ -117,7 +119,7 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(String baseName) {
+	public LanguageLocales getDefaultLocale(final String baseName) {
 		return defaultLocaleBaseNamesService.getDefaultLocale(baseName);
 	}
 
@@ -127,6 +129,12 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	@Autowired
 	public void setBundleNamesDao(final BundleNamesDao dao) {
 		setDao(dao);
+	}
+
+	@Override
+	public BundleNames find(final String baseName, final Locale locale)
+	{
+		return ListExtensions.getFirst(find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
 	}
 
 }

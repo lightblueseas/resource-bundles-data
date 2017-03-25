@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.service.api;
 
 import java.util.List;
+import java.util.Locale;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -39,7 +40,7 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *
 	 * @param baseName
 	 *            the {@link BaseNames} object
-	 * 
+	 *
 	 * @return the list of found {@link BundleNames} objects or null if not.
 	 */
 	List<BundleNames> find(BaseNames baseName);
@@ -52,7 +53,7 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *            the base name
 	 * @param languageLocales
 	 *            the languageLocales
-	 * 
+	 *
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
 	BundleNames find(BaseNames baseName, LanguageLocales languageLocales);
@@ -64,10 +65,22 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 * 
+	 *
 	 * @return the list of found {@link BaseNames} objects or null if not.
 	 */
 	List<BundleNames> find(final String baseName, final String locale);
+
+	/**
+	 * Find all {@link BundleNames} object from the given baseName and locale.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 *
+	 * @return the found {@link BaseNames} object or null if not.
+	 */
+	BundleNames find(final String baseName, final Locale locale);
 
 	/**
 	 * Gets the default locale from the given {@link BaseNames} object.
