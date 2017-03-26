@@ -10,6 +10,8 @@
 
 	<artifactId>resource-bundles-rest-web</artifactId>
 	<packaging>war</packaging>
+	
+	<description>Rest web application that provides rest api for access to resource bundles for I18N applications</description>
 
 	<properties>
 		<war-name>resource-bundles-rest-webapp</war-name>
