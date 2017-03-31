@@ -168,7 +168,8 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param name
 	 *            the name
-	 * 
+	 * @param iso639Dash1
+	 *            the iso 639 dash 1
 	 * @return the new {@link Languages}
 	 */
 	public Languages newLanguages(String name, String iso639Dash1) {
