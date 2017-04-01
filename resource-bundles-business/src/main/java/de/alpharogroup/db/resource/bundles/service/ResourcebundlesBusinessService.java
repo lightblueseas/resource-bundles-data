@@ -286,6 +286,7 @@ public class ResourcebundlesBusinessService extends
 		Check.get()
 		.notEmpty(baseName, "baseName")
 		.notNull(locale, "locale");
+		BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
 		for (final Map.Entry<Object, Object> element : properties.entrySet()) {
 			final String key = element.getKey().toString().trim();
 			final String value = element.getValue().toString().trim();
@@ -295,7 +296,6 @@ public class ResourcebundlesBusinessService extends
 					resourcebundle.setValue(value);
 				}
 			} else {
-				BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
 				PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
 				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey, value);
 			}
