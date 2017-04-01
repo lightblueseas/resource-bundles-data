@@ -100,22 +100,9 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *            the locale
 	 * @return the new {@link BundleNames}
 	 */
-	public BundleNames newBundleName(final String baseName, final Locale locale) {
-		return newBundleName(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale));
-	}
-
-	/**
-	 * Factory method for create a new {@link BundleNames}.
-	 *
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @return the new {@link BundleNames}
-	 */
-	public BundleNames newBundleName(final String baseName, final String locale) {
-		final BundleNames bundleNames = BundleNames.builder().baseName(newBaseNames(baseName))
-				.locale(newLanguageLocales(locale)).build();
+	public BundleNames newBundleName(final BaseNames baseName, final LanguageLocales locale) {
+		final BundleNames bundleNames = BundleNames.builder().baseName(baseName)
+				.locale(locale).build();
 		return bundleNames;
 	}
 
@@ -186,6 +173,44 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	public PropertiesKeys newPropertiesKeys(final String name) {
 		return PropertiesKeys.builder().name(name).build();
 	}
+//
+//	/**
+//	 * Factory method for create a new {@link Resourcebundles}.
+//	 *
+//	 * @param baseName
+//	 *            the bundlename
+//	 * @param locale
+//	 *            the locale
+//	 * @param propertieskey
+//	 *            the propertieskey
+//	 * @param value
+//	 *            the value
+//	 * @return the new {@link Resourcebundles}
+//	 */
+//	public Resourcebundles newResourcebundles(final String baseName, final Locale locale, final String propertieskey, final String value) {
+//		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
+//				.key(newPropertiesKeys(propertieskey)).value(value).build();
+//		return resourcebundles;
+//	}
+//
+//	/**
+//	 * Factory method for create a new {@link Resourcebundles}.
+//	 *
+//	 * @param baseName
+//	 *            the bundlename
+//	 * @param locale
+//	 *            the locale
+//	 * @param propertieskey
+//	 *            the propertieskey
+//	 * @param value
+//	 *            the value
+//	 * @return the new {@link Resourcebundles}
+//	 */
+//	public Resourcebundles newResourcebundles(final String baseName, final String locale, final String propertieskey, final String value) {
+//		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
+//				.key(newPropertiesKeys(propertieskey)).value(value).build();
+//		return resourcebundles;
+//	}
 
 	/**
 	 * Factory method for create a new {@link Resourcebundles}.
@@ -200,29 +225,12 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *            the value
 	 * @return the new {@link Resourcebundles}
 	 */
-	public Resourcebundles newResourcebundles(final String baseName, final Locale locale, final String propertieskey, final String value) {
-		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
-				.key(newPropertiesKeys(propertieskey)).value(value).build();
+	public Resourcebundles newResourcebundles(final BundleNames bundleName, final PropertiesKeys key, final String value) {
+		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(bundleName)
+				.key(key).value(value).build();
 		return resourcebundles;
 	}
-
-	/**
-	 * Factory method for create a new {@link Resourcebundles}.
-	 *
-	 * @param baseName
-	 *            the bundlename
-	 * @param locale
-	 *            the locale
-	 * @param propertieskey
-	 *            the propertieskey
-	 * @param value
-	 *            the value
-	 * @return the new {@link Resourcebundles}
-	 */
-	public Resourcebundles newResourcebundles(final String baseName, final String locale, final String propertieskey, final String value) {
-		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
-				.key(newPropertiesKeys(propertieskey)).value(value).build();
-		return resourcebundles;
-	}
+	
+	
 
 }

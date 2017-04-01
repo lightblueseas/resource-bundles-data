@@ -102,4 +102,15 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *         object or null if not set.
 	 */
 	LanguageLocales getDefaultLocale(String baseName);
+
+	/**
+	 * Gets the or creates a new {@link BundleNames} object.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the {@link BundleNames} object
+	 */
+	BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale);
 }

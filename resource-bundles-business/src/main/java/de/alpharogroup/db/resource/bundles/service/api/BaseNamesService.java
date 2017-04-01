@@ -38,4 +38,13 @@ public interface BaseNamesService extends BusinessService<BaseNames, Integer> {
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
 	BaseNames find(final String baseName);
+
+	/**
+	 * Gets the or creates a new {@link BaseNames} object.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @return the {@link BaseNames} object
+	 */
+	BaseNames getOrCreateNewBaseNames(final String baseName);
 }

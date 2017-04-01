@@ -35,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.PropertiesKeysDao;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -71,6 +72,17 @@ public class PropertiesKeysBusinessService extends AbstractBusinessService<Prope
 	@Autowired
 	public void setPropertiesKeysDao(final PropertiesKeysDao dao) {
 		setDao(dao);
+	}
+	
+
+	
+	public PropertiesKeys getOrCreateNewPropertiesKeys(final String key) {
+		PropertiesKeys pkey = find(key);
+		if(pkey == null){
+			pkey = ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(key);
+			pkey = merge(pkey);
+		}
+		return pkey;
 	}
 
 }

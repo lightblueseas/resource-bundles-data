@@ -38,8 +38,11 @@ import de.alpharogroup.db.resource.bundles.daos.BundleNamesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
@@ -56,7 +59,15 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;
+	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;	
+
+	/** The base names service. */
+	@Autowired
+	private BaseNamesService baseNamesService;
+
+	/** The language locales service. */
+	@Autowired
+	private LanguageLocalesService languageLocalesService;
 
 	/**
 	 * {@inheritDoc}
@@ -135,6 +146,21 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	public BundleNames find(final String baseName, final Locale locale)
 	{
 		return ListExtensions.getFirst(find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
+	}	
+
+	@Override
+	public BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale)
+	{
+		BundleNames bundleNames = find(baseName, locale);
+		if (bundleNames == null)
+		{
+			LanguageLocales dbLocale = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+			BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);			
+			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(bn,
+					dbLocale);
+			bundleNames = merge(bundleNames);
+		}
+		return bundleNames;
 	}
 
 }

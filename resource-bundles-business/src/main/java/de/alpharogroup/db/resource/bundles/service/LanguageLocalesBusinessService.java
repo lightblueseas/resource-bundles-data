@@ -36,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.LanguageLocalesDao;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -77,6 +78,15 @@ public class LanguageLocalesBusinessService extends
 	@Autowired
 	public void setLanguageLocalesDao(final LanguageLocalesDao dao) {
 		setDao(dao);
+	}
+
+	public LanguageLocales getOrCreateNewLanguageLocales(final Locale locale) {
+		LanguageLocales expected = find(locale);
+		if (expected == null) {
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(locale);
+			expected = merge(expected);
+		}
+		return expected;
 	}
 
 }
