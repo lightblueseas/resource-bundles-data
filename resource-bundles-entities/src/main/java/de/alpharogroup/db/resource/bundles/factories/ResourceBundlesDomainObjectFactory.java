@@ -83,11 +83,13 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param name
 	 *            the name
-	 *
+	 * @param defaultLocale
+	 *            the default locale
 	 * @return the new {@link BundleApplications}
 	 */
 	public BundleApplications newBundleApplications(final String name, final LanguageLocales defaultLocale) {
-		final BundleApplications bundleApplications = BundleApplications.builder().name(name).defaultLocale(defaultLocale).build();
+		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
+				.defaultLocale(defaultLocale).build();
 		return bundleApplications;
 	}
 
@@ -101,8 +103,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 * @return the new {@link BundleNames}
 	 */
 	public BundleNames newBundleName(final BaseNames baseName, final LanguageLocales locale) {
-		final BundleNames bundleNames = BundleNames.builder().baseName(baseName)
-				.locale(locale).build();
+		final BundleNames bundleNames = BundleNames.builder().baseName(baseName).locale(locale).build();
 		return bundleNames;
 	}
 
@@ -117,7 +118,8 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @return the new {@link DefaultLocaleBaseNames}
 	 */
-	public DefaultLocaleBaseNames newDefaultLocaleBaseNames(final BundleNames bundleName, final LanguageLocales defaultLocale) {
+	public DefaultLocaleBaseNames newDefaultLocaleBaseNames(final BundleNames bundleName,
+			final LanguageLocales defaultLocale) {
 		final DefaultLocaleBaseNames defaultLocaleBaseNames = DefaultLocaleBaseNames.builder().bundleName(bundleName)
 				.defaultLocale(defaultLocale).build();
 		return defaultLocaleBaseNames;
@@ -155,7 +157,8 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param name
 	 *            the name
-	 *
+	 * @param iso639Dash1
+	 *            the iso 639 dash 1
 	 * @return the new {@link Languages}
 	 */
 	public Languages newLanguages(final String name, final String iso639Dash1) {
@@ -173,64 +176,23 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	public PropertiesKeys newPropertiesKeys(final String name) {
 		return PropertiesKeys.builder().name(name).build();
 	}
-//
-//	/**
-//	 * Factory method for create a new {@link Resourcebundles}.
-//	 *
-//	 * @param baseName
-//	 *            the bundlename
-//	 * @param locale
-//	 *            the locale
-//	 * @param propertieskey
-//	 *            the propertieskey
-//	 * @param value
-//	 *            the value
-//	 * @return the new {@link Resourcebundles}
-//	 */
-//	public Resourcebundles newResourcebundles(final String baseName, final Locale locale, final String propertieskey, final String value) {
-//		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
-//				.key(newPropertiesKeys(propertieskey)).value(value).build();
-//		return resourcebundles;
-//	}
-//
-//	/**
-//	 * Factory method for create a new {@link Resourcebundles}.
-//	 *
-//	 * @param baseName
-//	 *            the bundlename
-//	 * @param locale
-//	 *            the locale
-//	 * @param propertieskey
-//	 *            the propertieskey
-//	 * @param value
-//	 *            the value
-//	 * @return the new {@link Resourcebundles}
-//	 */
-//	public Resourcebundles newResourcebundles(final String baseName, final String locale, final String propertieskey, final String value) {
-//		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
-//				.key(newPropertiesKeys(propertieskey)).value(value).build();
-//		return resourcebundles;
-//	}
 
 	/**
 	 * Factory method for create a new {@link Resourcebundles}.
 	 *
-	 * @param baseName
-	 *            the bundlename
-	 * @param locale
-	 *            the locale
-	 * @param propertieskey
-	 *            the propertieskey
+	 * @param bundleName
+	 *            the bundle name
+	 * @param key
+	 *            the key
 	 * @param value
 	 *            the value
 	 * @return the new {@link Resourcebundles}
 	 */
-	public Resourcebundles newResourcebundles(final BundleNames bundleName, final PropertiesKeys key, final String value) {
-		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(bundleName)
-				.key(key).value(value).build();
+	public Resourcebundles newResourcebundles(final BundleNames bundleName, final PropertiesKeys key,
+			final String value) {
+		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(bundleName).key(key).value(value)
+				.build();
 		return resourcebundles;
 	}
-	
-	
 
 }

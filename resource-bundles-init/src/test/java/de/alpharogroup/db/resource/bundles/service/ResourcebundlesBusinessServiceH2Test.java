@@ -63,10 +63,10 @@ import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 
 /**
- * The class {@link ResourcebundlesBusinessServiceTest}.
+ * The class {@link ResourcebundlesBusinessServiceH2Test}.
  */
-@ContextConfiguration(locations = "classpath:test-applicationContext.xml")
-public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
+@ContextConfiguration(locations = "classpath:test-h2-applicationContext.xml")
+public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringContextTests
 {
 
 	/** The resourcebundles service. */
@@ -139,7 +139,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		this.resourcebundlesService = resourcebundlesService;
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testFindBaseNames()
 	{
 		// The base Name
@@ -156,7 +156,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		assertEquals(expected, actual);
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testFindBundleApplications()
 	{
 		final String applicationName = "foo-dating.com";
@@ -174,7 +174,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		assertEquals(expected, actual);
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testFindBundleNames()
 	{
 		// The base Name
@@ -189,7 +189,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	}
 
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testFindLanguageLocales()
 	{
 		final Locale germanLocale = Locale.GERMAN;
@@ -208,7 +208,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	/**
 	 * Test find resource bundles.
 	 */
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testFindResourceBundles()
 	{
 		initResourcebundles();
@@ -233,7 +233,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 *             the URI syntax exception
 	 * @throws IOException
 	 */
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testUpdateProperties() throws URISyntaxException, IOException
 	{
 		final String propertiesFilename = "test_de_DE.properties";
@@ -255,7 +255,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 *             the URI syntax exception
 	 * @throws IOException
 	 */
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		final String bundlepackage = "";
