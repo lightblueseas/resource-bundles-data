@@ -33,7 +33,8 @@ import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
  * The class {@link DefaultLocaleBaseNamesDao}.
  */
 @Repository("defaultLocaleBaseNamesDao")
-public class DefaultLocaleBaseNamesDao extends JpaEntityManagerDao<DefaultLocaleBaseNames, Integer> {
+public class DefaultLocaleBaseNamesDao extends JpaEntityManagerDao<DefaultLocaleBaseNames, Integer>
+{
 	/**
 	 * The serialVersionUID.
 	 */

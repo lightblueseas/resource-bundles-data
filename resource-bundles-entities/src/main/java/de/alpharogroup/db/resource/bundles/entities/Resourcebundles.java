@@ -51,7 +51,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Resourcebundles extends VersionableBaseEntity<Integer> implements Cloneable {
+public class Resourcebundles extends VersionableBaseEntity<Integer> implements Cloneable
+{
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;

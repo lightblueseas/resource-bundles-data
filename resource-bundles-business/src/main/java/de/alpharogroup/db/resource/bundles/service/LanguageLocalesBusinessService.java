@@ -47,13 +47,18 @@ import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
  */
 @Transactional
 @Service("languageLocalesService")
-public class LanguageLocalesBusinessService extends
-		AbstractBusinessService<LanguageLocales, Integer, LanguageLocalesDao> implements LanguageLocalesService {
+public class LanguageLocalesBusinessService
+	extends
+		AbstractBusinessService<LanguageLocales, Integer, LanguageLocalesDao>
+	implements
+		LanguageLocalesService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	public LanguageLocales find(Locale locale) {
+	public LanguageLocales find(Locale locale)
+	{
 		return find(LocaleExtensions.getLocaleFilenameSuffix(locale));
 	}
 
@@ -62,31 +67,36 @@ public class LanguageLocalesBusinessService extends
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public LanguageLocales find(String locale) {
+	public LanguageLocales find(String locale)
+	{
 		final String hqlString = HqlStringCreator.forLanguageLocales(locale);
 		final Query query = getQuery(hqlString);
-		if (locale != null && !locale.isEmpty()) {
+		if (locale != null && !locale.isEmpty())
+		{
 			query.setParameter("locale", locale);
 		}
 		final List<LanguageLocales> languageLocales = query.getResultList();
 		return ListExtensions.getFirst(languageLocales);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Autowired
-	public void setLanguageLocalesDao(final LanguageLocalesDao dao) {
-		setDao(dao);
-	}
-
-	public LanguageLocales getOrCreateNewLanguageLocales(final Locale locale) {
+	public LanguageLocales getOrCreateNewLanguageLocales(final Locale locale)
+	{
 		LanguageLocales expected = find(locale);
-		if (expected == null) {
+		if (expected == null)
+		{
 			expected = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(locale);
 			expected = merge(expected);
 		}
 		return expected;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Autowired
+	public void setLanguageLocalesDao(final LanguageLocalesDao dao)
+	{
+		setDao(dao);
 	}
 
 }

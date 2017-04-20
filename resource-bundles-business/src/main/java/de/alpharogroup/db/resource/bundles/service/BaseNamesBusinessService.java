@@ -45,8 +45,12 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
  */
 @Transactional
 @Service("baseNamesService")
-public class BaseNamesBusinessService extends AbstractBusinessService<BaseNames, Integer, BaseNamesDao>
-		implements BaseNamesService {
+public class BaseNamesBusinessService
+	extends
+		AbstractBusinessService<BaseNames, Integer, BaseNamesDao>
+	implements
+		BaseNamesService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -56,24 +60,17 @@ public class BaseNamesBusinessService extends AbstractBusinessService<BaseNames,
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public BaseNames find(String baseName) {
+	public BaseNames find(String baseName)
+	{
 		final String hqlString = HqlStringCreator.forBaseNames(baseName);
 		final Query query = getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty()) {
+		if (baseName != null && !baseName.isEmpty())
+		{
 			query.setParameter("baseName", baseName);
 		}
 		final List<BaseNames> baseNames = query.getResultList();
 		return ListExtensions.getFirst(baseNames);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Autowired
-	public void setBaseNamesDao(final BaseNamesDao dao) {
-		setDao(dao);
-	}	
-
 
 	public BaseNames getOrCreateNewBaseNames(final String baseName)
 	{
@@ -85,6 +82,16 @@ public class BaseNamesBusinessService extends AbstractBusinessService<BaseNames,
 			foundBaseName = merge(foundBaseName);
 		}
 		return foundBaseName;
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Autowired
+	public void setBaseNamesDao(final BaseNamesDao dao)
+	{
+		setDao(dao);
 	}
 
 }

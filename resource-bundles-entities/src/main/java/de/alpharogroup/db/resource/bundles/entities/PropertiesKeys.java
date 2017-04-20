@@ -43,7 +43,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class PropertiesKeys extends ExtraLargeNameBaseEntity<Integer> implements Cloneable {
+public class PropertiesKeys extends ExtraLargeNameBaseEntity<Integer> implements Cloneable
+{
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
@@ -55,7 +56,8 @@ public class PropertiesKeys extends ExtraLargeNameBaseEntity<Integer> implements
 	 *            the name
 	 */
 	@Builder
-	PropertiesKeys(String name) {
+	PropertiesKeys(String name)
+	{
 		super(name);
 	}
 

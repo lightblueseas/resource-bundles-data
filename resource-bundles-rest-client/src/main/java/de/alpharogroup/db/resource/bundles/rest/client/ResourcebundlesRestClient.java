@@ -29,10 +29,11 @@ import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import lombok.Getter;
 
 /**
- * The class {@link ResourcebundlesRestClient} is a rest client for the
- * resource-bundles that are persists in the database.
+ * The class {@link ResourcebundlesRestClient} is a rest client for the resource-bundles that are
+ * persists in the database.
  */
-public class ResourcebundlesRestClient extends AbstractRestClient {
+public class ResourcebundlesRestClient extends AbstractRestClient
+{
 
 	/**
 	 * The {@link ResourcebundlesResource}.
@@ -41,10 +42,10 @@ public class ResourcebundlesRestClient extends AbstractRestClient {
 	private final ResourcebundlesResource resourcebundlesResource;
 
 	/**
-	 * Instantiates a new {@link ResourcebundlesRestClient} with the default
-	 * base url.
+	 * Instantiates a new {@link ResourcebundlesRestClient} with the default base url.
 	 */
-	public ResourcebundlesRestClient() {
+	public ResourcebundlesRestClient()
+	{
 		this(DEFAULT_BASE_HTTP_URL);
 	}
 
@@ -54,7 +55,8 @@ public class ResourcebundlesRestClient extends AbstractRestClient {
 	 * @param baseUrl
 	 *            the base url
 	 */
-	public ResourcebundlesRestClient(final String baseUrl) {
+	public ResourcebundlesRestClient(final String baseUrl)
+	{
 		super(baseUrl);
 		resourcebundlesResource = newResource(ResourcebundlesResource.class);
 	}

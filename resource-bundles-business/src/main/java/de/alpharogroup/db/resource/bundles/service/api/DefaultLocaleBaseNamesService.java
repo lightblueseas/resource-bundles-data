@@ -30,7 +30,10 @@ import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
 
-public interface DefaultLocaleBaseNamesService extends BusinessService<DefaultLocaleBaseNames, Integer> {
+public interface DefaultLocaleBaseNamesService
+	extends
+		BusinessService<DefaultLocaleBaseNames, Integer>
+{
 
 	/**
 	 * Find the {@link DefaultLocaleBaseNames} object from the given baseName.
@@ -47,19 +50,17 @@ public interface DefaultLocaleBaseNamesService extends BusinessService<DefaultLo
 	 *
 	 * @param bundleNames
 	 *            the bundle names
-	 * @return the default locale from the given {@link BaseNames} object or
-	 *         null if not set.
+	 * @return the default locale from the given {@link BaseNames} object or null if not set.
 	 */
 	LanguageLocales getDefaultLocale(BundleNames bundleNames);
 
 	/**
-	 * Gets the default locale from the given base name as {@link String}
-	 * object.
+	 * Gets the default locale from the given base name as {@link String} object.
 	 *
 	 * @param baseName
 	 *            the base name
-	 * @return the default locale from the given base name as {@link String}
-	 *         object or null if not set.
+	 * @return the default locale from the given base name as {@link String} object or null if not
+	 *         set.
 	 */
 	LanguageLocales getDefaultLocale(String baseName);
 }

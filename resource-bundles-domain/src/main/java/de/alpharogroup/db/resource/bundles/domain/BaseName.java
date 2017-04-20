@@ -41,7 +41,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Builder
-public class BaseName extends NameBaseDomainObject<Integer> {
+public class BaseName extends NameBaseDomainObject<Integer>
+{
 
 	/**
 	 * The serialVersionUID.

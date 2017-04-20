@@ -27,7 +27,8 @@ package de.alpharogroup.db.resource.bundles.service.api;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.service.api.BusinessService;
 
-public interface PropertiesKeysService extends BusinessService<PropertiesKeys, Integer> {
+public interface PropertiesKeysService extends BusinessService<PropertiesKeys, Integer>
+{
 
 	/**
 	 * Find the {@link PropertiesKeys} object from the given properties key.

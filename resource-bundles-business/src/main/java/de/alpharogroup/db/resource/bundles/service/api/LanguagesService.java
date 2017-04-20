@@ -30,7 +30,8 @@ import de.alpharogroup.db.service.api.BusinessService;
 /**
  * The interface {@link LanguagesService}.
  */
-public interface LanguagesService extends BusinessService<Languages, Integer> {
+public interface LanguagesService extends BusinessService<Languages, Integer>
+{
 
 	/**
 	 * Find the {@link Languages} object from the name baseName and iso639Dash1.

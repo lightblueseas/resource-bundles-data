@@ -34,5 +34,6 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
  * The class {@link BundleNamesMapper}.
  */
 @Component
-public class BundleNamesMapper extends AbstractEntityDOMapper<BundleNames, BundleName> {
+public class BundleNamesMapper extends AbstractEntityDOMapper<BundleNames, BundleName>
+{
 }

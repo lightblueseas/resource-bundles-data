@@ -43,7 +43,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable {
+public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable
+{
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
@@ -55,7 +56,8 @@ public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable
 	 *            the name
 	 */
 	@Builder
-	BaseNames(String name) {
+	BaseNames(String name)
+	{
 		super(name);
 	}
 }

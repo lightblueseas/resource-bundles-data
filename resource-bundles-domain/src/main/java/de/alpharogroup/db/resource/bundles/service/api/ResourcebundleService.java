@@ -35,7 +35,8 @@ import de.alpharogroup.service.domain.DomainService;
 /**
  * The interface {@link ResourcebundleService}.
  */
-public interface ResourcebundleService extends DomainService<Integer, Resourcebundle> {
+public interface ResourcebundleService extends DomainService<Integer, Resourcebundle>
+{
 
 	/**
 	 * Checks if a resource exists with the given parameters.
@@ -77,8 +78,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	Resourcebundle find(String baseName, String locale, String key);
 
 	/**
-	 * Finds all entries from the given parameters that can be null if it shell
-	 * be ignored.
+	 * Finds all entries from the given parameters that can be null if it shell be ignored.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -104,8 +104,8 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	List<Resourcebundle> findResourceBundles(String baseName, Locale locale);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given
-	 * {@link Locale} object.
+	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
+	 * object.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -116,8 +116,8 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	Properties getProperties(final String baseName, final Locale locale);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given
-	 * locale code as {@link String} object.
+	 * Get the {@link Properties} object from the given baseName and the given locale code as
+	 * {@link String} object.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -207,7 +207,8 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the parameters
 	 * @return the {@link String}
 	 */
-	String getString(String baseName, String locale, String key, final String defaultValue, Object[] params);
+	String getString(String baseName, String locale, String key, final String defaultValue,
+		Object[] params);
 
 	/**
 	 * Update the given properties to the db.

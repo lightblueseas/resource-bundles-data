@@ -34,5 +34,6 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
  * The class {@link ResourcebundlesMapper}.
  */
 @Component
-public class ResourcebundlesMapper extends AbstractEntityDOMapper<Resourcebundles, Resourcebundle> {
+public class ResourcebundlesMapper extends AbstractEntityDOMapper<Resourcebundles, Resourcebundle>
+{
 }

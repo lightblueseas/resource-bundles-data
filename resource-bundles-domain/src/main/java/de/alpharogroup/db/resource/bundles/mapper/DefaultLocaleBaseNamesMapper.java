@@ -35,5 +35,7 @@ import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
  */
 @Component
 public class DefaultLocaleBaseNamesMapper
-		extends AbstractEntityDOMapper<DefaultLocaleBaseNames, DefaultLocaleBaseName> {
+	extends
+		AbstractEntityDOMapper<DefaultLocaleBaseNames, DefaultLocaleBaseName>
+{
 }

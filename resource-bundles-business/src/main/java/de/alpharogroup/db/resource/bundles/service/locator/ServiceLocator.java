@@ -36,7 +36,8 @@ import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 /**
  * The interface {@link ServiceLocator}.
  */
-public interface ServiceLocator {
+public interface ServiceLocator
+{
 
 	BaseNamesService getBaseNamesService();
 
@@ -65,7 +66,8 @@ public interface ServiceLocator {
 
 	void setBundleNamesService(BundleNamesService bundleNamesService);
 
-	void setDefaultLocaleBaseNamesService(DefaultLocaleBaseNamesService defaultLocaleBaseNamesService);
+	void setDefaultLocaleBaseNamesService(
+		DefaultLocaleBaseNamesService defaultLocaleBaseNamesService);
 
 	void setLanguageLocalesService(LanguageLocalesService languageLocalesService);
 

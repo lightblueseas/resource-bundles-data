@@ -34,5 +34,6 @@ import de.alpharogroup.db.resource.bundles.entities.Languages;
  * The class {@link LanguagesMapper}.
  */
 @Component
-public class LanguagesMapper extends AbstractEntityDOMapper<Languages, Language> {
+public class LanguagesMapper extends AbstractEntityDOMapper<Languages, Language>
+{
 }

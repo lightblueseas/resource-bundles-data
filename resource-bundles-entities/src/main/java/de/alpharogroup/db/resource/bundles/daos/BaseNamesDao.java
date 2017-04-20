@@ -33,7 +33,8 @@ import de.alpharogroup.db.resource.bundles.entities.BaseNames;
  * The class {@link BaseNamesDao}.
  */
 @Repository("baseNamesDao")
-public class BaseNamesDao extends JpaEntityManagerDao<BaseNames, Integer> {
+public class BaseNamesDao extends JpaEntityManagerDao<BaseNames, Integer>
+{
 	/**
 	 * The serialVersionUID.
 	 */

@@ -36,7 +36,8 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 /**
  * The class {@link HqlStringCreator} creates hql queries as string objects.
  */
-public class HqlStringCreator {
+public class HqlStringCreator
+{
 
 	/**
 	 * Creates hql query for {@link BaseNames}.
@@ -46,11 +47,13 @@ public class HqlStringCreator {
 	 * 
 	 * @return the hql string
 	 */
-	public static String forBaseNames(final String baseName) {
+	public static String forBaseNames(final String baseName)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + BaseNames.class.getSimpleName() + " bn");
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
-		if (baseNameIsNotNull) {
+		if (baseNameIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.name=:baseName");
 		}
@@ -65,11 +68,13 @@ public class HqlStringCreator {
 	 * 
 	 * @return the hql string
 	 */
-	public static String forBundleApplications(final String name) {
+	public static String forBundleApplications(final String name)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + BundleApplications.class.getSimpleName() + " bn");
 		final boolean baseNameIsNotNull = name != null && !name.isEmpty();
-		if (baseNameIsNotNull) {
+		if (baseNameIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.name=:name");
 		}
@@ -86,20 +91,26 @@ public class HqlStringCreator {
 	 * 
 	 * @return the string
 	 */
-	public static String forBundleNames(final String baseName, final String locale) {
+	public static String forBundleNames(final String baseName, final String locale)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + BundleNames.class.getSimpleName() + " bn");
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
-		if (baseNameIsNotNull) {
+		if (baseNameIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.baseName.name=:baseName");
 		}
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
-		if (localeIsNotNull) {
+		if (localeIsNotNull)
+		{
 			sb.append(" ");
-			if (baseNameIsNotNull) {
+			if (baseNameIsNotNull)
+			{
 				sb.append("and bn.locale.locale=:locale");
-			} else {
+			}
+			else
+			{
 				sb.append("where bn.locale.locale=:locale");
 			}
 		}
@@ -116,20 +127,26 @@ public class HqlStringCreator {
 	 * 
 	 * @return the string
 	 */
-	public static String forDefaultLocaleBaseNames(final String baseName, final String locale) {
+	public static String forDefaultLocaleBaseNames(final String baseName, final String locale)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + DefaultLocaleBaseNames.class.getSimpleName() + " bn");
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
-		if (baseNameIsNotNull) {
+		if (baseNameIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.bundleName.baseName.name=:baseName");
 		}
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
-		if (localeIsNotNull) {
+		if (localeIsNotNull)
+		{
 			sb.append(" ");
-			if (baseNameIsNotNull) {
+			if (baseNameIsNotNull)
+			{
 				sb.append("and bn.defaultLocale.locale=:locale");
-			} else {
+			}
+			else
+			{
 				sb.append("where bn.defaultLocale.locale=:locale");
 			}
 		}
@@ -146,11 +163,13 @@ public class HqlStringCreator {
 	 * 
 	 * @return the hql string
 	 */
-	public static String forLanguageLocales(final String locale) {
+	public static String forLanguageLocales(final String locale)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + LanguageLocales.class.getSimpleName() + " bn");
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
-		if (localeIsNotNull) {
+		if (localeIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.locale=:locale");
 		}
@@ -167,20 +186,26 @@ public class HqlStringCreator {
 	 * 
 	 * @return the hql string
 	 */
-	public static String forLanguages(final String name, final String iso639Dash1) {
+	public static String forLanguages(final String name, final String iso639Dash1)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + Languages.class.getSimpleName() + " bn");
 		final boolean nameIsNotNull = name != null && !name.isEmpty();
-		if (nameIsNotNull) {
+		if (nameIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.name=:name");
 		}
 		final boolean iso639Dash1IsNotNull = iso639Dash1 != null && !iso639Dash1.isEmpty();
-		if (iso639Dash1IsNotNull) {
+		if (iso639Dash1IsNotNull)
+		{
 			sb.append(" ");
-			if (nameIsNotNull) {
+			if (nameIsNotNull)
+			{
 				sb.append("and bn.iso639Dash1=:iso639Dash1");
-			} else {
+			}
+			else
+			{
 				sb.append("where bn.iso639Dash1=:iso639Dash1");
 			}
 		}
@@ -194,11 +219,13 @@ public class HqlStringCreator {
 	 *            the properties key
 	 * @return the hql string
 	 */
-	public static String forPropertiesKeys(final String propertiesKey) {
+	public static String forPropertiesKeys(final String propertiesKey)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + PropertiesKeys.class.getSimpleName() + " bn");
 		final boolean propertiesKeyIsNotNull = propertiesKey != null && !propertiesKey.isEmpty();
-		if (propertiesKeyIsNotNull) {
+		if (propertiesKeyIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where bn.name=:propertiesKey");
 		}
@@ -216,7 +243,9 @@ public class HqlStringCreator {
 	 *            the key
 	 * @return the string
 	 */
-	public static String forResourcebundles(final String baseName, final String locale, final String key) {
+	public static String forResourcebundles(final String baseName, final String locale,
+		final String key)
+	{
 		return forResourcebundles(baseName, locale, key, null);
 	}
 
@@ -233,39 +262,53 @@ public class HqlStringCreator {
 	 *            the value
 	 * @return the string
 	 */
-	public static String forResourcebundles(final String baseName, final String locale, final String key,
-			final String value) {
+	public static String forResourcebundles(final String baseName, final String locale,
+		final String key, final String value)
+	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select rb from " + Resourcebundles.class.getSimpleName() + " rb");
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
-		if (baseNameIsNotNull) {
+		if (baseNameIsNotNull)
+		{
 			sb.append(" ");
 			sb.append("where rb.bundleName.baseName.name=:baseName");
 		}
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
-		if (localeIsNotNull) {
+		if (localeIsNotNull)
+		{
 			sb.append(" ");
-			if (baseNameIsNotNull) {
+			if (baseNameIsNotNull)
+			{
 				sb.append("and rb.bundleName.locale.locale=:locale");
-			} else {
+			}
+			else
+			{
 				sb.append("where rb.bundleName.locale.locale=:locale");
 			}
 		}
 		final boolean keyIsNotNull = key != null && !key.isEmpty();
-		if (keyIsNotNull) {
+		if (keyIsNotNull)
+		{
 			sb.append(" ");
-			if (!baseNameIsNotNull && !localeIsNotNull) {
+			if (!baseNameIsNotNull && !localeIsNotNull)
+			{
 				sb.append("where rb.key.name=:key");
-			} else {
+			}
+			else
+			{
 				sb.append("and rb.key.name=:key");
 			}
 		}
 		final boolean valueIsNotNull = value != null && !value.isEmpty();
-		if (valueIsNotNull) {
+		if (valueIsNotNull)
+		{
 			sb.append(" ");
-			if (!baseNameIsNotNull && !localeIsNotNull && !keyIsNotNull) {
+			if (!baseNameIsNotNull && !localeIsNotNull && !keyIsNotNull)
+			{
 				sb.append("where rb.value=:value");
-			} else {
+			}
+			else
+			{
 				sb.append("and rb.value=:value");
 			}
 		}

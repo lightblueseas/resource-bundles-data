@@ -111,9 +111,12 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
-			BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames("resource.bundles", Locale.GERMAN);
-			PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey, "Erstes label");
+			BundleNames bundleName = bundleNamesService
+				.getOrCreateNewBundleNames("resource.bundles", Locale.GERMAN);
+			PropertiesKeys pkey = propertiesKeysService
+				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(bundleName, pkey, "Erstes label");
 			resourcebundlesService.saveOrUpdate(resourcebundles);
 		}
 
@@ -122,12 +125,16 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		if (resourcebundles == null)
 		{
 
-			BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames("resource.bundles", Locale.UK);
-			PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey, "First label");
+			BundleNames bundleName = bundleNamesService
+				.getOrCreateNewBundleNames("resource.bundles", Locale.UK);
+			PropertiesKeys pkey = propertiesKeysService
+				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(bundleName, pkey, "First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}
+
 	/**
 	 * Sets the resourcebundles service.
 	 *
@@ -163,7 +170,8 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		BundleApplications expected = bundleApplicationsService.find(applicationName);
 		if (expected == null)
 		{
-			final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
+			final LanguageLocales languageLocales = languageLocalesService
+				.getOrCreateNewLanguageLocales(Locale.GERMANY);
 			// and save to db...
 			expected = ResourceBundlesDomainObjectFactory.getInstance()
 				.newBundleApplications(applicationName, languageLocales);
@@ -242,7 +250,8 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		final Locale locale = LocaleResolver.resolveLocale(propertiesFile);
 		final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(properties, baseName, locale);
-		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findResourceBundles(baseName, locale));
+		final Set<Resourcebundles> rb = new HashSet<>(
+			resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
 		truncate();
 	}
@@ -269,17 +278,20 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			Locale locale = entry.getValue();
 			if (locale == null)
 			{
-				final BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundlename,
-					Locale.GERMANY);
+				final BundleNames bundleNames = bundleNamesService
+					.getOrCreateNewBundleNames(bundlename, Locale.GERMANY);
 				LanguageLocales loc = bundleNamesService.getDefaultLocale(bundlename);
 				if (loc == null)
 				{
 					loc = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 					DefaultLocaleBaseNames defaultLocaleBaseNames = ResourceBundlesDomainObjectFactory
 						.getInstance().newDefaultLocaleBaseNames(bundleNames, loc);
-					defaultLocaleBaseNames = defaultLocaleBaseNamesService.merge(defaultLocaleBaseNames);
+					defaultLocaleBaseNames = defaultLocaleBaseNamesService
+						.merge(defaultLocaleBaseNames);
 					locale = Locale.GERMANY;
-				} else {
+				}
+				else
+				{
 					locale = LocaleResolver.resolveLocale(loc.getLocale());
 				}
 			}

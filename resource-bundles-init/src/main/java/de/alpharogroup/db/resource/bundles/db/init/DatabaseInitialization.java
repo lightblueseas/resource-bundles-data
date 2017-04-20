@@ -32,10 +32,10 @@ import java.util.Properties;
 import de.alpharogroup.db.init.AbstractDatabaseInitialization;
 
 /**
- * The class {@link DatabaseInitialization} gets the SQL script and executes
- * them.
+ * The class {@link DatabaseInitialization} gets the SQL script and executes them.
  */
-public class DatabaseInitialization extends AbstractDatabaseInitialization {
+public class DatabaseInitialization extends AbstractDatabaseInitialization
+{
 
 	/**
 	 * Instantiates a new {@link DatabaseInitialization}.
@@ -43,14 +43,16 @@ public class DatabaseInitialization extends AbstractDatabaseInitialization {
 	 * @param databaseProperties
 	 *            the database properties
 	 */
-	public DatabaseInitialization(Properties databaseProperties) {
+	public DatabaseInitialization(Properties databaseProperties)
+	{
 		super(databaseProperties);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	protected List<File> getScriptFiles() {
+	protected List<File> getScriptFiles()
+	{
 		final File insertsDir = getInsertDir();
 		final List<File> scriptFiles = new ArrayList<>();
 		scriptFiles.add(new File(insertsDir, "insert_languages.sql"));

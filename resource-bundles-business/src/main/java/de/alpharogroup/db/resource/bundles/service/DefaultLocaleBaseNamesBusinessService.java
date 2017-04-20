@@ -47,8 +47,11 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Transactional
 @Service("defaultLocaleBaseNamesService")
 public class DefaultLocaleBaseNamesBusinessService
-		extends AbstractBusinessService<DefaultLocaleBaseNames, Integer, DefaultLocaleBaseNamesDao>
-		implements DefaultLocaleBaseNamesService {
+	extends
+		AbstractBusinessService<DefaultLocaleBaseNames, Integer, DefaultLocaleBaseNamesDao>
+	implements
+		DefaultLocaleBaseNamesService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -58,10 +61,12 @@ public class DefaultLocaleBaseNamesBusinessService
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public DefaultLocaleBaseNames find(String baseName) {
+	public DefaultLocaleBaseNames find(String baseName)
+	{
 		final String hqlString = HqlStringCreator.forDefaultLocaleBaseNames(baseName, null);
 		final Query query = getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty()) {
+		if (baseName != null && !baseName.isEmpty())
+		{
 			query.setParameter("baseName", baseName);
 		}
 		final List<DefaultLocaleBaseNames> defaultLocaleBaseNames = query.getResultList();
@@ -72,8 +77,10 @@ public class DefaultLocaleBaseNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(BundleNames bundleNames) {
-		if (bundleNames != null) {
+	public LanguageLocales getDefaultLocale(BundleNames bundleNames)
+	{
+		if (bundleNames != null)
+		{
 			String baseName = bundleNames.getBaseName().getName();
 			return getDefaultLocale(baseName);
 		}
@@ -84,9 +91,11 @@ public class DefaultLocaleBaseNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(String baseName) {
+	public LanguageLocales getDefaultLocale(String baseName)
+	{
 		DefaultLocaleBaseNames defaultLocaleBaseNames = find(baseName);
-		if (defaultLocaleBaseNames != null) {
+		if (defaultLocaleBaseNames != null)
+		{
 			return defaultLocaleBaseNames.getDefaultLocale();
 		}
 		return null;
@@ -96,7 +105,8 @@ public class DefaultLocaleBaseNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Autowired
-	public void setDefaultLocaleBaseNamesDao(final DefaultLocaleBaseNamesDao dao) {
+	public void setDefaultLocaleBaseNamesDao(final DefaultLocaleBaseNamesDao dao)
+	{
 		setDao(dao);
 	}
 

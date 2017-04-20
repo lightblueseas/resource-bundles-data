@@ -52,14 +52,18 @@ import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
  */
 @Transactional
 @Service("bundleNamesService")
-public class BundleNamesBusinessService extends AbstractBusinessService<BundleNames, Integer, BundleNamesDao>
-		implements BundleNamesService {
+public class BundleNamesBusinessService
+	extends
+		AbstractBusinessService<BundleNames, Integer, BundleNamesDao>
+	implements
+		BundleNamesService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;	
+	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;
 
 	/** The base names service. */
 	@Autowired
@@ -73,8 +77,10 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleNames> find(final BaseNames baseName) {
-		if (baseName != null) {
+	public List<BundleNames> find(final BaseNames baseName)
+	{
+		if (baseName != null)
+		{
 			return find(baseName.getName(), (String)null);
 		}
 		return null;
@@ -84,19 +90,30 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames find(final BaseNames baseName, final LanguageLocales languageLocales) {
+	public BundleNames find(final BaseNames baseName, final LanguageLocales languageLocales)
+	{
 		String bn = null;
 		String ll = null;
-		if (baseName != null) {
+		if (baseName != null)
+		{
 			bn = baseName.getName();
 		}
-		if (languageLocales != null) {
+		if (languageLocales != null)
+		{
 			ll = languageLocales.getLocale();
 		}
-		if (bn != null && ll != null) {
+		if (bn != null && ll != null)
+		{
 			return ListExtensions.getFirst(find(bn, ll));
 		}
 		return null;
+	}
+
+	@Override
+	public BundleNames find(final String baseName, final Locale locale)
+	{
+		return ListExtensions
+			.getFirst(find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
 	}
 
 	/**
@@ -104,13 +121,16 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BundleNames> find(final String baseName, final String locale) {
+	public List<BundleNames> find(final String baseName, final String locale)
+	{
 		final String hqlString = HqlStringCreator.forBundleNames(baseName, locale);
 		final Query query = getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty()) {
+		if (baseName != null && !baseName.isEmpty())
+		{
 			query.setParameter("baseName", baseName);
 		}
-		if (locale != null && !locale.isEmpty()) {
+		if (locale != null && !locale.isEmpty())
+		{
 			query.setParameter("locale", locale);
 		}
 
@@ -122,7 +142,8 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(final BundleNames bundleNames) {
+	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
+	{
 		return defaultLocaleBaseNamesService.getDefaultLocale(bundleNames);
 	}
 
@@ -130,23 +151,10 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(final String baseName) {
+	public LanguageLocales getDefaultLocale(final String baseName)
+	{
 		return defaultLocaleBaseNamesService.getDefaultLocale(baseName);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Autowired
-	public void setBundleNamesDao(final BundleNamesDao dao) {
-		setDao(dao);
-	}
-
-	@Override
-	public BundleNames find(final String baseName, final Locale locale)
-	{
-		return ListExtensions.getFirst(find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
-	}	
 
 	@Override
 	public BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale)
@@ -155,12 +163,21 @@ public class BundleNamesBusinessService extends AbstractBusinessService<BundleNa
 		if (bundleNames == null)
 		{
 			LanguageLocales dbLocale = languageLocalesService.getOrCreateNewLanguageLocales(locale);
-			BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);			
+			BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(bn,
-					dbLocale);
+				dbLocale);
 			bundleNames = merge(bundleNames);
 		}
 		return bundleNames;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Autowired
+	public void setBundleNamesDao(final BundleNamesDao dao)
+	{
+		setDao(dao);
 	}
 
 }
