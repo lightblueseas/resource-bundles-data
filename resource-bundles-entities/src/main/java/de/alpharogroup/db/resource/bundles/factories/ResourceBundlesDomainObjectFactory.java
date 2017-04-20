@@ -52,7 +52,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 
 	/**
 	 * Gets the single instance of MessageSystemFactory.
-	 * 
+	 *
 	 * @return single instance of MessageSystemFactory
 	 */
 	public static ResourceBundlesDomainObjectFactory getInstance() {
@@ -70,11 +70,11 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param name
 	 *            the name
-	 * 
+	 *
 	 * @return the new {@link BaseNames}
 	 */
-	public BaseNames newBaseNames(String name) {
-		BaseNames baseName = BaseNames.builder().name(name).build();
+	public BaseNames newBaseNames(final String name) {
+		final BaseNames baseName = BaseNames.builder().name(name).build();
 		return baseName;
 	}
 
@@ -83,11 +83,13 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param name
 	 *            the name
-	 * 
+	 * @param defaultLocale
+	 *            the default locale
 	 * @return the new {@link BundleApplications}
 	 */
-	public BundleApplications newBundleApplications(String name) {
-		BundleApplications bundleApplications = BundleApplications.builder().name(name).build();
+	public BundleApplications newBundleApplications(final String name, final LanguageLocales defaultLocale) {
+		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
+				.defaultLocale(defaultLocale).build();
 		return bundleApplications;
 	}
 
@@ -100,22 +102,8 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *            the locale
 	 * @return the new {@link BundleNames}
 	 */
-	public BundleNames newBundleName(String baseName, Locale locale) {
-		return newBundleName(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale));
-	}
-
-	/**
-	 * Factory method for create a new {@link BundleNames}.
-	 *
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @return the new {@link BundleNames}
-	 */
-	public BundleNames newBundleName(String baseName, String locale) {
-		BundleNames bundleNames = BundleNames.builder().baseName(newBaseNames(baseName))
-				.locale(newLanguageLocales(locale)).build();
+	public BundleNames newBundleName(final BaseNames baseName, final LanguageLocales locale) {
+		final BundleNames bundleNames = BundleNames.builder().baseName(baseName).locale(locale).build();
 		return bundleNames;
 	}
 
@@ -127,11 +115,12 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 * @param defaultLocale
 	 *            the default {@link LanguageLocales} object for the given
 	 *            {@link BundleNames} object
-	 * 
+	 *
 	 * @return the new {@link DefaultLocaleBaseNames}
 	 */
-	public DefaultLocaleBaseNames newDefaultLocaleBaseNames(BundleNames bundleName, LanguageLocales defaultLocale) {
-		DefaultLocaleBaseNames defaultLocaleBaseNames = DefaultLocaleBaseNames.builder().bundleName(bundleName)
+	public DefaultLocaleBaseNames newDefaultLocaleBaseNames(final BundleNames bundleName,
+			final LanguageLocales defaultLocale) {
+		final DefaultLocaleBaseNames defaultLocaleBaseNames = DefaultLocaleBaseNames.builder().bundleName(bundleName)
 				.defaultLocale(defaultLocale).build();
 		return defaultLocaleBaseNames;
 	}
@@ -141,11 +130,11 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param locale
 	 *            the {@link Locale} object.
-	 * 
+	 *
 	 * @return the new {@link LanguageLocales}
 	 */
-	public LanguageLocales newLanguageLocales(Locale locale) {
-		LanguageLocales languageLocales = LanguageLocales.builder()
+	public LanguageLocales newLanguageLocales(final Locale locale) {
+		final LanguageLocales languageLocales = LanguageLocales.builder()
 				.locale(LocaleExtensions.getLocaleFilenameSuffix(locale)).build();
 		return languageLocales;
 	}
@@ -155,11 +144,11 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param locale
 	 *            the locale
-	 * 
+	 *
 	 * @return the new {@link LanguageLocales}
 	 */
-	public LanguageLocales newLanguageLocales(String locale) {
-		LanguageLocales languageLocales = LanguageLocales.builder().locale(locale).build();
+	public LanguageLocales newLanguageLocales(final String locale) {
+		final LanguageLocales languageLocales = LanguageLocales.builder().locale(locale).build();
 		return languageLocales;
 	}
 
@@ -172,7 +161,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *            the iso 639 dash 1
 	 * @return the new {@link Languages}
 	 */
-	public Languages newLanguages(String name, String iso639Dash1) {
+	public Languages newLanguages(final String name, final String iso639Dash1) {
 		return Languages.builder().name(name).iso639Dash1(iso639Dash1).build();
 	}
 
@@ -181,48 +170,28 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 	 *
 	 * @param name
 	 *            the name
-	 * 
+	 *
 	 * @return the new {@link PropertiesKeys}
 	 */
-	public PropertiesKeys newPropertiesKeys(String name) {
+	public PropertiesKeys newPropertiesKeys(final String name) {
 		return PropertiesKeys.builder().name(name).build();
 	}
 
 	/**
 	 * Factory method for create a new {@link Resourcebundles}.
 	 *
-	 * @param baseName
-	 *            the bundlename
-	 * @param locale
-	 *            the locale
-	 * @param propertieskey
-	 *            the propertieskey
+	 * @param bundleName
+	 *            the bundle name
+	 * @param key
+	 *            the key
 	 * @param value
 	 *            the value
 	 * @return the new {@link Resourcebundles}
 	 */
-	public Resourcebundles newResourcebundles(String baseName, Locale locale, String propertieskey, String value) {
-		Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
-				.key(newPropertiesKeys(propertieskey)).value(value).build();
-		return resourcebundles;
-	}
-
-	/**
-	 * Factory method for create a new {@link Resourcebundles}.
-	 *
-	 * @param baseName
-	 *            the bundlename
-	 * @param locale
-	 *            the locale
-	 * @param propertieskey
-	 *            the propertieskey
-	 * @param value
-	 *            the value
-	 * @return the new {@link Resourcebundles}
-	 */
-	public Resourcebundles newResourcebundles(String baseName, String locale, String propertieskey, String value) {
-		Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(newBundleName(baseName, locale))
-				.key(newPropertiesKeys(propertieskey)).value(value).build();
+	public Resourcebundles newResourcebundles(final BundleNames bundleName, final PropertiesKeys key,
+			final String value) {
+		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(bundleName).key(key).value(value)
+				.build();
 		return resourcebundles;
 	}
 

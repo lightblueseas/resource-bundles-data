@@ -51,4 +51,13 @@ public interface LanguageLocalesService extends BusinessService<LanguageLocales,
 	 */
 	LanguageLocales find(final String locale);
 
+	/**
+	 * Gets the or creates a new {@link LanguageLocales} object.
+	 *
+	 * @param locale
+	 *            the locale
+	 * @return the {@link LanguageLocales} object
+	 */
+	LanguageLocales getOrCreateNewLanguageLocales(final Locale locale);
+
 }

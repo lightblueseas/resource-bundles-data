@@ -5,11 +5,13 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>resource-bundles-data</artifactId>
-		<version>3.11.0-SNAPSHOT</version>
+		<version>3.11.0</version>
 	</parent>
 
 	<artifactId>resource-bundles-rest-web</artifactId>
 	<packaging>war</packaging>
+	
+	<description>Rest web application that provides rest api for access to resource bundles for I18N applications</description>
 
 	<properties>
 		<war-name>resource-bundles-rest-webapp</war-name>

@@ -35,6 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.alpharogroup.check.Check;
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
@@ -92,8 +93,8 @@ public class ResourcebundlesBusinessService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void delete(List<Resourcebundles> resourcebundles) {
-		for (Resourcebundles resourcebundle : resourcebundles) {
+	public void delete(final List<Resourcebundles> resourcebundles) {
+		for (final Resourcebundles resourcebundle : resourcebundles) {
 			delete(resourcebundle);
 		}
 	}
@@ -182,7 +183,7 @@ public class ResourcebundlesBusinessService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundles merge(Resourcebundles resourcebundles) {
+	public Resourcebundles merge(final Resourcebundles resourcebundles) {
 
 		BaseNames baseName = baseNamesService.find(resourcebundles.getBundleName().getBaseName().getName());
 		if (baseName == null) {
@@ -203,8 +204,8 @@ public class ResourcebundlesBusinessService extends
 		BundleNames bundleNames = bundleNamesService.find(baseName, languageLocales);
 		if (bundleNames == null) {
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
-					resourcebundles.getBundleName().getBaseName().getName(),
-					resourcebundles.getBundleName().getLocale().getLocale());
+					resourcebundles.getBundleName().getBaseName(),
+					resourcebundles.getBundleName().getLocale());
 			bundleNames.setBaseName(baseName);
 			bundleNames.setLocale(languageLocales);
 			bundleNames = bundleNamesService.merge(bundleNames);
@@ -225,7 +226,7 @@ public class ResourcebundlesBusinessService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void saveOrUpdate(Resourcebundles resourcebundles) {
+	public void saveOrUpdate(final Resourcebundles resourcebundles) {
 		BaseNames baseName = baseNamesService.find(resourcebundles.getBundleName().getBaseName().getName());
 		if (baseName == null) {
 			baseName = ResourceBundlesDomainObjectFactory.getInstance()
@@ -245,8 +246,8 @@ public class ResourcebundlesBusinessService extends
 		BundleNames bundleNames = bundleNamesService.find(baseName, languageLocales);
 		if (bundleNames == null) {
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
-					resourcebundles.getBundleName().getBaseName().getName(),
-					resourcebundles.getBundleName().getLocale().getLocale());
+					resourcebundles.getBundleName().getBaseName(),
+					resourcebundles.getBundleName().getLocale());
 			bundleNames.setBaseName(baseName);
 			bundleNames.setLocale(languageLocales);
 			bundleNames = bundleNamesService.merge(bundleNames);
@@ -282,9 +283,10 @@ public class ResourcebundlesBusinessService extends
 	@Override
 	public void updateProperties(final Properties properties, final String baseName, final Locale locale,
 			final boolean update) {
-		if (baseName == null || baseName.isEmpty()) {
-			throw new IllegalArgumentException("Parameter baseName should not be null or empty.");
-		}
+		Check.get()
+		.notEmpty(baseName, "baseName")
+		.notNull(locale, "locale");
+		BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
 		for (final Map.Entry<Object, Object> element : properties.entrySet()) {
 			final String key = element.getKey().toString().trim();
 			final String value = element.getValue().toString().trim();
@@ -294,8 +296,8 @@ public class ResourcebundlesBusinessService extends
 					resourcebundle.setValue(value);
 				}
 			} else {
-				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(baseName,
-						LocaleExtensions.getLocaleFilenameSuffix(locale), key, value);
+				PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
+				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey, value);
 			}
 			merge(resourcebundle);
 		}

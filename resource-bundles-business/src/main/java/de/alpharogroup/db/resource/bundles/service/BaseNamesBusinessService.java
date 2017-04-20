@@ -35,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.BaseNamesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -71,6 +72,19 @@ public class BaseNamesBusinessService extends AbstractBusinessService<BaseNames,
 	@Autowired
 	public void setBaseNamesDao(final BaseNamesDao dao) {
 		setDao(dao);
+	}	
+
+
+	public BaseNames getOrCreateNewBaseNames(final String baseName)
+	{
+		// check if baseNames exists...
+		BaseNames foundBaseName = find(baseName);
+		if (foundBaseName == null)
+		{
+			foundBaseName = ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(baseName);
+			foundBaseName = merge(foundBaseName);
+		}
+		return foundBaseName;
 	}
 
 }

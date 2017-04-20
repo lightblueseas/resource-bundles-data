@@ -37,4 +37,13 @@ public interface PropertiesKeysService extends BusinessService<PropertiesKeys, I
 	 * @return the found {@link PropertiesKeys} object or null if not.
 	 */
 	PropertiesKeys find(final String propertiesKey);
+
+	/**
+	 * Gets the or creates a new {@link PropertiesKeys} object
+	 *
+	 * @param key
+	 *            the key
+	 * @return the {@link PropertiesKeys} object
+	 */
+	PropertiesKeys getOrCreateNewPropertiesKeys(final String key);
 }
