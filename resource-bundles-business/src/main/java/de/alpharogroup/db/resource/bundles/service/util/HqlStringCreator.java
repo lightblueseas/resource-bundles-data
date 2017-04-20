@@ -141,6 +141,8 @@ public class HqlStringCreator {
 	 *
 	 * @param locale
 	 *            the locale
+	 * @param locale
+	 *            the locale
 	 * 
 	 * @return the hql string
 	 */
@@ -188,7 +190,8 @@ public class HqlStringCreator {
 	/**
 	 * Creates hql query for {@link PropertiesKeys}.
 	 *
-	 * @param propertiesKey the properties key
+	 * @param propertiesKey
+	 *            the properties key
 	 * @return the hql string
 	 */
 	public static String forPropertiesKeys(final String propertiesKey) {
