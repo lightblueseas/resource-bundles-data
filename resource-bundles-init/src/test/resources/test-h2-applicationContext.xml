@@ -38,7 +38,7 @@
 		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
 	</jdbc:embedded-database>
 
-	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
+	<!-- h2 tomcat.dbcp DataSource configuration -->
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
