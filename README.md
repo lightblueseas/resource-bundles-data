@@ -4,7 +4,7 @@ This project provides Java resource bundles(i18n) that can be saved to your pref
 
 # ERD-Diagramm
 
-The erd-diagramm for this database looks as follows: [erd-diagramm](https://cloud.githubusercontent.com/assets/1822320/24324278/d6d0cc90-1183-11e7-9417-11473d57913d.png)
+The erd-diagramm for this database looks as follows: ![erd-diagramm](https://cloud.githubusercontent.com/assets/1822320/24324278/d6d0cc90-1183-11e7-9417-11473d57913d.png)
 
 This erd-diagramm was created with the awesome [SQuirreL SQL Client](http://squirrel-sql.sourceforge.net/)
 
