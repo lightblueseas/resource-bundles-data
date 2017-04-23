@@ -10,7 +10,7 @@ An erd-diagramm for this database is provided at '/resource-bundles-init/src/mai
 
 The source code comes under the liberal MIT License, making resource-bundles-data great for all types of I18N applications.
 
-# Build status and latest maven version
+# Build status
 [![Build Status](https://travis-ci.org/lightblueseas/resource-bundles-data.svg?branch=master)](https://travis-ci.org/lightblueseas/resource-bundles-data)
 
 ## Maven Central
@@ -123,6 +123,10 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 			</dependency>
 			...
 		</dependencies>
+		 
+## Open Issues
+[![Open Issues](https://img.shields.io/github/issues/astrapi69/resource-bundles-data.svg?style=flat)](https://github.com/astrapi69/resource-bundles-data/issues) 
+		
 
 ## Want to Help and improve it? ###
 
