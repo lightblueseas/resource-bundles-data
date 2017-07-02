@@ -33,7 +33,8 @@ import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
  * The class {@link PropertiesKeysDao}.
  */
 @Repository("propertiesKeysDao")
-public class PropertiesKeysDao extends JpaEntityManagerDao<PropertiesKeys, Integer> {
+public class PropertiesKeysDao extends JpaEntityManagerDao<PropertiesKeys, Integer>
+{
 	/**
 	 * The serialVersionUID.
 	 */

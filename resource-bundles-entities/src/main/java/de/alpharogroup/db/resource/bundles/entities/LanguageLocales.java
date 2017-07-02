@@ -37,8 +37,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database the locale of {@link BundleNames}
- * objects.
+ * Entity class for saving in database the locale of {@link BundleNames} objects.
  */
 @Entity
 @Table(name = "language_locales")
@@ -48,7 +47,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class LanguageLocales extends VersionableBaseEntity<Integer> implements Cloneable {
+public class LanguageLocales extends VersionableBaseEntity<Integer> implements Cloneable
+{
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;

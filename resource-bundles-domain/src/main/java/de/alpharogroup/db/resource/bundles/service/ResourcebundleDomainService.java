@@ -54,19 +54,24 @@ import de.alpharogroup.service.domain.AbstractDomainService;
  */
 @Transactional
 @Service("resourcebundleDomainService")
-public class ResourcebundleDomainService extends
+public class ResourcebundleDomainService
+	extends
 		AbstractDomainService<Integer, Resourcebundle, Resourcebundles, ResourcebundlesDao, ResourcebundlesMapper>
-		implements ResourcebundleService {
+	implements
+		ResourcebundleService
+{
 
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
-	private final CacheableMap<String, String, DatabaseListResourceBundle> cache = new CacheableMap<String, String, DatabaseListResourceBundle>() {
+	private final CacheableMap<String, String, DatabaseListResourceBundle> cache = new CacheableMap<String, String, DatabaseListResourceBundle>()
+	{
 
 		@Override
-		public DatabaseListResourceBundle newValue(final String baseName, final String locale) {
+		public DatabaseListResourceBundle newValue(final String baseName, final String locale)
+		{
 			return new DatabaseListResourceBundle(baseName, LocaleResolver.resolveLocale(locale),
-					resourcebundlesService);
+				resourcebundlesService);
 		}
 	};
 
@@ -74,7 +79,8 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundle contains(final String baseName, final Locale locale, final String key) {
+	public Resourcebundle contains(final String baseName, final Locale locale, final String key)
+	{
 		return find(baseName, locale, key);
 	}
 
@@ -82,7 +88,8 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundle find(final String baseName, final Locale locale, final String key) {
+	public Resourcebundle find(final String baseName, final Locale locale, final String key)
+	{
 		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), key);
 	}
 
@@ -90,7 +97,8 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundle find(final String baseName, final String locale, final String key) {
+	public Resourcebundle find(final String baseName, final String locale, final String key)
+	{
 		return ListExtensions.getFirst(find(baseName, locale, key, null));
 	}
 
@@ -99,19 +107,25 @@ public class ResourcebundleDomainService extends
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
-	public List<Resourcebundle> find(final String baseName, final String locale, final String key, final String value) {
+	public List<Resourcebundle> find(final String baseName, final String locale, final String key,
+		final String value)
+	{
 		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key);
 		final Query query = getDao().getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty()) {
+		if (baseName != null && !baseName.isEmpty())
+		{
 			query.setParameter("baseName", baseName);
 		}
-		if (locale != null && !locale.isEmpty()) {
+		if (locale != null && !locale.isEmpty())
+		{
 			query.setParameter("locale", locale);
 		}
-		if (key != null && !key.isEmpty()) {
+		if (key != null && !key.isEmpty())
+		{
 			query.setParameter("key", key);
 		}
-		if (value != null && !value.isEmpty()) {
+		if (value != null && !value.isEmpty())
+		{
 			query.setParameter("value", value);
 		}
 		final List<Resourcebundles> entities = query.getResultList();
@@ -123,11 +137,14 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Resourcebundle> findResourceBundles(final String baseName, final Locale locale) {
+	public List<Resourcebundle> findResourceBundles(final String baseName, final Locale locale)
+	{
 		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);
 	}
 
-	private DatabaseListResourceBundle getDatabaseListResourceBundle(final String baseName, final String locale) {
+	private DatabaseListResourceBundle getDatabaseListResourceBundle(final String baseName,
+		final String locale)
+	{
 		return cache.getValue(baseName, locale);
 	}
 
@@ -135,7 +152,8 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Properties getProperties(final String baseName, final Locale locale) {
+	public Properties getProperties(final String baseName, final Locale locale)
+	{
 		return resourcebundlesService.getProperties(baseName, locale);
 	}
 
@@ -143,7 +161,8 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Properties getProperties(final String baseName, final String locale) {
+	public Properties getProperties(final String baseName, final String locale)
+	{
 		return resourcebundlesService.getProperties(baseName, locale);
 	}
 
@@ -151,7 +170,9 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundle getResourcebundle(final String baseName, final Locale locale, final String key) {
+	public Resourcebundle getResourcebundle(final String baseName, final Locale locale,
+		final String key)
+	{
 		return find(baseName, locale, key);
 	}
 
@@ -159,17 +180,21 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(final BundleKey bundleKey) {
-		return getString(bundleKey.getBaseName(), LocaleExtensions.getLocaleFilenameSuffix(bundleKey.getLocale()),
-				bundleKey.getResourceBundleKey().getKey(), bundleKey.getResourceBundleKey().getDefaultValue(),
-				bundleKey.getResourceBundleKey().getParameters());
+	public String getString(final BundleKey bundleKey)
+	{
+		return getString(bundleKey.getBaseName(),
+			LocaleExtensions.getLocaleFilenameSuffix(bundleKey.getLocale()),
+			bundleKey.getResourceBundleKey().getKey(),
+			bundleKey.getResourceBundleKey().getDefaultValue(),
+			bundleKey.getResourceBundleKey().getParameters());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(final String baseName, final String locale, final String key) {
+	public String getString(final String baseName, final String locale, final String key)
+	{
 		return getString(baseName, locale, key, null, null);
 	}
 
@@ -177,7 +202,9 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(final String baseName, final String locale, final String key, final Object[] params) {
+	public String getString(final String baseName, final String locale, final String key,
+		final Object[] params)
+	{
 		return getString(baseName, locale, key, null, params);
 	}
 
@@ -185,7 +212,9 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(final String baseName, final String locale, final String key, final String defaultValue) {
+	public String getString(final String baseName, final String locale, final String key,
+		final String defaultValue)
+	{
 		return getString(baseName, locale, key, defaultValue, null);
 	}
 
@@ -193,10 +222,13 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public String getString(final String baseName, final String locale, final String key, final String defaultValue,
-			final Object[] params) {
-		final DatabaseListResourceBundle listResourceBundle = getDatabaseListResourceBundle(baseName, locale);
-		final String value = ResourceBundleExtensions.getString(listResourceBundle, key, defaultValue, params);
+	public String getString(final String baseName, final String locale, final String key,
+		final String defaultValue, final Object[] params)
+	{
+		final DatabaseListResourceBundle listResourceBundle = getDatabaseListResourceBundle(
+			baseName, locale);
+		final String value = ResourceBundleExtensions.getString(listResourceBundle, key,
+			defaultValue, params);
 		return value;
 	}
 
@@ -207,7 +239,8 @@ public class ResourcebundleDomainService extends
 	 *            the new resourcebundles dao
 	 */
 	@Autowired
-	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao) {
+	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao)
+	{
 		setDao(resourcebundlesDao);
 	}
 
@@ -218,7 +251,8 @@ public class ResourcebundleDomainService extends
 	 *            the new {@link ResourcebundlesMapper}.
 	 */
 	@Autowired
-	public void setResourcebundlesMapper(ResourcebundlesMapper mapper) {
+	public void setResourcebundlesMapper(ResourcebundlesMapper mapper)
+	{
 		setMapper(mapper);
 	}
 
@@ -226,7 +260,9 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void updateProperties(final Properties properties, final String baseName, final Locale locale) {
+	public void updateProperties(final Properties properties, final String baseName,
+		final Locale locale)
+	{
 		resourcebundlesService.updateProperties(properties, baseName, locale);
 	}
 
@@ -234,8 +270,9 @@ public class ResourcebundleDomainService extends
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void updateProperties(final Properties properties, final String baseName, final Locale locale,
-			final boolean update) {
+	public void updateProperties(final Properties properties, final String baseName,
+		final Locale locale, final boolean update)
+	{
 		resourcebundlesService.updateProperties(properties, baseName, locale, update);
 	}
 

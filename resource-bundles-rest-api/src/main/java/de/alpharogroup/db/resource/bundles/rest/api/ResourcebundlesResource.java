@@ -43,13 +43,13 @@ import de.alpharogroup.resourcebundle.locale.BundleKey;
 import de.alpharogroup.service.rs.RestfulResource;
 
 /**
- * The interface {@link ResourcebundlesResource} provides methods for resolving
- * resource bundles.
+ * The interface {@link ResourcebundlesResource} provides methods for resolving resource bundles.
  */
 @Path("/resourcebundle/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public interface ResourcebundlesResource extends RestfulResource<Integer, Resourcebundle> {
+public interface ResourcebundlesResource extends RestfulResource<Integer, Resourcebundle>
+{
 
 	/**
 	 * Find the {@link Resourcebundle} from the given arguments.
@@ -65,7 +65,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	@GET
 	@Path("/find/{basename}/{locale}/{key}")
 	Resourcebundle find(@PathParam("basename") String baseName, @PathParam("locale") String locale,
-			@PathParam("key") String key);
+		@PathParam("key") String key);
 
 	/**
 	 * Gets the {@link Resourcebundle} from the given id.
@@ -79,8 +79,8 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	Resourcebundle get(@PathParam("id") String id);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given
-	 * {@link Locale} object.
+	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
+	 * object.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -90,7 +90,8 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	 */
 	@GET
 	@Path("/get/properties/{basename}/{locale}")
-	Response getProperties(@PathParam("basename") String baseName, @PathParam("locale") String locale);
+	Response getProperties(@PathParam("basename") String baseName,
+		@PathParam("locale") String locale);
 
 	/**
 	 * Find the {@link String} from the given arguments.
@@ -101,13 +102,12 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	 *            the locale
 	 * @param key
 	 *            the key
-	 * @return the found {@link KeyValuePair} object as a {@link Response}
-	 *         object.
+	 * @return the found {@link KeyValuePair} object as a {@link Response} object.
 	 */
 	@GET
 	@Path("/get/r/string/{basename}/{locale}/{key}")
-	Response getResponseString(@PathParam("basename") String baseName, @PathParam("locale") String locale,
-			@PathParam("key") String key);
+	Response getResponseString(@PathParam("basename") String baseName,
+		@PathParam("locale") String locale, @PathParam("key") String key);
 
 	/**
 	 * Gets the resource {@link String} from the given {@link BundleKey}.
@@ -134,7 +134,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	@GET
 	@Path("/get/string/{basename}/{locale}/{key}")
 	Response getString(@PathParam("basename") String baseName, @PathParam("locale") String locale,
-			@PathParam("key") String key);
+		@PathParam("key") String key);
 
 	/**
 	 * Find the {@link String} from the given arguments.
@@ -152,6 +152,7 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	@GET
 	@Path("/get/string/{basename}/{locale}/{key_and_parameters}/parameters")
 	Response getString(@PathParam("basename") String baseName, @PathParam("locale") String locale,
-			@PathParam("key_and_parameters") String key, @QueryParam("parameter") final String[] params);
+		@PathParam("key_and_parameters") String key,
+		@QueryParam("parameter") final String[] params);
 
 }

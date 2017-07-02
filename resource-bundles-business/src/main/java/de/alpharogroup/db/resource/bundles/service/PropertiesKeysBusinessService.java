@@ -45,8 +45,12 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
  */
 @Transactional
 @Service("propertiesKeysService")
-public class PropertiesKeysBusinessService extends AbstractBusinessService<PropertiesKeys, Integer, PropertiesKeysDao>
-		implements PropertiesKeysService {
+public class PropertiesKeysBusinessService
+	extends
+		AbstractBusinessService<PropertiesKeys, Integer, PropertiesKeysDao>
+	implements
+		PropertiesKeysService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -56,33 +60,37 @@ public class PropertiesKeysBusinessService extends AbstractBusinessService<Prope
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public PropertiesKeys find(String propertiesKey) {
+	public PropertiesKeys find(String propertiesKey)
+	{
 		final String hqlString = HqlStringCreator.forPropertiesKeys(propertiesKey);
 		final Query query = getQuery(hqlString);
-		if (propertiesKey != null && !propertiesKey.isEmpty()) {
+		if (propertiesKey != null && !propertiesKey.isEmpty())
+		{
 			query.setParameter("propertiesKey", propertiesKey);
 		}
 		final List<PropertiesKeys> propertiesKeys = query.getResultList();
 		return ListExtensions.getFirst(propertiesKeys);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Autowired
-	public void setPropertiesKeysDao(final PropertiesKeysDao dao) {
-		setDao(dao);
-	}
-	
-
-	
-	public PropertiesKeys getOrCreateNewPropertiesKeys(final String key) {
+	public PropertiesKeys getOrCreateNewPropertiesKeys(final String key)
+	{
 		PropertiesKeys pkey = find(key);
-		if(pkey == null){
+		if (pkey == null)
+		{
 			pkey = ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(key);
 			pkey = merge(pkey);
 		}
 		return pkey;
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Autowired
+	public void setPropertiesKeysDao(final PropertiesKeysDao dao)
+	{
+		setDao(dao);
 	}
 
 }

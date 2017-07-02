@@ -33,7 +33,8 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
  * The class {@link ResourcebundlesDao}.
  */
 @Repository("resourcebundlesDao")
-public class ResourcebundlesDao extends JpaEntityManagerDao<Resourcebundles, Integer> {
+public class ResourcebundlesDao extends JpaEntityManagerDao<Resourcebundles, Integer>
+{
 	/**
 	 * The serialVersionUID.
 	 */

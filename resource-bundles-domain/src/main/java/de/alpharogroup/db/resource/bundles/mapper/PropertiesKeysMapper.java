@@ -34,5 +34,6 @@ import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
  * The class {@link PropertiesKeysMapper}.
  */
 @Component
-public class PropertiesKeysMapper extends AbstractEntityDOMapper<PropertiesKeys, PropertiesKey> {
+public class PropertiesKeysMapper extends AbstractEntityDOMapper<PropertiesKeys, PropertiesKey>
+{
 }

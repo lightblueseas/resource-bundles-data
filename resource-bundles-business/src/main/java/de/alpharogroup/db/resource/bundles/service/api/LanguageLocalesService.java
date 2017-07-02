@@ -29,7 +29,8 @@ import java.util.Locale;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
 
-public interface LanguageLocalesService extends BusinessService<LanguageLocales, Integer> {
+public interface LanguageLocalesService extends BusinessService<LanguageLocales, Integer>
+{
 
 	/**
 	 * Find the {@link LanguageLocales} object from the given locale.

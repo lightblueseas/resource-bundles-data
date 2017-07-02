@@ -45,18 +45,23 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Transactional
 @Service("bundleApplicationsService")
 public class BundleApplicationsBusinessService
-		extends AbstractBusinessService<BundleApplications, Integer, BundleApplicationsDao>
-		implements BundleApplicationsService {
+	extends
+		AbstractBusinessService<BundleApplications, Integer, BundleApplicationsDao>
+	implements
+		BundleApplicationsService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public BundleApplications find(String name) {
+	public BundleApplications find(String name)
+	{
 		final String hqlString = HqlStringCreator.forBundleApplications(name);
 		final Query query = getQuery(hqlString);
-		if (name != null && !name.isEmpty()) {
+		if (name != null && !name.isEmpty())
+		{
 			query.setParameter("name", name);
 		}
 		final List<BundleApplications> applications = query.getResultList();
@@ -67,7 +72,8 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Autowired
-	public void setBundleApplicationsDao(final BundleApplicationsDao dao) {
+	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	{
 		setDao(dao);
 	}
 

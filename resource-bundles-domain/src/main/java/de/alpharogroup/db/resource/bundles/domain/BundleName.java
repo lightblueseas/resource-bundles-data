@@ -43,7 +43,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BundleName extends VersionableBaseDomainObject<Integer> {
+public class BundleName extends VersionableBaseDomainObject<Integer>
+{
 	/**
 	 * The serialVersionUID.
 	 */

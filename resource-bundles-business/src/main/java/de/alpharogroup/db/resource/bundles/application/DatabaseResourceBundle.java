@@ -34,7 +34,8 @@ import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 /**
  * The Class DatabaseResourceBundle.
  */
-public class DatabaseResourceBundle extends ResourceBundle {
+public class DatabaseResourceBundle extends ResourceBundle
+{
 
 	/**
 	 * Instantiates a new database resource bundle.
@@ -44,7 +45,8 @@ public class DatabaseResourceBundle extends ResourceBundle {
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseResourceBundle(String baseName, Locale locale) {
+	public DatabaseResourceBundle(String baseName, Locale locale)
+	{
 		setParent(new DatabaseListResourceBundle(baseName, locale));
 	}
 
@@ -58,7 +60,9 @@ public class DatabaseResourceBundle extends ResourceBundle {
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseResourceBundle(String baseName, Locale locale, ResourcebundlesService resourcebundlesService) {
+	public DatabaseResourceBundle(String baseName, Locale locale,
+		ResourcebundlesService resourcebundlesService)
+	{
 		setParent(new DatabaseListResourceBundle(baseName, locale, resourcebundlesService));
 	}
 
@@ -66,7 +70,8 @@ public class DatabaseResourceBundle extends ResourceBundle {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Enumeration<String> getKeys() {
+	public Enumeration<String> getKeys()
+	{
 		return parent.getKeys();
 	}
 
@@ -74,7 +79,8 @@ public class DatabaseResourceBundle extends ResourceBundle {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object handleGetObject(String key) {
+	protected Object handleGetObject(String key)
+	{
 		return parent.getObject(key);
 	}
 

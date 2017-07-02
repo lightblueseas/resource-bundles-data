@@ -40,8 +40,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database bundle names with the current locale and
- * what locale default for this bundle name.
+ * Entity class for saving in database bundle names with the current locale and what locale default
+ * for this bundle name.
  */
 @Entity
 @Table(name = "bundlenames")
@@ -51,7 +51,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class BundleNames extends VersionableBaseEntity<Integer> implements Cloneable {
+public class BundleNames extends VersionableBaseEntity<Integer> implements Cloneable
+{
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;

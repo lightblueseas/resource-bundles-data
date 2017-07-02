@@ -4,13 +4,15 @@ This project provides Java resource bundles(i18n) that can be saved to your pref
 
 # ERD-Diagramm
 
-An erd-diagramm for this database is provided at '/resource-bundles-init/src/main/resources/erd/erd-diagramm-resourcesbundles.png' or [here](https://cloud.githubusercontent.com/assets/1822320/24324278/d6d0cc90-1183-11e7-9417-11473d57913d.png)
+The erd-diagramm for this database looks as follows: ![erd-diagramm](https://cloud.githubusercontent.com/assets/1822320/24324278/d6d0cc90-1183-11e7-9417-11473d57913d.png)
+
+This erd-diagramm was created with the awesome [SQuirreL SQL Client](http://squirrel-sql.sourceforge.net/)
 
 ## License
 
 The source code comes under the liberal MIT License, making resource-bundles-data great for all types of I18N applications.
 
-# Build status and latest maven version
+# Build status
 [![Build Status](https://travis-ci.org/lightblueseas/resource-bundles-data.svg?branch=master)](https://travis-ci.org/lightblueseas/resource-bundles-data)
 
 ## Maven Central
@@ -29,7 +31,7 @@ You can first define the version properties:
 	<properties>
 			...
 		<!-- resource-bundles-data version -->
-		<resource-bundles-data.version>3.11.0</resource-bundles-data.version>
+		<resource-bundles-data.version>3.12.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
@@ -123,6 +125,10 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 			</dependency>
 			...
 		</dependencies>
+		 
+## Open Issues
+[![Open Issues](https://img.shields.io/github/issues/astrapi69/resource-bundles-data.svg?style=flat)](https://github.com/astrapi69/resource-bundles-data/issues) 
+		
 
 ## Want to Help and improve it? ###
 

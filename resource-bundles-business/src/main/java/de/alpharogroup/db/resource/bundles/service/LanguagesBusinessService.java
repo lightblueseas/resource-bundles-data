@@ -44,20 +44,27 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
  */
 @Transactional
 @Service("languagesService")
-public class LanguagesBusinessService extends AbstractBusinessService<Languages, Integer, LanguagesDao>
-		implements LanguagesService {
+public class LanguagesBusinessService
+	extends
+		AbstractBusinessService<Languages, Integer, LanguagesDao>
+	implements
+		LanguagesService
+{
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
-	public Languages find(final String name, final String iso639Dash1) {
+	public Languages find(final String name, final String iso639Dash1)
+	{
 		final String hqlString = HqlStringCreator.forLanguages(name, iso639Dash1);
 		final Query query = getQuery(hqlString);
-		if (name != null && !name.isEmpty()) {
+		if (name != null && !name.isEmpty())
+		{
 			query.setParameter("name", name);
 		}
-		if (iso639Dash1 != null && !iso639Dash1.isEmpty()) {
+		if (iso639Dash1 != null && !iso639Dash1.isEmpty())
+		{
 			query.setParameter("iso639Dash1", iso639Dash1);
 		}
 
@@ -69,7 +76,8 @@ public class LanguagesBusinessService extends AbstractBusinessService<Languages,
 	 * {@inheritDoc}
 	 */
 	@Autowired
-	public void setLanguagesDao(final LanguagesDao dao) {
+	public void setLanguagesDao(final LanguagesDao dao)
+	{
 		setDao(dao);
 	}
 

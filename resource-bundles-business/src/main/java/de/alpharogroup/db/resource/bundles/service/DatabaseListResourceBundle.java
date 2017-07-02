@@ -36,7 +36,8 @@ import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 /**
  * The Class {@link DatabaseListResourceBundle}.
  */
-public class DatabaseListResourceBundle extends ListResourceBundle {
+public class DatabaseListResourceBundle extends ListResourceBundle
+{
 
 	/** The base name. */
 	private String baseName;
@@ -48,7 +49,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
-	public DatabaseListResourceBundle() {
+	public DatabaseListResourceBundle()
+	{
 	}
 
 	/**
@@ -59,7 +61,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseListResourceBundle(String baseName, Locale locale) {
+	public DatabaseListResourceBundle(String baseName, Locale locale)
+	{
 		this.locale = locale;
 		this.baseName = baseName;
 	}
@@ -74,7 +77,9 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseListResourceBundle(String baseName, Locale locale, ResourcebundlesService resourcebundlesService) {
+	public DatabaseListResourceBundle(String baseName, Locale locale,
+		ResourcebundlesService resourcebundlesService)
+	{
 		setResourcebundlesService(resourcebundlesService);
 		this.locale = locale;
 		this.baseName = baseName;
@@ -85,7 +90,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	 *
 	 * @return the base name
 	 */
-	public String getBaseName() {
+	public String getBaseName()
+	{
 		return baseName;
 	}
 
@@ -93,11 +99,14 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	 * {@inheritDoc}
 	 */
 	@Override
-	protected Object[][] getContents() {
-		List<Resourcebundles> resourcebundles = resourcebundlesService.findResourceBundles(baseName, locale);
+	protected Object[][] getContents()
+	{
+		List<Resourcebundles> resourcebundles = resourcebundlesService.findResourceBundles(baseName,
+			locale);
 		Object[][] all = new Object[resourcebundles.size()][2];
 		int i = 0;
-		for (Resourcebundles resourcebundle : resourcebundles) {
+		for (Resourcebundles resourcebundle : resourcebundles)
+		{
 			all[i] = new Object[] { resourcebundle.getKey().getName(), resourcebundle.getValue() };
 			i++;
 		}
@@ -107,7 +116,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	/**
 	 * {@inheritDoc}
 	 */
-	public Locale getLocale() {
+	public Locale getLocale()
+	{
 		return locale;
 	}
 
@@ -116,7 +126,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	 *
 	 * @return the resourcebundles service
 	 */
-	public ResourcebundlesService getResourcebundlesService() {
+	public ResourcebundlesService getResourcebundlesService()
+	{
 		return resourcebundlesService;
 	}
 
@@ -126,7 +137,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle {
 	 * @param resourcebundlesService
 	 *            the new resourcebundles service
 	 */
-	public void setResourcebundlesService(ResourcebundlesService resourcebundlesService) {
+	public void setResourcebundlesService(ResourcebundlesService resourcebundlesService)
+	{
 		this.resourcebundlesService = resourcebundlesService;
 	}
 }

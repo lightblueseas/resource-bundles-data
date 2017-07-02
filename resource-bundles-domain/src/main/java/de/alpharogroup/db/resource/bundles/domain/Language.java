@@ -43,7 +43,8 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Language extends NameBaseDomainObject<Integer> {
+public class Language extends NameBaseDomainObject<Integer>
+{
 
 	/**
 	 * The serialVersionUID.

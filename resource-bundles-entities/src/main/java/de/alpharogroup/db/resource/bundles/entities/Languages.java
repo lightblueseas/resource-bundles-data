@@ -44,7 +44,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Languages extends ExtraSmallUNameBaseEntity<Integer> implements Cloneable {
+public class Languages extends ExtraSmallUNameBaseEntity<Integer> implements Cloneable
+{
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
@@ -62,7 +63,8 @@ public class Languages extends ExtraSmallUNameBaseEntity<Integer> implements Clo
 	 *            the iso 639 dash 1
 	 */
 	@Builder
-	Languages(String name, String iso639Dash1) {
+	Languages(String name, String iso639Dash1)
+	{
 		this.iso639Dash1 = iso639Dash1;
 	}
 }

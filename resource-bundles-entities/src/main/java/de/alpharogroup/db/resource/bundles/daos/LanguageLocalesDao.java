@@ -33,7 +33,8 @@ import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
  * The class {@link LanguageLocalesDao}.
  */
 @Repository("languageLocalesDao")
-public class LanguageLocalesDao extends JpaEntityManagerDao<LanguageLocales, Integer> {
+public class LanguageLocalesDao extends JpaEntityManagerDao<LanguageLocales, Integer>
+{
 	/**
 	 * The serialVersionUID.
 	 */
