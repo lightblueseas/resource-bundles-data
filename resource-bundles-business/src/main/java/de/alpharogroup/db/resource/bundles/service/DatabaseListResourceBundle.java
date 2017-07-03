@@ -32,10 +32,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * The Class {@link DatabaseListResourceBundle}.
  */
+@Getter
+@Setter
+@NoArgsConstructor
 public class DatabaseListResourceBundle extends ListResourceBundle
 {
 
@@ -49,26 +55,22 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
-	public DatabaseListResourceBundle()
-	{
-	}
-
 	/**
-	 * Instantiates a new database resources.
+	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
 	 *
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseListResourceBundle(String baseName, Locale locale)
+	public DatabaseListResourceBundle(final String baseName, final Locale locale)
 	{
 		this.locale = locale;
 		this.baseName = baseName;
 	}
 
 	/**
-	 * Instantiates a new database resources.
+	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -77,22 +79,12 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseListResourceBundle(String baseName, Locale locale,
-		ResourcebundlesService resourcebundlesService)
+	public DatabaseListResourceBundle(final String baseName, final Locale locale,
+		final ResourcebundlesService resourcebundlesService)
 	{
 		setResourcebundlesService(resourcebundlesService);
 		this.locale = locale;
 		this.baseName = baseName;
-	}
-
-	/**
-	 * Gets the base name.
-	 *
-	 * @return the base name
-	 */
-	public String getBaseName()
-	{
-		return baseName;
 	}
 
 	/**
@@ -101,11 +93,11 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	@Override
 	protected Object[][] getContents()
 	{
-		List<Resourcebundles> resourcebundles = resourcebundlesService.findResourceBundles(baseName,
+		final List<Resourcebundles> resourcebundles = resourcebundlesService.findResourceBundles(baseName,
 			locale);
-		Object[][] all = new Object[resourcebundles.size()][2];
+		final Object[][] all = new Object[resourcebundles.size()][2];
 		int i = 0;
-		for (Resourcebundles resourcebundle : resourcebundles)
+		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
 			all[i] = new Object[] { resourcebundle.getKey().getName(), resourcebundle.getValue() };
 			i++;
@@ -113,32 +105,4 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 		return all;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public Locale getLocale()
-	{
-		return locale;
-	}
-
-	/**
-	 * Gets the resourcebundles service.
-	 *
-	 * @return the resourcebundles service
-	 */
-	public ResourcebundlesService getResourcebundlesService()
-	{
-		return resourcebundlesService;
-	}
-
-	/**
-	 * Sets the resourcebundles service.
-	 *
-	 * @param resourcebundlesService
-	 *            the new resourcebundles service
-	 */
-	public void setResourcebundlesService(ResourcebundlesService resourcebundlesService)
-	{
-		this.resourcebundlesService = resourcebundlesService;
-	}
 }
