@@ -15,41 +15,51 @@
 	<!-- Enable annotation configuration -->
 	<context:annotation-config />
 	<!-- Scan sample packages for Spring annotations -->
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.*" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.*.*" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />	
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 
 	<bean id="propertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE" />
-		<property name="ignoreResourceNotFound" value="false" />
+		<property name="ignoreResourceNotFound" value="true" />
 		<property name="locations">
 			<list>
 				<value>classpath:jdbc-mysql.properties</value>
 			</list>
 		</property>
 	</bean>
-
-	<!-- mySQL tomcat.dbcp DataSource configuration -->
+		
+	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
+		<property name="url" value="${jdbc.base.url}${jdbc.db.name}" />
 		<property name="username" value="${jdbc.user}" />
 		<property name="password" value="${jdbc.password}" />
-		<property name="initialSize" value="10" /><!-- default:10 -->
-		<property name="maxActive" value="5000" /><!-- default:100 -->
-		<property name="maxIdle" value="200" /><!-- default:100 -->
-		<property name="minIdle" value="20" /><!-- default:10 -->
+		<property name="initialSize" value="100" /><!-- default:10 -->
+		<property name="maxActive" value="50000" /><!-- default:100 -->
+		<property name="maxIdle" value="2000" /><!-- default:100 -->
+		<property name="minIdle" value="200" /><!-- default:10 -->
 		<property name="maxWait" value="3000" /><!-- default:30000 -->
+		<property name="suspectTimeout" value="60" /><!-- default:?? -->
 		<property name="validationQuery" value="SELECT 1" />
 		<property name="validationQueryTimeout" value="-1" /><!-- default:-1 -->
+		<property name="validationInterval" value="30000" /><!-- default:?? -->
+		<property name="timeBetweenEvictionRunsMillis" value="30000" /><!-- default:?? -->
+		<property name="minEvictableIdleTimeMillis" value="60000" /><!-- default:?? -->
 		<property name="testWhileIdle" value="true" /><!-- default:false -->
 		<property name="testOnBorrow" value="true" /><!-- default:false -->
 		<property name="testOnReturn" value="false" /><!-- default:false -->
 		<property name="logAbandoned" value="true" /><!-- default:false -->
 		<property name="removeAbandoned" value="true" /><!-- default:false -->
 		<property name="removeAbandonedTimeout" value="60" /><!-- default:60 -->
+		<property name="abandonWhenPercentageFull" value="10" /><!-- default:?? -->
+		<property name="jdbcInterceptors" value="ResetAbandonedTimer;StatementFinalizer" /><!-- default:?? -->
 	</bean>
-
+	
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
@@ -57,12 +67,10 @@
 	<bean id="jpaVendorAdapter"	class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="generateDdl" value="true" />
 		<property name="showSql" value="true" />
-		<property name="database" value="MYSQL" />
-		<property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
-	</bean>
+		<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+	</bean>	
 
-	<bean id="databaseResources"
-		class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
+	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
 
@@ -74,8 +82,8 @@
 			</list>
 		</property>
 		<property name="defaultDataSource" ref="dataSource" />
-	</bean>
-
+	</bean>	
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
@@ -83,41 +91,11 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
-	
-	<!-- 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
-		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
-		
-		<property name="dataSource" ref="dataSource" />
-
-        <property name="persistenceUnitName" value="resourcebundles" />
-        <property name="packagesToScan" >
-            <list>
-                <value>de.alpharogroup.db.resource.bundles</value>
-                <value>de.alpharogroup.db.resource.bundles.*</value>
-                <value>de.alpharogroup.db.resource.bundles.*.*</value>
-            </list>
-        </property>
-
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
-                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-                <prop key="hibernate.connection.user">${jdbc.user}</prop>
-                <prop key="hibernate.connection.password">${jdbc.password}</prop>
-            </props>
-        </property>
-		
-	</bean>
- -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+	
 </beans>
