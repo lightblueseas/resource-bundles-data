@@ -29,12 +29,7 @@
 		</property>
 	</bean>
 
-	<jdbc:embedded-database id="dataSource" type="H2">
-		<jdbc:script location="classpath:dll/inserts/initializeSchema.sql" />
-		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
-	</jdbc:embedded-database>
-
-	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
+	<!-- mySQL tomcat.dbcp DataSource configuration -->
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
