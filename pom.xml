@@ -11,7 +11,7 @@
 
 	<artifactId>resource-bundles-data</artifactId>
 	<packaging>pom</packaging>
-	<version>3.12.0</version>
+	<version>3.12.1</version>
 	<inceptionYear>2015</inceptionYear>
 
 	<name>${project.artifactId}</name>
