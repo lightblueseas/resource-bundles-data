@@ -35,7 +35,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database base names of bundles.
+ * Entity class for saving in database base names of the resource bundles. The
+ * base name if you see it from the properties file view the name of the
+ * properties file without the locale suffix.
  */
 @Entity
 @Table(name = "basenames")
@@ -43,21 +45,20 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable
-{
+public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable {
 
-	/** Serial Version UID */
-	private static final long serialVersionUID = 1L;
+    /**
+     * Serial Version UID
+     */
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new {@link BaseNames} entity object.
-	 *
-	 * @param name
-	 *            the name
-	 */
-	@Builder
-	BaseNames(String name)
-	{
-		super(name);
-	}
+    /**
+     * Instantiates a new {@link BaseNames} entity object.
+     *
+     * @param name the name
+     */
+    @Builder
+    BaseNames(String name) {
+        super(name);
+    }
 }

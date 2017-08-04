@@ -40,7 +40,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database the default {@link LanguageLocales} object for a
+ * The entity class {@link DefaultLocaleBaseNames} holds the data for the default {@link LanguageLocales} object for a
  * {@link BundleNames} object.
  */
 @Entity

@@ -36,7 +36,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database languages.
+ * The entity class {@link LanguageLocales} holds the data for the languages.
  */
 @Entity
 @Table(name = "languages")

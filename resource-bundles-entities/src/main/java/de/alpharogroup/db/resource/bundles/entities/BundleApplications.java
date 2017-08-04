@@ -45,7 +45,10 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database applications with the corresponding {@link BundleNames}.
+ * The entity class {@link BundleApplications} is the root of every bundle application. Every entity
+ * of type {@link BundleNames} has as reference to a {@link BundleApplications}. Every entity class
+ * of {@link BundleApplications} has exactly one default locale. If you see it from the properties
+ * file view it is the default properties file is the properties file without the locale suffix.
  */
 @Entity
 @Table(name = "bundle_applications")
@@ -56,17 +59,23 @@ import lombok.ToString;
 public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> implements Cloneable
 {
 
-	/** Serial Version UID */
+	/**
+	 * Serial Version UID
+	 */
 	private static final long serialVersionUID = 1L;
 
-	/** The bundle names of this application. */
+	/**
+	 * The bundle names of this application.
+	 */
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
 					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id") })
 	private Set<BundleNames> bundleNames = new HashSet<>();
 
-	/** The default locale of this bundle application. */
+	/**
+	 * The default locale of this bundle application.
+	 */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "default_locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLE_APPLICATIONS_DEFAULT_LOCALE_ID"))
 	private LanguageLocales defaultLocale;
