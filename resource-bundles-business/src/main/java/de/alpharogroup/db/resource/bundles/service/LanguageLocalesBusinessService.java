@@ -57,6 +57,7 @@ public class LanguageLocalesBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public LanguageLocales find(Locale locale)
 	{
 		return find(LocaleExtensions.getLocaleFilenameSuffix(locale));
@@ -79,6 +80,10 @@ public class LanguageLocalesBusinessService
 		return ListExtensions.getFirst(languageLocales);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public LanguageLocales getOrCreateNewLanguageLocales(final Locale locale)
 	{
 		LanguageLocales expected = find(locale);
