@@ -59,10 +59,12 @@ import lombok.ToString;
 public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> implements Cloneable
 {
 
-	/**
-	 * Serial Version UID
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+
+	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
+	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 
 	/**
 	 * The bundle names of this application.

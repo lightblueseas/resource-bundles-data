@@ -43,11 +43,13 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.db.resource.bundles.db.init.DataObjectFactory;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
@@ -56,6 +58,7 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.lang.ClassExtensions;
@@ -69,9 +72,14 @@ import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringContextTests
 {
 
+	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
+
 	/** The resourcebundles service. */
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
+
+	@Autowired
+	private LanguagesService languagesService;
 
 	@Autowired
 	private BundleApplicationsService bundleApplicationsService;
@@ -102,6 +110,39 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		return resourcebundlesService;
 	}
 
+	public void initDatabase()
+	{
+		final List<Languages> languages = DataObjectFactory.newLanguageList();
+		for (final Languages language : languages)
+		{
+			final Languages found = languagesService.find(language.getName(),
+				language.getIso639Dash1());
+			if (found == null)
+			{
+				languagesService.merge(language);
+			}
+		}
+		final List<LanguageLocales> languageLocales = DataObjectFactory.newLanguageLocales();
+
+		for (final LanguageLocales languageLocale : languageLocales)
+		{
+			final LanguageLocales found = languageLocalesService.find(languageLocale.getLocale());
+			if (found == null)
+			{
+				languageLocalesService.merge(languageLocale);
+			}
+		}
+		BundleApplications baseBundleApplication = bundleApplicationsService
+			.find(BundleApplications.BASE_BUNDLE_APPLICATION);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder()
+				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
+			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
+		}
+
+	}
+
 	/**
 	 * Inits the resourcebundles.
 	 */
@@ -111,9 +152,9 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 			Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
-			BundleNames bundleName = bundleNamesService
+			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames("resource.bundles", Locale.GERMAN);
-			PropertiesKeys pkey = propertiesKeysService
+			final PropertiesKeys pkey = propertiesKeysService
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "Erstes label");
@@ -125,9 +166,9 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		if (resourcebundles == null)
 		{
 
-			BundleNames bundleName = bundleNamesService
+			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames("resource.bundles", Locale.UK);
-			PropertiesKeys pkey = propertiesKeysService
+			final PropertiesKeys pkey = propertiesKeysService
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "First label");
