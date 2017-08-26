@@ -4,7 +4,7 @@ This project provides Java resource bundles(i18n) that can be saved to your pref
 
 # ERD-Diagramm
 
-The erd-diagramm for this database looks as follows: ![erd-diagramm](https://github.com/lightblueseas/resource-bundles-data/blob/develop/resource-bundles-init/src/main/resources/erd/erd-diagramm-resourcebundles.png)
+The erd-diagramm for this database looks as follows: ![erd-diagramm](https://github.com/lightblueseas/resource-bundles-data/blob/develop/resource-bundles-init/src/main/resources/erd/erd-diagramm-resourcesbundles.png)
 
 This erd-diagramm was created with the awesome [SQuirreL SQL Client](http://squirrel-sql.sourceforge.net/)
 
