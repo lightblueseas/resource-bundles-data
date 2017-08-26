@@ -10,6 +10,11 @@ create table bundle_application_bundlenames (
         bundlenames_id int4 not null,
         primary key (application_id, bundlenames_id)
     );
+create table bundle_application_language_locales (
+        application_id int4 not null,
+        language_locales_id int4 not null,
+        primary key (application_id, language_locales_id)
+    );
 create table bundle_applications (
         id int4 not null,
         version int4,
@@ -62,6 +67,8 @@ create table resourcebundles (
 
 alter table bundle_application_bundlenames add constraint FKE03DE2DA81FDD8D7 foreign key (bundlenames_id) references bundlenames;
 alter table bundle_application_bundlenames add constraint FKE03DE2DA64F45D92 foreign key (application_id) references bundle_applications;
+alter table bundle_application_language_locales add constraint FKC6BB891EFB766A66 foreign key (language_locales_id) references language_locales;
+alter table bundle_application_language_locales add constraint FKC6BB891E64F45D92 foreign key (application_id) references bundle_applications;
 alter table bundle_applications add constraint FK176B41C017DEE600 foreign key (default_locale_id) references language_locales;
 alter table bundlenames add constraint FKF230A806D4CC327E foreign key (locale_id) references language_locales;
 alter table bundlenames add constraint FKF230A80663C76715 foreign key (base_name_id) references basenames;
