@@ -65,6 +65,8 @@ public class Languages extends ExtraSmallUNameBaseEntity<Integer> implements Clo
 	@Builder
 	Languages(String name, String iso639Dash1)
 	{
+		super(name);
 		this.iso639Dash1 = iso639Dash1;
 	}
+
 }

@@ -40,8 +40,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The entity class {@link DefaultLocaleBaseNames} holds the data for the default {@link LanguageLocales} object for a
- * {@link BundleNames} object.
+ * The entity class {@link DefaultLocaleBaseNames} holds the data for the default
+ * {@link LanguageLocales} object for a {@link BundleNames} object.
  */
 @Entity
 @Table(name = "default_locale_basenames")

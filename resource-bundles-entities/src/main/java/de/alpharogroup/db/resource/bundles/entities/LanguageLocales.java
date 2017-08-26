@@ -52,6 +52,7 @@ public class LanguageLocales extends VersionableBaseEntity<Integer> implements C
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
+
 	/** The locale of this entry. */
 	@Column(unique = true, length = 64)
 	private String locale;

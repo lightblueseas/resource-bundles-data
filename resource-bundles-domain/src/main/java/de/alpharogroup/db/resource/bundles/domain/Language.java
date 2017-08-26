@@ -42,7 +42,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Language extends NameBaseDomainObject<Integer>
 {
 
@@ -54,4 +53,18 @@ public class Language extends NameBaseDomainObject<Integer>
 	/** The iso639_1 code with two characters. */
 	private String iso639Dash1;
 
+	/**
+	 * Instantiates a new {@link Language} domain object.
+	 *
+	 * @param name
+	 *            the name
+	 * @param iso639Dash1
+	 *            the iso 639 dash 1
+	 */
+	@Builder
+	Language(String name, String iso639Dash1)
+	{
+		super(name);
+		this.iso639Dash1 = iso639Dash1;
+	}
 }

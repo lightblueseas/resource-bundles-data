@@ -47,8 +47,14 @@ import lombok.ToString;
 /**
  * The entity class {@link BundleApplications} is the root of every bundle application. Every entity
  * of type {@link BundleNames} has as reference to a {@link BundleApplications}. Every entity class
- * of {@link BundleApplications} has exactly one default locale. If you see it from the properties
- * file view it is the default properties file is the properties file without the locale suffix.
+ * of {@link BundleApplications} has exactly one default locale that is mandatory. If you see it
+ * from the properties file view it is the default properties file is the properties file without
+ * the locale suffix. The entity class {@link BundleApplications} acts as the manager of a
+ * corresponding real application like a web application or an android-app. If the real application
+ * supports only one locale the default locale is enough but if the real application supports more
+ * than one locale object then the supported locale objects are kept in the list
+ * 'supportedLocales'.<br>
+ * Note: The supported locale objects for a real application are mandatory as the default locale.
  */
 @Entity
 @Table(name = "bundle_applications")
@@ -62,12 +68,11 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 
 	/**
-	 * The bundle names of this application.
+	 * The bundle names of this bundle application.
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
@@ -83,6 +88,15 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	private LanguageLocales defaultLocale;
 
 	/**
+	 * The supported locale objects that are mandatory for this bundle application.
+	 */
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "bundle_application_language_locales", joinColumns = {
+			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
+					@JoinColumn(name = "language_locales_id", referencedColumnName = "id") })
+	private Set<LanguageLocales> supportedLocales = new HashSet<>();
+
+	/**
 	 * Instantiates a new {@link BundleApplications} entity object.
 	 *
 	 * @param name
@@ -94,10 +108,12 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	 */
 	@Builder
 	BundleApplications(final String name, final Set<BundleNames> bundleNames,
-		final LanguageLocales defaultLocale)
+		final LanguageLocales defaultLocale, final Set<LanguageLocales> supportedLocales)
 	{
 		super(name);
 		this.bundleNames = bundleNames;
 		this.defaultLocale = defaultLocale;
+		this.supportedLocales = supportedLocales;
 	}
+
 }
