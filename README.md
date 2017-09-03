@@ -31,7 +31,7 @@ You can first define the version properties:
 	<properties>
 			...
 		<!-- resource-bundles-data version -->
-		<resource-bundles-data.version>3.12.2</resource-bundles-data.version>
+		<resource-bundles-data.version>3.14.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
