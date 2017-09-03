@@ -90,6 +90,7 @@ public class BundleNamesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	public List<BundleNames> find(final String baseName)
 	{
 		if (baseName != null)
@@ -158,7 +159,10 @@ public class BundleNamesBusinessService
 	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
 	{
 		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
-		return bundleApplications.getDefaultLocale();
+		if(bundleApplications != null) {
+			return bundleApplications.getDefaultLocale();
+		}
+		return null;
 	}
 
 	/**

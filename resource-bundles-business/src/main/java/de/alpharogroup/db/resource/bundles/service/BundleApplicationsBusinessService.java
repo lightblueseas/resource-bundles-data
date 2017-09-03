@@ -91,7 +91,7 @@ public class BundleApplicationsBusinessService
 		final String hqlString = "select distinct ba from BundleApplications ba "
 			+ "join ba.bundleNames bn " + "where bn = :bundleName";
 		final Query query = getQuery(hqlString);
-		query.setParameter("bn", bundleName);
+		query.setParameter("bundleName", bundleName);
 		final List<BundleApplications> applications = query.getResultList();
 		return applications;
 	}
