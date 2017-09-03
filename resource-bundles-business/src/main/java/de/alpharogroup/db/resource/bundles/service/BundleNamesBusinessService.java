@@ -36,12 +36,13 @@ import org.springframework.transaction.annotation.Transactional;
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.BundleNamesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -63,7 +64,7 @@ public class BundleNamesBusinessService
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private DefaultLocaleBaseNamesService defaultLocaleBaseNamesService;
+	private BundleApplicationsService bundleApplicationsService;
 
 	/** The base names service. */
 	@Autowired
@@ -82,6 +83,18 @@ public class BundleNamesBusinessService
 		if (baseName != null)
 		{
 			return find(baseName.getName(), (String)null);
+		}
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public List<BundleNames> find(final String baseName)
+	{
+		if (baseName != null)
+		{
+			return find(baseName, (String)null);
 		}
 		return null;
 	}
@@ -144,7 +157,8 @@ public class BundleNamesBusinessService
 	@Override
 	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
 	{
-		return defaultLocaleBaseNamesService.getDefaultLocale(bundleNames);
+		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
+		return bundleApplications.getDefaultLocale();
 	}
 
 	/**
@@ -153,7 +167,11 @@ public class BundleNamesBusinessService
 	@Override
 	public LanguageLocales getDefaultLocale(final String baseName)
 	{
-		return defaultLocaleBaseNamesService.getDefaultLocale(baseName);
+		final List<BundleNames> list = find(baseName);
+		if(ListExtensions.isNotEmpty(list)) {
+			return getDefaultLocale(ListExtensions.getFirst(list));
+		}
+		return null;
 	}
 
 	@Override
@@ -162,8 +180,8 @@ public class BundleNamesBusinessService
 		BundleNames bundleNames = find(baseName, locale);
 		if (bundleNames == null)
 		{
-			LanguageLocales dbLocale = languageLocalesService.getOrCreateNewLanguageLocales(locale);
-			BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
+			final LanguageLocales dbLocale = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(bn,
 				dbLocale);
 			bundleNames = merge(bundleNames);

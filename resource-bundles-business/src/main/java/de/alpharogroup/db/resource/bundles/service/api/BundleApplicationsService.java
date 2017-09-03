@@ -24,7 +24,10 @@
  */
 package de.alpharogroup.db.resource.bundles.service.api;
 
+import java.util.List;
+
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.service.api.BusinessService;
 
 public interface BundleApplicationsService extends BusinessService<BundleApplications, Integer>
@@ -35,8 +38,25 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *
 	 * @param name
 	 *            the name
-	 * 
+	 *
 	 * @return the found {@link BundleApplications} object or null if not.
 	 */
 	BundleApplications find(final String name);
+
+	/**
+	 * Find all {@link BundleApplications} objects from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName the bundle name
+	 * @return the list with the {@link BundleApplications} objects
+	 */
+	List<BundleApplications> find(BundleNames bundleName);
+
+	/**
+	 * Find the {@link BundleApplications} object from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName the bundle name
+	 * @return the bundle applications
+	 */
+	BundleApplications get(BundleNames bundleName);
+
 }

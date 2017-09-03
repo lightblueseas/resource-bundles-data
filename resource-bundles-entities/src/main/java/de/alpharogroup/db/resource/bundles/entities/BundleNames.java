@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.entities;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -41,10 +42,10 @@ import lombok.ToString;
 
 /**
  * The entity class {@link BundleNames} holds the data from the {@link BaseNames} and the
- * {@link LanguageLocales}. If you see it from the properties file view you can have the default
- * properties file that is the properties file without the locale suffix and you have for instance a
- * French properties file with the locale suffix _fr. This would be two entries from this entity
- * class one for the default and one for the French locale.
+ * {@link LanguageLocales}. If you see it from the properties file view this represents an
+ * properties file. So you can have the default properties file that is the properties file without the
+ * locale suffix and you have for instance a French properties file with the locale suffix _fr. This
+ * would be two entries from this entity class one for the default and one for the French locale.
  */
 @Entity
 @Table(name = "bundlenames")
@@ -68,5 +69,9 @@ public class BundleNames extends VersionableBaseEntity<Integer> implements Clone
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_LOCALE_ID"))
 	private LanguageLocales locale;
+
+	/** The optional filepath from this resource bunlde. */
+	@Column(name = "filepath", length = 4096)
+	private String filepath;
 
 }

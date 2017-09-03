@@ -46,6 +46,16 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	List<BundleNames> find(BaseNames baseName);
 
 	/**
+	 * Find all {@link BundleNames} objects from the given baseName string.
+	 *
+	 * @param baseName
+	 *            the {@link BaseNames} object
+	 *
+	 * @return the list of found {@link BundleNames} objects or null if not.
+	 */
+	List<BundleNames> find(final String baseName);
+
+	/**
 	 * Find the {@link BundleNames} object from the given baseName and languageLocales.
 	 *
 	 * @param baseName

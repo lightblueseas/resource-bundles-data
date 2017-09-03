@@ -35,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.BundleApplicationsDao;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -54,6 +55,18 @@ public class BundleApplicationsBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Autowired
+	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	{
+		setDao(dao);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public BundleApplications find(String name)
@@ -71,10 +84,25 @@ public class BundleApplicationsBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Autowired
-	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<BundleApplications> find(BundleNames bundleName)
 	{
-		setDao(dao);
+		final String hqlString = "select distinct ba from BundleApplications ba "
+			+ "join ba.bundleNames bn " + "where bn = :bundleName";
+		final Query query = getQuery(hqlString);
+		query.setParameter("bn", bundleName);
+		final List<BundleApplications> applications = query.getResultList();
+		return applications;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications get(BundleNames bundleName)
+	{
+		return ListExtensions.getFirst(find(bundleName));
 	}
 
 }

@@ -111,9 +111,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
-			BundleNames bundleName = bundleNamesService
+			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames("resource.bundles", Locale.GERMAN);
-			PropertiesKeys pkey = propertiesKeysService
+			final PropertiesKeys pkey = propertiesKeysService
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "Erstes label");
@@ -125,9 +125,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		if (resourcebundles == null)
 		{
 
-			BundleNames bundleName = bundleNamesService
+			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames("resource.bundles", Locale.UK);
-			PropertiesKeys pkey = propertiesKeysService
+			final PropertiesKeys pkey = propertiesKeysService
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "First label");
@@ -280,17 +280,8 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			{
 				final BundleNames bundleNames = bundleNamesService
 					.getOrCreateNewBundleNames(bundlename, Locale.GERMANY);
-				LanguageLocales loc = bundleNamesService.getDefaultLocale(bundlename);
-				if (loc == null)
-				{
-					loc = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
-					DefaultLocaleBaseNames defaultLocaleBaseNames = ResourceBundlesDomainObjectFactory
-						.getInstance().newDefaultLocaleBaseNames(bundleNames, loc);
-					defaultLocaleBaseNames = defaultLocaleBaseNamesService
-						.merge(defaultLocaleBaseNames);
-					locale = Locale.GERMANY;
-				}
-				else
+				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundlename);
+				if (loc != null)
 				{
 					locale = LocaleResolver.resolveLocale(loc.getLocale());
 				}

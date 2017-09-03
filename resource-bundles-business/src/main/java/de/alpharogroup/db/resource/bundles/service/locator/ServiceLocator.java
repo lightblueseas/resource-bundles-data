@@ -27,7 +27,6 @@ package de.alpharogroup.db.resource.bundles.service.locator;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.DefaultLocaleBaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
@@ -44,8 +43,6 @@ public interface ServiceLocator
 	BundleApplicationsService getBundleApplicationsService();
 
 	BundleNamesService getBundleNamesService();
-
-	DefaultLocaleBaseNamesService getDefaultLocaleBaseNamesService();
 
 	LanguageLocalesService getLanguageLocalesService();
 
@@ -65,9 +62,6 @@ public interface ServiceLocator
 	void setBundleApplicationsService(BundleApplicationsService bundleApplicationsService);
 
 	void setBundleNamesService(BundleNamesService bundleNamesService);
-
-	void setDefaultLocaleBaseNamesService(
-		DefaultLocaleBaseNamesService defaultLocaleBaseNamesService);
 
 	void setLanguageLocalesService(LanguageLocalesService languageLocalesService);
 

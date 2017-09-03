@@ -321,17 +321,8 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 			{
 				final BundleNames bundleNames = bundleNamesService
 					.getOrCreateNewBundleNames(bundlename, Locale.GERMANY);
-				LanguageLocales loc = bundleNamesService.getDefaultLocale(bundlename);
-				if (loc == null)
-				{
-					loc = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
-					DefaultLocaleBaseNames defaultLocaleBaseNames = ResourceBundlesDomainObjectFactory
-						.getInstance().newDefaultLocaleBaseNames(bundleNames, loc);
-					defaultLocaleBaseNames = defaultLocaleBaseNamesService
-						.merge(defaultLocaleBaseNames);
-					locale = Locale.GERMANY;
-				}
-				else
+				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundlename);
+				if (loc != null)
 				{
 					locale = LocaleResolver.resolveLocale(loc.getLocale());
 				}

@@ -30,7 +30,6 @@ import java.util.Locale;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
-import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
@@ -113,25 +112,6 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 		final BundleNames bundleNames = BundleNames.builder().baseName(baseName).locale(locale)
 			.build();
 		return bundleNames;
-	}
-
-	/**
-	 * Factory method for create a new {@link DefaultLocaleBaseNames}.
-	 *
-	 * @param bundleName
-	 *            the {@link BundleNames} object
-	 * @param defaultLocale
-	 *            the default {@link LanguageLocales} object for the given {@link BundleNames}
-	 *            object
-	 *
-	 * @return the new {@link DefaultLocaleBaseNames}
-	 */
-	public DefaultLocaleBaseNames newDefaultLocaleBaseNames(final BundleNames bundleName,
-		final LanguageLocales defaultLocale)
-	{
-		final DefaultLocaleBaseNames defaultLocaleBaseNames = DefaultLocaleBaseNames.builder()
-			.bundleName(bundleName).defaultLocale(defaultLocale).build();
-		return defaultLocaleBaseNames;
 	}
 
 	/**
