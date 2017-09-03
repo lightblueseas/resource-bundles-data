@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.factories;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Locale;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
@@ -94,7 +95,10 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 		final LanguageLocales defaultLocale)
 	{
 		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
-			.defaultLocale(defaultLocale).build();
+			.defaultLocale(defaultLocale)
+			.bundleNames(new HashSet<>())
+			.supportedLocales(new HashSet<>())
+			.build();
 		return bundleApplications;
 	}
 

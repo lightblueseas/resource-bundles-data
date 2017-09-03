@@ -74,6 +74,7 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/**
 	 * The bundle names of this bundle application.
 	 */
+	@Builder.Default
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
@@ -90,6 +91,7 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/**
 	 * The supported locale objects that are mandatory for this bundle application.
 	 */
+	@Builder.Default
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_language_locales", joinColumns = {
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
