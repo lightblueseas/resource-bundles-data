@@ -1,3 +1,27 @@
+/**
+ * The MIT License
+ *
+ * Copyright (C) 2015 Asterios Raptis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *  *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *  *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.alpharogroup.db.resource.bundles.service.api;
 
 import java.util.List;
@@ -15,53 +39,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 {
 
 	/**
-	 * Gets the entry from the given parameters.
-	 *
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param key the key
-	 * @return the key
-	 */
-	Resourcebundle find(String baseName, Locale locale, String key);
-
-	/**
-	 * Gets the entry from the given parameters.
-	 *
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param key the key
-	 * @return the key
-	 */
-	Resourcebundle find(String baseName, String locale, String key);
-
-	/**
-	 * Finds all entries from the given parameters that can be null if it shell be ignored.
-	 *
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param key the key
-	 * @param value the value
-	 * @return the list
-	 */
-	List<Resourcebundle> find(String baseName, String locale, String key, String value);
-
-
-	/**
-	 * Find resource bundles from the given parameters.
-	 *
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @return the list
-	 */
-	List<Resourcebundle> findResourceBundles(String baseName, Locale locale);
-
-
-	/**
 	 * Checks if a resource exists with the given parameters.
 	 *
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param key the key
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
 	 * @return the {@link Resourcebundle} or null if it does not exists.
 	 */
 	Resourcebundle contains(String baseName, Locale locale, String key);
@@ -69,83 +54,54 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	/**
 	 * Gets the entry from the given parameters.
 	 *
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param key the key
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
 	 * @return the key
 	 */
-	Resourcebundle getResourcebundle(String baseName, Locale locale, String key);
+	Resourcebundle find(String baseName, Locale locale, String key);
 
 	/**
-	 * Update the given properties to the db.
+	 * Gets the entry from the given parameters.
 	 *
-	 * @param properties the properties
-	 * @param baseName the base name
-	 * @param locale the locale
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @return the key
 	 */
-	void updateProperties(Properties properties, String baseName, Locale locale);
+	Resourcebundle find(String baseName, String locale, String key);
 
 	/**
-	 * Update the given properties to the db.
+	 * Finds all entries from the given parameters that can be null if it shell be ignored.
 	 *
-	 * @param properties the properties
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param update flag that indicates if an existing property shell be updated
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @return the list
 	 */
-	void updateProperties(Properties properties, String baseName, Locale locale, boolean update);
+	List<Resourcebundle> find(String baseName, String locale, String key, String value);
 
-    /**
-     * Gets the resource {@link String} from the given arguments.
-     *
-     * @param baseName the base name
-     * @param locale the locale
-     * @param key the key
-     * @return the {@link String}
-     */
-    String getString(String baseName, String locale, String key);
-
-    /**
-     * Gets the resource {@link String} from the given arguments.
-     *
-     * @param baseName the base name
-     * @param locale the locale
-     * @param key the key
-     * @param params the parameters
-     * @return the {@link String}
-     */
-    String getString(String baseName, String locale, String key, Object[] params);
-
-    /**
-     * Gets the resource {@link String} from the given arguments.
-     *
-     * @param baseName the base name
-     * @param locale the locale
-     * @param key the key
-     * @param defaultValue the default value
-     * @return the {@link String}
-     */
-    String getString(String baseName, String locale, String key, final String defaultValue);
-
-    /**
-     * Gets the resource {@link String} from the given arguments.
-     *
-     * @param baseName the base name
-     * @param locale the locale
-     * @param key the key
-     * @param defaultValue the default value
-     * @param params the parameters
-     * @return the {@link String}
-     */
-    String getString(String baseName, String locale, String key, final String defaultValue, Object[] params);
-
-    /**
-     * Gets the resource {@link String} from the given {@link BundleKey}.
-     *
-     * @param bundleKey the bundle key
-     * @return the {@link String}
-     */
-    String getString(final BundleKey bundleKey);
+	/**
+	 * Find resource bundles from the given parameters.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the list
+	 */
+	List<Resourcebundle> findResourceBundles(String baseName, Locale locale);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
@@ -170,5 +126,114 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the found {@link Properties} object.
 	 */
 	Properties getProperties(final String baseName, final String locale);
+
+	/**
+	 * Gets the entry from the given parameters.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @return the key
+	 */
+	Resourcebundle getResourcebundle(String baseName, Locale locale, String key);
+
+	/**
+	 * Gets the resource {@link String} from the given {@link BundleKey}.
+	 *
+	 * @param bundleKey
+	 *            the bundle key
+	 * @return the {@link String}
+	 */
+	String getString(final BundleKey bundleKey);
+
+	/**
+	 * Gets the resource {@link String} from the given arguments.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @return the {@link String}
+	 */
+	String getString(String baseName, String locale, String key);
+
+	/**
+	 * Gets the resource {@link String} from the given arguments.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param params
+	 *            the parameters
+	 * @return the {@link String}
+	 */
+	String getString(String baseName, String locale, String key, Object[] params);
+
+	/**
+	 * Gets the resource {@link String} from the given arguments.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param defaultValue
+	 *            the default value
+	 * @return the {@link String}
+	 */
+	String getString(String baseName, String locale, String key, final String defaultValue);
+
+	/**
+	 * Gets the resource {@link String} from the given arguments.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param defaultValue
+	 *            the default value
+	 * @param params
+	 *            the parameters
+	 * @return the {@link String}
+	 */
+	String getString(String baseName, String locale, String key, final String defaultValue,
+		Object[] params);
+
+	/**
+	 * Update the given properties to the db.
+	 *
+	 * @param properties
+	 *            the properties
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 */
+	void updateProperties(Properties properties, String baseName, Locale locale);
+
+	/**
+	 * Update the given properties to the db.
+	 *
+	 * @param properties
+	 *            the properties
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param update
+	 *            flag that indicates if an existing property shell be updated
+	 */
+	void updateProperties(Properties properties, String baseName, Locale locale, boolean update);
 
 }

@@ -4,20 +4,22 @@
 
 	<parent>
 		<groupId>de.alpharogroup</groupId>
-		<artifactId>mvn-persistence-parent</artifactId>
-		<version>2.28.0</version>
-		<relativePath></relativePath>
+		<artifactId>persistence-api</artifactId>
+		<version>3.33.0</version>
+		<relativePath />
 	</parent>
 
 	<artifactId>resource-bundles-data</artifactId>
 	<packaging>pom</packaging>
-	<version>3.6.0</version>
+	<version>3.14.0</version>
 	<inceptionYear>2015</inceptionYear>
 
 	<name>${project.artifactId}</name>
 
 	<description>
-		Parent project that holds module projects for the persistence of address data.
+		This project provides Java resource bundles(i18n) that can be saved to your prefered database and load back. 
+		It is kept simple and have only one table in the database. There is also restful web services provided for 
+		providing resource bundles also for the web and can be used also with other languages than java.
 	</description>
 
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
@@ -27,6 +29,28 @@
 		<developerConnection>scm:git:git@github.com:lightblueseas/resource-bundles-data.git</developerConnection>
 		<url>git:@github.com:lightblueseas/resource-bundles-data.git</url>
 	</scm>
+	
+	<developers>
+
+		<developer>
+			<id>astrapi69</id>
+			<name>Asterios Raptis</name>
+			<timezone>Berlin</timezone>
+			<roles>
+				<role>Project manager</role>
+				<role>Developer</role>
+			</roles>
+		</developer>
+
+	</developers>
+	
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<ciManagement>
 		<system>travis-ci</system>

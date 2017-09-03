@@ -18,10 +18,8 @@
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
-	<context:component-scan
-		base-package="de.alpharogroup.db.resource.bundles.service.api" />
-	<context:component-scan
-		base-package="de.alpharogroup.db.resource.bundles.service.mapper" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />	
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 
 	<bean id="propertyPlaceholder"
@@ -40,7 +38,7 @@
 		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
 	</jdbc:embedded-database>
 
-	<!-- PostgreSQL tomcat.dbcp DataSource configuration -->
+	<!-- h2 tomcat.dbcp DataSource configuration -->
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource">
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<property name="url" value="${jdbc.url}" />
@@ -65,8 +63,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="jpaVendorAdapter"
-		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	<bean id="jpaVendorAdapter"	class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="generateDdl" value="true" />
 		<property name="showSql" value="true" />
 		<property name="database" value="H2" />
@@ -90,7 +87,6 @@
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-
 		<property name="persistenceUnitName" value="resourcebundles" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />

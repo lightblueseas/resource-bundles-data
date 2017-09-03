@@ -1,15 +1,46 @@
+/**
+ * The MIT License
+ *
+ * Copyright (C) 2015 Asterios Raptis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining
+ * a copy of this software and associated documentation files (the
+ * "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to
+ * permit persons to whom the Software is furnished to do so, subject to
+ * the following conditions:
+ *  *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *  *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+ * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+ * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+ * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.alpharogroup.db.resource.bundles.factories;
 
 import java.io.Serializable;
 import java.util.Locale;
 
+import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
  * A factory for creating Domain objects for the resource bundles.
  */
-public class ResourceBundlesDomainObjectFactory implements Serializable {
+public class ResourceBundlesDomainObjectFactory implements Serializable
+{
 
 	/** The Constant instance. */
 	private static final ResourceBundlesDomainObjectFactory instance = new ResourceBundlesDomainObjectFactory();
@@ -21,55 +52,140 @@ public class ResourceBundlesDomainObjectFactory implements Serializable {
 
 	/**
 	 * Gets the single instance of MessageSystemFactory.
-	 * 
+	 *
 	 * @return single instance of MessageSystemFactory
 	 */
-	public static ResourceBundlesDomainObjectFactory getInstance() {
+	public static ResourceBundlesDomainObjectFactory getInstance()
+	{
 		return instance;
 	}
 
 	/**
 	 * Instantiates a new MessageSystemFactory object.
 	 */
-	private ResourceBundlesDomainObjectFactory() {
-		super();
+	private ResourceBundlesDomainObjectFactory()
+	{
 	}
 
 	/**
-	 * Gets the resourcebundles.
+	 * Factory method for create a new {@link BaseNames}.
 	 *
-	 * @param baseName the bundlename
-	 * @param locale the locale
-	 * @param propertieskey the propertieskey
-	 * @param value the value
-	 * @return the resourcebundles
+	 * @param name
+	 *            the name
+	 *
+	 * @return the new {@link BaseNames}
 	 */
-	public Resourcebundles newResourcebundles(String baseName, String locale, String propertieskey,
-			String value) {
-		Resourcebundles resourcebundles = new Resourcebundles();
-		resourcebundles.setBaseName(baseName);
-		resourcebundles.setLocale(locale);
-		resourcebundles.setKey(propertieskey);
-		resourcebundles.setValue(value);
-		return resourcebundles;
+	public BaseNames newBaseNames(final String name)
+	{
+		final BaseNames baseName = BaseNames.builder().name(name).build();
+		return baseName;
 	}
 
 	/**
-	 * Gets the resourcebundles.
+	 * Factory method for create a new {@link BundleApplications}.
 	 *
-	 * @param baseName the bundlename
-	 * @param locale the locale
-	 * @param propertieskey the propertieskey
-	 * @param value the value
-	 * @return the resourcebundles
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @return the new {@link BundleApplications}
 	 */
-	public Resourcebundles newResourcebundles(String baseName, Locale locale, String propertieskey,
-			String value) {
-		Resourcebundles resourcebundles = new Resourcebundles();
-		resourcebundles.setBaseName(baseName);
-		resourcebundles.setLocale(LocaleExtensions.getLocaleFilenameSuffix(locale));
-		resourcebundles.setKey(propertieskey);
-		resourcebundles.setValue(value);
+	public BundleApplications newBundleApplications(final String name,
+		final LanguageLocales defaultLocale)
+	{
+		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
+			.defaultLocale(defaultLocale).build();
+		return bundleApplications;
+	}
+
+	/**
+	 * Factory method for create a new {@link BundleNames}.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the new {@link BundleNames}
+	 */
+	public BundleNames newBundleName(final BaseNames baseName, final LanguageLocales locale)
+	{
+		final BundleNames bundleNames = BundleNames.builder().baseName(baseName).locale(locale)
+			.build();
+		return bundleNames;
+	}
+
+	/**
+	 * Factory method for create a new {@link LanguageLocales}.
+	 *
+	 * @param locale
+	 *            the {@link Locale} object.
+	 *
+	 * @return the new {@link LanguageLocales}
+	 */
+	public LanguageLocales newLanguageLocales(final Locale locale)
+	{
+		final LanguageLocales languageLocales = LanguageLocales.builder()
+			.locale(LocaleExtensions.getLocaleFilenameSuffix(locale)).build();
+		return languageLocales;
+	}
+
+	/**
+	 * Factory method for create a new {@link LanguageLocales}.
+	 *
+	 * @param locale
+	 *            the locale
+	 *
+	 * @return the new {@link LanguageLocales}
+	 */
+	public LanguageLocales newLanguageLocales(final String locale)
+	{
+		final LanguageLocales languageLocales = LanguageLocales.builder().locale(locale).build();
+		return languageLocales;
+	}
+
+	/**
+	 * Factory method for create a new {@link Languages}.
+	 *
+	 * @param name
+	 *            the name
+	 * @param iso639Dash1
+	 *            the iso 639 dash 1
+	 * @return the new {@link Languages}
+	 */
+	public Languages newLanguages(final String name, final String iso639Dash1)
+	{
+		return Languages.builder().name(name).iso639Dash1(iso639Dash1).build();
+	}
+
+	/**
+	 * Factory method for create a new {@link PropertiesKeys}.
+	 *
+	 * @param name
+	 *            the name
+	 *
+	 * @return the new {@link PropertiesKeys}
+	 */
+	public PropertiesKeys newPropertiesKeys(final String name)
+	{
+		return PropertiesKeys.builder().name(name).build();
+	}
+
+	/**
+	 * Factory method for create a new {@link Resourcebundles}.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @return the new {@link Resourcebundles}
+	 */
+	public Resourcebundles newResourcebundles(final BundleNames bundleName,
+		final PropertiesKeys key, final String value)
+	{
+		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(bundleName)
+			.key(key).value(value).build();
 		return resourcebundles;
 	}
 
