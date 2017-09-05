@@ -88,6 +88,7 @@ public class BundleApplicationsBusinessService
 	@SuppressWarnings("unchecked")
 	public List<BundleApplications> find(BundleNames bundleName)
 	{
+	// 	final String hqlString = "select ba from BundleApplications ba, BundleNames bn where :bundleName member of ba.bundleNames";
 		final String hqlString = "select distinct ba from BundleApplications ba "
 			+ "join ba.bundleNames bn " + "where bn = :bundleName";
 		final Query query = getQuery(hqlString);
