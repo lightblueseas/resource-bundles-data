@@ -35,6 +35,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import de.alpharogroup.db.entity.name.unique.ExtraLargeUNameBaseEntity;
@@ -58,6 +60,10 @@ import lombok.ToString;
  */
 @Entity
 @Table(name = "bundle_applications")
+@NamedQueries({
+	@NamedQuery		(name=BundleApplications.NQ_FIND_BY_BUNDLE_NAME
+    			 	, query = "select ba from BundleApplications ba, BundleNames bn where :bundleName member of ba.bundleNames")
+})
 @Getter
 @Setter
 @ToString
@@ -68,6 +74,8 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	public static final String NQ_FIND_BY_BUNDLE_NAME = "BundleApplications."+"findByBundleName";
+	
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 
