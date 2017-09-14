@@ -46,7 +46,8 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	/**
 	 * Find all {@link BundleApplications} objects from the given {@link BundleNames} object.
 	 *
-	 * @param bundleName the bundle name
+	 * @param bundleName
+	 *            the bundle name
 	 * @return the list with the {@link BundleApplications} objects
 	 */
 	List<BundleApplications> find(BundleNames bundleName);
@@ -54,9 +55,20 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	/**
 	 * Find the {@link BundleApplications} object from the given {@link BundleNames} object.
 	 *
-	 * @param bundleName the bundle name
+	 * @param bundleName
+	 *            the bundle name
 	 * @return the bundle applications
 	 */
 	BundleApplications get(BundleNames bundleName);
+
+	/**
+	 * Gets the {@link BundleApplications} object from the given name or creates a new
+	 * {@link BundleApplications} object if not found.
+	 *
+	 * @param name
+	 *            the name
+	 * @return the existing or the new bundle applications
+	 */
+	BundleApplications getOrCreateNewBundleApplications(String name);
 
 }

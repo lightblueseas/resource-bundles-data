@@ -127,14 +127,8 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 				languageLocalesService.merge(languageLocale);
 			}
 		}
-		BundleApplications baseBundleApplication = bundleApplicationsService
-			.find(BundleApplications.BASE_BUNDLE_APPLICATION);
-		if (baseBundleApplication == null)
-		{
-			baseBundleApplication = BundleApplications.builder()
-				.name(BundleApplications.BASE_BUNDLE_APPLICATION).build();
-			baseBundleApplication = bundleApplicationsService.merge(baseBundleApplication);
-		}
+		bundleApplicationsService
+			.getOrCreateNewBundleApplications(BundleApplications.BASE_BUNDLE_APPLICATION);
 
 	}
 

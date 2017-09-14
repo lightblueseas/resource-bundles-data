@@ -111,4 +111,19 @@ public class BundleApplicationsBusinessService
 		return ListExtensions.getFirst(find(bundleName));
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(String name) {
+		BundleApplications baseBundleApplication = find(name);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder()
+				.name(name).build();
+			baseBundleApplication = merge(baseBundleApplication);
+		}
+		return baseBundleApplication;
+	}
+
 }
