@@ -43,9 +43,10 @@ import lombok.ToString;
 /**
  * The entity class {@link BundleNames} holds the data from the {@link BaseNames} and the
  * {@link LanguageLocales}. If you see it from the properties file view this represents an
- * properties file. So you can have the default properties file that is the properties file without the
- * locale suffix and you have for instance a French properties file with the locale suffix _fr. This
- * would be two entries from this entity class one for the default and one for the French locale.
+ * properties file. So you can have the default properties file that is the properties file without
+ * the locale suffix and you have for instance a French properties file with the locale suffix _fr.
+ * This would be two entries from this entity class one for the default and one for the French
+ * locale.
  */
 @Entity
 @Table(name = "bundlenames")

@@ -7,8 +7,9 @@
     );
 create table bundle_application_bundlenames (
         application_id int4 not null,
-        bundlenames_id int4 not null,
-        primary key (application_id, bundlenames_id)
+        bundlenames_id int4 not null unique,
+        primary key (application_id, bundlenames_id),
+        unique (bundlenames_id)
     );
 create table bundle_application_language_locales (
         application_id int4 not null,

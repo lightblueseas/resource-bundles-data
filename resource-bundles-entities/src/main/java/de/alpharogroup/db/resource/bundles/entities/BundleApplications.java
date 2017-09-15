@@ -37,6 +37,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import de.alpharogroup.db.entity.name.unique.ExtraLargeUNameBaseEntity;
@@ -74,19 +75,19 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The Constant for the name of the query find by bundle name . */
 	public static final String NQ_FIND_BY_BUNDLE_NAME = "BundleApplications."+"findByBundleName";
-	
+
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 
 	/**
 	 * The bundle names of this bundle application.
 	 */
-	@Builder.Default
-	@ManyToMany(fetch = FetchType.EAGER)
+	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id") })
+					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id", unique=true) })
 	private Set<BundleNames> bundleNames = new HashSet<>();
 
 	/**
@@ -99,7 +100,6 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/**
 	 * The supported locale objects that are mandatory for this bundle application.
 	 */
-	@Builder.Default
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_language_locales", joinColumns = {
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
