@@ -25,7 +25,7 @@ Class-Path: xml-apis-1.4.01.jar resource-bundles-rest-api.jar rest-api
  undles-domain.jar resource-bundles-business.jar business-api-3.33.0.j
  ar resource-bundles-entities.jar spring-context-4.3.9.RELEASE.jar spr
  ing-aop-4.3.9.RELEASE.jar spring-expression-4.3.9.RELEASE.jar resourc
- ebundle-inspector-2.12.0.jar nv-i18n-1.21.jar javax.servlet-api-3.1.0
+ ebundle-inspector-2.14.0.jar nv-i18n-1.21.jar javax.servlet-api-3.1.0
  .jar spring-web-4.3.9.RELEASE.jar cxf-rt-frontend-jaxrs-3.1.12.jar cx
  f-core-3.1.12.jar woodstox-core-asl-4.4.1.jar stax2-api-3.1.4.jar xml
  schema-core-2.2.2.jar javax.annotation-api-1.2.jar cxf-rt-transports-
