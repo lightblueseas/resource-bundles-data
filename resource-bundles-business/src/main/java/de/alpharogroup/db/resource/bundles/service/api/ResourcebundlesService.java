@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.api.BusinessService;
 
@@ -161,4 +162,17 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	void updateProperties(final Properties properties, final String baseName, final Locale locale,
 		final boolean update);
+
+	/**
+	 * Save or update the given resource bundle entry.
+	 *
+	 * @param bundleName the bundle name
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @param key the key
+	 * @param value the value
+	 * @param update the update
+	 */
+	void saveOrUpdateEntry(final BundleNames bundleName, final String baseName, final Locale locale,
+		final String key, final String value, final boolean update);
 }

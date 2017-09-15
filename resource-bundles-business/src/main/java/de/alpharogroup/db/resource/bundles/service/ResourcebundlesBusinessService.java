@@ -323,27 +323,33 @@ public class ResourcebundlesBusinessService
 		final Locale locale, final boolean update)
 	{
 		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
-		BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
+		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
 		for (final Map.Entry<Object, Object> element : properties.entrySet())
 		{
 			final String key = element.getKey().toString().trim();
 			final String value = element.getValue().toString().trim();
-			Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
-			if (resourcebundle != null)
-			{
-				if (update)
-				{
-					resourcebundle.setValue(value);
-				}
-			}
-			else
-			{
-				PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
-				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance()
-					.newResourcebundles(bundleName, pkey, value);
-			}
-			merge(resourcebundle);
+			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
 		}
+	}
+
+	@Override
+	public void saveOrUpdateEntry(final BundleNames bundleName, final String baseName, final Locale locale,
+		 final String key, final String value, final boolean update)
+	{
+		Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
+		if (resourcebundle != null)
+		{
+			if (update)
+			{
+				resourcebundle.setValue(value);
+			}
+		}
+		else
+		{
+			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
+			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(value).build();
+		}
+		merge(resourcebundle);
 	}
 
 }
