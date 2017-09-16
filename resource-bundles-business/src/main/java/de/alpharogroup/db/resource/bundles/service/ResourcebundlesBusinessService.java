@@ -24,6 +24,9 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,14 +40,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.check.Check;
 import de.alpharogroup.collections.ListExtensions;
+import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
@@ -53,6 +59,7 @@ import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
 
 /**
  * The class {@link ResourcebundlesBusinessService}.
@@ -84,6 +91,10 @@ public class ResourcebundlesBusinessService
 	/** The properties keys service. */
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
+
+	/** The bundle applications service. */
+	@Autowired
+	private BundleApplicationsService bundleApplicationsService;
 
 	/**
 	 * {@inheritDoc}
@@ -204,6 +215,28 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<BundleNames> importProperties(BundleApplications bundleApplication,
+		List<KeyValuePair<File, Locale>> foundProperties) throws IOException
+	{
+		final List<BundleNames> list = new ArrayList<>();
+		for (final KeyValuePair<File, Locale> entry : foundProperties)
+		{
+			final File propertiesFile = entry.getKey();
+			final Locale locale = entry.getValue();
+			final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+			final BundleNames bundleNames = updateProperties(properties, bundlename, locale, false);
+			list.add(bundleNames);
+			bundleApplication.addBundleName(bundleNames);
+			bundleApplication = bundleApplicationsService.merge(bundleApplication);
+		}
+		return list;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Resourcebundles merge(final Resourcebundles resourcebundles)
 	{
 
@@ -299,8 +332,11 @@ public class ResourcebundlesBusinessService
 		super.saveOrUpdate(resourcebundles);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public void saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
+	public Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
 		final Locale locale, final String key, final String value, final boolean update)
 	{
 		Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
@@ -317,9 +353,16 @@ public class ResourcebundlesBusinessService
 			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(value)
 				.build();
 		}
-		merge(resourcebundle);
+		resourcebundle = merge(resourcebundle);
+		return resourcebundle;
 	}
 
+	/**
+	 * Sets the resourcebundles dao.
+	 *
+	 * @param resourcebundlesDao
+	 *            the new resourcebundles dao
+	 */
 	@Autowired
 	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao)
 	{
@@ -330,17 +373,17 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void updateProperties(final Properties properties, final String baseName,
+	public BundleNames updateProperties(final Properties properties, final String baseName,
 		final Locale locale)
 	{
-		updateProperties(properties, baseName, locale, true);
+		return updateProperties(properties, baseName, locale, true);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void updateProperties(final Properties properties, final String baseName,
+	public BundleNames updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update)
 	{
 		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
@@ -352,6 +395,7 @@ public class ResourcebundlesBusinessService
 			final String value = element.getValue().toString().trim();
 			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
 		}
+		return bundleName;
 	}
 
 }

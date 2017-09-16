@@ -24,10 +24,14 @@
  */
 package de.alpharogroup.db.resource.bundles.service.api;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.api.BusinessService;
@@ -135,6 +139,21 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Resourcebundles getResourcebundle(final String baseName, final Locale locale, final String key);
 
 	/**
+	 * Import the given list with {@linkplain KeyValuePair} objects as properties file as key and
+	 * the locale string code as value.
+	 *
+	 * @param bundleApplication
+	 *            the bundle application that will be the owner of the given properties.
+	 * @param foundProperties
+	 *            the found properties
+	 * @return the list with the {@link BundleNames} that was created.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	List<BundleNames> importProperties(BundleApplications bundleApplication,
+		List<KeyValuePair<File, Locale>> foundProperties) throws IOException;
+
+	/**
 	 * Save or update the given resource bundle entry.
 	 *
 	 * @param bundleName
@@ -150,8 +169,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @param update
 	 *            the update
 	 */
-	void saveOrUpdateEntry(final BundleNames bundleName, final String baseName, final Locale locale,
-		final String key, final String value, final boolean update);
+	Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
+		final Locale locale, final String key, final String value, final boolean update);
 
 	/**
 	 * Update the given {@link Properties} object to the underlying database with the given baseName
@@ -164,7 +183,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @param locale
 	 *            the locale
 	 */
-	void updateProperties(final Properties properties, final String baseName, final Locale locale);
+	BundleNames updateProperties(final Properties properties, final String baseName,
+		final Locale locale);
 
 	/**
 	 * Update the given {@link Properties} object to the underlying database with the given baseName
@@ -179,6 +199,6 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @param update
 	 *            flag that indicates if an existing property shell be updated
 	 */
-	void updateProperties(final Properties properties, final String baseName, final Locale locale,
-		final boolean update);
+	BundleNames updateProperties(final Properties properties, final String baseName,
+		final Locale locale, final boolean update);
 }
