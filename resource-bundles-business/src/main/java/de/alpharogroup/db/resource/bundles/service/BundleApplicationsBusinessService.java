@@ -37,6 +37,7 @@ import de.alpharogroup.collections.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.BundleApplicationsDao;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
@@ -59,10 +60,22 @@ public class BundleApplicationsBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Autowired
-	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	@Override
+	public List<BundleApplications> find(BundleNames bundleName)
 	{
-		setDao(dao);
+		final TypedQuery<BundleApplications> bundleApps = getDao().getEntityManager()
+			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
+			.setParameter("bundleName", bundleName);
+		final List<BundleApplications> applications = bundleApps.getResultList();
+
+		// final String hqlString = "select ba from BundleApplications ba, BundleNames bn where
+		// :bundleName member of ba.bundleNames";
+		// final String hqlString = "select distinct ba from BundleApplications ba "
+		// + "join ba.bundleNames bn " + "where bn = :bundleName";
+		// final Query query = getQuery(hqlString);
+		// query.setParameter("bundleName", bundleName);
+		// applications = query.getResultList();
+		return applications;
 	}
 
 	/**
@@ -86,26 +99,6 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleApplications> find(BundleNames bundleName)
-	{
-		final TypedQuery<BundleApplications> bundleApps = getDao().getEntityManager()
-			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
-			.setParameter("bundleName", bundleName);
-		final List<BundleApplications> applications = bundleApps.getResultList();
-
-	// 	final String hqlString = "select ba from BundleApplications ba, BundleNames bn where :bundleName member of ba.bundleNames";
-//		final String hqlString = "select distinct ba from BundleApplications ba "
-//			+ "join ba.bundleNames bn " + "where bn = :bundleName";
-//		final Query query = getQuery(hqlString);
-//		query.setParameter("bundleName", bundleName);
-//		applications = query.getResultList();
-		return applications;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public BundleApplications get(BundleNames bundleName)
 	{
 		return ListExtensions.getFirst(find(bundleName));
@@ -115,15 +108,41 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(String name) {
+	public BundleApplications getOrCreateNewBundleApplications(String name)
+	{
 		BundleApplications baseBundleApplication = find(name);
 		if (baseBundleApplication == null)
 		{
-			baseBundleApplication = BundleApplications.builder()
-				.name(name).build();
+			baseBundleApplication = BundleApplications.builder().name(name).build();
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(final String name,
+		final LanguageLocales defaultLocale)
+	{
+		BundleApplications baseBundleApplication = find(name);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder().name(name)
+				.defaultLocale(defaultLocale).build();
+			baseBundleApplication = merge(baseBundleApplication);
+		}
+		return baseBundleApplication;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Autowired
+	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	{
+		setDao(dao);
 	}
 
 }

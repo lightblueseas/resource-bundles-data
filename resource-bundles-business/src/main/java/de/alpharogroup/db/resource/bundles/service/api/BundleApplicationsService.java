@@ -28,10 +28,20 @@ import java.util.List;
 
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
 
 public interface BundleApplicationsService extends BusinessService<BundleApplications, Integer>
 {
+
+	/**
+	 * Find all {@link BundleApplications} objects from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the list with the {@link BundleApplications} objects
+	 */
+	List<BundleApplications> find(BundleNames bundleName);
 
 	/**
 	 * Find the {@link BundleApplications} object from the given name.
@@ -42,15 +52,6 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 * @return the found {@link BundleApplications} object or null if not.
 	 */
 	BundleApplications find(final String name);
-
-	/**
-	 * Find all {@link BundleApplications} objects from the given {@link BundleNames} object.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @return the list with the {@link BundleApplications} objects
-	 */
-	List<BundleApplications> find(BundleNames bundleName);
 
 	/**
 	 * Find the {@link BundleApplications} object from the given {@link BundleNames} object.
@@ -67,8 +68,22 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *
 	 * @param name
 	 *            the name
-	 * @return the existing or the new bundle applications
+	 * @return the existing or a new {@link BundleApplications} object
 	 */
 	BundleApplications getOrCreateNewBundleApplications(String name);
+
+	/**
+	 * Gets the {@link BundleApplications} object from the given name or creates a new
+	 * {@link BundleApplications} object if not found.
+	 *
+	 *
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @return the existing or a new {@link BundleApplications} object
+	 */
+	BundleApplications getOrCreateNewBundleApplications(final String name,
+		final LanguageLocales defaultLocale);
 
 }

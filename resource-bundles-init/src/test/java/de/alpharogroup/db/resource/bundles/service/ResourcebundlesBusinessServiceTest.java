@@ -87,6 +87,20 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
 
+	private BundleApplications getOrCreateBundleApplication(final String applicationName,
+		final LanguageLocales defaultLocale)
+	{
+		BundleApplications expected = bundleApplicationsService.find(applicationName);
+		if (expected == null)
+		{
+			// and save to db...
+			expected = ResourceBundlesDomainObjectFactory.getInstance()
+				.newBundleApplications(applicationName, defaultLocale);
+			expected = bundleApplicationsService.merge(expected);
+		}
+		return expected;
+	}
+
 	/**
 	 * Gets the resourcebundles service.
 	 *
@@ -177,6 +191,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		assertEquals(expected, actual);
 	}
 
+
 	@Test(enabled = false)
 	public void testFindBundleNames()
 	{
@@ -190,7 +205,6 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		final List<BundleNames> bundleNames = bundleNamesService.find(actual);
 		assertNotNull(bundleNames);
 	}
-
 
 	@Test(enabled = false)
 	public void testFindLanguageLocales()
@@ -249,20 +263,6 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
 		truncate();
-	}
-
-	private BundleApplications getOrCreateBundleApplication(final String applicationName,
-		final LanguageLocales defaultLocale)
-	{
-		BundleApplications expected = bundleApplicationsService.find(applicationName);
-		if (expected == null)
-		{
-			// and save to db...
-			expected = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBundleApplications(applicationName, defaultLocale);
-			expected = bundleApplicationsService.merge(expected);
-		}
-		return expected;
 	}
 
 	/**

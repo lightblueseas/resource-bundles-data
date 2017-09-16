@@ -199,23 +199,11 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
-		final BundleApplications expected = getOrCreateBundleApplication(applicationName, languageLocales);
+		final BundleApplications expected = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		final BundleApplications actual = bundleApplicationsService.find(applicationName);
 		assertNotNull(actual);
 		assertEquals(expected, actual);
-	}
-
-	private BundleApplications getOrCreateBundleApplication(final String applicationName, final LanguageLocales defaultLocale)
-	{
-		BundleApplications expected = bundleApplicationsService.find(applicationName);
-		if (expected == null)
-		{
-			// and save to db...
-			expected = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBundleApplications(applicationName, defaultLocale);
-			expected = bundleApplicationsService.merge(expected);
-		}
-		return expected;
 	}
 
 	@Test(enabled = true)
@@ -311,7 +299,8 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
-		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName, languageLocales);
+		BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 
 		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet())
 		{
@@ -321,13 +310,15 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 			{
 				final BundleNames bundleNames = bundleNamesService
 					.getOrCreateNewBundleNames(bundlename, defaultLocale);
-				bundleApplication.getBundleNames().add(bundleNames);
+				bundleApplication.addBundleName(bundleNames);
 				bundleApplication = bundleApplicationsService.merge(bundleApplication);
 				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
 				if (loc != null)
 				{
 					locale = LocaleResolver.resolveLocale(loc.getLocale());
-				} else {
+				}
+				else
+				{
 					locale = defaultLocale;
 				}
 			}

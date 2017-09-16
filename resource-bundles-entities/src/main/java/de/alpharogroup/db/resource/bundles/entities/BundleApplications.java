@@ -62,9 +62,7 @@ import lombok.ToString;
 @Entity
 @Table(name = "bundle_applications")
 @NamedQueries({
-	@NamedQuery		(name=BundleApplications.NQ_FIND_BY_BUNDLE_NAME
-    			 	, query = "select ba from BundleApplications ba, BundleNames bn where :bundleName member of ba.bundleNames")
-})
+		@NamedQuery(name = BundleApplications.NQ_FIND_BY_BUNDLE_NAME, query = "select ba from BundleApplications ba, BundleNames bn where :bundleName member of ba.bundleNames") })
 @Getter
 @Setter
 @ToString
@@ -76,7 +74,7 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	private static final long serialVersionUID = 1L;
 
 	/** The Constant for the name of the query find by bundle name . */
-	public static final String NQ_FIND_BY_BUNDLE_NAME = "BundleApplications."+"findByBundleName";
+	public static final String NQ_FIND_BY_BUNDLE_NAME = "BundleApplications." + "findByBundleName";
 
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
@@ -87,7 +85,7 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
 			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id", unique=true) })
+					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id", unique = true) })
 	private Set<BundleNames> bundleNames = new HashSet<>();
 
 	/**
@@ -124,6 +122,22 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 		this.bundleNames = bundleNames;
 		this.defaultLocale = defaultLocale;
 		this.supportedLocales = supportedLocales;
+	}
+
+	/**
+	 * Adds the given bundle name.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return true, if successful
+	 */
+	public boolean addBundleName(BundleNames bundleName)
+	{
+		if (this.bundleNames == null)
+		{
+			this.bundleNames = new HashSet<>();
+		}
+		return this.bundleNames.add(bundleName);
 	}
 
 }

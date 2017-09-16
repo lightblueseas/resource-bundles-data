@@ -91,19 +91,6 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleNames> find(final String baseName)
-	{
-		if (baseName != null)
-		{
-			return find(baseName, (String)null);
-		}
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public BundleNames find(final BaseNames baseName, final LanguageLocales languageLocales)
 	{
 		String bn = null;
@@ -119,6 +106,19 @@ public class BundleNamesBusinessService
 		if (bn != null && ll != null)
 		{
 			return ListExtensions.getFirst(find(bn, ll));
+		}
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<BundleNames> find(final String baseName)
+	{
+		if (baseName != null)
+		{
+			return find(baseName, (String)null);
 		}
 		return null;
 	}
@@ -159,7 +159,8 @@ public class BundleNamesBusinessService
 	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
 	{
 		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
-		if(bundleApplications != null) {
+		if (bundleApplications != null)
+		{
 			return bundleApplications.getDefaultLocale();
 		}
 		return null;
@@ -172,7 +173,8 @@ public class BundleNamesBusinessService
 	public LanguageLocales getDefaultLocale(final String baseName)
 	{
 		final List<BundleNames> list = find(baseName);
-		if(ListExtensions.isNotEmpty(list)) {
+		if (ListExtensions.isNotEmpty(list))
+		{
 			return getDefaultLocale(ListExtensions.getFirst(list));
 		}
 		return null;
@@ -184,7 +186,8 @@ public class BundleNamesBusinessService
 		BundleNames bundleNames = find(baseName, locale);
 		if (bundleNames == null)
 		{
-			final LanguageLocales dbLocale = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+			final LanguageLocales dbLocale = languageLocalesService
+				.getOrCreateNewLanguageLocales(locale);
 			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(bn,
 				dbLocale);

@@ -135,6 +135,25 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Resourcebundles getResourcebundle(final String baseName, final Locale locale, final String key);
 
 	/**
+	 * Save or update the given resource bundle entry.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @param update
+	 *            the update
+	 */
+	void saveOrUpdateEntry(final BundleNames bundleName, final String baseName, final Locale locale,
+		final String key, final String value, final boolean update);
+
+	/**
 	 * Update the given {@link Properties} object to the underlying database with the given baseName
 	 * and the given {@link Locale} object.
 	 *
@@ -162,17 +181,4 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	void updateProperties(final Properties properties, final String baseName, final Locale locale,
 		final boolean update);
-
-	/**
-	 * Save or update the given resource bundle entry.
-	 *
-	 * @param bundleName the bundle name
-	 * @param baseName the base name
-	 * @param locale the locale
-	 * @param key the key
-	 * @param value the value
-	 * @param update the update
-	 */
-	void saveOrUpdateEntry(final BundleNames bundleName, final String baseName, final Locale locale,
-		final String key, final String value, final boolean update);
 }
