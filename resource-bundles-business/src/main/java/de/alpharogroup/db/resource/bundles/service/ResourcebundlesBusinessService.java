@@ -36,6 +36,7 @@ import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.check.Check;
@@ -335,6 +336,7 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
 		final Locale locale, final String key, final String value, final boolean update)
@@ -382,6 +384,7 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public BundleNames updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update)
