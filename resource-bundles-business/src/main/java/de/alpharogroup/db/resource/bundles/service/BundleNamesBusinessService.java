@@ -31,6 +31,7 @@ import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.ListExtensions;
@@ -180,6 +181,7 @@ public class BundleNamesBusinessService
 		return null;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale)
 	{

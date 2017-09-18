@@ -147,7 +147,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "Erstes label");
-			resourcebundlesService.saveOrUpdate(resourcebundles);
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 
 		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
@@ -254,7 +254,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";
 		assertEquals(expected, actual);
-		truncate();
+//		truncate();
 	}
 
 	/**
@@ -277,7 +277,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		final Set<Resourcebundles> rb = new HashSet<>(
 			resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
-		truncate();
+//		truncate();
 	}
 
 	/**
@@ -326,9 +326,9 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 			resourcebundlesService.updateProperties(properties, bundlename, locale, false);
 		}
 
-		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
+		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findResourceBundles(bundlename, defaultLocale));
 
-		assertEquals(627, rb.size());
+		assertEquals(209, rb.size());
 	}
 
 	/**
