@@ -86,6 +86,15 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale);
 
 	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
+
+	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
 	 * {@link Locale} object and the given properties key.
 	 *
@@ -111,6 +120,15 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the found {@link Properties} object.
 	 */
 	Properties getProperties(final String baseName, final Locale locale);
+
+	/**
+	 * Get the {@link Properties} object from given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the found {@link Properties} object.
+	 */
+	Properties getProperties(final BundleNames bundleName);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given locale code as

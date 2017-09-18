@@ -172,6 +172,17 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<Resourcebundles> findResourceBundles(final BundleNames bundleName)
+	{
+		final String baseName = bundleName.getBaseName().getName();
+		final Locale locale = LocaleResolver.resolveLocale(bundleName.getLocale().getLocale());
+		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale,
 		final String key)
 	{
@@ -186,6 +197,21 @@ public class ResourcebundlesBusinessService
 	{
 		final Properties properties = new Properties();
 		final List<Resourcebundles> resourcebundles = findResourceBundles(baseName, locale);
+		for (final Resourcebundles resourcebundle : resourcebundles)
+		{
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+		}
+		return properties;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Properties getProperties(final BundleNames bundleName)
+	{
+		final Properties properties = new Properties();
+		final List<Resourcebundles> resourcebundles = findResourceBundles(bundleName);
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
 			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
@@ -392,10 +418,17 @@ public class ResourcebundlesBusinessService
 		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
 		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName,
 			locale);
+		final Properties dbProperties = getProperties(bundleName);
 		for (final Map.Entry<Object, Object> element : properties.entrySet())
 		{
 			final String key = element.getKey().toString().trim();
 			final String value = element.getValue().toString().trim();
+			if(dbProperties.containsKey(key)) {
+				final String dbValue = dbProperties.getProperty(key);
+				if(value.equals(dbValue)) {
+					continue;
+				}
+			}
 			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
 		}
 		return bundleName;
