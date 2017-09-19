@@ -435,8 +435,9 @@ public class ResourcebundlesBusinessService
 		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName,
 			locale);
 		final Properties dbProperties = getProperties(bundleName);
+		final String bundName = bundleName.getBaseName().getName();
 		log.info("===============================================================");
-		log.info("Processing: "+bundleName.getBaseName().getName());
+		log.info("Processing bundle: "+bundName);
 		log.info("===============================================================");
 		for (final Map.Entry<Object, Object> element : properties.entrySet())
 		{
@@ -448,6 +449,15 @@ public class ResourcebundlesBusinessService
 					continue;
 				}
 			}
+			log.info("===============================================================");
+			log.info("Processing bundle: "+bundName);
+			log.info("===============================================================");
+			log.info("===============================================================");
+			log.info("Processing key: "+key+"");
+			log.info("===============================================================");
+			log.info("===============================================================");
+			log.info("Processing value: "+value+"");
+			log.info("===============================================================");
 			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
 		}
 		log.info("===============================================================");
