@@ -32,7 +32,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.ListExtensions;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.daos.LanguagesDao;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
@@ -54,6 +54,7 @@ public class LanguagesBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Languages find(final String name, final String iso639Dash1)
 	{

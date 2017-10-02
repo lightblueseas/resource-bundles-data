@@ -34,8 +34,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.CacheableMap;
-import de.alpharogroup.collections.ListExtensions;
+import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.map.CacheableMap;
 import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;

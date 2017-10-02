@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.check.Check;
-import de.alpharogroup.collections.ListExtensions;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
