@@ -43,6 +43,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -58,7 +59,7 @@ import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
-import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
+import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
 
 /**
  * The class {@link ResourcebundlesBusinessServiceTest}.
@@ -257,7 +258,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		final File propertiesFile = ClassExtensions.getResourceAsFile(propertiesFilename);
 		final String baseName = LocaleResolver.resolveBundlename(propertiesFile);
 		final Locale locale = LocaleResolver.resolveLocale(propertiesFile);
-		final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+		final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(properties, baseName, locale);
 		final Set<Resourcebundles> rb = new HashSet<>(
 			resourcebundlesService.findResourceBundles(baseName, locale));

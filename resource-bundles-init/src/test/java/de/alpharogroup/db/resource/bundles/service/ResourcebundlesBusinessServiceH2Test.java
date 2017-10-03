@@ -61,7 +61,7 @@ import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
-import de.alpharogroup.resourcebundle.properties.PropertiesExtensions;
+import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
 
 /**
  * The class {@link ResourcebundlesBusinessServiceH2Test}.
@@ -272,7 +272,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 		final File propertiesFile = ClassExtensions.getResourceAsFile(propertiesFilename);
 		final String baseName = LocaleResolver.resolveBundlename(propertiesFile);
 		final Locale locale = LocaleResolver.resolveLocale(propertiesFile);
-		final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+		final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(properties, baseName, locale);
 		final Set<Resourcebundles> rb = new HashSet<>(
 			resourcebundlesService.findResourceBundles(baseName, locale));
@@ -322,7 +322,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractTestNGSpringCo
 					locale = defaultLocale;
 				}
 			}
-			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+			final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
 			resourcebundlesService.updateProperties(properties, bundlename, locale, false);
 		}
 
