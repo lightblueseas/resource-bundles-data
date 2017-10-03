@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>3.35.0</version>
+		<version>3.35.1</version>
 		<relativePath />
 	</parent>
 
@@ -73,9 +73,6 @@
 	</modules>
 
 	<properties>
-		<!-- RESOURCEBUNDLE-CORE versions -->
-		<resourcebundle-core.version>2.14.0</resourcebundle-core.version>
-		<resourcebundle-inspector.version>${resourcebundle-core.version}</resourcebundle-inspector.version>
 	</properties>
 
 	<dependencyManagement>
