@@ -41,6 +41,7 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
 /**
  * The class {@link LanguageLocalesBusinessService}.
@@ -61,6 +62,15 @@ public class LanguageLocalesBusinessService
 	public LanguageLocales find(Locale locale)
 	{
 		return find(LocaleExtensions.getLocaleFilenameSuffix(locale));
+	}
+
+	@Override
+	public Locale resolveLocale(LanguageLocales languageLocales) {
+		Locale locale = null;
+		if(languageLocales !=null) {
+			locale = LocaleResolver.resolveLocale(languageLocales.getLocale(), false);
+		}
+		return locale;
 	}
 
 	/**
