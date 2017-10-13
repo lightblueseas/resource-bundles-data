@@ -27,6 +27,7 @@ package de.alpharogroup.db.resource.bundles.entities;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -74,5 +75,10 @@ public class BundleNames extends VersionableBaseEntity<Integer> implements Clone
 	/** The optional filepath from this resource bunlde. */
 	@Column(name = "filepath", length = 4096)
 	private String filepath;
+
+	/** The {@link BundleApplications} that owns this {@link BundleNames} object. */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "OWNER_ID")
+	private BundleApplications owner;
 
 }

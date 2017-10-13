@@ -82,10 +82,7 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/**
 	 * The bundle names of this bundle application.
 	 */
-	@OneToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
-			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id", unique = true) })
+	@OneToMany(mappedBy="owner")
 	private Set<BundleNames> bundleNames = new HashSet<>();
 
 	/**
