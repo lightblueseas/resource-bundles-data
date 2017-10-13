@@ -198,6 +198,26 @@ public class BundleNamesBusinessService
 		return bundleNames;
 	}
 
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public BundleNames getOrCreateNewBundleNames(BundleApplications owner, final String baseName, final Locale locale)
+	{
+		BundleNames bundleNames = find(baseName, locale);
+		if (bundleNames == null)
+		{
+			final LanguageLocales dbLocale = languageLocalesService
+				.getOrCreateNewLanguageLocales(locale);
+			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
+			bundleNames = BundleNames.builder()
+				.owner(owner)
+				.baseName(bn)
+				.locale(dbLocale)
+				.build();
+			bundleNames = merge(bundleNames);
+		}
+		return bundleNames;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

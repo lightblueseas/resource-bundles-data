@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
@@ -120,4 +121,14 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 * @return the {@link BundleNames} object
 	 */
 	BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale);
+
+	/**
+	 * Gets the or creates a new {@link BundleNames} object.
+	 *
+	 * @param owner the owner
+	 * @param baseName the base name
+	 * @param locale the locale
+	 * @return the or create new bundle names
+	 */
+	BundleNames getOrCreateNewBundleNames(BundleApplications owner, final String baseName, final Locale locale);
 }
