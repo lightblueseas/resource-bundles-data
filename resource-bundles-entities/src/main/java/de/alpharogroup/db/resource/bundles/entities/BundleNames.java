@@ -78,7 +78,7 @@ public class BundleNames extends VersionableBaseEntity<Integer> implements Clone
 
 	/** The {@link BundleApplications} that owns this {@link BundleNames} object. */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "OWNER_ID")
+	@JoinColumn(name = "owner_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_OWNER_ID"))
 	private BundleApplications owner;
 
 }

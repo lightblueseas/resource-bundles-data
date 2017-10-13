@@ -82,7 +82,7 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/**
 	 * The bundle names of this bundle application.
 	 */
-	@OneToMany(mappedBy="owner")
+	@OneToMany(mappedBy = "owner")
 	private Set<BundleNames> bundleNames = new HashSet<>();
 
 	/**
@@ -133,6 +133,10 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 		if (this.bundleNames == null)
 		{
 			this.bundleNames = new HashSet<>();
+		}
+		if (bundleName.getOwner() != this)
+		{
+			bundleName.setOwner(this);
 		}
 		return this.bundleNames.add(bundleName);
 	}
