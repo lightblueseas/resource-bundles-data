@@ -295,7 +295,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 			if (locale == null)
 			{
 				final BundleNames bundleNames = bundleNamesService
-					.getOrCreateNewBundleNames(bundlename, defaultLocale);
+					.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
 				bundleApplication.getBundleNames().add(bundleNames);
 				bundleApplication = bundleApplicationsService.merge(bundleApplication);
 				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);

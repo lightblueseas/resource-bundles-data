@@ -426,6 +426,16 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
+	public BundleNames updateProperties(final BundleApplications owner, final Properties properties, final String baseName,
+		final Locale locale)
+	{
+		return updateProperties(owner, properties, baseName, locale, true);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
 	public BundleNames updateProperties(final Properties properties, final String baseName,
@@ -433,6 +443,46 @@ public class ResourcebundlesBusinessService
 	{
 		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
 		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName,
+			locale);
+		final Properties dbProperties = getProperties(bundleName);
+		final String bundName = bundleName.getBaseName().getName();
+		log.info("===============================================================");
+		log.info("Processing bundle: "+bundName);
+		log.info("===============================================================");
+		for (final Map.Entry<Object, Object> element : properties.entrySet())
+		{
+			final String key = element.getKey().toString().trim();
+			final String value = element.getValue().toString().trim();
+			if(dbProperties.containsKey(key)) {
+				final String dbValue = dbProperties.getProperty(key);
+				if(value.equals(dbValue)) {
+					continue;
+				}
+			}
+			log.info("===============================================================");
+			log.info("Processing bundle: "+bundName);
+			log.info("===============================================================");
+			log.info("===============================================================");
+			log.info("Processing key: "+key+"");
+			log.info("===============================================================");
+			log.info("===============================================================");
+			log.info("Processing value: "+value+"");
+			log.info("===============================================================");
+			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
+		}
+		log.info("===============================================================");
+		log.info("Finish of processing: "+bundleName.getBaseName().getName());
+		log.info("===============================================================");
+		return bundleName;
+	}
+
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public BundleNames updateProperties(final BundleApplications owner, final Properties properties, final String baseName,
+		final Locale locale, final boolean update)
+	{
+		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
+		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(owner, baseName,
 			locale);
 		final Properties dbProperties = getProperties(bundleName);
 		final String bundName = bundleName.getBaseName().getName();

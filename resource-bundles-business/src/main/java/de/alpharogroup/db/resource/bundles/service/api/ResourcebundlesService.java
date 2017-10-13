@@ -219,4 +219,22 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	BundleNames updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update);
+
+	/**
+	 * Update the given {@link Properties} object to the underlying database with the given owner
+	 * and the given baseName and the given {@link Locale} object.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param properties
+	 *            the properties
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the bundle names
+	 */
+	BundleNames updateProperties(final BundleApplications owner, final Properties properties,
+		final String baseName, final Locale locale);
+
 }

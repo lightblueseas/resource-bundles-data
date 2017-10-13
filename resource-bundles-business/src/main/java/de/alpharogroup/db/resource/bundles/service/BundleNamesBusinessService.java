@@ -200,7 +200,7 @@ public class BundleNamesBusinessService
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public BundleNames getOrCreateNewBundleNames(BundleApplications owner, final String baseName, final Locale locale)
+	public BundleNames getOrCreateNewBundleNames(final BundleApplications owner, final String baseName, final Locale locale)
 	{
 		BundleNames bundleNames = find(baseName, locale);
 		if (bundleNames == null)
