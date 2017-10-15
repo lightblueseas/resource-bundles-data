@@ -186,6 +186,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the value
 	 * @param update
 	 *            the update
+	 * @return the saved or updated {@link Resourcebundles} object
 	 */
 	Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
 		final Locale locale, final String key, final String value, final boolean update);
@@ -200,6 +201,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the base name
 	 * @param locale
 	 *            the locale
+	 * @return the updated {@link BundleNames} object
 	 */
 	BundleNames updateProperties(final Properties properties, final String baseName,
 		final Locale locale);
@@ -216,6 +218,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @param update
 	 *            flag that indicates if an existing property shell be updated
+	 * @return the updated {@link BundleNames} object
 	 */
 	BundleNames updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update);
@@ -232,7 +235,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 * @return the bundle names
+	 * @return the updated {@link BundleNames} object
 	 */
 	BundleNames updateProperties(final BundleApplications owner, final Properties properties,
 		final String baseName, final Locale locale);
