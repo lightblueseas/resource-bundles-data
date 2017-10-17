@@ -79,11 +79,11 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleNames> find(final BaseNames baseName)
+	public List<BundleNames> find(final BundleApplications owner, final BaseNames baseName)
 	{
 		if (baseName != null)
 		{
-			return find(baseName.getName(), (String)null);
+			return find(owner, baseName.getName(), (String)null);
 		}
 		return null;
 	}
@@ -92,7 +92,7 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames find(final BaseNames baseName, final LanguageLocales languageLocales)
+	public BundleNames find(final BundleApplications owner, final BaseNames baseName, final LanguageLocales languageLocales)
 	{
 		String bn = null;
 		String ll = null;
@@ -106,7 +106,7 @@ public class BundleNamesBusinessService
 		}
 		if (bn != null && ll != null)
 		{
-			return ListExtensions.getFirst(find(bn, ll));
+			return ListExtensions.getFirst(find(owner, bn, ll));
 		}
 		return null;
 	}
@@ -115,20 +115,20 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleNames> find(final String baseName)
+	public List<BundleNames> find(final BundleApplications owner, final String baseName)
 	{
 		if (baseName != null)
 		{
-			return find(baseName, (String)null);
+			return find(owner, baseName, (String)null);
 		}
 		return null;
 	}
 
 	@Override
-	public BundleNames find(final String baseName, final Locale locale)
+	public BundleNames find(final BundleApplications owner, final String baseName, final Locale locale)
 	{
 		return ListExtensions
-			.getFirst(find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
+			.getFirst(find(owner, baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
 	}
 
 	/**
@@ -136,10 +136,14 @@ public class BundleNamesBusinessService
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BundleNames> find(final String baseName, final String locale)
+	public List<BundleNames> find(final BundleApplications owner, final String baseName, final String locale)
 	{
-		final String hqlString = HqlStringCreator.forBundleNames(baseName, locale);
+		final String hqlString = HqlStringCreator.forBundleNames(owner.getName(), baseName, locale);
 		final Query query = getQuery(hqlString);
+		if (owner != null)
+		{
+			query.setParameter("owner", owner);
+		}
 		if (baseName != null && !baseName.isEmpty())
 		{
 			query.setParameter("baseName", baseName);
@@ -171,9 +175,9 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(final String baseName)
+	public LanguageLocales getDefaultLocale(final BundleApplications owner, final String baseName)
 	{
-		final List<BundleNames> list = find(baseName);
+		final List<BundleNames> list = find(owner, baseName);
 		if (ListExtensions.isNotEmpty(list))
 		{
 			return getDefaultLocale(ListExtensions.getFirst(list));
@@ -183,26 +187,9 @@ public class BundleNamesBusinessService
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale)
-	{
-		BundleNames bundleNames = find(baseName, locale);
-		if (bundleNames == null)
-		{
-			final LanguageLocales dbLocale = languageLocalesService
-				.getOrCreateNewLanguageLocales(locale);
-			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
-			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(bn,
-				dbLocale);
-			bundleNames = merge(bundleNames);
-		}
-		return bundleNames;
-	}
-
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	@Override
 	public BundleNames getOrCreateNewBundleNames(final BundleApplications owner, final String baseName, final Locale locale)
 	{
-		BundleNames bundleNames = find(baseName, locale);
+		BundleNames bundleNames = find(owner, baseName, locale);
 		if (bundleNames == null)
 		{
 			final LanguageLocales dbLocale = languageLocalesService

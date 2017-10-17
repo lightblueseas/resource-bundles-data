@@ -44,7 +44,7 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *
 	 * @return the list of found {@link BundleNames} objects or null if not.
 	 */
-	List<BundleNames> find(BaseNames baseName);
+	List<BundleNames> find(final BundleApplications owner, BaseNames baseName);
 
 	/**
 	 * Find the {@link BundleNames} object from the given baseName and languageLocales.
@@ -56,7 +56,7 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
-	BundleNames find(BaseNames baseName, LanguageLocales languageLocales);
+	BundleNames find(final BundleApplications owner, BaseNames baseName, LanguageLocales languageLocales);
 
 	/**
 	 * Find all {@link BundleNames} objects from the given baseName string.
@@ -66,7 +66,7 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *
 	 * @return the list of found {@link BundleNames} objects or null if not.
 	 */
-	List<BundleNames> find(final String baseName);
+	List<BundleNames> find(final BundleApplications owner, final String baseName);
 
 	/**
 	 * Find all {@link BundleNames} object from the given baseName and locale.
@@ -78,19 +78,21 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
-	BundleNames find(final String baseName, final Locale locale);
+	BundleNames find(final BundleApplications owner, final String baseName, final Locale locale);
 
 	/**
 	 * Find all {@link BundleNames} objects from the given baseName and locale.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 *
 	 * @return the list of found {@link BaseNames} objects or null if not.
 	 */
-	List<BundleNames> find(final String baseName, final String locale);
+	List<BundleNames> find(final BundleApplications owner, final String baseName,
+		final String locale);
 
 	/**
 	 * Gets the default locale from the given {@link BaseNames} object.
@@ -109,26 +111,19 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 * @return the default locale from the given base name as {@link String} object or null if not
 	 *         set.
 	 */
-	LanguageLocales getDefaultLocale(String baseName);
+	LanguageLocales getDefaultLocale(final BundleApplications owner, String baseName);
 
 	/**
 	 * Gets the or creates a new {@link BundleNames} object.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 * @return the {@link BundleNames} object
-	 */
-	BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale);
-
-	/**
-	 * Gets the or creates a new {@link BundleNames} object.
-	 *
-	 * @param owner the owner
-	 * @param baseName the base name
-	 * @param locale the locale
 	 * @return the or create new bundle names
 	 */
-	BundleNames getOrCreateNewBundleNames(BundleApplications owner, final String baseName, final Locale locale);
+	BundleNames getOrCreateNewBundleNames(BundleApplications owner, final String baseName,
+		final Locale locale);
 }

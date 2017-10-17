@@ -262,8 +262,8 @@ public class ResourcebundleDomainService
 	@Override
 	public void updateProperties(final Properties properties, final String baseName,
 		final Locale locale)
-	{
-		resourcebundlesService.updateProperties(properties, baseName, locale);
+	{// TODO change with appropriate bundleApp
+		resourcebundlesService.updateProperties(null, properties, baseName, locale);
 	}
 
 	/**
@@ -272,8 +272,8 @@ public class ResourcebundleDomainService
 	@Override
 	public void updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update)
-	{
-		resourcebundlesService.updateProperties(properties, baseName, locale, update);
+	{// TODO change with appropriate bundleApp
+//		resourcebundlesService.updateProperties(null, properties, baseName, locale, update);
 	}
 
 }

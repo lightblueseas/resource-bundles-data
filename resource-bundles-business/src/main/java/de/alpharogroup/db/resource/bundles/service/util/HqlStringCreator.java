@@ -90,10 +90,16 @@ public class HqlStringCreator
 	 *
 	 * @return the string
 	 */
-	public static String forBundleNames(final String baseName, final String locale)
+	public static String forBundleNames(final String owner, final String baseName, final String locale)
 	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + BundleNames.class.getSimpleName() + " bn");
+		final boolean ownerIsNotNull = owner != null && !owner.isEmpty();
+		if (ownerIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where bn.owner=:owner");
+		}
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
 		if (baseNameIsNotNull)
 		{
