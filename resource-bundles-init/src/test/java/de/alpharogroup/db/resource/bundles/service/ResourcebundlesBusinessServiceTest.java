@@ -117,12 +117,17 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 */
 	protected void initResourcebundles()
 	{
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
 			Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
 			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames("resource.bundles", Locale.GERMAN);
+				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
@@ -136,7 +141,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 		{
 
 			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames("resource.bundles", Locale.UK);
+				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
@@ -201,9 +206,13 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 
 		final BaseNames actual = baseNamesService.getOrCreateNewBaseNames(baseName);
 		assertNotNull(actual);
-
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		// Get all bundle names as list
-		final List<BundleNames> bundleNames = bundleNamesService.find(actual);
+		final List<BundleNames> bundleNames = bundleNamesService.find(bundleApplication, actual);
 		assertNotNull(bundleNames);
 	}
 
@@ -253,13 +262,17 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 */
 	@Test(enabled = false)
 	public void testUpdateProperties() throws URISyntaxException, IOException
-	{
+	{final LanguageLocales languageLocales = languageLocalesService
+	.getOrCreateNewLanguageLocales(Locale.GERMANY);
+final String applicationName = "foo-dating.com";
+final BundleApplications bundleApplication = bundleApplicationsService
+	.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		final String propertiesFilename = "test_de_DE.properties";
 		final File propertiesFile = ClassExtensions.getResourceAsFile(propertiesFilename);
 		final String baseName = LocaleResolver.resolveBundlename(propertiesFile);
 		final Locale locale = LocaleResolver.resolveLocale(propertiesFile);
 		final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
-		resourcebundlesService.updateProperties(properties, baseName, locale);
+		resourcebundlesService.updateProperties(bundleApplication, properties, baseName, locale);
 		final Set<Resourcebundles> rb = new HashSet<>(
 			resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
@@ -309,7 +322,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 				}
 			}
 			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
-			resourcebundlesService.updateProperties(properties, bundlename, locale, false);
+			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
 		}
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());

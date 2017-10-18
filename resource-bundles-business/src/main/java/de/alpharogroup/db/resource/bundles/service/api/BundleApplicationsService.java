@@ -70,6 +70,7 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *            the name
 	 * @return the existing or a new {@link BundleApplications} object
 	 */
+	@Deprecated
 	BundleApplications getOrCreateNewBundleApplications(String name);
 
 	/**
