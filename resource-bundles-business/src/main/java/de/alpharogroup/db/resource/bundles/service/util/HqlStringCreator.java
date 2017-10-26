@@ -102,9 +102,16 @@ public class HqlStringCreator
 		}
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
 		if (baseNameIsNotNull)
-		{
+		{			
 			sb.append(" ");
-			sb.append("where bn.baseName.name=:baseName");
+			if (ownerIsNotNull)
+			{
+				sb.append("and bn.baseName.name=:baseName");
+			}
+			else
+			{
+				sb.append("where bn.baseName.name=:baseName");
+			}
 		}
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
 		if (localeIsNotNull)
