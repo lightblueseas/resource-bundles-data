@@ -148,6 +148,55 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	}
 
 	/**
+	 * Inits a resourcebundles.
+	 */
+	protected void initBundleApplicationsBarDate()
+	{
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "bar-date.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
+			Locale.GERMAN, "resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+			final BundleNames bundleName = bundleNamesService
+				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
+			final PropertiesKeys pkey = propertiesKeysService
+				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(bundleName, pkey, "Erstes label");
+			resourcebundlesService.saveOrUpdate(resourcebundles);
+		}
+
+		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
+			"resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+
+			final BundleNames bundleName = bundleNamesService
+				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
+			final PropertiesKeys pkey = propertiesKeysService
+				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(bundleName, pkey, "First label");
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
+		}
+	}
+	
+	public void testBundleApplicationsWithSameNameResourceBundles() {
+		initResourcebundles();
+		initBundleApplicationsBarDate();
+		final LanguageLocales languageLocales = languageLocalesService
+				.getOrCreateNewLanguageLocales(Locale.GERMANY);
+			final String applicationName = "bar-date.com";
+			final BundleApplications bundleApplication = bundleApplicationsService
+				.getOrCreateNewBundleApplications(applicationName, languageLocales);
+			Set<BundleNames> bundleNames = bundleApplication.getBundleNames();
+			System.out.println(bundleNames);
+	}
+	/**
 	 * Sets the resourcebundles service.
 	 *
 	 * @param resourcebundlesService
