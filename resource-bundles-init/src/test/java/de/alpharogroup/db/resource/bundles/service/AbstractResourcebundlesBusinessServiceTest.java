@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 import java.util.Properties;
 import java.util.Set;
 
@@ -129,7 +130,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "Erstes label");
-			resourcebundlesService.saveOrUpdate(resourcebundles);
+			resourcebundlesService.merge(resourcebundles);
 		}
 
 		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
@@ -184,18 +185,26 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}
-	
-	public void testBundleApplicationsWithSameNameResourceBundles() {
+
+	public void testBundleApplicationsWithSameNameResourceBundles()
+	{
 		initResourcebundles();
 		initBundleApplicationsBarDate();
 		final LanguageLocales languageLocales = languageLocalesService
-				.getOrCreateNewLanguageLocales(Locale.GERMANY);
-			final String applicationName = "bar-date.com";
-			final BundleApplications bundleApplication = bundleApplicationsService
-				.getOrCreateNewBundleApplications(applicationName, languageLocales);
-			Set<BundleNames> bundleNames = bundleApplication.getBundleNames();
-			System.out.println(bundleNames);
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "bar-date.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		final Set<BundleNames> bundleNames = bundleApplication.getBundleNames();
+		System.out.println(bundleNames);
+
+		final String applicationName2 = "foo-dating.com";
+		final BundleApplications bundleApplication2 = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
+		final Set<BundleNames> bundleNames2 = bundleApplication2.getBundleNames();
+		System.out.println(bundleNames2);
 	}
+
 	/**
 	 * Sets the resourcebundles service.
 	 *
@@ -289,7 +298,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";
 		assertEquals(expected, actual);
-		truncate();
+		// truncate();
 	}
 
 	/**
@@ -376,7 +385,13 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	private void truncate()
 	{
 		final List<BundleApplications> ba = bundleApplicationsService.findAll();
-		bundleApplicationsService.delete(ba);
+		ba.forEach(bundleApplication -> {
+			bundleApplication.getBundleNames().forEach(bundleName -> {
+				// TODO delete all Resourcebundles before delete
+				bundleNamesService.delete(bundleName);
+			});
+			bundleApplicationsService.delete(bundleApplication);
+		});
 		final List<Resourcebundles> rb = resourcebundlesService.findAll();
 		resourcebundlesService.delete(rb);
 	}
