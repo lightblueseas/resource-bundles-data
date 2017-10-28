@@ -56,7 +56,8 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
-	BundleNames find(final BundleApplications owner, BaseNames baseName, LanguageLocales languageLocales);
+	BundleNames find(final BundleApplications owner, BaseNames baseName,
+		LanguageLocales languageLocales);
 
 	/**
 	 * Find all {@link BundleNames} objects from the given baseName string.
@@ -95,15 +96,6 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 		final String locale);
 
 	/**
-	 * Gets the default locale from the given {@link BaseNames} object.
-	 *
-	 * @param bundleNames
-	 *            the bundle names
-	 * @return the default locale from the given {@link BaseNames} object or null if not set.
-	 */
-	LanguageLocales getDefaultLocale(BundleNames bundleNames);
-
-	/**
 	 * Gets the default locale from the given base name as {@link String} object.
 	 *
 	 * @param baseName
@@ -112,6 +104,15 @@ public interface BundleNamesService extends BusinessService<BundleNames, Integer
 	 *         set.
 	 */
 	LanguageLocales getDefaultLocale(final BundleApplications owner, String baseName);
+
+	/**
+	 * Gets the default locale from the given {@link BaseNames} object.
+	 *
+	 * @param bundleNames
+	 *            the bundle names
+	 * @return the default locale from the given {@link BaseNames} object or null if not set.
+	 */
+	LanguageLocales getDefaultLocale(BundleNames bundleNames);
 
 	/**
 	 * Gets the or creates a new {@link BundleNames} object.

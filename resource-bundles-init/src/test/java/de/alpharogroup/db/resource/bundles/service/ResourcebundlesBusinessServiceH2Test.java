@@ -40,6 +40,13 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 
 	@Override
 	@Test(enabled = true)
+	public void testBundleApplicationsWithSameNameResourceBundles()
+	{
+		super.testBundleApplicationsWithSameNameResourceBundles();
+	}
+
+	@Override
+	@Test(enabled = true)
 	public void testFindBundleApplications()
 	{
 		super.testFindBundleApplications();
@@ -78,12 +85,6 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();
-	}
-	
-	@Override
-	@Test(enabled = true)
-	public void testBundleApplicationsWithSameNameResourceBundles() {
-		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
 

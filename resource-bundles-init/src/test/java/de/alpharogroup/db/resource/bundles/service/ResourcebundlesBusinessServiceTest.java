@@ -262,11 +262,12 @@ public class ResourcebundlesBusinessServiceTest extends AbstractTestNGSpringCont
 	 */
 	@Test(enabled = false)
 	public void testUpdateProperties() throws URISyntaxException, IOException
-	{final LanguageLocales languageLocales = languageLocalesService
-	.getOrCreateNewLanguageLocales(Locale.GERMANY);
-final String applicationName = "foo-dating.com";
-final BundleApplications bundleApplication = bundleApplicationsService
-	.getOrCreateNewBundleApplications(applicationName, languageLocales);
+	{
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		final String propertiesFilename = "test_de_DE.properties";
 		final File propertiesFile = ClassExtensions.getResourceAsFile(propertiesFilename);
 		final String baseName = LocaleResolver.resolveBundlename(propertiesFile);
@@ -322,7 +323,8 @@ final BundleApplications bundleApplication = bundleApplicationsService
 				}
 			}
 			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
-			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
+			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
+				locale);
 		}
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());

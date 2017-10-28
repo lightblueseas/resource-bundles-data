@@ -40,7 +40,6 @@ import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
@@ -92,7 +91,8 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames find(final BundleApplications owner, final BaseNames baseName, final LanguageLocales languageLocales)
+	public BundleNames find(final BundleApplications owner, final BaseNames baseName,
+		final LanguageLocales languageLocales)
 	{
 		String bn = null;
 		String ll = null;
@@ -125,7 +125,8 @@ public class BundleNamesBusinessService
 	}
 
 	@Override
-	public BundleNames find(final BundleApplications owner, final String baseName, final Locale locale)
+	public BundleNames find(final BundleApplications owner, final String baseName,
+		final Locale locale)
 	{
 		return ListExtensions
 			.getFirst(find(owner, baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
@@ -136,7 +137,8 @@ public class BundleNamesBusinessService
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BundleNames> find(final BundleApplications owner, final String baseName, final String locale)
+	public List<BundleNames> find(final BundleApplications owner, final String baseName,
+		final String locale)
 	{
 		final String hqlString = HqlStringCreator.forBundleNames(owner.getName(), baseName, locale);
 		final Query query = getQuery(hqlString);
@@ -161,20 +163,6 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
-	{
-		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
-		if (bundleApplications != null)
-		{
-			return bundleApplications.getDefaultLocale();
-		}
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public LanguageLocales getDefaultLocale(final BundleApplications owner, final String baseName)
 	{
 		final List<BundleNames> list = find(owner, baseName);
@@ -185,9 +173,24 @@ public class BundleNamesBusinessService
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
+	{
+		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
+		if (bundleApplications != null)
+		{
+			return bundleApplications.getDefaultLocale();
+		}
+		return null;
+	}
+
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public BundleNames getOrCreateNewBundleNames(final BundleApplications owner, final String baseName, final Locale locale)
+	public BundleNames getOrCreateNewBundleNames(final BundleApplications owner,
+		final String baseName, final Locale locale)
 	{
 		BundleNames bundleNames = find(owner, baseName, locale);
 		if (bundleNames == null)
@@ -195,11 +198,7 @@ public class BundleNamesBusinessService
 			final LanguageLocales dbLocale = languageLocalesService
 				.getOrCreateNewLanguageLocales(locale);
 			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
-			bundleNames = BundleNames.builder()
-				.owner(owner)
-				.baseName(bn)
-				.locale(dbLocale)
-				.build();
+			bundleNames = BundleNames.builder().owner(owner).baseName(bn).locale(dbLocale).build();
 			bundleNames = merge(bundleNames);
 		}
 		return bundleNames;

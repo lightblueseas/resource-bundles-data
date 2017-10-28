@@ -74,6 +74,15 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 		final String value);
 
 	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
+
+	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
 	 * {@link Locale} object.
 	 *
@@ -84,15 +93,6 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
 	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale);
-
-	/**
-	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @return the list of the found {@link Resourcebundles} objects.
-	 */
-	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
 
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
@@ -110,6 +110,15 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 		final String key);
 
 	/**
+	 * Get the {@link Properties} object from given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the found {@link Properties} object.
+	 */
+	Properties getProperties(final BundleNames bundleName);
+
+	/**
 	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
 	 * object.
 	 *
@@ -120,15 +129,6 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the found {@link Properties} object.
 	 */
 	Properties getProperties(final String baseName, final Locale locale);
-
-	/**
-	 * Get the {@link Properties} object from given {@link BundleNames} object.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @return the found {@link Properties} object.
-	 */
-	Properties getProperties(final BundleNames bundleName);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given locale code as
@@ -205,8 +205,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            flag that indicates if an existing property shell be updated
 	 * @return the updated {@link BundleNames} object
 	 */
-//	BundleNames updateProperties(final Properties properties, final String baseName,
-//		final Locale locale, final boolean update);
+	// BundleNames updateProperties(final Properties properties, final String baseName,
+	// final Locale locale, final boolean update);
 
 	/**
 	 * Update the given {@link Properties} object to the underlying database with the given owner

@@ -111,6 +111,44 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	}
 
 	/**
+	 * Inits a resourcebundles.
+	 */
+	protected void initBundleApplicationsBarDate()
+	{
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "bar-date.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
+			Locale.GERMAN, "resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+			final BundleNames bundleName = bundleNamesService
+				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
+			final PropertiesKeys pkey = propertiesKeysService
+				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(bundleName, pkey, "Erstes label");
+			resourcebundlesService.saveOrUpdate(resourcebundles);
+		}
+
+		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
+			"resource.bundles.test.label");
+		if (resourcebundles == null)
+		{
+
+			final BundleNames bundleName = bundleNamesService
+				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
+			final PropertiesKeys pkey = propertiesKeysService
+				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
+				.newResourcebundles(bundleName, pkey, "First label");
+			resourcebundles = resourcebundlesService.merge(resourcebundles);
+		}
+	}
+
+	/**
 	 * Inits the resourcebundles.
 	 */
 	protected void initResourcebundles()
@@ -149,41 +187,14 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	}
 
 	/**
-	 * Inits a resourcebundles.
+	 * Sets the resourcebundles service.
+	 *
+	 * @param resourcebundlesService
+	 *            the new resourcebundles service
 	 */
-	protected void initBundleApplicationsBarDate()
+	public void setResourcebundlesService(final ResourcebundlesService resourcebundlesService)
 	{
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
-		final String applicationName = "bar-date.com";
-		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
-			Locale.GERMAN, "resource.bundles.test.label");
-		if (resourcebundles == null)
-		{
-			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
-			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "Erstes label");
-			resourcebundlesService.saveOrUpdate(resourcebundles);
-		}
-
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
-			"resource.bundles.test.label");
-		if (resourcebundles == null)
-		{
-
-			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
-			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "First label");
-			resourcebundles = resourcebundlesService.merge(resourcebundles);
-		}
+		this.resourcebundlesService = resourcebundlesService;
 	}
 
 	public void testBundleApplicationsWithSameNameResourceBundles()
@@ -204,17 +215,6 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<BundleNames> bundleNames2 = bundleApplication2.getBundleNames();
 		System.out.println(bundleNames2);
 		assertNotEquals(bundleNames, bundleNames2);
-	}
-
-	/**
-	 * Sets the resourcebundles service.
-	 *
-	 * @param resourcebundlesService
-	 *            the new resourcebundles service
-	 */
-	public void setResourcebundlesService(final ResourcebundlesService resourcebundlesService)
-	{
-		this.resourcebundlesService = resourcebundlesService;
 	}
 
 	public void testFindBaseNames()

@@ -64,15 +64,6 @@ public class LanguageLocalesBusinessService
 		return find(LocaleExtensions.getLocaleFilenameSuffix(locale));
 	}
 
-	@Override
-	public Locale resolveLocale(LanguageLocales languageLocales) {
-		Locale locale = null;
-		if(languageLocales !=null) {
-			locale = LocaleResolver.resolveLocale(languageLocales.getLocale(), false);
-		}
-		return locale;
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -103,6 +94,17 @@ public class LanguageLocalesBusinessService
 			expected = merge(expected);
 		}
 		return expected;
+	}
+
+	@Override
+	public Locale resolveLocale(LanguageLocales languageLocales)
+	{
+		Locale locale = null;
+		if (languageLocales != null)
+		{
+			locale = LocaleResolver.resolveLocale(languageLocales.getLocale(), false);
+		}
+		return locale;
 	}
 
 	/**

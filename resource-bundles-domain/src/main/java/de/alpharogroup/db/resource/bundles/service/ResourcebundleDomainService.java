@@ -273,7 +273,7 @@ public class ResourcebundleDomainService
 	public void updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update)
 	{// TODO change with appropriate bundleApp
-//		resourcebundlesService.updateProperties(null, properties, baseName, locale, update);
+		// resourcebundlesService.updateProperties(null, properties, baseName, locale, update);
 	}
 
 }
