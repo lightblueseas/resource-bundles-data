@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
+import static org.testng.Assert.assertNotEquals;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 
@@ -35,7 +36,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.function.Consumer;
 import java.util.Properties;
 import java.util.Set;
 
@@ -203,6 +203,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
 		final Set<BundleNames> bundleNames2 = bundleApplication2.getBundleNames();
 		System.out.println(bundleNames2);
+		assertNotEquals(bundleNames, bundleNames2);
 	}
 
 	/**
