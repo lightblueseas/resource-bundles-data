@@ -38,7 +38,7 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.repositories.BaseNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.repository.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
  * The class {@link BaseNamesBusinessService}.

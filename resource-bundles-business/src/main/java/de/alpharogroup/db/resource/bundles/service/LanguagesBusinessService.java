@@ -37,7 +37,7 @@ import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.repositories.LanguagesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.repository.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
  * The class {@link LanguagesBusinessService}.
