@@ -33,11 +33,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.LanguagesDao;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.db.resource.bundles.repositories.LanguagesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.repository.AbstractBusinessService;
 
 /**
  * The class {@link LanguagesBusinessService}.
@@ -46,7 +46,7 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Service("languagesService")
 public class LanguagesBusinessService
 	extends
-		AbstractBusinessService<Languages, Integer, LanguagesDao>
+		AbstractBusinessService<Languages, Integer, LanguagesRepository>
 	implements
 		LanguagesService
 {
@@ -73,13 +73,10 @@ public class LanguagesBusinessService
 		return ListExtensions.getFirst(languages);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Autowired
-	public void setLanguagesDao(final LanguagesDao dao)
+	public void setLanguagesRepository(final LanguagesRepository repository)
 	{
-		setDao(dao);
+		setRepository(repository);
 	}
 
 }

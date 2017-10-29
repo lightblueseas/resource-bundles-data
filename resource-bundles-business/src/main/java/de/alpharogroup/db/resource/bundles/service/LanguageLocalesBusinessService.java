@@ -34,12 +34,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.LanguageLocalesDao;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.repositories.LanguageLocalesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.repository.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 
@@ -50,7 +50,7 @@ import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 @Service("languageLocalesService")
 public class LanguageLocalesBusinessService
 	extends
-		AbstractBusinessService<LanguageLocales, Integer, LanguageLocalesDao>
+		AbstractBusinessService<LanguageLocales, Integer, LanguageLocalesRepository>
 	implements
 		LanguageLocalesService
 {
@@ -107,13 +107,10 @@ public class LanguageLocalesBusinessService
 		return locale;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Autowired
-	public void setLanguageLocalesDao(final LanguageLocalesDao dao)
+	public void setLanguageLocalesRepository(final LanguageLocalesRepository dao)
 	{
-		setDao(dao);
+		setRepository(dao);
 	}
 
 }

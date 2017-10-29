@@ -83,11 +83,12 @@ public class HqlStringCreator
 	/**
 	 * Creates hql query for {@link BundleNames}.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 *
 	 * @return the string
 	 */
 	public static String forBundleNames(final String owner, final String baseName,

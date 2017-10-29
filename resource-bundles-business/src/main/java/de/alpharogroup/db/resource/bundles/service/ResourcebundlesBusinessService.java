@@ -43,7 +43,6 @@ import de.alpharogroup.check.Check;
 import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -51,6 +50,7 @@ import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
@@ -58,7 +58,7 @@ import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.repository.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import lombok.extern.slf4j.Slf4j;
@@ -71,7 +71,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service("resourcebundlesService")
 public class ResourcebundlesBusinessService
 	extends
-		AbstractBusinessService<Resourcebundles, Integer, ResourcebundlesDao>
+		AbstractBusinessService<Resourcebundles, Integer, ResourcebundlesRepository>
 	implements
 		ResourcebundlesService
 {
@@ -404,16 +404,10 @@ public class ResourcebundlesBusinessService
 		return resourcebundle;
 	}
 
-	/**
-	 * Sets the resourcebundles dao.
-	 *
-	 * @param resourcebundlesDao
-	 *            the new resourcebundles dao
-	 */
 	@Autowired
-	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao)
+	public void setResourcebundlesRepository(final ResourcebundlesRepository repository)
 	{
-		setDao(resourcebundlesDao);
+		setRepository(repository);
 	}
 
 	/**
@@ -425,49 +419,6 @@ public class ResourcebundlesBusinessService
 	{
 		return updateProperties(owner, properties, baseName, locale, true);
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	// @Transactional(propagation = Propagation.REQUIRES_NEW)
-	// @Override
-	// public BundleNames updateProperties(final Properties properties, final String baseName,
-	// final Locale locale, final boolean update)
-	// {
-	// Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
-	// final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName,
-	// locale);
-	// final Properties dbProperties = getProperties(bundleName);
-	// final String bundName = bundleName.getBaseName().getName();
-	// log.info("===============================================================");
-	// log.info("Processing bundle: "+bundName);
-	// log.info("===============================================================");
-	// for (final Map.Entry<Object, Object> element : properties.entrySet())
-	// {
-	// final String key = element.getKey().toString().trim();
-	// final String value = element.getValue().toString().trim();
-	// if(dbProperties.containsKey(key)) {
-	// final String dbValue = dbProperties.getProperty(key);
-	// if(value.equals(dbValue)) {
-	// continue;
-	// }
-	// }
-	// log.info("===============================================================");
-	// log.info("Processing bundle: "+bundName);
-	// log.info("===============================================================");
-	// log.info("===============================================================");
-	// log.info("Processing key: "+key+"");
-	// log.info("===============================================================");
-	// log.info("===============================================================");
-	// log.info("Processing value: "+value+"");
-	// log.info("===============================================================");
-	// saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
-	// }
-	// log.info("===============================================================");
-	// log.info("Finish of processing: "+bundleName.getBaseName().getName());
-	// log.info("===============================================================");
-	// return bundleName;
-	// }
 
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)

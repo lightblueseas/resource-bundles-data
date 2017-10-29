@@ -35,17 +35,17 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.BundleNamesDao;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.repositories.BundleNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.repository.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
@@ -55,7 +55,7 @@ import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 @Service("bundleNamesService")
 public class BundleNamesBusinessService
 	extends
-		AbstractBusinessService<BundleNames, Integer, BundleNamesDao>
+		AbstractBusinessService<BundleNames, Integer, BundleNamesRepository>
 	implements
 		BundleNamesService
 {
@@ -204,13 +204,10 @@ public class BundleNamesBusinessService
 		return bundleNames;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Autowired
-	public void setBundleNamesDao(final BundleNamesDao dao)
+	public void setBundleNamesRepository(final BundleNamesRepository repository)
 	{
-		setDao(dao);
+		setRepository(repository);
 	}
 
 }

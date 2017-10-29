@@ -34,13 +34,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.BundleApplicationsDao;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.repository.AbstractBusinessService;
 
 /**
  * The class {@link BundleApplicationsBusinessService}.
@@ -49,7 +49,7 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Service("bundleApplicationsService")
 public class BundleApplicationsBusinessService
 	extends
-		AbstractBusinessService<BundleApplications, Integer, BundleApplicationsDao>
+		AbstractBusinessService<BundleApplications, Integer, BundleApplicationsRepository>
 	implements
 		BundleApplicationsService
 {
@@ -63,7 +63,7 @@ public class BundleApplicationsBusinessService
 	@Override
 	public List<BundleApplications> find(BundleNames bundleName)
 	{
-		final TypedQuery<BundleApplications> bundleApps = getDao().getEntityManager()
+		final TypedQuery<BundleApplications> bundleApps = getRepository().getEntityManager()
 			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
 			.setParameter("bundleName", bundleName);
 		final List<BundleApplications> applications = bundleApps.getResultList();
@@ -136,13 +136,10 @@ public class BundleApplicationsBusinessService
 		return baseBundleApplication;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Autowired
-	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
 	{
-		setDao(dao);
+		setRepository(repository);
 	}
 
 }
