@@ -36,10 +36,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.map.CacheableMap;
-import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.mapper.ResourcebundlesMapper;
+import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
@@ -56,7 +56,7 @@ import de.alpharogroup.service.domain.AbstractDomainService;
 @Service("resourcebundleDomainService")
 public class ResourcebundleDomainService
 	extends
-		AbstractDomainService<Integer, Resourcebundle, Resourcebundles, ResourcebundlesDao, ResourcebundlesMapper>
+		AbstractDomainService<Integer, Resourcebundle, Resourcebundles, ResourcebundlesRepository, ResourcebundlesMapper>
 	implements
 		ResourcebundleService
 {
@@ -111,7 +111,7 @@ public class ResourcebundleDomainService
 		final String value)
 	{
 		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key);
-		final Query query = getDao().getQuery(hqlString);
+		final Query query = getRepository().getQuery(hqlString);
 		if (baseName != null && !baseName.isEmpty())
 		{
 			query.setParameter("baseName", baseName);
@@ -232,16 +232,10 @@ public class ResourcebundleDomainService
 		return value;
 	}
 
-	/**
-	 * Sets the resourcebundles dao.
-	 *
-	 * @param resourcebundlesDao
-	 *            the new resourcebundles dao
-	 */
 	@Autowired
-	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao)
+	public void setResourcebundlesRepository(final ResourcebundlesRepository repository)
 	{
-		setDao(resourcebundlesDao);
+		setRepository(repository);
 	}
 
 	/**
