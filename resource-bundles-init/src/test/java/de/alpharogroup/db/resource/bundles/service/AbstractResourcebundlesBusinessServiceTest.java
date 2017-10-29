@@ -326,7 +326,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<Resourcebundles> rb = new HashSet<>(
 			resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
-		truncate();
+//		truncate();
 	}
 
 	/**
@@ -377,13 +377,13 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
-		assertEquals(627, rb.size());
+		assertEquals(633, rb.size());
 	}
 
 	/**
 	 * Truncate the table 'resourcebundles'.
 	 */
-	private void truncate()
+	protected void truncate()
 	{
 		final List<BundleApplications> ba = bundleApplicationsService.findAll();
 		ba.forEach(bundleApplication -> {
