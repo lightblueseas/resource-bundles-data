@@ -85,6 +85,11 @@ public class BaseNamesBusinessService
 		return foundBaseName;
 	}
 
+	/**
+	 * Sets the repository.
+	 *
+	 * @param repository the repository
+	 */
 	@Autowired
 	public void setBaseNamesRepository(final BaseNamesRepository repository)
 	{
