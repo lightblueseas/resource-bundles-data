@@ -232,12 +232,6 @@ public class ResourcebundleDomainService
 		return value;
 	}
 
-	@Autowired
-	public void setResourcebundlesRepository(final ResourcebundlesRepository repository)
-	{
-		setRepository(repository);
-	}
-
 	/**
 	 * Sets the specific {@link ResourcebundlesMapper}.
 	 *
@@ -248,6 +242,12 @@ public class ResourcebundleDomainService
 	public void setResourcebundlesMapper(ResourcebundlesMapper mapper)
 	{
 		setMapper(mapper);
+	}
+
+	@Autowired
+	public void setResourcebundlesRepository(final ResourcebundlesRepository repository)
+	{
+		setRepository(repository);
 	}
 
 	/**

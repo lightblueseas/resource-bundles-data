@@ -105,8 +105,8 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	 *            the default locale
 	 */
 	@Builder
-	BundleApplications(final String name,
-		final LanguageLocales defaultLocale, final Set<LanguageLocales> supportedLocales)
+	BundleApplications(final String name, final LanguageLocales defaultLocale,
+		final Set<LanguageLocales> supportedLocales)
 	{
 		super(name);
 		this.defaultLocale = defaultLocale;

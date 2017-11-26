@@ -322,7 +322,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<Resourcebundles> rb = new HashSet<>(
 			resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
-//		truncate();
+		// truncate();
 	}
 
 	/**

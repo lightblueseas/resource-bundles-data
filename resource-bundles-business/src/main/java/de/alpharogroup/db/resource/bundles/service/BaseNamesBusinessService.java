@@ -88,7 +88,8 @@ public class BaseNamesBusinessService
 	/**
 	 * Sets the repository.
 	 *
-	 * @param repository the repository
+	 * @param repository
+	 *            the repository
 	 */
 	@Autowired
 	public void setBaseNamesRepository(final BaseNamesRepository repository)
