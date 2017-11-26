@@ -24,10 +24,15 @@
  */
 package de.alpharogroup.db.resource.bundles.service.api;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.api.BusinessService;
 
@@ -69,6 +74,15 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 		final String value);
 
 	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
+
+	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
 	 * {@link Locale} object.
 	 *
@@ -94,6 +108,15 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale,
 		final String key);
+
+	/**
+	 * Get the {@link Properties} object from given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the found {@link Properties} object.
+	 */
+	Properties getProperties(final BundleNames bundleName);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
@@ -134,17 +157,39 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Resourcebundles getResourcebundle(final String baseName, final Locale locale, final String key);
 
 	/**
-	 * Update the given {@link Properties} object to the underlying database with the given baseName
-	 * and the given {@link Locale} object.
+	 * Import the given list with {@linkplain KeyValuePair} objects as properties file as key and
+	 * the locale string code as value.
 	 *
-	 * @param properties
-	 *            the properties
+	 * @param bundleApplication
+	 *            the bundle application that will be the owner of the given properties.
+	 * @param foundProperties
+	 *            the found properties
+	 * @return the list with the {@link BundleNames} that was created.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	List<BundleNames> importProperties(BundleApplications bundleApplication,
+		List<KeyValuePair<File, Locale>> foundProperties) throws IOException;
+
+	/**
+	 * Save or update the given resource bundle entry.
+	 *
+	 * @param bundleName
+	 *            the bundle name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @param update
+	 *            the update
+	 * @return the saved or updated {@link Resourcebundles} object
 	 */
-	void updateProperties(final Properties properties, final String baseName, final Locale locale);
+	Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
+		final Locale locale, final String key, final String value, final boolean update);
 
 	/**
 	 * Update the given {@link Properties} object to the underlying database with the given baseName
@@ -158,7 +203,26 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @param update
 	 *            flag that indicates if an existing property shell be updated
+	 * @return the updated {@link BundleNames} object
 	 */
-	void updateProperties(final Properties properties, final String baseName, final Locale locale,
-		final boolean update);
+	// BundleNames updateProperties(final Properties properties, final String baseName,
+	// final Locale locale, final boolean update);
+
+	/**
+	 * Update the given {@link Properties} object to the underlying database with the given owner
+	 * and the given baseName and the given {@link Locale} object.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param properties
+	 *            the properties
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the updated {@link BundleNames} object
+	 */
+	BundleNames updateProperties(final BundleApplications owner, final Properties properties,
+		final String baseName, final Locale locale);
+
 }

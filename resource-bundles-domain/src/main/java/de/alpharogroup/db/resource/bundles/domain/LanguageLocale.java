@@ -49,6 +49,7 @@ public class LanguageLocale extends VersionableBaseDomainObject<Integer>
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+
 	/** The locale of this entry. */
 	private String locale;
 }

@@ -32,13 +32,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.PropertiesKeysDao;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.repositories.PropertiesKeysRepository;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
  * The class {@link PropertiesKeysBusinessService}.
@@ -47,7 +47,7 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Service("propertiesKeysService")
 public class PropertiesKeysBusinessService
 	extends
-		AbstractBusinessService<PropertiesKeys, Integer, PropertiesKeysDao>
+		AbstractBusinessService<PropertiesKeys, Integer, PropertiesKeysRepository>
 	implements
 		PropertiesKeysService
 {
@@ -72,6 +72,7 @@ public class PropertiesKeysBusinessService
 		return ListExtensions.getFirst(propertiesKeys);
 	}
 
+	@Override
 	public PropertiesKeys getOrCreateNewPropertiesKeys(final String key)
 	{
 		PropertiesKeys pkey = find(key);
@@ -83,14 +84,10 @@ public class PropertiesKeysBusinessService
 		return pkey;
 	}
 
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@Autowired
-	public void setPropertiesKeysDao(final PropertiesKeysDao dao)
+	public void setPropertiesKeysRepository(final PropertiesKeysRepository repository)
 	{
-		setDao(dao);
+		setRepository(repository);
 	}
 
 }

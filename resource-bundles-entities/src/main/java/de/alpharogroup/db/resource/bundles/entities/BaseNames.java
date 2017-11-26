@@ -35,7 +35,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database base names of bundles.
+ * Entity class for saving in database base names of the resource bundles. The base name if you see
+ * it from the properties file view the name of the properties file without the locale suffix.
  */
 @Entity
 @Table(name = "basenames")
@@ -46,7 +47,9 @@ import lombok.ToString;
 public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable
 {
 
-	/** Serial Version UID */
+	/**
+	 * Serial Version UID
+	 */
 	private static final long serialVersionUID = 1L;
 
 	/**

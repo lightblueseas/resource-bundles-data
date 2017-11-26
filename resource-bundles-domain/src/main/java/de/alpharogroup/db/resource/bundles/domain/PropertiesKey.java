@@ -40,11 +40,22 @@ import lombok.ToString;
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@Builder
 public class PropertiesKey extends NameBaseDomainObject<Integer>
 {
 	/**
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Instantiates a new {@link PropertiesKey} domain object.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	@Builder
+	PropertiesKey(String name)
+	{
+		super(name);
+	}
 }

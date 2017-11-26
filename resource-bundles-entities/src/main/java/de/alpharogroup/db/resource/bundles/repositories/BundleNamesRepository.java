@@ -22,18 +22,18 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.daos;
+package de.alpharogroup.db.resource.bundles.repositories;
 
 import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.dao.jpa.JpaEntityManagerDao;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.repository.AbstractRepository;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 
 /**
- * The class {@link LanguageLocalesDao}.
+ * The class {@link BundleNamesRepository}.
  */
-@Repository("languageLocalesDao")
-public class LanguageLocalesDao extends JpaEntityManagerDao<LanguageLocales, Integer>
+@Repository("bundleNamesRepository")
+public class BundleNamesRepository extends AbstractRepository<BundleNames, Integer>
 {
 	/**
 	 * The serialVersionUID.

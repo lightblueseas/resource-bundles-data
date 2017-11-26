@@ -24,7 +24,6 @@
  */
 package de.alpharogroup.db.resource.bundles.domain;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import de.alpharogroup.domain.NameBaseDomainObject;
@@ -45,7 +44,6 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class BundleApplication extends NameBaseDomainObject<Integer>
 {
 
@@ -55,6 +53,37 @@ public class BundleApplication extends NameBaseDomainObject<Integer>
 	private static final long serialVersionUID = 1L;
 
 	/** The bundle names of this application. */
-	private Set<BundleName> bundleNames = new HashSet<>();
+	private Set<BundleName> bundleNames;
+
+	/**
+	 * The default locale of this bundle application.
+	 */
+	private LanguageLocale defaultLocale;
+
+	/**
+	 * The supported locale objects that are mandatory for this bundle application.
+	 */
+	private Set<LanguageLocale> supportedLocales;
+
+
+	/**
+	 * Instantiates a new {@link BundleApplication} domain object.
+	 *
+	 * @param name
+	 *            the name
+	 * @param bundleNames
+	 *            the bundle names
+	 * @param defaultLocale
+	 *            the default locale
+	 */
+	@Builder
+	BundleApplication(final String name, final Set<BundleName> bundleNames,
+		final LanguageLocale defaultLocale, final Set<LanguageLocale> supportedLocales)
+	{
+		super(name);
+		this.bundleNames = bundleNames;
+		this.defaultLocale = defaultLocale;
+		this.supportedLocales = supportedLocales;
+	}
 
 }

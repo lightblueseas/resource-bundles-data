@@ -15,7 +15,7 @@
 	<!-- Enable annotation configuration -->
 	<context:annotation-config />
 	<!-- Scan sample packages for Spring annotations -->
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.daos" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.repositories" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
@@ -55,8 +55,8 @@
 		<property name="testOnBorrow" value="true" /><!-- default:false -->
 		<property name="testOnReturn" value="false" /><!-- default:false -->
 		<property name="logAbandoned" value="true" /><!-- default:false -->
-		<property name="removeAbandoned" value="true" /><!-- default:false -->
-		<property name="removeAbandonedTimeout" value="60" /><!-- default:60 -->
+		<property name="removeAbandoned" value="false" /><!-- default:false -->
+		<property name="removeAbandonedTimeout" value="6000" /><!-- default:60 -->
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">

@@ -27,7 +27,6 @@ package de.alpharogroup.db.resource.bundles.service.util;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
-import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
@@ -44,7 +43,7 @@ public class HqlStringCreator
 	 *
 	 * @param baseName
 	 *            the base name
-	 * 
+	 *
 	 * @return the hql string
 	 */
 	public static String forBaseNames(final String baseName)
@@ -65,7 +64,7 @@ public class HqlStringCreator
 	 *
 	 * @param name
 	 *            the name
-	 * 
+	 *
 	 * @return the hql string
 	 */
 	public static String forBundleApplications(final String name)
@@ -84,22 +83,37 @@ public class HqlStringCreator
 	/**
 	 * Creates hql query for {@link BundleNames}.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 * 
 	 * @return the string
 	 */
-	public static String forBundleNames(final String baseName, final String locale)
+	public static String forBundleNames(final String owner, final String baseName,
+		final String locale)
 	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select bn from " + BundleNames.class.getSimpleName() + " bn");
+		final boolean ownerIsNotNull = owner != null && !owner.isEmpty();
+		if (ownerIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where bn.owner=:owner");
+		}
 		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
 		if (baseNameIsNotNull)
 		{
 			sb.append(" ");
-			sb.append("where bn.baseName.name=:baseName");
+			if (ownerIsNotNull)
+			{
+				sb.append("and bn.baseName.name=:baseName");
+			}
+			else
+			{
+				sb.append("where bn.baseName.name=:baseName");
+			}
 		}
 		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
 		if (localeIsNotNull)
@@ -118,49 +132,13 @@ public class HqlStringCreator
 	}
 
 	/**
-	 * Creates hql query for {@link DefaultLocaleBaseNames}.
-	 *
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * 
-	 * @return the string
-	 */
-	public static String forDefaultLocaleBaseNames(final String baseName, final String locale)
-	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("select bn from " + DefaultLocaleBaseNames.class.getSimpleName() + " bn");
-		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
-		if (baseNameIsNotNull)
-		{
-			sb.append(" ");
-			sb.append("where bn.bundleName.baseName.name=:baseName");
-		}
-		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
-		if (localeIsNotNull)
-		{
-			sb.append(" ");
-			if (baseNameIsNotNull)
-			{
-				sb.append("and bn.defaultLocale.locale=:locale");
-			}
-			else
-			{
-				sb.append("where bn.defaultLocale.locale=:locale");
-			}
-		}
-		return sb.toString();
-	}
-
-	/**
 	 * Creates hql query for {@link LanguageLocales}.
 	 *
 	 * @param locale
 	 *            the locale
 	 * @param locale
 	 *            the locale
-	 * 
+	 *
 	 * @return the hql string
 	 */
 	public static String forLanguageLocales(final String locale)
@@ -183,7 +161,7 @@ public class HqlStringCreator
 	 *            the name
 	 * @param iso639Dash1
 	 *            the iso639Dash1
-	 * 
+	 *
 	 * @return the hql string
 	 */
 	public static String forLanguages(final String name, final String iso639Dash1)

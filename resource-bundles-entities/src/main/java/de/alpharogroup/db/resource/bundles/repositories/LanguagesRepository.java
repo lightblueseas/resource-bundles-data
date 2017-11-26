@@ -22,20 +22,17 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.mapper;
+package de.alpharogroup.db.resource.bundles.repositories;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.entitymapper.AbstractEntityDOMapper;
-import de.alpharogroup.db.resource.bundles.domain.DefaultLocaleBaseName;
-import de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames;
+import de.alpharogroup.db.repository.AbstractRepository;
+import de.alpharogroup.db.resource.bundles.entities.Languages;
 
-/**
- * The class {@link DefaultLocaleBaseNamesMapper}.
- */
-@Component
-public class DefaultLocaleBaseNamesMapper
-	extends
-		AbstractEntityDOMapper<DefaultLocaleBaseNames, DefaultLocaleBaseName>
+@Repository("languagesRepository")
+public class LanguagesRepository extends AbstractRepository<Languages, Integer>
 {
+
+	private static final long serialVersionUID = 1L;
+
 }

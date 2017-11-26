@@ -36,7 +36,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving in database languages.
+ * The entity class {@link LanguageLocales} holds the data for the languages.
  */
 @Entity
 @Table(name = "languages")
@@ -65,6 +65,8 @@ public class Languages extends ExtraSmallUNameBaseEntity<Integer> implements Clo
 	@Builder
 	Languages(String name, String iso639Dash1)
 	{
+		super(name);
 		this.iso639Dash1 = iso639Dash1;
 	}
+
 }

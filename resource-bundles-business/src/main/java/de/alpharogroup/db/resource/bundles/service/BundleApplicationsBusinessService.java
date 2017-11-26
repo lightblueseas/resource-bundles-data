@@ -27,17 +27,20 @@ package de.alpharogroup.db.resource.bundles.service;
 import java.util.List;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.BundleApplicationsDao;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
  * The class {@link BundleApplicationsBusinessService}.
@@ -46,7 +49,7 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Service("bundleApplicationsService")
 public class BundleApplicationsBusinessService
 	extends
-		AbstractBusinessService<BundleApplications, Integer, BundleApplicationsDao>
+		AbstractBusinessService<BundleApplications, Integer, BundleApplicationsRepository>
 	implements
 		BundleApplicationsService
 {
@@ -54,6 +57,30 @@ public class BundleApplicationsBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<BundleApplications> find(BundleNames bundleName)
+	{
+		final TypedQuery<BundleApplications> bundleApps = getRepository().getEntityManager()
+			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
+			.setParameter("bundleName", bundleName);
+		final List<BundleApplications> applications = bundleApps.getResultList();
+
+		// final String hqlString = "select ba from BundleApplications ba, BundleNames bn where
+		// :bundleName member of ba.bundleNames";
+		// final String hqlString = "select distinct ba from BundleApplications ba "
+		// + "join ba.bundleNames bn " + "where bn = :bundleName";
+		// final Query query = getQuery(hqlString);
+		// query.setParameter("bundleName", bundleName);
+		// applications = query.getResultList();
+		return applications;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public BundleApplications find(String name)
@@ -71,10 +98,48 @@ public class BundleApplicationsBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Autowired
-	public void setBundleApplicationsDao(final BundleApplicationsDao dao)
+	@Override
+	public BundleApplications get(BundleNames bundleName)
 	{
-		setDao(dao);
+		return ListExtensions.getFirst(find(bundleName));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(String name)
+	{
+		BundleApplications baseBundleApplication = find(name);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder().name(name).build();
+			baseBundleApplication = merge(baseBundleApplication);
+		}
+		return baseBundleApplication;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(final String name,
+		final LanguageLocales defaultLocale)
+	{
+		BundleApplications baseBundleApplication = find(name);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder().name(name)
+				.defaultLocale(defaultLocale).build();
+			baseBundleApplication = merge(baseBundleApplication);
+		}
+		return baseBundleApplication;
+	}
+
+	@Autowired
+	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
+	{
+		setRepository(repository);
 	}
 
 }

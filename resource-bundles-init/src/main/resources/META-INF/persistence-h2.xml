@@ -8,7 +8,6 @@
 		<class>de.alpharogroup.db.resource.bundles.entities.BaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleApplications</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleNames</class>
-		<class>de.alpharogroup.db.resource.bundles.entities.DefaultLocaleBaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.Languages</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.LanguageLocales</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.PropertiesKeys</class>
@@ -23,6 +22,7 @@
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.event.merge.entity_copy_observer" value="allow"/>
+            <property name="hibernate.enable_lazy_load_no_trans" value="true"/>
         </properties>
 
 	</persistence-unit>

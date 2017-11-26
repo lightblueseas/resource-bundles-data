@@ -22,36 +22,21 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.domain;
+package de.alpharogroup.db.resource.bundles.repositories;
 
-import de.alpharogroup.domain.VersionableBaseDomainObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.stereotype.Repository;
+
+import de.alpharogroup.db.repository.AbstractRepository;
+import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 
 /**
- * The class {@link DefaultLocaleBaseName}.
+ * The class {@link ResourcebundlesRepository}.
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class DefaultLocaleBaseName extends VersionableBaseDomainObject<Integer>
+@Repository("resourcebundlesRepository")
+public class ResourcebundlesRepository extends AbstractRepository<Resourcebundles, Integer>
 {
 	/**
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	/** The bundle name. */
-	private BundleName bundleName;
-
-	/** The default locale. */
-	private LanguageLocale defaultLocale;
 }

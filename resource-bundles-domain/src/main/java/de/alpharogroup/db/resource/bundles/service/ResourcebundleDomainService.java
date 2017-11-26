@@ -34,12 +34,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.CacheableMap;
-import de.alpharogroup.collections.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
+import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.map.CacheableMap;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.mapper.ResourcebundlesMapper;
+import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
@@ -56,7 +56,7 @@ import de.alpharogroup.service.domain.AbstractDomainService;
 @Service("resourcebundleDomainService")
 public class ResourcebundleDomainService
 	extends
-		AbstractDomainService<Integer, Resourcebundle, Resourcebundles, ResourcebundlesDao, ResourcebundlesMapper>
+		AbstractDomainService<Integer, Resourcebundle, Resourcebundles, ResourcebundlesRepository, ResourcebundlesMapper>
 	implements
 		ResourcebundleService
 {
@@ -111,7 +111,7 @@ public class ResourcebundleDomainService
 		final String value)
 	{
 		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key);
-		final Query query = getDao().getQuery(hqlString);
+		final Query query = getRepository().getQuery(hqlString);
 		if (baseName != null && !baseName.isEmpty())
 		{
 			query.setParameter("baseName", baseName);
@@ -233,18 +233,6 @@ public class ResourcebundleDomainService
 	}
 
 	/**
-	 * Sets the resourcebundles dao.
-	 *
-	 * @param resourcebundlesDao
-	 *            the new resourcebundles dao
-	 */
-	@Autowired
-	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao)
-	{
-		setDao(resourcebundlesDao);
-	}
-
-	/**
 	 * Sets the specific {@link ResourcebundlesMapper}.
 	 *
 	 * @param mapper
@@ -256,14 +244,20 @@ public class ResourcebundleDomainService
 		setMapper(mapper);
 	}
 
+	@Autowired
+	public void setResourcebundlesRepository(final ResourcebundlesRepository repository)
+	{
+		setRepository(repository);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void updateProperties(final Properties properties, final String baseName,
 		final Locale locale)
-	{
-		resourcebundlesService.updateProperties(properties, baseName, locale);
+	{// TODO change with appropriate bundleApp
+		resourcebundlesService.updateProperties(null, properties, baseName, locale);
 	}
 
 	/**
@@ -272,8 +266,8 @@ public class ResourcebundleDomainService
 	@Override
 	public void updateProperties(final Properties properties, final String baseName,
 		final Locale locale, final boolean update)
-	{
-		resourcebundlesService.updateProperties(properties, baseName, locale, update);
+	{// TODO change with appropriate bundleApp
+		// resourcebundlesService.updateProperties(null, properties, baseName, locale, update);
 	}
 
 }

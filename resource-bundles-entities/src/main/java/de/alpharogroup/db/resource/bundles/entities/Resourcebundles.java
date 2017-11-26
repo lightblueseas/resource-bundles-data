@@ -41,7 +41,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * Entity class for saving resource bundles in database.
+ * The entity class {@link Resourcebundles} holds the all data of the values of the resource
+ * bundles.
  */
 @Entity
 @Table(name = "resourcebundles")

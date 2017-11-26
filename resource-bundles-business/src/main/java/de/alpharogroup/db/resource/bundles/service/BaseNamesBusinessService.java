@@ -32,13 +32,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.BaseNamesDao;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.repositories.BaseNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
  * The class {@link BaseNamesBusinessService}.
@@ -47,7 +47,7 @@ import de.alpharogroup.db.service.jpa.AbstractBusinessService;
 @Service("baseNamesService")
 public class BaseNamesBusinessService
 	extends
-		AbstractBusinessService<BaseNames, Integer, BaseNamesDao>
+		AbstractBusinessService<BaseNames, Integer, BaseNamesRepository>
 	implements
 		BaseNamesService
 {
@@ -72,6 +72,7 @@ public class BaseNamesBusinessService
 		return ListExtensions.getFirst(baseNames);
 	}
 
+	@Override
 	public BaseNames getOrCreateNewBaseNames(final String baseName)
 	{
 		// check if baseNames exists...
@@ -84,14 +85,16 @@ public class BaseNamesBusinessService
 		return foundBaseName;
 	}
 
-
 	/**
-	 * {@inheritDoc}
+	 * Sets the repository.
+	 *
+	 * @param repository
+	 *            the repository
 	 */
 	@Autowired
-	public void setBaseNamesDao(final BaseNamesDao dao)
+	public void setBaseNamesRepository(final BaseNamesRepository repository)
 	{
-		setDao(dao);
+		setRepository(repository);
 	}
 
 }
