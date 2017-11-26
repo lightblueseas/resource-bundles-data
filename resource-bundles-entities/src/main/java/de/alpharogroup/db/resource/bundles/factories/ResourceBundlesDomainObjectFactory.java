@@ -95,7 +95,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 		final LanguageLocales defaultLocale)
 	{
 		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
-			.defaultLocale(defaultLocale).bundleNames(new HashSet<>())
+			.defaultLocale(defaultLocale)
 			.supportedLocales(new HashSet<>()).build();
 		return bundleApplications;
 	}

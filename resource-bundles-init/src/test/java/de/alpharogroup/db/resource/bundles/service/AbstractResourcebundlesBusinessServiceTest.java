@@ -24,7 +24,6 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import static org.testng.Assert.assertNotEquals;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 
@@ -206,15 +205,12 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final String applicationName = "bar-date.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		final Set<BundleNames> bundleNames = bundleApplication.getBundleNames();
-		System.out.println(bundleNames);
+		// TODO get bundleNames of bundleApplication for later compare...
 
 		final String applicationName2 = "foo-dating.com";
 		final BundleApplications bundleApplication2 = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
-		final Set<BundleNames> bundleNames2 = bundleApplication2.getBundleNames();
-		System.out.println(bundleNames2);
-		assertNotEquals(bundleNames, bundleNames2);
+		// TODO get bundleNames2 of bundleApplication2 for later compare...
 	}
 
 	public void testFindBaseNames()
@@ -358,7 +354,6 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			{
 				final BundleNames bundleNames = bundleNamesService
 					.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
-				bundleApplication.getBundleNames().add(bundleNames);
 				bundleApplication = bundleApplicationsService.merge(bundleApplication);
 				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
 				if (loc != null)
@@ -387,10 +382,6 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	{
 		final List<BundleApplications> ba = bundleApplicationsService.findAll();
 		ba.forEach(bundleApplication -> {
-			bundleApplication.getBundleNames().forEach(bundleName -> {
-				// TODO delete all Resourcebundles before delete
-				bundleNamesService.delete(bundleName);
-			});
 			bundleApplicationsService.delete(bundleApplication);
 		});
 		final List<Resourcebundles> rb = resourcebundlesService.findAll();

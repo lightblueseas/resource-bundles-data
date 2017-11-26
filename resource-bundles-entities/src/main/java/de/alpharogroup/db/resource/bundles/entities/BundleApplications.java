@@ -37,7 +37,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import de.alpharogroup.db.entity.name.unique.ExtraLargeUNameBaseEntity;
@@ -80,12 +79,6 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 
 	/**
-	 * The bundle names of this bundle application.
-	 */
-	@OneToMany(mappedBy = "owner")
-	private Set<BundleNames> bundleNames = new HashSet<>();
-
-	/**
 	 * The default locale of this bundle application.
 	 */
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -112,33 +105,12 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	 *            the default locale
 	 */
 	@Builder
-	BundleApplications(final String name, final Set<BundleNames> bundleNames,
+	BundleApplications(final String name,
 		final LanguageLocales defaultLocale, final Set<LanguageLocales> supportedLocales)
 	{
 		super(name);
-		this.bundleNames = bundleNames;
 		this.defaultLocale = defaultLocale;
 		this.supportedLocales = supportedLocales;
-	}
-
-	/**
-	 * Adds the given bundle name.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @return true, if successful
-	 */
-	public boolean addBundleName(BundleNames bundleName)
-	{
-		if (this.bundleNames == null)
-		{
-			this.bundleNames = new HashSet<>();
-		}
-		if (bundleName.getOwner() != this)
-		{
-			bundleName.setOwner(this);
-		}
-		return this.bundleNames.add(bundleName);
 	}
 
 }

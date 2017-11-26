@@ -257,7 +257,6 @@ public class ResourcebundlesBusinessService
 			final BundleNames bundleNames = updateProperties(bundleApplication, properties,
 				bundlename, locale, false);
 			list.add(bundleNames);
-			bundleApplication.addBundleName(bundleNames);
 			bundleApplication = bundleApplicationsService.merge(bundleApplication);
 		}
 		return list;
