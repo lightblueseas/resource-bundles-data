@@ -81,7 +81,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();
