@@ -57,11 +57,18 @@ public class BundleApplicationsBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	public List<BundleNames> find(final BundleApplications owner)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleApplications> find(BundleNames bundleName)
+	public List<BundleApplications> find(final BundleNames bundleName)
 	{
 		final TypedQuery<BundleApplications> bundleApps = getRepository().getEntityManager()
 			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
@@ -83,7 +90,7 @@ public class BundleApplicationsBusinessService
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public BundleApplications find(String name)
+	public BundleApplications find(final String name)
 	{
 		final String hqlString = HqlStringCreator.forBundleApplications(name);
 		final Query query = getQuery(hqlString);
@@ -99,7 +106,7 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications get(BundleNames bundleName)
+	public BundleApplications get(final BundleNames bundleName)
 	{
 		return ListExtensions.getFirst(find(bundleName));
 	}
@@ -108,7 +115,7 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(String name)
+	public BundleApplications getOrCreateNewBundleApplications(final String name)
 	{
 		BundleApplications baseBundleApplication = find(name);
 		if (baseBundleApplication == null)

@@ -35,6 +35,15 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 {
 
 	/**
+	 * Find all {@link BundleNames} objects from the given {@link BundleApplications} object.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @return the list of found {@link BundleNames} objects or null if not.
+	 */
+	List<BundleNames> find(final BundleApplications owner);
+
+	/**
 	 * Find all {@link BundleApplications} objects from the given {@link BundleNames} object.
 	 *
 	 * @param bundleName
