@@ -68,9 +68,6 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/** The Constant for the name of the query find by bundle name . */
-	public static final String NQ_FIND_BY_BUNDLE_NAME = "BundleApplications." + "findByBundleName";
-
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 

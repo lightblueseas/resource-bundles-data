@@ -31,6 +31,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import de.alpharogroup.db.entity.version.VersionableBaseEntity;
@@ -50,6 +52,8 @@ import lombok.Setter;
  */
 @Entity
 @Table(name = "bundlenames")
+@NamedQueries({
+		@NamedQuery(name = BundleNames.NQ_FIND_BY_OWNER, query = "select bn from BundleNames bn where bn.owner=:owner") })
 @Getter
 @Setter
 @NoArgsConstructor
@@ -60,6 +64,10 @@ public class BundleNames extends VersionableBaseEntity<Integer> implements Clone
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
+
+	/** The Constant for the named query for find BundleNames by the owner. */
+	public static final String NQ_FIND_BY_OWNER = "BundleNames." + "findByOwner";
+
 	/** The base name of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "base_name_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_BASE_NAME_ID"))

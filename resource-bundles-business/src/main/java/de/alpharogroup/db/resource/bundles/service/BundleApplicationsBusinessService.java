@@ -60,29 +60,12 @@ public class BundleApplicationsBusinessService
 	@Override
 	public List<BundleNames> find(final BundleApplications owner)
 	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+		final TypedQuery<BundleNames> typedQuery = getRepository().getEntityManager()
+			.createNamedQuery(BundleNames.NQ_FIND_BY_OWNER, BundleNames.class)
+			.setParameter("owner", owner);
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<BundleApplications> find(final BundleNames bundleName)
-	{
-		final TypedQuery<BundleApplications> bundleApps = getRepository().getEntityManager()
-			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
-			.setParameter("bundleName", bundleName);
-		final List<BundleApplications> applications = bundleApps.getResultList();
-
-		// final String hqlString = "select ba from BundleApplications ba, BundleNames bn where
-		// :bundleName member of ba.bundleNames";
-		// final String hqlString = "select distinct ba from BundleApplications ba "
-		// + "join ba.bundleNames bn " + "where bn = :bundleName";
-		// final Query query = getQuery(hqlString);
-		// query.setParameter("bundleName", bundleName);
-		// applications = query.getResultList();
-		return applications;
+		final List<BundleNames> bundleNames = typedQuery.getResultList();
+		return bundleNames;
 	}
 
 	/**
@@ -108,7 +91,7 @@ public class BundleApplicationsBusinessService
 	@Override
 	public BundleApplications get(final BundleNames bundleName)
 	{
-		return ListExtensions.getFirst(find(bundleName));
+		return bundleName.getOwner();
 	}
 
 	/**
