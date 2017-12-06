@@ -36,51 +36,53 @@ import org.testng.annotations.Test;
 @ContextConfiguration(locations = "classpath:test-applicationContext.xml")
 public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesBusinessServiceTest
 {
+	static final boolean DISABLED = false;
+	static final boolean ENABLED = true;
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = DISABLED)
 	public void testBundleApplicationsWithSameNameResourceBundles()
 	{
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = DISABLED)
 	public void testFindBundleApplications()
 	{
 		super.testFindBundleApplications();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = DISABLED)
 	public void testFindBundleNames()
 	{
 		super.testFindBundleNames();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = DISABLED)
 	public void testFindLanguageLocales()
 	{
 		super.testFindLanguageLocales();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = DISABLED)
 	public void testFindResourceBundles()
 	{
 		super.testFindResourceBundles();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = DISABLED)
 	public void testUpdateProperties() throws URISyntaxException, IOException
 	{
 		super.testUpdateProperties();
 	}
 
 	@Override
-	@Test(enabled = false)
+	@Test(enabled = DISABLED)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();
