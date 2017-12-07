@@ -210,7 +210,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		final Set<BundleNames> bundleNames = bundleApplicationsService.find(bundleApplication);
 		assertNotNull(bundleNames);
-		assertTrue(bundleNames.size()==0);
+		assertTrue(bundleNames.size() == 0);
 		final String applicationName2 = "foo-dating.com";
 		final BundleApplications bundleApplication2 = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
