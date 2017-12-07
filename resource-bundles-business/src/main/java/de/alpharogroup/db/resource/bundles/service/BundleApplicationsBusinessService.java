@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -58,14 +60,14 @@ public class BundleApplicationsBusinessService
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public List<BundleNames> find(final BundleApplications owner)
+	public Set<BundleNames> find(final BundleApplications owner)
 	{
 		final TypedQuery<BundleNames> typedQuery = getRepository().getEntityManager()
 			.createNamedQuery(BundleNames.NQ_FIND_BY_OWNER, BundleNames.class)
 			.setParameter("owner", owner);
 
 		final List<BundleNames> bundleNames = typedQuery.getResultList();
-		return bundleNames;
+		return SetExtensions.newHashSet(bundleNames);
 	}
 
 	/**

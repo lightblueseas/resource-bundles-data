@@ -208,14 +208,14 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 
-		final List<BundleNames> bundleNames = bundleApplicationsService.find(bundleApplication);
+		final Set<BundleNames> bundleNames = bundleApplicationsService.find(bundleApplication);
 		assertNotNull(bundleNames);
 		assertTrue(bundleNames.size()==0);
 		final String applicationName2 = "foo-dating.com";
 		final BundleApplications bundleApplication2 = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
 
-		final List<BundleNames> bundleNames2 = bundleApplicationsService.find(bundleApplication2);
+		final Set<BundleNames> bundleNames2 = bundleApplicationsService.find(bundleApplication2);
 
 		assertNotEquals(bundleNames, bundleNames2);
 	}

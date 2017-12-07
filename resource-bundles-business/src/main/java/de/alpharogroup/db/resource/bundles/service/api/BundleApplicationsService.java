@@ -24,7 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.service.api;
 
-import java.util.List;
+import java.util.Set;
 
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -41,7 +41,7 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *            the owner
 	 * @return the list of found {@link BundleNames} objects or null if not.
 	 */
-	List<BundleNames> find(final BundleApplications owner);
+	Set<BundleNames> find(final BundleApplications owner);
 
 	/**
 	 * Find the {@link BundleApplications} object from the given name.
