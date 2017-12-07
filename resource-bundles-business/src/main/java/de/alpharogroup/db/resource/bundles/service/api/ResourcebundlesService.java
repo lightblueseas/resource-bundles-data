@@ -73,6 +73,26 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	List<Resourcebundles> find(final String baseName, final String locale, final String key,
 		final String value);
 
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
+	 * String, the given properties key and the given value that can be null if it shell be ignored.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> find(final BundleApplications owner, final String baseName,
+		final String locale, final String key, final String value);
+
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
 	 *

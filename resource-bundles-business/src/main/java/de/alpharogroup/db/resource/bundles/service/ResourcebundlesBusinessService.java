@@ -136,6 +136,40 @@ public class ResourcebundlesBusinessService
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
+	public List<Resourcebundles> find(BundleApplications owner, String baseName, String locale,
+		String key, String value)
+	{
+		final String hqlString = HqlStringCreator.forResourcebundles(owner.getName(), baseName, locale, key, value);
+		final Query query = getQuery(hqlString);
+		if (owner != null)
+		{
+			query.setParameter("owner", owner);
+		}
+		if (baseName != null && !baseName.isEmpty())
+		{
+			query.setParameter("baseName", baseName);
+		}
+		if (locale != null && !locale.isEmpty())
+		{
+			query.setParameter("locale", locale);
+		}
+		if (key != null && !key.isEmpty())
+		{
+			query.setParameter("key", key);
+		}
+		if (value != null && !value.isEmpty())
+		{
+			query.setParameter("value", value);
+		}
+		final List<Resourcebundles> resourcebundles = query.getResultList();
+		return resourcebundles;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<Resourcebundles> find(final String baseName, final String locale, final String key,
 		final String value)
 	{
@@ -409,6 +443,7 @@ public class ResourcebundlesBusinessService
 		setRepository(repository);
 	}
 
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -418,7 +453,6 @@ public class ResourcebundlesBusinessService
 	{
 		return updateProperties(owner, properties, baseName, locale, true);
 	}
-
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public BundleNames updateProperties(final BundleApplications owner, final Properties properties,
