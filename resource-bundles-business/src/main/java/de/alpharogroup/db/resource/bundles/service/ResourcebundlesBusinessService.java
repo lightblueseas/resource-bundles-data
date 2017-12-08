@@ -480,7 +480,7 @@ public class ResourcebundlesBusinessService
 	public Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
 		final Locale locale, final String key, final String value, final boolean update)
 	{
-		Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
+		Resourcebundles resourcebundle = getResourcebundle(bundleName.getOwner(), baseName, locale, key);
 		if (resourcebundle != null)
 		{
 			if (update)
