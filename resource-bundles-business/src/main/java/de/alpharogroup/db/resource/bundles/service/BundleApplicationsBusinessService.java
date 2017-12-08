@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.service;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -34,6 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -57,25 +59,15 @@ public class BundleApplicationsBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
-	public List<BundleApplications> find(BundleNames bundleName)
+	public Set<BundleNames> find(final BundleApplications owner)
 	{
-		final TypedQuery<BundleApplications> bundleApps = getRepository().getEntityManager()
-			.createNamedQuery(BundleApplications.NQ_FIND_BY_BUNDLE_NAME, BundleApplications.class)
-			.setParameter("bundleName", bundleName);
-		final List<BundleApplications> applications = bundleApps.getResultList();
+		final TypedQuery<BundleNames> typedQuery = getRepository().getEntityManager()
+			.createNamedQuery(BundleNames.NQ_FIND_BY_OWNER, BundleNames.class)
+			.setParameter("owner", owner);
 
-		// final String hqlString = "select ba from BundleApplications ba, BundleNames bn where
-		// :bundleName member of ba.bundleNames";
-		// final String hqlString = "select distinct ba from BundleApplications ba "
-		// + "join ba.bundleNames bn " + "where bn = :bundleName";
-		// final Query query = getQuery(hqlString);
-		// query.setParameter("bundleName", bundleName);
-		// applications = query.getResultList();
-		return applications;
+		final List<BundleNames> bundleNames = typedQuery.getResultList();
+		return SetExtensions.newHashSet(bundleNames);
 	}
 
 	/**
@@ -83,7 +75,7 @@ public class BundleApplicationsBusinessService
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public BundleApplications find(String name)
+	public BundleApplications find(final String name)
 	{
 		final String hqlString = HqlStringCreator.forBundleApplications(name);
 		final Query query = getQuery(hqlString);
@@ -99,16 +91,16 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications get(BundleNames bundleName)
+	public BundleApplications get(final BundleNames bundleName)
 	{
-		return ListExtensions.getFirst(find(bundleName));
+		return bundleName.getOwner();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(String name)
+	public BundleApplications getOrCreateNewBundleApplications(final String name)
 	{
 		BundleApplications baseBundleApplication = find(name);
 		if (baseBundleApplication == null)

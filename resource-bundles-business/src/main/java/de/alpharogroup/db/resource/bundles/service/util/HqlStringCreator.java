@@ -293,4 +293,90 @@ public class HqlStringCreator
 		return sb.toString();
 	}
 
+	/**
+	 * Creates hql query for resourcebundles.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @return the string
+	 */
+	public static String forResourcebundles(final String owner, final String baseName,
+		final String locale, final String key, final String value)
+	{
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select rb from " + Resourcebundles.class.getSimpleName() + " rb");
+
+		final boolean ownerIsNotNull = owner != null && !owner.isEmpty();
+		if (ownerIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where rb.bundleName.owner=:owner");
+		}
+
+		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
+		if (baseNameIsNotNull)
+		{
+			sb.append(" ");
+			if (ownerIsNotNull)
+			{
+				sb.append("and rb.bundleName.baseName.name=:baseName");
+			}
+			else
+			{
+				sb.append("where rb.bundleName.baseName.name=:baseName");
+			}
+		}
+
+		final boolean localeIsNotNull = locale != null && !locale.isEmpty();
+		if (localeIsNotNull)
+		{
+			sb.append(" ");
+			if (baseNameIsNotNull)
+			{
+				sb.append("and rb.bundleName.locale.locale=:locale");
+			}
+			else
+			{
+				sb.append("where rb.bundleName.locale.locale=:locale");
+			}
+		}
+
+		final boolean keyIsNotNull = key != null && !key.isEmpty();
+		if (keyIsNotNull)
+		{
+			sb.append(" ");
+			if (!baseNameIsNotNull && !localeIsNotNull)
+			{
+				sb.append("where rb.key.name=:key");
+			}
+			else
+			{
+				sb.append("and rb.key.name=:key");
+			}
+		}
+
+		final boolean valueIsNotNull = value != null && !value.isEmpty();
+		if (valueIsNotNull)
+		{
+			sb.append(" ");
+			if (!baseNameIsNotNull && !localeIsNotNull && !keyIsNotNull)
+			{
+				sb.append("where rb.value=:value");
+			}
+			else
+			{
+				sb.append("and rb.value=:value");
+			}
+		}
+		return sb.toString();
+	}
+
 }

@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
 import de.alpharogroup.service.domain.DomainService;
@@ -37,10 +38,21 @@ import de.alpharogroup.service.domain.DomainService;
  */
 public interface ResourcebundleService extends DomainService<Integer, Resourcebundle>
 {
+	/**
+	 * Find the {@link BundleApplication} object from the given name.
+	 *
+	 * @param name
+	 *            the name
+	 *
+	 * @return the found {@link BundleApplication} object or null if not.
+	 */
+	BundleApplication find(final String name);
 
 	/**
 	 * Checks if a resource exists with the given parameters.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -49,11 +61,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the key
 	 * @return the {@link Resourcebundle} or null if it does not exists.
 	 */
-	Resourcebundle contains(String baseName, Locale locale, String key);
+	Resourcebundle contains(BundleApplication bundleApplication, String baseName, Locale locale,
+		String key);
 
 	/**
 	 * Gets the entry from the given parameters.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -62,24 +77,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the key
 	 * @return the key
 	 */
-	Resourcebundle find(String baseName, Locale locale, String key);
-
-	/**
-	 * Gets the entry from the given parameters.
-	 *
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @param key
-	 *            the key
-	 * @return the key
-	 */
-	Resourcebundle find(String baseName, String locale, String key);
+	Resourcebundle find(BundleApplication bundleApplication, String baseName, Locale locale,
+		String key);
 
 	/**
 	 * Finds all entries from the given parameters that can be null if it shell be ignored.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -90,46 +95,58 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the value
 	 * @return the list
 	 */
-	List<Resourcebundle> find(String baseName, String locale, String key, String value);
+	List<Resourcebundle> find(BundleApplication bundleApplication, String baseName, String locale,
+		String key, String value);
 
 	/**
 	 * Find resource bundles from the given parameters.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 * @return the list
 	 */
-	List<Resourcebundle> findResourceBundles(String baseName, Locale locale);
+	List<Resourcebundle> findResourceBundles(BundleApplication bundleApplication, String baseName,
+		Locale locale);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
 	 * object.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 * @return the found {@link Properties} object.
 	 */
-	Properties getProperties(final String baseName, final Locale locale);
+	Properties getProperties(BundleApplication bundleApplication, final String baseName,
+		final Locale locale);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given locale code as
 	 * {@link String} object.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 * @return the found {@link Properties} object.
 	 */
-	Properties getProperties(final String baseName, final String locale);
+	Properties getProperties(BundleApplication bundleApplication, final String baseName,
+		final String locale);
 
 	/**
 	 * Gets the entry from the given parameters.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -138,20 +155,25 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the key
 	 * @return the key
 	 */
-	Resourcebundle getResourcebundle(String baseName, Locale locale, String key);
+	Resourcebundle getResourcebundle(BundleApplication bundleApplication, String baseName,
+		Locale locale, String key);
 
 	/**
 	 * Gets the resource {@link String} from the given {@link BundleKey}.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param bundleKey
 	 *            the bundle key
 	 * @return the {@link String}
 	 */
-	String getString(final BundleKey bundleKey);
+	String getString(BundleApplication bundleApplication, final BundleKey bundleKey);
 
 	/**
 	 * Gets the resource {@link String} from the given arguments.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -160,11 +182,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the key
 	 * @return the {@link String}
 	 */
-	String getString(String baseName, String locale, String key);
+	String getString(BundleApplication bundleApplication, String baseName, String locale,
+		String key);
 
 	/**
 	 * Gets the resource {@link String} from the given arguments.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -175,11 +200,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the parameters
 	 * @return the {@link String}
 	 */
-	String getString(String baseName, String locale, String key, Object[] params);
+	String getString(BundleApplication bundleApplication, String baseName, String locale,
+		String key, Object[] params);
 
 	/**
 	 * Gets the resource {@link String} from the given arguments.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -190,11 +218,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the default value
 	 * @return the {@link String}
 	 */
-	String getString(String baseName, String locale, String key, final String defaultValue);
+	String getString(BundleApplication bundleApplication, String baseName, String locale,
+		String key, final String defaultValue);
 
 	/**
 	 * Gets the resource {@link String} from the given arguments.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -207,12 +238,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the parameters
 	 * @return the {@link String}
 	 */
-	String getString(String baseName, String locale, String key, final String defaultValue,
-		Object[] params);
+	String getString(BundleApplication bundleApplication, String baseName, String locale,
+		String key, final String defaultValue, Object[] params);
 
 	/**
 	 * Update the given properties to the db.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param properties
 	 *            the properties
 	 * @param baseName
@@ -220,11 +253,14 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @param locale
 	 *            the locale
 	 */
-	void updateProperties(Properties properties, String baseName, Locale locale);
+	void updateProperties(BundleApplication bundleApplication, Properties properties,
+		String baseName, Locale locale);
 
 	/**
 	 * Update the given properties to the db.
 	 *
+	 * @param bundleApplication
+	 *            the bundle application
 	 * @param properties
 	 *            the properties
 	 * @param baseName
@@ -234,6 +270,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @param update
 	 *            flag that indicates if an existing property shell be updated
 	 */
-	void updateProperties(Properties properties, String baseName, Locale locale, boolean update);
+	void updateProperties(BundleApplication bundleApplication, Properties properties,
+		String baseName, Locale locale, boolean update);
 
 }
