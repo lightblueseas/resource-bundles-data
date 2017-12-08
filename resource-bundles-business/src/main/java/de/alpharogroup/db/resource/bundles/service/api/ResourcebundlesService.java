@@ -60,26 +60,6 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
 	 * String, the given properties key and the given value that can be null if it shell be ignored.
 	 *
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @param key
-	 *            the key
-	 * @param value
-	 *            the value
-	 * @return the list of the found {@link Resourcebundles} objects.
-	 * @deprecated use instead the same name method with owner
-	 */
-	@Deprecated
-	List<Resourcebundles> find(final String baseName, final String locale, final String key,
-		final String value);
-
-
-	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
-	 * String, the given properties key and the given value that can be null if it shell be ignored.
-	 *
 	 * @param owner
 	 *            the owner
 	 * @param baseName
@@ -95,28 +75,25 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	List<Resourcebundles> find(final BundleApplications owner, final String baseName,
 		final String locale, final String key, final String value);
 
-	/**
-	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @return the list of the found {@link Resourcebundles} objects.
-	 */
-	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
-	 * {@link Locale} object.
+	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
+	 * String, the given properties key and the given value that can be null if it shell be ignored.
 	 *
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 * @deprecated use instead the same name method with owner
 	 */
 	@Deprecated
-	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale);
+	List<Resourcebundles> find(final String baseName, final String locale, final String key,
+		final String value);
 
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
@@ -151,6 +128,29 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 		final Locale locale, final String key);
 
 	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
+	 * {@link Locale} object.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 * @deprecated use instead the same name method with owner
+	 */
+	@Deprecated
+	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale);
+
+	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
 	 * {@link Locale} object and the given properties key.
 	 *
@@ -166,29 +166,6 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	@Deprecated
 	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale,
 		final String key);
-
-	/**
-	 * Get the {@link Properties} object from given {@link BundleNames} object.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @return the found {@link Properties} object.
-	 */
-	Properties getProperties(final BundleNames bundleName);
-
-	/**
-	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
-	 * object.
-	 *
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @return the found {@link Properties} object.
-	 * @deprecated use instead the same name method with owner
-	 */
-	@Deprecated
-	Properties getProperties(final String baseName, final Locale locale);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
@@ -219,6 +196,29 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	Properties getProperties(final BundleApplications owner, final String baseName,
 		final String localeCode);
+
+	/**
+	 * Get the {@link Properties} object from given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the found {@link Properties} object.
+	 */
+	Properties getProperties(final BundleNames bundleName);
+
+	/**
+	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
+	 * object.
+	 *
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the found {@link Properties} object.
+	 * @deprecated use instead the same name method with owner
+	 */
+	@Deprecated
+	Properties getProperties(final String baseName, final Locale locale);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given locale code as
