@@ -30,6 +30,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
@@ -37,12 +38,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The Class {@link DatabaseListResourceBundle}.
+ * The Class {@link BundleApplicationListResourceBundle}.
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class DatabaseListResourceBundle extends ListResourceBundle
+public class BundleApplicationListResourceBundle extends ListResourceBundle
 {
 
 	/** The base name. */
@@ -51,27 +52,37 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	/** The locale. */
 	private Locale locale;
 
+	private BundleApplications owner;
+
 	/** The resourcebundles service. */
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
 	/**
-	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
+	 * Instantiates a new {@link BundleApplicationListResourceBundle} object from the given
+	 * parameters.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseListResourceBundle(final String baseName, final Locale locale)
+	public BundleApplicationListResourceBundle(final BundleApplications owner,
+		final String baseName, final Locale locale)
 	{
-		this.locale = locale;
-		this.baseName = baseName;
+		setOwner(owner);
+		setBaseName(baseName);
+		setLocale(locale);
 	}
 
 	/**
-	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
+	 * Instantiates a new {@link BundleApplicationListResourceBundle} object from the given
+	 * parameters.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -79,23 +90,24 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseListResourceBundle(final String baseName, final Locale locale,
+	public BundleApplicationListResourceBundle(final BundleApplications owner,
+		final String baseName, final Locale locale,
 		final ResourcebundlesService resourcebundlesService)
 	{
 		setResourcebundlesService(resourcebundlesService);
-		this.locale = locale;
-		this.baseName = baseName;
+		setOwner(owner);
+		setBaseName(baseName);
+		setLocale(locale);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	protected Object[][] getContents()
 	{
 		final List<Resourcebundles> resourcebundles = resourcebundlesService
-			.findResourceBundles(baseName, locale);
+			.findResourceBundles(owner, baseName, locale);
 		final Object[][] all = new Object[resourcebundles.size()][2];
 		int i = 0;
 		for (final Resourcebundles resourcebundle : resourcebundles)

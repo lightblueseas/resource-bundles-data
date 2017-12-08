@@ -296,6 +296,8 @@ public class HqlStringCreator
 	/**
 	 * Creates hql query for resourcebundles.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -306,8 +308,8 @@ public class HqlStringCreator
 	 *            the value
 	 * @return the string
 	 */
-	public static String forResourcebundles(final String owner, final String baseName, final String locale,
-		final String key, final String value)
+	public static String forResourcebundles(final String owner, final String baseName,
+		final String locale, final String key, final String value)
 	{
 		final StringBuilder sb = new StringBuilder();
 		sb.append("select rb from " + Resourcebundles.class.getSimpleName() + " rb");
@@ -323,9 +325,12 @@ public class HqlStringCreator
 		if (baseNameIsNotNull)
 		{
 			sb.append(" ");
-			if(ownerIsNotNull) {
+			if (ownerIsNotNull)
+			{
 				sb.append("and rb.bundleName.baseName.name=:baseName");
-			} else {
+			}
+			else
+			{
 				sb.append("where rb.bundleName.baseName.name=:baseName");
 			}
 		}

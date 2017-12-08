@@ -17,4 +17,5 @@
 			<AppenderRef ref="console" />
 		</Root>
 	</Loggers>
+	
 </Configuration>
