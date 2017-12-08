@@ -54,4 +54,10 @@ public class BundleName extends VersionableBaseDomainObject<Integer>
 
 	/** The locale. */
 	private LanguageLocale locale;
+
+	/** The filepath. */
+	private String filepath;
+
+	/** The owner. */
+	private BundleApplication owner;
 }

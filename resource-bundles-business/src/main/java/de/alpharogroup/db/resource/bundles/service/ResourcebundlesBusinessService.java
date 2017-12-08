@@ -103,6 +103,16 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Resourcebundles contains(BundleApplications owner, String baseName, Locale locale,
+		String key)
+	{
+		return getResourcebundle(owner, baseName, locale, key);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Resourcebundles contains(final String baseName, final Locale locale, final String key)
 	{
 		return getResourcebundle(baseName, locale, key);
@@ -554,6 +564,15 @@ public class ResourcebundlesBusinessService
 		log.info("Finish of processing: " + bundleName.getBaseName().getName());
 		log.info("===============================================================");
 		return bundleName;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications find(String name)
+	{
+		return bundleApplicationsService.find(name);
 	}
 
 }

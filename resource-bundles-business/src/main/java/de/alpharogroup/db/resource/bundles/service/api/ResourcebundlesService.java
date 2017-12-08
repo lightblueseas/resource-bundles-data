@@ -43,6 +43,16 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 {
 
 	/**
+	 * Find the {@link BundleApplications} object from the given name.
+	 *
+	 * @param name
+	 *            the name
+	 *
+	 * @return the found {@link BundleApplications} object or null if not.
+	 */
+	BundleApplications find(final String name);
+
+	/**
 	 * Checks if a {@link Resourcebundles} object exists from the given baseName, the given
 	 * {@link Locale} object and the given properties key.
 	 *
@@ -53,8 +63,27 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @param key
 	 *            the properties key
 	 * @return the found {@link Resourcebundles} object or null if it does not exists.
+	 * @deprecated use instead the same name method with owner
 	 */
+	@Deprecated
 	Resourcebundles contains(final String baseName, final Locale locale, final String key);
+
+	/**
+	 * Checks if a {@link Resourcebundles} object exists from the given baseName, the given
+	 * {@link Locale} object and the given properties key.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the properties key
+	 * @return the found {@link Resourcebundles} object or null if it does not exists.
+	 */
+	Resourcebundles contains(final BundleApplications owner, final String baseName,
+		final Locale locale, final String key);
 
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
