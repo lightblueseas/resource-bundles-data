@@ -1,7 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>resource-bundles-data</artifactId>
@@ -10,7 +11,7 @@
 
 	<artifactId>resource-bundles-rest-web</artifactId>
 	<packaging>war</packaging>
-	
+
 	<description>Rest web application that provides rest api for access to resource bundles for I18N applications</description>
 
 	<properties>
@@ -98,6 +99,11 @@
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-jmx</artifactId>
+		</dependency>
 		<!-- JETTY 9 DEPENDENCIES FOR TESTING -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -115,11 +121,6 @@
 			<groupId>org.eclipse.jetty</groupId>
 			<artifactId>jetty-util</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-jmx</artifactId>
 		</dependency>
 
 		<dependency>
