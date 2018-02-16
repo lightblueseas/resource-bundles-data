@@ -27,6 +27,9 @@ package de.alpharogroup.db.resource.bundles.service.api;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.service.api.BusinessService;
 
+/**
+ * The interface {@link BaseNamesService}.
+ */
 public interface BaseNamesService extends BusinessService<BaseNames, Integer>
 {
 
@@ -35,7 +38,7 @@ public interface BaseNamesService extends BusinessService<BaseNames, Integer>
 	 *
 	 * @param baseName
 	 *            the base name
-	 * 
+	 *
 	 * @return the found {@link BaseNames} object or null if not.
 	 */
 	BaseNames find(final String baseName);

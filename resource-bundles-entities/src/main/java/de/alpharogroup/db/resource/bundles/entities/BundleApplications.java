@@ -72,15 +72,6 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
 
 	/**
-	 * The bundle names of this bundle application.
-	 */
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "bundle_application_bundlenames", joinColumns = {
-			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "bundlenames_id", referencedColumnName = "id") })
-	private Set<BundleNames> bundleNames = new HashSet<>();
-
-	/**
 	 * The default locale of this bundle application.
 	 */
 	@ManyToOne(cascade = CascadeType.ALL)
@@ -107,11 +98,10 @@ public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> imple
 	 *            the default locale
 	 */
 	@Builder
-	BundleApplications(final String name, final Set<BundleNames> bundleNames,
-		final LanguageLocales defaultLocale, final Set<LanguageLocales> supportedLocales)
+	BundleApplications(final String name, final LanguageLocales defaultLocale,
+		final Set<LanguageLocales> supportedLocales)
 	{
 		super(name);
-		this.bundleNames = bundleNames;
 		this.defaultLocale = defaultLocale;
 		this.supportedLocales = supportedLocales;
 	}

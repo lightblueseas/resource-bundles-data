@@ -24,6 +24,9 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -33,35 +36,42 @@ import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.check.Check;
-import de.alpharogroup.collections.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.ResourcebundlesDao;
+import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link ResourcebundlesBusinessService}.
  */
+@Slf4j
 @Transactional
 @Service("resourcebundlesService")
 public class ResourcebundlesBusinessService
 	extends
-		AbstractBusinessService<Resourcebundles, Integer, ResourcebundlesDao>
+		AbstractBusinessService<Resourcebundles, Integer, ResourcebundlesRepository>
 	implements
 		ResourcebundlesService
 {
@@ -84,6 +94,20 @@ public class ResourcebundlesBusinessService
 	/** The properties keys service. */
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
+
+	/** The bundle applications service. */
+	@Autowired
+	private BundleApplicationsService bundleApplicationsService;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Resourcebundles contains(BundleApplications owner, String baseName, Locale locale,
+		String key)
+	{
+		return getResourcebundle(owner, baseName, locale, key);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -122,6 +146,42 @@ public class ResourcebundlesBusinessService
 	 */
 	@Override
 	@SuppressWarnings("unchecked")
+	public List<Resourcebundles> find(BundleApplications owner, String baseName, String locale,
+		String key, String value)
+	{
+		final String hqlString = HqlStringCreator.forResourcebundles(owner.getName(), baseName,
+			locale, key, value);
+		final Query query = getQuery(hqlString);
+		if (owner != null)
+		{
+			query.setParameter("owner", owner);
+		}
+		if (baseName != null && !baseName.isEmpty())
+		{
+			query.setParameter("baseName", baseName);
+		}
+		if (locale != null && !locale.isEmpty())
+		{
+			query.setParameter("locale", locale);
+		}
+		if (key != null && !key.isEmpty())
+		{
+			query.setParameter("key", key);
+		}
+		if (value != null && !value.isEmpty())
+		{
+			query.setParameter("value", value);
+		}
+		final List<Resourcebundles> resourcebundles = query.getResultList();
+		return resourcebundles;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Deprecated
+	@Override
+	@SuppressWarnings("unchecked")
 	public List<Resourcebundles> find(final String baseName, final String locale, final String key,
 		final String value)
 	{
@@ -151,6 +211,39 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<Resourcebundles> findResourceBundles(BundleApplications owner, String baseName,
+		Locale locale)
+	{
+		return find(owner, baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundles> findResourceBundles(BundleApplications owner, String baseName,
+		Locale locale, String key)
+	{
+		return find(owner, baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), key, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundles> findResourceBundles(final BundleNames bundleName)
+	{
+		final String baseName = bundleName.getBaseName().getName();
+		final Locale locale = LocaleResolver.resolveLocale(bundleName.getLocale().getLocale());
+		final BundleApplications owner = bundleName.getOwner();
+		return findResourceBundles(owner, baseName, locale);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Deprecated
+	@Override
 	public List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale)
 	{
 		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);
@@ -159,6 +252,7 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
+	@Deprecated
 	@Override
 	public List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale,
 		final String key)
@@ -169,6 +263,46 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
+	public Properties getProperties(BundleApplications owner, String baseName, Locale locale)
+	{
+		final Properties properties = new Properties();
+		final List<Resourcebundles> resourcebundles = findResourceBundles(owner, baseName, locale);
+		for (final Resourcebundles resourcebundle : resourcebundles)
+		{
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+		}
+		return properties;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Properties getProperties(BundleApplications owner, String baseName, String localeCode)
+	{
+		return getProperties(owner, baseName, LocaleResolver.resolveLocale(localeCode));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Properties getProperties(final BundleNames bundleName)
+	{
+		final Properties properties = new Properties();
+		final List<Resourcebundles> resourcebundles = findResourceBundles(bundleName);
+		for (final Resourcebundles resourcebundle : resourcebundles)
+		{
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+		}
+		return properties;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Deprecated
 	@Override
 	public Properties getProperties(final String baseName, final Locale locale)
 	{
@@ -194,6 +328,17 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Resourcebundles getResourcebundle(BundleApplications owner, String baseName,
+		Locale locale, String key)
+	{
+		return ListExtensions.getFirst(findResourceBundles(owner, baseName, locale, key));
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Deprecated
+	@Override
 	public Resourcebundles getResourcebundle(final String baseName, final Locale locale,
 		final String key)
 	{
@@ -204,50 +349,80 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<BundleNames> importProperties(BundleApplications bundleApplication,
+		List<KeyValuePair<File, Locale>> foundProperties) throws IOException
+	{
+		final List<BundleNames> list = new ArrayList<>();
+		for (final KeyValuePair<File, Locale> entry : foundProperties)
+		{
+			final File propertiesFile = entry.getKey();
+			final Locale locale = entry.getValue();
+			final String bundlename = LocaleResolver.resolveBundlename(propertiesFile);
+			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+			final BundleNames bundleNames = updateProperties(bundleApplication, properties,
+				bundlename, locale, false);
+			list.add(bundleNames);
+			bundleApplication = bundleApplicationsService.merge(bundleApplication);
+		}
+		return list;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Resourcebundles merge(final Resourcebundles resourcebundles)
 	{
-
-		BaseNames baseName = baseNamesService
-			.find(resourcebundles.getBundleName().getBaseName().getName());
-		if (baseName == null)
+		try
 		{
-			baseName = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
-			baseName = baseNamesService.merge(baseName);
+			return super.merge(resourcebundles);
 		}
-
-		LanguageLocales languageLocales = languageLocalesService
-			.find(resourcebundles.getBundleName().getLocale().getLocale());
-
-		if (languageLocales == null)
+		catch (final Exception e)
 		{
-			languageLocales = ResourceBundlesDomainObjectFactory.getInstance()
-				.newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
-			languageLocales = languageLocalesService.merge(languageLocales);
-		}
+			log.error("merge fail with super.merge(resourcebundles)", e);
+			BaseNames baseName = baseNamesService
+				.find(resourcebundles.getBundleName().getBaseName().getName());
+			if (baseName == null)
+			{
+				baseName = ResourceBundlesDomainObjectFactory.getInstance()
+					.newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
+				baseName = baseNamesService.merge(baseName);
+			}
 
-		BundleNames bundleNames = bundleNamesService.find(baseName, languageLocales);
-		if (bundleNames == null)
-		{
-			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
-				resourcebundles.getBundleName().getBaseName(),
-				resourcebundles.getBundleName().getLocale());
-			bundleNames.setBaseName(baseName);
-			bundleNames.setLocale(languageLocales);
-			bundleNames = bundleNamesService.merge(bundleNames);
-		}
+			LanguageLocales languageLocales = languageLocalesService
+				.find(resourcebundles.getBundleName().getLocale().getLocale());
 
-		PropertiesKeys propertiesKeys = propertiesKeysService
-			.find(resourcebundles.getKey().getName());
-		if (propertiesKeys == null)
-		{
-			propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance()
-				.newPropertiesKeys(resourcebundles.getKey().getName());
-			propertiesKeys = propertiesKeysService.merge(propertiesKeys);
+			if (languageLocales == null)
+			{
+				languageLocales = ResourceBundlesDomainObjectFactory.getInstance()
+					.newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
+				languageLocales = languageLocalesService.merge(languageLocales);
+			}
+
+			BundleNames bundleNames = bundleNamesService
+				.find(resourcebundles.getBundleName().getOwner(), baseName, languageLocales);
+			if (bundleNames == null)
+			{
+				bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
+					resourcebundles.getBundleName().getBaseName(),
+					resourcebundles.getBundleName().getLocale());
+				bundleNames.setBaseName(baseName);
+				bundleNames.setLocale(languageLocales);
+				bundleNames = bundleNamesService.merge(bundleNames);
+			}
+
+			PropertiesKeys propertiesKeys = propertiesKeysService
+				.find(resourcebundles.getKey().getName());
+			if (propertiesKeys == null)
+			{
+				propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance()
+					.newPropertiesKeys(resourcebundles.getKey().getName());
+				propertiesKeys = propertiesKeysService.merge(propertiesKeys);
+			}
+			resourcebundles.setBundleName(bundleNames);
+			resourcebundles.setKey(propertiesKeys);
+			return super.merge(resourcebundles);
 		}
-		resourcebundles.setBundleName(bundleNames);
-		resourcebundles.setKey(propertiesKeys);
-		return super.merge(resourcebundles);
 	}
 
 	/**
@@ -256,94 +431,148 @@ public class ResourcebundlesBusinessService
 	@Override
 	public void saveOrUpdate(final Resourcebundles resourcebundles)
 	{
-		BaseNames baseName = baseNamesService
-			.find(resourcebundles.getBundleName().getBaseName().getName());
-		if (baseName == null)
+		try
 		{
-			baseName = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
-			baseName = baseNamesService.merge(baseName);
+			super.saveOrUpdate(resourcebundles);
 		}
-
-		LanguageLocales languageLocales = languageLocalesService
-			.find(resourcebundles.getBundleName().getLocale().getLocale());
-
-		if (languageLocales == null)
+		catch (final Exception e)
 		{
-			languageLocales = ResourceBundlesDomainObjectFactory.getInstance()
-				.newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
-			languageLocales = languageLocalesService.merge(languageLocales);
-		}
+			BaseNames baseName = baseNamesService
+				.find(resourcebundles.getBundleName().getBaseName().getName());
+			if (baseName == null)
+			{
+				baseName = ResourceBundlesDomainObjectFactory.getInstance()
+					.newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
+				baseName = baseNamesService.merge(baseName);
+			}
 
-		BundleNames bundleNames = bundleNamesService.find(baseName, languageLocales);
-		if (bundleNames == null)
-		{
-			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
-				resourcebundles.getBundleName().getBaseName(),
-				resourcebundles.getBundleName().getLocale());
-			bundleNames.setBaseName(baseName);
-			bundleNames.setLocale(languageLocales);
-			bundleNames = bundleNamesService.merge(bundleNames);
-		}
+			LanguageLocales languageLocales = languageLocalesService
+				.find(resourcebundles.getBundleName().getLocale().getLocale());
 
-		PropertiesKeys propertiesKeys = propertiesKeysService
-			.find(resourcebundles.getKey().getName());
-		if (propertiesKeys == null)
-		{
-			propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance()
-				.newPropertiesKeys(resourcebundles.getKey().getName());
-			propertiesKeys = propertiesKeysService.merge(propertiesKeys);
+			if (languageLocales == null)
+			{
+				languageLocales = ResourceBundlesDomainObjectFactory.getInstance()
+					.newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
+				languageLocales = languageLocalesService.merge(languageLocales);
+			}
+
+			BundleNames bundleNames = bundleNamesService
+				.find(resourcebundles.getBundleName().getOwner(), baseName, languageLocales);
+			if (bundleNames == null)
+			{
+				bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
+					resourcebundles.getBundleName().getBaseName(),
+					resourcebundles.getBundleName().getLocale());
+				bundleNames.setBaseName(baseName);
+				bundleNames.setLocale(languageLocales);
+				bundleNames = bundleNamesService.merge(bundleNames);
+			}
+
+			PropertiesKeys propertiesKeys = propertiesKeysService
+				.find(resourcebundles.getKey().getName());
+			if (propertiesKeys == null)
+			{
+				propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance()
+					.newPropertiesKeys(resourcebundles.getKey().getName());
+				propertiesKeys = propertiesKeysService.merge(propertiesKeys);
+			}
+			resourcebundles.setBundleName(bundleNames);
+			resourcebundles.setKey(propertiesKeys);
+			super.saveOrUpdate(resourcebundles);
 		}
-		resourcebundles.setBundleName(bundleNames);
-		resourcebundles.setKey(propertiesKeys);
-		super.saveOrUpdate(resourcebundles);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
+		final Locale locale, final String key, final String value, final boolean update)
+	{
+		Resourcebundles resourcebundle = getResourcebundle(bundleName.getOwner(), baseName, locale,
+			key);
+		if (resourcebundle != null)
+		{
+			if (update)
+			{
+				resourcebundle.setValue(value);
+			}
+		}
+		else
+		{
+			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
+			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(value)
+				.build();
+		}
+		resourcebundle = merge(resourcebundle);
+		return resourcebundle;
 	}
 
 	@Autowired
-	public void setResourcebundlesDao(final ResourcebundlesDao resourcebundlesDao)
+	public void setResourcebundlesRepository(final ResourcebundlesRepository repository)
 	{
-		setDao(resourcebundlesDao);
+		setRepository(repository);
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void updateProperties(final Properties properties, final String baseName,
-		final Locale locale)
+	public BundleNames updateProperties(final BundleApplications owner, final Properties properties,
+		final String baseName, final Locale locale)
 	{
-		updateProperties(properties, baseName, locale, true);
+		return updateProperties(owner, properties, baseName, locale, true);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void updateProperties(final Properties properties, final String baseName,
-		final Locale locale, final boolean update)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public BundleNames updateProperties(final BundleApplications owner, final Properties properties,
+		final String baseName, final Locale locale, final boolean update)
 	{
 		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
-		BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(baseName, locale);
+		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(owner, baseName,
+			locale);
+		final Properties dbProperties = getProperties(bundleName);
+		final String bundName = bundleName.getBaseName().getName();
+		log.info("===============================================================");
+		log.info("Processing bundle: " + bundName);
+		log.info("===============================================================");
 		for (final Map.Entry<Object, Object> element : properties.entrySet())
 		{
 			final String key = element.getKey().toString().trim();
 			final String value = element.getValue().toString().trim();
-			Resourcebundles resourcebundle = getResourcebundle(baseName, locale, key);
-			if (resourcebundle != null)
+			if (dbProperties.containsKey(key))
 			{
-				if (update)
+				final String dbValue = dbProperties.getProperty(key);
+				if (value.equals(dbValue))
 				{
-					resourcebundle.setValue(value);
+					continue;
 				}
 			}
-			else
-			{
-				PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
-				resourcebundle = ResourceBundlesDomainObjectFactory.getInstance()
-					.newResourcebundles(bundleName, pkey, value);
-			}
-			merge(resourcebundle);
+			log.info("===============================================================");
+			log.info("Processing bundle: " + bundName);
+			log.info("===============================================================");
+			log.info("===============================================================");
+			log.info("Processing key: " + key + "");
+			log.info("===============================================================");
+			log.info("===============================================================");
+			log.info("Processing value: " + value + "");
+			log.info("===============================================================");
+			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
 		}
+		log.info("===============================================================");
+		log.info("Finish of processing: " + bundleName.getBaseName().getName());
+		log.info("===============================================================");
+		return bundleName;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications find(String name)
+	{
+		return bundleApplicationsService.find(name);
 	}
 
 }

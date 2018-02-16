@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -5,7 +6,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>resource-bundles-data</artifactId>
-		<version>3.14.0</version>
+		<version>5.2.0</version>
 	</parent>
 
 	<artifactId>resource-bundles-init</artifactId>
@@ -66,16 +67,16 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+		</dependency>
 		<!-- H2 DEPENDENCIES -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
 		</dependency>
 		<!-- CONNECTION-POOL DEPENDENCIES -->
 		<dependency>
@@ -147,6 +148,12 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
+							<arguments>
+								<argument>delete</argument>
+							</arguments>
+						</configuration>
 						<executions>
 							<execution>
 								<goals>
@@ -154,12 +161,6 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
-							<arguments>
-								<argument>delete</argument>
-							</arguments>
-						</configuration>
 					</plugin>
 
 				</plugins>
@@ -184,6 +185,12 @@
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>exec-maven-plugin</artifactId>
+						<configuration>
+							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
+							<arguments>
+								<argument>create-empty</argument>
+							</arguments>
+						</configuration>
 						<executions>
 							<execution>
 								<phase>compile</phase>
@@ -192,12 +199,6 @@
 								</goals>
 							</execution>
 						</executions>
-						<configuration>
-							<mainClass>de.alpharogroup.db.init.InitializeDatabase</mainClass>
-							<arguments>
-								<argument>create-empty</argument>
-							</arguments>
-						</configuration>
 					</plugin>
 
 				</plugins>

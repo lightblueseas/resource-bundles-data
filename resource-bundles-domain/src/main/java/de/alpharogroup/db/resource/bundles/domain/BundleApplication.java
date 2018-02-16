@@ -52,9 +52,6 @@ public class BundleApplication extends NameBaseDomainObject<Integer>
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/** The bundle names of this application. */
-	private Set<BundleName> bundleNames;
-
 	/**
 	 * The default locale of this bundle application.
 	 */
@@ -77,11 +74,10 @@ public class BundleApplication extends NameBaseDomainObject<Integer>
 	 *            the default locale
 	 */
 	@Builder
-	BundleApplication(final String name, final Set<BundleName> bundleNames,
+	BundleApplication(final String name,
 		final LanguageLocale defaultLocale, final Set<LanguageLocale> supportedLocales)
 	{
 		super(name);
-		this.bundleNames = bundleNames;
 		this.defaultLocale = defaultLocale;
 		this.supportedLocales = supportedLocales;
 	}

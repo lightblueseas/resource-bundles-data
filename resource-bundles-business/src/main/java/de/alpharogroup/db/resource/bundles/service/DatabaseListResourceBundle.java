@@ -90,11 +90,12 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	/**
 	 * {@inheritDoc}
 	 */
+	@SuppressWarnings("deprecation")
 	@Override
 	protected Object[][] getContents()
 	{
-		final List<Resourcebundles> resourcebundles = resourcebundlesService.findResourceBundles(baseName,
-			locale);
+		final List<Resourcebundles> resourcebundles = resourcebundlesService
+			.findResourceBundles(baseName, locale);
 		final Object[][] all = new Object[resourcebundles.size()][2];
 		int i = 0;
 		for (final Resourcebundles resourcebundle : resourcebundles)

@@ -37,7 +37,7 @@ public interface LanguageLocalesService extends BusinessService<LanguageLocales,
 	 *
 	 * @param locale
 	 *            the locale
-	 * 
+	 *
 	 * @return the found {@link LanguageLocales} object or null if not.
 	 */
 	LanguageLocales find(Locale locale);
@@ -47,7 +47,7 @@ public interface LanguageLocalesService extends BusinessService<LanguageLocales,
 	 *
 	 * @param locale
 	 *            the locale
-	 * 
+	 *
 	 * @return the found {@link LanguageLocales} object or null if not.
 	 */
 	LanguageLocales find(final String locale);
@@ -60,5 +60,14 @@ public interface LanguageLocalesService extends BusinessService<LanguageLocales,
 	 * @return the {@link LanguageLocales} object
 	 */
 	LanguageLocales getOrCreateNewLanguageLocales(final Locale locale);
+
+	/**
+	 * Resolves the {@link Locale} object from the given {@link LanguageLocales}.
+	 *
+	 * @param languageLocales
+	 *            the language locales
+	 * @return the {@link Locale} object.
+	 */
+	Locale resolveLocale(LanguageLocales languageLocales);
 
 }

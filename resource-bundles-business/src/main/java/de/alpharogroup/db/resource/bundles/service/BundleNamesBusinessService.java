@@ -31,21 +31,21 @@ import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.ListExtensions;
-import de.alpharogroup.db.resource.bundles.daos.BundleNamesDao;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
+import de.alpharogroup.db.resource.bundles.repositories.BundleNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
-import de.alpharogroup.db.service.jpa.AbstractBusinessService;
+import de.alpharogroup.db.service.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
@@ -55,7 +55,7 @@ import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 @Service("bundleNamesService")
 public class BundleNamesBusinessService
 	extends
-		AbstractBusinessService<BundleNames, Integer, BundleNamesDao>
+		AbstractBusinessService<BundleNames, Integer, BundleNamesRepository>
 	implements
 		BundleNamesService
 {
@@ -78,23 +78,11 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<BundleNames> find(final BaseNames baseName)
+	public List<BundleNames> find(final BundleApplications owner, final BaseNames baseName)
 	{
 		if (baseName != null)
 		{
-			return find(baseName.getName(), (String)null);
-		}
-		return null;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public List<BundleNames> find(final String baseName)
-	{
-		if (baseName != null)
-		{
-			return find(baseName, (String)null);
+			return find(owner, baseName.getName(), (String)null);
 		}
 		return null;
 	}
@@ -103,7 +91,8 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames find(final BaseNames baseName, final LanguageLocales languageLocales)
+	public BundleNames find(final BundleApplications owner, final BaseNames baseName,
+		final LanguageLocales languageLocales)
 	{
 		String bn = null;
 		String ll = null;
@@ -117,16 +106,30 @@ public class BundleNamesBusinessService
 		}
 		if (bn != null && ll != null)
 		{
-			return ListExtensions.getFirst(find(bn, ll));
+			return ListExtensions.getFirst(find(owner, bn, ll));
+		}
+		return null;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<BundleNames> find(final BundleApplications owner, final String baseName)
+	{
+		if (baseName != null)
+		{
+			return find(owner, baseName, (String)null);
 		}
 		return null;
 	}
 
 	@Override
-	public BundleNames find(final String baseName, final Locale locale)
+	public BundleNames find(final BundleApplications owner, final String baseName,
+		final Locale locale)
 	{
 		return ListExtensions
-			.getFirst(find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
+			.getFirst(find(owner, baseName, LocaleExtensions.getLocaleFilenameSuffix(locale)));
 	}
 
 	/**
@@ -134,10 +137,15 @@ public class BundleNamesBusinessService
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<BundleNames> find(final String baseName, final String locale)
+	public List<BundleNames> find(final BundleApplications owner, final String baseName,
+		final String locale)
 	{
-		final String hqlString = HqlStringCreator.forBundleNames(baseName, locale);
+		final String hqlString = HqlStringCreator.forBundleNames(owner.getName(), baseName, locale);
 		final Query query = getQuery(hqlString);
+		if (owner != null)
+		{
+			query.setParameter("owner", owner);
+		}
 		if (baseName != null && !baseName.isEmpty())
 		{
 			query.setParameter("baseName", baseName);
@@ -155,47 +163,51 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
+	public LanguageLocales getDefaultLocale(final BundleApplications owner, final String baseName)
 	{
-		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
-		return bundleApplications.getDefaultLocale();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public LanguageLocales getDefaultLocale(final String baseName)
-	{
-		final List<BundleNames> list = find(baseName);
-		if(ListExtensions.isNotEmpty(list)) {
+		final List<BundleNames> list = find(owner, baseName);
+		if (ListExtensions.isNotEmpty(list))
+		{
 			return getDefaultLocale(ListExtensions.getFirst(list));
 		}
 		return null;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public BundleNames getOrCreateNewBundleNames(final String baseName, final Locale locale)
+	public LanguageLocales getDefaultLocale(final BundleNames bundleNames)
 	{
-		BundleNames bundleNames = find(baseName, locale);
+		final BundleApplications bundleApplications = bundleApplicationsService.get(bundleNames);
+		if (bundleApplications != null)
+		{
+			return bundleApplications.getDefaultLocale();
+		}
+		return null;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Override
+	public BundleNames getOrCreateNewBundleNames(final BundleApplications owner,
+		final String baseName, final Locale locale)
+	{
+		BundleNames bundleNames = find(owner, baseName, locale);
 		if (bundleNames == null)
 		{
-			final LanguageLocales dbLocale = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+			final LanguageLocales dbLocale = languageLocalesService
+				.getOrCreateNewLanguageLocales(locale);
 			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
-			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(bn,
-				dbLocale);
+			bundleNames = BundleNames.builder().owner(owner).baseName(bn).locale(dbLocale).build();
 			bundleNames = merge(bundleNames);
 		}
 		return bundleNames;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Autowired
-	public void setBundleNamesDao(final BundleNamesDao dao)
+	public void setBundleNamesRepository(final BundleNamesRepository repository)
 	{
-		setDao(dao);
+		setRepository(repository);
 	}
 
 }

@@ -1,23 +1,25 @@
 # Overview
 
+
+<div align="center">
+
+[![Build Status](https://travis-ci.org/lightblueseas/resource-bundles-data.svg?branch=master)](https://travis-ci.org/lightblueseas/resource-bundles-data)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.alpharogroup/resource-bundles-data/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.alpharogroup/resource-bundles-data)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
+
+</div>
+
 This project provides Java resource bundles(i18n) that can be saved to your prefered database and load back. It is kept simple. There is also restful web services provided for providing resource bundles also for the web and can be used also with other languages than java.
 
 # ERD-Diagramm
 
 The erd-diagramm for this database looks as follows: ![erd-diagramm](https://github.com/lightblueseas/resource-bundles-data/blob/develop/resource-bundles-init/src/main/resources/erd/erd-diagramm-resourcesbundles.png)
 
-This erd-diagramm was created with the awesome [SQuirreL SQL Client](http://squirrel-sql.sourceforge.net/)
+This erd-diagramm was created with [Jeddict plugin from netbeans as JPA Modeler](http://plugins.netbeans.org/plugin/53057/jpa-modeler)  and [Jeddict](https://jeddict.github.io/)
 
 ## License
 
 The source code comes under the liberal MIT License, making resource-bundles-data great for all types of I18N applications.
-
-# Build status
-[![Build Status](https://travis-ci.org/lightblueseas/resource-bundles-data.svg?branch=master)](https://travis-ci.org/lightblueseas/resource-bundles-data)
-
-## Maven Central
-
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.alpharogroup/resource-bundles-data/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.alpharogroup/resource-bundles-data)
 
 ## Maven dependency
 
@@ -31,7 +33,7 @@ You can first define the version properties:
 	<properties>
 			...
 		<!-- resource-bundles-data version -->
-		<resource-bundles-data.version>3.12.2</resource-bundles-data.version>
+		<resource-bundles-data.version>5.2.0</resource-bundles-data.version>
 		<resource-bundles-business.version>${resource-bundles-data.version}</resource-bundles-business.version>
 		<resource-bundles-domain.version>${resource-bundles-data.version}</resource-bundles-domain.version>
 		<resource-bundles-entities.version>${resource-bundles-data.version}</resource-bundles-entities.version>
