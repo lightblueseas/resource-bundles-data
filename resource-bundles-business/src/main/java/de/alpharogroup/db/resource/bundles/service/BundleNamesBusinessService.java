@@ -210,4 +210,16 @@ public class BundleNamesBusinessService
 		setRepository(repository);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(BundleNames bundleNames) {
+		bundleNames.setBaseName(null);
+		bundleNames.setLocale(null);
+		bundleNames.setOwner(null);
+		BundleNames merged = super.merge(bundleNames);
+		super.delete(merged);
+	};
+
 }

@@ -64,8 +64,7 @@ import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
 /**
  * The class {@link AbstractResourcebundlesBusinessServiceTest}.
  */
-public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
-{
+public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests {
 
 	/** The resourcebundles service. */
 	@Autowired
@@ -88,14 +87,12 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	protected PropertiesKeysService propertiesKeysService;
 
 	private BundleApplications getOrCreateBundleApplication(final String applicationName,
-		final LanguageLocales defaultLocale)
-	{
+			final LanguageLocales defaultLocale) {
 		BundleApplications expected = bundleApplicationsService.find(applicationName);
-		if (expected == null)
-		{
+		if (expected == null) {
 			// and save to db...
-			expected = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBundleApplications(applicationName, defaultLocale);
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newBundleApplications(applicationName,
+					defaultLocale);
 			expected = bundleApplicationsService.merge(expected);
 		}
 		return expected;
@@ -106,45 +103,39 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	 *
 	 * @return the resourcebundles service
 	 */
-	public ResourcebundlesService getResourcebundlesService()
-	{
+	public ResourcebundlesService getResourcebundlesService() {
 		return resourcebundlesService;
 	}
 
 	/**
 	 * Inits a resourcebundles.
 	 */
-	protected void initBundleApplicationsBarDate()
-	{
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+	protected void initBundleApplicationsBarDate() {
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "bar-date.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
-			Locale.GERMAN, "resource.bundles.test.label");
-		if (resourcebundles == null)
-		{
-			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
+				.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.GERMAN,
+				"resource.bundles.test.label");
+		if (resourcebundles == null) {
+			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
+					"resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "Erstes label");
+					.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey,
+					"Erstes label");
 			resourcebundlesService.saveOrUpdate(resourcebundles);
 		}
 
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
-			"resource.bundles.test.label");
-		if (resourcebundles == null)
-		{
+		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK, "resource.bundles.test.label");
+		if (resourcebundles == null) {
 
-			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
+			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
+					"resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "First label");
+					.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey,
+					"First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}
@@ -152,37 +143,32 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	/**
 	 * Inits the resourcebundles.
 	 */
-	protected void initResourcebundles()
-	{
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+	protected void initResourcebundles() {
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
-			Locale.GERMAN, "resource.bundles.test.label");
-		if (resourcebundles == null)
-		{
-			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
+				.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.GERMAN,
+				"resource.bundles.test.label");
+		if (resourcebundles == null) {
+			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
+					"resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "Erstes label");
+					.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey,
+					"Erstes label");
 			resourcebundlesService.merge(resourcebundles);
 		}
 
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
-			"resource.bundles.test.label");
-		if (resourcebundles == null)
-		{
+		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK, "resource.bundles.test.label");
+		if (resourcebundles == null) {
 
-			final BundleNames bundleName = bundleNamesService
-				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
+			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
+					"resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
-			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "First label");
+					.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance().newResourcebundles(bundleName, pkey,
+					"First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}
@@ -193,41 +179,36 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	 * @param resourcebundlesService
 	 *            the new resourcebundles service
 	 */
-	public void setResourcebundlesService(final ResourcebundlesService resourcebundlesService)
-	{
+	public void setResourcebundlesService(final ResourcebundlesService resourcebundlesService) {
 		this.resourcebundlesService = resourcebundlesService;
 	}
 
-	public void testBundleApplicationsWithSameNameResourceBundles()
-	{
+	public void testBundleApplicationsWithSameNameResourceBundles() {
 		initResourcebundles();
 		initBundleApplicationsBarDate();
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "bar-date.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+				.getOrCreateNewBundleApplications(applicationName, languageLocales);
 
 		final Set<BundleNames> bundleNames = bundleApplicationsService.find(bundleApplication);
 		assertNotNull(bundleNames);
 		assertTrue(bundleNames.size() == 0);
 		final String applicationName2 = "foo-dating.com";
 		final BundleApplications bundleApplication2 = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
+				.getOrCreateNewBundleApplications(applicationName2, languageLocales);
 
 		final Set<BundleNames> bundleNames2 = bundleApplicationsService.find(bundleApplication2);
 
 		assertNotEquals(bundleNames, bundleNames2);
 	}
 
-	public void testFindBaseNames()
-	{
+	public void testFindBaseNames() {
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 		// check if baseNames exists...
 		BaseNames expected = baseNamesService.find(baseName);
-		if (expected == null)
-		{
+		if (expected == null) {
 			expected = ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(baseName);
 			expected = baseNamesService.merge(expected);
 		}
@@ -236,17 +217,15 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		assertEquals(expected, actual);
 	}
 
-	public void testFindBundleApplications()
-	{
+	public void testFindBundleApplications() {
 		final String applicationName = "foo-dating.com";
 		BundleApplications expected = bundleApplicationsService.find(applicationName);
-		if (expected == null)
-		{
+		if (expected == null) {
 			final LanguageLocales languageLocales = languageLocalesService
-				.getOrCreateNewLanguageLocales(Locale.GERMANY);
+					.getOrCreateNewLanguageLocales(Locale.GERMANY);
 			// and save to db...
-			expected = ResourceBundlesDomainObjectFactory.getInstance()
-				.newBundleApplications(applicationName, languageLocales);
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newBundleApplications(applicationName,
+					languageLocales);
 			expected = bundleApplicationsService.merge(expected);
 		}
 		final BundleApplications actual = bundleApplicationsService.find(applicationName);
@@ -254,31 +233,26 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		assertEquals(expected, actual);
 	}
 
-	public void testFindBundleNames()
-	{
+	public void testFindBundleNames() {
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 
 		final BaseNames actual = baseNamesService.getOrCreateNewBaseNames(baseName);
 		assertNotNull(actual);
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+				.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		// Get all bundle names as list
 		final List<BundleNames> bundleNames = bundleNamesService.find(bundleApplication, actual);
 		assertNotNull(bundleNames);
 	}
 
-	public void testFindLanguageLocales()
-	{
+	public void testFindLanguageLocales() {
 		final Locale germanLocale = Locale.GERMAN;
 		LanguageLocales expected = languageLocalesService.find(germanLocale);
-		if (expected == null)
-		{
-			expected = ResourceBundlesDomainObjectFactory.getInstance()
-				.newLanguageLocales(germanLocale);
+		if (expected == null) {
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(germanLocale);
 			expected = languageLocalesService.merge(expected);
 		}
 		final LanguageLocales actual = languageLocalesService.find(germanLocale);
@@ -289,16 +263,15 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	/**
 	 * Test find resource bundles.
 	 */
-	public void testFindResourceBundles()
-	{
+	public void testFindResourceBundles() {
 		initResourcebundles();
-		DatabaseListResourceBundle databaseResourceBundle = new DatabaseListResourceBundle(
-			"resource.bundles", Locale.UK, resourcebundlesService);
+		DatabaseListResourceBundle databaseResourceBundle = new DatabaseListResourceBundle("resource.bundles",
+				Locale.UK, resourcebundlesService);
 		String actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		String expected = "First label";
 		assertEquals(expected, actual);
 		databaseResourceBundle = new DatabaseListResourceBundle("resource.bundles", Locale.GERMAN,
-			resourcebundlesService);
+				resourcebundlesService);
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";
 		assertEquals(expected, actual);
@@ -313,21 +286,18 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	 *             the URI syntax exception
 	 * @throws IOException
 	 */
-	public void testUpdateProperties() throws URISyntaxException, IOException
-	{
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+	public void testUpdateProperties() throws URISyntaxException, IOException {
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+				.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		final String propertiesFilename = "test_de_DE.properties";
 		final File propertiesFile = ClassExtensions.getResourceAsFile(propertiesFilename);
 		final String baseName = LocaleResolver.resolveBundlename(propertiesFile);
 		final Locale locale = LocaleResolver.resolveLocale(propertiesFile);
 		final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(bundleApplication, properties, baseName, locale);
-		final Set<Resourcebundles> rb = new HashSet<>(
-			resourcebundlesService.findResourceBundles(baseName, locale));
+		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findResourceBundles(baseName, locale));
 		assertEquals(4, rb.size());
 		// truncate();
 	}
@@ -340,41 +310,31 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	 *             the URI syntax exception
 	 * @throws IOException
 	 */
-	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
-	{
+	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException {
 		final String bundlepackage = "";
 		final String bundlename = "ApplicationBasePage";
-		final Map<File, Locale> fileToLocaleMap = LocaleResolver.resolveLocales(bundlepackage,
-			bundlename, false);
+		final Map<File, Locale> fileToLocaleMap = LocaleResolver.resolveLocales(bundlepackage, bundlename, false);
 		final Locale defaultLocale = Locale.GERMANY;
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
-		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName,
-			languageLocales);
+		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName, languageLocales);
 
-		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet())
-		{
+		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet()) {
 			final File propertiesFile = entry.getKey();
 			Locale locale = entry.getValue();
-			if (locale == null)
-			{
-				final BundleNames bundleNames = bundleNamesService
-					.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
+			if (locale == null) {
+				final BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
+						bundlename, defaultLocale);
 				bundleApplication = bundleApplicationsService.merge(bundleApplication);
 				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
-				if (loc != null)
-				{
+				if (loc != null) {
 					locale = LocaleResolver.resolveLocale(loc.getLocale());
-				}
-				else
-				{
+				} else {
 					locale = defaultLocale;
 				}
 			}
 			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
-			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
-				locale);
+			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
 		}
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
@@ -382,11 +342,44 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		assertEquals(633, rb.size());
 	}
 
+	public void testDeleteBundleName() throws URISyntaxException, IOException {
+
+		final String bundlepackage = "";
+		final String bundlename = "ApplicationBasePage";
+		final Map<File, Locale> fileToLocaleMap = LocaleResolver.resolveLocales(bundlepackage, bundlename, false);
+		final Locale defaultLocale = Locale.GERMANY;
+		final LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName, languageLocales);
+
+		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet()) {
+			final File propertiesFile = entry.getKey();
+			Locale locale = entry.getValue();
+			if (locale == null) {
+				final BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
+						bundlename, defaultLocale);
+				bundleApplication = bundleApplicationsService.merge(bundleApplication);
+				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
+				if (loc != null) {
+					locale = LocaleResolver.resolveLocale(loc.getLocale());
+				} else {
+					locale = defaultLocale;
+				}
+			}
+			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename, locale);
+		}
+
+		final BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(bundleApplication, bundlename,
+				defaultLocale);
+
+		resourcebundlesService.delete(bundleNames);
+	}
+
 	/**
 	 * Truncate the table 'resourcebundles'.
 	 */
-	protected void truncate()
-	{
+	protected void truncate() {
 		final List<BundleApplications> ba = bundleApplicationsService.findAll();
 		ba.forEach(bundleApplication -> {
 			bundleApplicationsService.delete(bundleApplication);

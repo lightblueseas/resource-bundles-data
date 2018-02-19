@@ -137,9 +137,31 @@ public class ResourcebundlesBusinessService
 	public void delete(Resourcebundles resourcebundles)
 	{
 		resourcebundles.setBundleName(null);
+		resourcebundles.setKey(null);
 		resourcebundles = super.merge(resourcebundles);
 		super.delete(resourcebundles);
 	}
+	
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(BundleNames bundleName)
+	{
+		List<Resourcebundles> list = find(bundleName);
+		delete(list);
+		bundleNamesService.delete(bundleName);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundles> find(BundleNames bundleName)
+	{
+		return find(bundleName.getOwner(), bundleName.getBaseName().getName(), bundleName.getLocale().getLocale(), null, null);
+	}	
 
 	/**
 	 * {@inheritDoc}

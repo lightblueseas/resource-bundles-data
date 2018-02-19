@@ -39,8 +39,7 @@ import de.alpharogroup.db.service.api.BusinessService;
 /**
  * The interface {@link ResourcebundlesService}.
  */
-public interface ResourcebundlesService extends BusinessService<Resourcebundles, Integer>
-{
+public interface ResourcebundlesService extends BusinessService<Resourcebundles, Integer> {
 
 	/**
 	 * Find the {@link BundleApplications} object from the given name.
@@ -53,8 +52,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	BundleApplications find(final String name);
 
 	/**
-	 * Checks if a {@link Resourcebundles} object exists from the given baseName, the given
-	 * {@link Locale} object and the given properties key.
+	 * Checks if a {@link Resourcebundles} object exists from the given
+	 * baseName, the given {@link Locale} object and the given properties key.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -62,15 +61,16 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @param key
 	 *            the properties key
-	 * @return the found {@link Resourcebundles} object or null if it does not exists.
+	 * @return the found {@link Resourcebundles} object or null if it does not
+	 *         exists.
 	 * @deprecated use instead the same name method with owner
 	 */
 	@Deprecated
 	Resourcebundles contains(final String baseName, final Locale locale, final String key);
 
 	/**
-	 * Checks if a {@link Resourcebundles} object exists from the given baseName, the given
-	 * {@link Locale} object and the given properties key.
+	 * Checks if a {@link Resourcebundles} object exists from the given
+	 * baseName, the given {@link Locale} object and the given properties key.
 	 *
 	 * @param owner
 	 *            the owner
@@ -80,14 +80,24 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @param key
 	 *            the properties key
-	 * @return the found {@link Resourcebundles} object or null if it does not exists.
+	 * @return the found {@link Resourcebundles} object or null if it does not
+	 *         exists.
 	 */
-	Resourcebundles contains(final BundleApplications owner, final String baseName,
-		final Locale locale, final String key);
+	Resourcebundles contains(final BundleApplications owner, final String baseName, final Locale locale,
+			final String key);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
-	 * String, the given properties key and the given value that can be null if it shell be ignored.
+	 * Deletes the given {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 */
+	void delete(BundleNames bundleName);
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given baseName,
+	 * the given locale as String, the given properties key and the given value
+	 * that can be null if it shell be ignored.
 	 *
 	 * @param owner
 	 *            the owner
@@ -101,13 +111,23 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the value
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
-	List<Resourcebundles> find(final BundleApplications owner, final String baseName,
-		final String locale, final String key, final String value);
-
+	List<Resourcebundles> find(final BundleApplications owner, final String baseName, final String locale,
+			final String key, final String value);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given locale as
-	 * String, the given properties key and the given value that can be null if it shell be ignored.
+	 * Find a list of {@link Resourcebundles} objects from the given
+	 * {@link BundleNames} object.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> find(BundleNames bundleName);
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given baseName,
+	 * the given locale as String, the given properties key and the given value
+	 * that can be null if it shell be ignored.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -121,12 +141,11 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @deprecated use instead the same name method with owner
 	 */
 	@Deprecated
-	List<Resourcebundles> find(final String baseName, final String locale, final String key,
-		final String value);
+	List<Resourcebundles> find(final String baseName, final String locale, final String key, final String value);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
-	 * {@link Locale} object.
+	 * Find a list of {@link Resourcebundles} objects from the given baseName
+	 * and the given {@link Locale} object.
 	 *
 	 * @param owner
 	 *            the owner
@@ -137,11 +156,11 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
 	List<Resourcebundles> findResourceBundles(final BundleApplications owner, final String baseName,
-		final Locale locale);
+			final Locale locale);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
-	 * {@link Locale} object and the given properties key.
+	 * Find a list of {@link Resourcebundles} objects from the given baseName,
+	 * the given {@link Locale} object and the given properties key.
 	 *
 	 * @param owner
 	 *            the owner
@@ -154,10 +173,11 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
 	List<Resourcebundles> findResourceBundles(final BundleApplications owner, final String baseName,
-		final Locale locale, final String key);
+			final Locale locale, final String key);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
+	 * Find a list of {@link Resourcebundles} objects from the given
+	 * {@link BundleNames} object.
 	 *
 	 * @param bundleName
 	 *            the bundle name
@@ -166,8 +186,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	List<Resourcebundles> findResourceBundles(final BundleNames bundleName);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
-	 * {@link Locale} object.
+	 * Find a list of {@link Resourcebundles} objects from the given baseName
+	 * and the given {@link Locale} object.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -180,8 +200,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
-	 * {@link Locale} object and the given properties key.
+	 * Find a list of {@link Resourcebundles} objects from the given baseName,
+	 * the given {@link Locale} object and the given properties key.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -193,12 +213,11 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @deprecated use instead the same name method with owner
 	 */
 	@Deprecated
-	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale,
-		final String key);
+	List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale, final String key);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
-	 * object.
+	 * Get the {@link Properties} object from the given baseName and the given
+	 * {@link Locale} object.
 	 *
 	 * @param owner
 	 *            the owner
@@ -208,12 +227,11 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @return the found {@link Properties} object.
 	 */
-	Properties getProperties(final BundleApplications owner, final String baseName,
-		final Locale locale);
+	Properties getProperties(final BundleApplications owner, final String baseName, final Locale locale);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given locale code as
-	 * {@link String} object.
+	 * Get the {@link Properties} object from the given baseName and the given
+	 * locale code as {@link String} object.
 	 *
 	 * @param owner
 	 *            the owner
@@ -223,8 +241,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale code
 	 * @return the found {@link Properties} object.
 	 */
-	Properties getProperties(final BundleApplications owner, final String baseName,
-		final String localeCode);
+	Properties getProperties(final BundleApplications owner, final String baseName, final String localeCode);
 
 	/**
 	 * Get the {@link Properties} object from given {@link BundleNames} object.
@@ -236,8 +253,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Properties getProperties(final BundleNames bundleName);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
-	 * object.
+	 * Get the {@link Properties} object from the given baseName and the given
+	 * {@link Locale} object.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -250,8 +267,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Properties getProperties(final String baseName, final Locale locale);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given locale code as
-	 * {@link String} object.
+	 * Get the {@link Properties} object from the given baseName and the given
+	 * locale code as {@link String} object.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -264,8 +281,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Properties getProperties(final String baseName, final String locale);
 
 	/**
-	 * Gets the {@link Resourcebundles} object entry from the the given baseName, the given
-	 * {@link Locale} object and the given properties key.
+	 * Gets the {@link Resourcebundles} object entry from the the given
+	 * baseName, the given {@link Locale} object and the given properties key.
 	 *
 	 * @param owner
 	 *            the owner
@@ -277,12 +294,12 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the properties key
 	 * @return the found {@link Resourcebundles} object
 	 */
-	Resourcebundles getResourcebundle(final BundleApplications owner, final String baseName,
-		final Locale locale, final String key);
+	Resourcebundles getResourcebundle(final BundleApplications owner, final String baseName, final Locale locale,
+			final String key);
 
 	/**
-	 * Gets the {@link Resourcebundles} object entry from the the given baseName, the given
-	 * {@link Locale} object and the given properties key.
+	 * Gets the {@link Resourcebundles} object entry from the the given
+	 * baseName, the given {@link Locale} object and the given properties key.
 	 *
 	 * @param baseName
 	 *            the base name
@@ -297,11 +314,12 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	Resourcebundles getResourcebundle(final String baseName, final Locale locale, final String key);
 
 	/**
-	 * Import the given list with {@linkplain KeyValuePair} objects as properties file as key and
-	 * the locale string code as value.
+	 * Import the given list with {@linkplain KeyValuePair} objects as
+	 * properties file as key and the locale string code as value.
 	 *
 	 * @param bundleApplication
-	 *            the bundle application that will be the owner of the given properties.
+	 *            the bundle application that will be the owner of the given
+	 *            properties.
 	 * @param foundProperties
 	 *            the found properties
 	 * @return the list with the {@link BundleNames} that was created.
@@ -309,7 +327,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *             Signals that an I/O exception has occurred.
 	 */
 	List<BundleNames> importProperties(BundleApplications bundleApplication,
-		List<KeyValuePair<File, Locale>> foundProperties) throws IOException;
+			List<KeyValuePair<File, Locale>> foundProperties) throws IOException;
 
 	/**
 	 * Save or update the given resource bundle entry.
@@ -328,12 +346,13 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the update
 	 * @return the saved or updated {@link Resourcebundles} object
 	 */
-	Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName,
-		final Locale locale, final String key, final String value, final boolean update);
+	Resourcebundles saveOrUpdateEntry(final BundleNames bundleName, final String baseName, final Locale locale,
+			final String key, final String value, final boolean update);
 
 	/**
-	 * Update the given {@link Properties} object to the underlying database with the given owner
-	 * and the given baseName and the given {@link Locale} object.
+	 * Update the given {@link Properties} object to the underlying database
+	 * with the given owner and the given baseName and the given {@link Locale}
+	 * object.
 	 *
 	 * @param owner
 	 *            the owner
@@ -345,7 +364,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @return the updated {@link BundleNames} object
 	 */
-	BundleNames updateProperties(final BundleApplications owner, final Properties properties,
-		final String baseName, final Locale locale);
+	BundleNames updateProperties(final BundleApplications owner, final Properties properties, final String baseName,
+			final Locale locale);
 
 }
