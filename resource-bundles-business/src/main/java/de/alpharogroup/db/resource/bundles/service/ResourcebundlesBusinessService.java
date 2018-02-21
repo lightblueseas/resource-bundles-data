@@ -597,4 +597,11 @@ public class ResourcebundlesBusinessService
 		return bundleApplicationsService.find(name);
 	}
 
+	@Override
+	public Properties toProperties(Resourcebundles resourcebundles)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
