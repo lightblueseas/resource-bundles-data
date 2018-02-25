@@ -115,7 +115,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final String applicationName = "bar-date.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
 				.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.GERMAN,
+		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication, "resource.bundles", Locale.GERMAN,
 				"resource.bundles.test.label");
 		if (resourcebundles == null) {
 			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
@@ -127,7 +127,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundlesService.saveOrUpdate(resourcebundles);
 		}
 
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK, "resource.bundles.test.label");
+		resourcebundles = resourcebundlesService.contains(bundleApplication, "resource.bundles", Locale.UK, "resource.bundles.test.label");
 		if (resourcebundles == null) {
 
 			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
@@ -148,7 +148,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final String applicationName = "foo-dating.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
 				.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.GERMAN,
+		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication, "resource.bundles", Locale.GERMAN,
 				"resource.bundles.test.label");
 		if (resourcebundles == null) {
 			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
@@ -160,7 +160,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundlesService.merge(resourcebundles);
 		}
 
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK, "resource.bundles.test.label");
+		resourcebundles = resourcebundlesService.contains(bundleApplication, "resource.bundles", Locale.UK, "resource.bundles.test.label");
 		if (resourcebundles == null) {
 
 			final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(bundleApplication,
@@ -297,7 +297,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Locale locale = LocaleResolver.resolveLocale(propertiesFile);
 		final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(bundleApplication, properties, baseName, locale);
-		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findResourceBundles(baseName, locale));
+		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findResourceBundles(bundleApplication, baseName, locale));
 		assertEquals(4, rb.size());
 		// truncate();
 	}
