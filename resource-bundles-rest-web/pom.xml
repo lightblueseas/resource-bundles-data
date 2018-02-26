@@ -16,9 +16,29 @@
 
 	<properties>
 		<war-name>resource-bundles-rest-webapp</war-name>
+		<validation-api.version>2.0.1.Final</validation-api.version>
 	</properties>
 
+	<dependencyManagement>
+
+		<dependencies>
+			<!-- will be removed with next update of parent-parent version -->
+			<dependency>
+				<groupId>javax.validation</groupId>
+				<artifactId>validation-api</artifactId>
+				<version>${validation-api.version}</version>
+			</dependency>
+
+		</dependencies>
+
+	</dependencyManagement>
+
 	<dependencies>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>xml-apis</groupId>
