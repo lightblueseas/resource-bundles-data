@@ -28,6 +28,13 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resourcebundle-inspector</artifactId>
 		</dependency>
+		<!-- UNIT-TESTS DEPENDENCIES -->
+		<!-- TEST-OBJECTS DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>test-objects</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
