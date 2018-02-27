@@ -68,7 +68,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = ENABLED)
 	public void testFindResourceBundles()
 	{
 		super.testFindResourceBundles();

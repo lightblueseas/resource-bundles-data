@@ -108,13 +108,15 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#getProperties(String, String)}.
 	 */
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testGetProperties()
 	{
-		// http://localhost:8080/resourcebundle/get/properties/base-resource-bundles/de_DE
-		Response response = resourcebundlesResource.getProperties("base-bundle-application", "base-resource-bundles", "de_DE");
+		Response response;
+		Properties properties;
+		// http://localhost:8080/resourcebundle/get/properties/AwesomeApp/base-resource-bundles/en_GB
+		response = resourcebundlesResource.getProperties("AwesomeApp", "base-resource-bundles", "en");
 
-		Properties properties = response.readEntity(Properties.class);
+		properties = response.readEntity(Properties.class);
 		AssertJUnit.assertNotNull(properties);
 		AssertJUnit.assertEquals("Erstes label",
 			properties.getProperty("resource.bundles.test.label"));

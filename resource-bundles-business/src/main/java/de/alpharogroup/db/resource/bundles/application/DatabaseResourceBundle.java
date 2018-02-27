@@ -45,9 +45,9 @@ public class DatabaseResourceBundle extends ResourceBundle
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseResourceBundle(String baseName, Locale locale)
+	public DatabaseResourceBundle(final String bundleApplicationName, String baseName, Locale locale)
 	{
-		setParent(new DatabaseListResourceBundle(baseName, locale));
+		setParent(new DatabaseListResourceBundle(bundleApplicationName, baseName, locale));
 	}
 
 	/**
@@ -60,10 +60,10 @@ public class DatabaseResourceBundle extends ResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseResourceBundle(String baseName, Locale locale,
+	public DatabaseResourceBundle(final String bundleApplicationName, String baseName, Locale locale,
 		ResourcebundlesService resourcebundlesService)
 	{
-		setParent(new DatabaseListResourceBundle(baseName, locale, resourcebundlesService));
+		setParent(new DatabaseListResourceBundle(bundleApplicationName, baseName, locale, resourcebundlesService));
 	}
 
 	/**

@@ -196,12 +196,12 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the locale
 	 * @param key
 	 *            the key
-	 * @param params
+	 * @param parameters
 	 *            the parameters
 	 * @return the {@link String}
 	 */
 	String getString(BundleApplication bundleApplication, String baseName, String locale,
-		String key, Object[] params);
+		String key, Object[] parameters);
 
 	/**
 	 * Gets the resource {@link String} from the given arguments.
@@ -234,12 +234,12 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the key
 	 * @param defaultValue
 	 *            the default value
-	 * @param params
+	 * @param parameters
 	 *            the parameters
 	 * @return the {@link String}
 	 */
 	String getString(BundleApplication bundleApplication, String baseName, String locale,
-		String key, final String defaultValue, Object[] params);
+		String key, final String defaultValue, Object[] parameters);
 
 	/**
 	 * Update the given properties to the db.
@@ -255,22 +255,5 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 */
 	void updateProperties(BundleApplication bundleApplication, Properties properties,
 		String baseName, Locale locale);
-
-	/**
-	 * Update the given properties to the db.
-	 *
-	 * @param bundleApplication
-	 *            the bundle application
-	 * @param properties
-	 *            the properties
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @param update
-	 *            flag that indicates if an existing property shell be updated
-	 */
-	void updateProperties(BundleApplication bundleApplication, Properties properties,
-		String baseName, Locale locale, boolean update);
 
 }

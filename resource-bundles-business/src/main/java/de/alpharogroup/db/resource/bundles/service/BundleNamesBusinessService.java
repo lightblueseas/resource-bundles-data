@@ -34,6 +34,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -166,7 +167,7 @@ public class BundleNamesBusinessService
 	public LanguageLocales getDefaultLocale(final BundleApplications owner, final String baseName)
 	{
 		final List<BundleNames> list = find(owner, baseName);
-		if (ListExtensions.isNotEmpty(list))
+		if (CollectionExtensions.isNotEmpty(list))
 		{
 			return getDefaultLocale(ListExtensions.getFirst(list));
 		}
@@ -218,7 +219,7 @@ public class BundleNamesBusinessService
 		bundleNames.setBaseName(null);
 		bundleNames.setLocale(null);
 		bundleNames.setOwner(null);
-		BundleNames merged = super.merge(bundleNames);
+		final BundleNames merged = super.merge(bundleNames);
 		super.delete(merged);
 	};
 

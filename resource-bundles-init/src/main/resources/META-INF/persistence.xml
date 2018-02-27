@@ -3,9 +3,12 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 
-	<persistence-unit name="resourcebundles"
-		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+	<persistence-unit name="resourcebundles" transaction-type="RESOURCE_LOCAL">
+	
+		<!-- YES IT IS DEPRECATED and DO NOT CHANCE it, it's needed for generation of dll scripts -->
+		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
 
 		<class>de.alpharogroup.db.resource.bundles.entities.BaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleApplications</class>
@@ -22,7 +25,11 @@
 				value="jdbc:postgresql://localhost:5432/resourcebundles" />
 			<property name="hibernate.connection.user" value="postgres" />
 			<property name="hibernate.connection.password" value="r2SB2FvFKHLcnyL0" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" />
+			
+			<!-- YES IT IS DEPRECATED and DO NOT CHANCE it, it's needed for generation of dll scripts -->
+			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" /> -->			
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.event.merge.entity_copy_observer"
 				value="allow" />

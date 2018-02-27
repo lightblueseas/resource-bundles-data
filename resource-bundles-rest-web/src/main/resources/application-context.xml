@@ -5,6 +5,6 @@
 						   http://www.springframework.org/schema/beans/spring-beans-4.3.xsd ">
 
 	<import resource="classpath:web-application-context.xml" />
-	<import resource="classpath:data-h2-application-context.xml" />
+	<import resource="classpath:data-application-context.xml" />
 
 </beans>

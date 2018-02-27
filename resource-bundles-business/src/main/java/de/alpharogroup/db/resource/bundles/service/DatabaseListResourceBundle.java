@@ -30,6 +30,7 @@ import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
@@ -44,6 +45,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DatabaseListResourceBundle extends ListResourceBundle
 {
+
+	private String bundleApplicationName;
 
 	/** The base name. */
 	private String baseName;
@@ -63,10 +66,11 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseListResourceBundle(final String baseName, final Locale locale)
+	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName, final Locale locale)
 	{
-		this.locale = locale;
+		this.bundleApplicationName = bundleApplicationName;
 		this.baseName = baseName;
+		this.locale = locale;
 	}
 
 	/**
@@ -79,23 +83,25 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseListResourceBundle(final String baseName, final Locale locale,
+	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName, final Locale locale,
 		final ResourcebundlesService resourcebundlesService)
 	{
 		setResourcebundlesService(resourcebundlesService);
-		this.locale = locale;
+		this.bundleApplicationName = bundleApplicationName;
 		this.baseName = baseName;
+		this.locale = locale;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	protected Object[][] getContents()
 	{
+		final BundleApplications bundleApplication = resourcebundlesService.find(bundleApplicationName);
+
 		final List<Resourcebundles> resourcebundles = resourcebundlesService
-			.findResourceBundles(baseName, locale);
+			.findResourceBundles(bundleApplication, baseName, locale);
 		final Object[][] all = new Object[resourcebundles.size()][2];
 		int i = 0;
 		for (final Resourcebundles resourcebundle : resourcebundles)

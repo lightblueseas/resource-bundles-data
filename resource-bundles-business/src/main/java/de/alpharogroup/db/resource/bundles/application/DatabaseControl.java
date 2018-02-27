@@ -31,6 +31,7 @@ import java.util.ResourceBundle.Control;
 
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import lombok.Getter;
+import lombok.NonNull;
 
 /**
  * The class {@link DatabaseControl} can be used to load ResourceBundle from the database.
@@ -38,28 +39,21 @@ import lombok.Getter;
 public class DatabaseControl extends Control
 {
 
-	/** the singleton instance of DatabaseControl. */
-	private final static DatabaseControl INSTANCE = new DatabaseControl();
-
-	/**
-	 * Gets the single instance of DatabaseControl.
-	 *
-	 * @return single instance of DatabaseControl
-	 */
-	public static DatabaseControl getInstance()
-	{
-		return INSTANCE;
-	}
+	@Getter
+	private final String bundleApplicationName;
 
 	/** The resourcebundles service. */
 	@Getter
-	private ResourcebundlesService resourcebundlesService;
+	private final ResourcebundlesService resourcebundlesService;
 
 	/**
 	 * Instantiates a new {@link DatabaseControl}.
 	 */
-	private DatabaseControl()
+	public DatabaseControl(@NonNull final ResourcebundlesService resourcebundlesService,
+		@NonNull final String bundleApplicationName)
 	{
+		this.resourcebundlesService = resourcebundlesService;
+		this.bundleApplicationName = bundleApplicationName;
 	}
 
 	/**
@@ -70,31 +64,9 @@ public class DatabaseControl extends Control
 		ClassLoader loader, boolean reload)
 		throws IllegalAccessException, InstantiationException, IOException
 	{
-		DatabaseResourceBundle databaseResourceBundle;
-		if (resourcebundlesService != null)
-		{
-			databaseResourceBundle = new DatabaseResourceBundle(baseName, locale,
-				resourcebundlesService);
-		}
-		else
-		{
-			databaseResourceBundle = new DatabaseResourceBundle(baseName, locale);
-		}
+		final DatabaseResourceBundle databaseResourceBundle = new DatabaseResourceBundle(
+			this.bundleApplicationName, baseName, locale, resourcebundlesService);
 		return databaseResourceBundle;
-	}
-
-	/**
-	 * Sets the resourcebundles service.
-	 *
-	 * @param resourcebundlesService
-	 *            the resourcebundles service
-	 * @return this {@link DatabaseControl} object.
-	 */
-	public synchronized DatabaseControl setResourcebundlesService(
-		ResourcebundlesService resourcebundlesService)
-	{
-		this.resourcebundlesService = resourcebundlesService;
-		return this;
 	}
 
 }

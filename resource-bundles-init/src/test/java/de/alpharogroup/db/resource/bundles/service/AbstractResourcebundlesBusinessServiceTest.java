@@ -265,12 +265,13 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	 */
 	public void testFindResourceBundles() {
 		initResourcebundles();
-		DatabaseListResourceBundle databaseResourceBundle = new DatabaseListResourceBundle("resource.bundles",
+		final String bundleApplicationName = "foo-dating.com";
+		DatabaseListResourceBundle databaseResourceBundle = new DatabaseListResourceBundle(bundleApplicationName, "resource.bundles",
 				Locale.UK, resourcebundlesService);
 		String actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		String expected = "First label";
 		assertEquals(expected, actual);
-		databaseResourceBundle = new DatabaseListResourceBundle("resource.bundles", Locale.GERMAN,
+		databaseResourceBundle = new DatabaseListResourceBundle(bundleApplicationName, "resource.bundles", Locale.GERMAN,
 				resourcebundlesService);
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";

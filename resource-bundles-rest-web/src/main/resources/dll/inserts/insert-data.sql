@@ -208,9 +208,9 @@ INSERT INTO bundle_applications (id, version, name, default_locale_id) VALUES (1
 INSERT INTO basenames (id, version, name) VALUES (1,1,'base-resource-bundles');
 INSERT INTO basenames (id, version, name) VALUES (2,1,'test');
 
-INSERT INTO bundlenames (id, version, base_name_id, locale_id, owner_id) VALUES (1, 1, 1, 1, 1);
+INSERT INTO bundlenames (id, version, base_name_id, locale_id, owner_id) VALUES (1, 1, 1, 7, 1);
 INSERT INTO bundlenames (id, version, base_name_id, locale_id, owner_id) VALUES (2, 1, 1, 2, 1);
-INSERT INTO bundlenames (id, version, base_name_id, locale_id, owner_id) VALUES (3, 1, 2, 1, 1);
+INSERT INTO bundlenames (id, version, base_name_id, locale_id, owner_id) VALUES (3, 1, 2, 7, 1);
 INSERT INTO bundlenames (id, version, base_name_id, locale_id, owner_id) VALUES (4, 1, 2, 3, 1);
 
 INSERT INTO properties_keys (id, version, name) VALUES (1, 1, 'resource.bundles.test.label');

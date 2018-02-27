@@ -40,7 +40,7 @@
 	</jdbc:embedded-database>
 
 	<jdbc:initialize-database data-source="dataSource">
-		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
+		<jdbc:script location="classpath:dll/inserts/insert-data.sql" />
 	</jdbc:initialize-database>
 
 	<!-- H2 tomcat.dbcp DataSource configuration -->
