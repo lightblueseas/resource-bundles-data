@@ -20,7 +20,7 @@
 		<properties>
 			<property name="hibernate.connection.driver_class" value="org.h2.Driver" />
 			<property name="hibernate.connection.url"
-				value="jdbc:h2:mem:~/resourcebundles;USER=SA;PASSWORD=;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1" />
+				value="jdbc:h2:mem:./resourcebundles;USER=SA;PASSWORD=;MODE=PostgreSQL;DB_CLOSE_ON_EXIT=FALSE;DB_CLOSE_DELAY=-1" />
 			<property name="hibernate.connection.user" value="sa" />
 			<property name="hibernate.connection.password" value="" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />

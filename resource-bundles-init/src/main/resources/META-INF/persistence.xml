@@ -22,11 +22,19 @@
 				value="jdbc:postgresql://localhost:5432/resourcebundles" />
 			<property name="hibernate.connection.user" value="postgres" />
 			<property name="hibernate.connection.password" value="r2SB2FvFKHLcnyL0" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />	
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.event.merge.entity_copy_observer"
 				value="allow" />
 			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+
+			<property name="hibernate.cache.region.factory_class"
+				value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="false" />
+			<property name="hibernate.cache.use_query_cache" value="false" />
+			<property name="net.sf.ehcache.configurationResourceName"
+				value="ehcache.xml" />
 		</properties>
 
 	</persistence-unit>
