@@ -22,7 +22,7 @@
 				value="jdbc:postgresql://localhost:5432/resourcebundles" />
 			<property name="hibernate.connection.user" value="postgres" />
 			<property name="hibernate.connection.password" value="r2SB2FvFKHLcnyL0" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />	
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" />
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.event.merge.entity_copy_observer"
 				value="allow" />
