@@ -1,0 +1,60 @@
+##################
+# Compiled files #
+##################
+*.class
+
+##################
+# intellij files #
+##################
+*.iml
+.idea
+*/.idea
+
+#################
+# eclipse files #
+#################
+/.project
+/.classpath
+/.settings
+
+#########################
+# maven generated files #
+#########################
+/target
+/javadoc-options-javadoc-resources.xml
+
+#############
+# Zip files #
+#############
+*.tar
+*.zip
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+
+##############
+# Logs files #
+##############
+*.log
+
+#################
+# test-ng files #
+#################
+/test-output
+
+############################
+# Binaries generated files #
+############################
+/bin
+
+################
+# gradle files #
+################
+/build
+/.gradle
+/gradle
+/reports
+/pom.xml.bak
