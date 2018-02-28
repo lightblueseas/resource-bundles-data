@@ -113,31 +113,6 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void delete(final List<Resourcebundles> resourcebundles)
-	{
-		for (final Resourcebundles resourcebundle : resourcebundles)
-		{
-			delete(resourcebundle);
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(Resourcebundles resourcebundles)
-	{
-		resourcebundles.setBundleName(null);
-		resourcebundles.setKey(null);
-		resourcebundles = super.merge(resourcebundles);
-		super.delete(resourcebundles);
-	}
-
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public void delete(BundleNames bundleName)
 	{
 		final List<Resourcebundles> list = find(bundleName);
@@ -149,9 +124,25 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Resourcebundles> find(BundleNames bundleName)
+	public void delete(final List<Resourcebundles> resourcebundles)
 	{
-		return find(bundleName.getOwner(), bundleName.getBaseName().getName(), bundleName.getLocale().getLocale(), null, null);
+		for (final Resourcebundles resourcebundle : resourcebundles)
+		{
+			delete(resourcebundle);
+		}
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(Resourcebundles resourcebundles)
+	{
+		resourcebundles.setBundleName(null);
+		resourcebundles.setKey(null);
+		resourcebundles = super.merge(resourcebundles);
+		super.delete(resourcebundles);
 	}
 
 	/**
@@ -187,6 +178,25 @@ public class ResourcebundlesBusinessService
 		}
 		final List<Resourcebundles> resourcebundles = query.getResultList();
 		return resourcebundles;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundles> find(BundleNames bundleName)
+	{
+		return find(bundleName.getOwner(), bundleName.getBaseName().getName(),
+			bundleName.getLocale().getLocale(), null, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications find(String name)
+	{
+		return bundleApplicationsService.find(name);
 	}
 
 	/**
@@ -489,15 +499,6 @@ public class ResourcebundlesBusinessService
 		log.info("Finish of processing: " + bundleName.getBaseName().getName());
 		log.info("===============================================================");
 		return bundleName;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public BundleApplications find(String name)
-	{
-		return bundleApplicationsService.find(name);
 	}
 
 }

@@ -66,17 +66,6 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 * Gets the {@link BundleApplications} object from the given name or creates a new
 	 * {@link BundleApplications} object if not found.
 	 *
-	 * @param name
-	 *            the name
-	 * @return the existing or a new {@link BundleApplications} object
-	 */
-	@Deprecated
-	BundleApplications getOrCreateNewBundleApplications(String name);
-
-	/**
-	 * Gets the {@link BundleApplications} object from the given name or creates a new
-	 * {@link BundleApplications} object if not found.
-	 *
 	 *
 	 * @param name
 	 *            the name
@@ -86,5 +75,20 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 */
 	BundleApplications getOrCreateNewBundleApplications(final String name,
 		final LanguageLocales defaultLocale);
+
+	/**
+	 * Gets the {@link BundleApplications} object from the given name or creates a new
+	 * {@link BundleApplications} object if not found.
+	 *
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @param supportedLocales
+	 *            the supported locales
+	 * @return the existing or a new {@link BundleApplications} object
+	 */
+	BundleApplications getOrCreateNewBundleApplications(final String name,
+		final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales);
 
 }

@@ -74,8 +74,8 @@ public class BundleApplication extends NameBaseDomainObject<Integer>
 	 *            the default locale
 	 */
 	@Builder
-	BundleApplication(final String name,
-		final LanguageLocale defaultLocale, final Set<LanguageLocale> supportedLocales)
+	BundleApplication(final String name, final LanguageLocale defaultLocale,
+		final Set<LanguageLocale> supportedLocales)
 	{
 		super(name);
 		this.defaultLocale = defaultLocale;

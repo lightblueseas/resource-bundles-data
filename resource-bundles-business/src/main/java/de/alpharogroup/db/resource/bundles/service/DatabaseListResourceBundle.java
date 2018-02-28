@@ -61,12 +61,15 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	/**
 	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
 	 *
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName, final Locale locale)
+	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName,
+		final Locale locale)
 	{
 		this.bundleApplicationName = bundleApplicationName;
 		this.baseName = baseName;
@@ -76,6 +79,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	/**
 	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
 	 *
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -83,8 +88,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName, final Locale locale,
-		final ResourcebundlesService resourcebundlesService)
+	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName,
+		final Locale locale, final ResourcebundlesService resourcebundlesService)
 	{
 		setResourcebundlesService(resourcebundlesService);
 		this.bundleApplicationName = bundleApplicationName;
@@ -98,7 +103,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 	@Override
 	protected Object[][] getContents()
 	{
-		final BundleApplications bundleApplication = resourcebundlesService.find(bundleApplicationName);
+		final BundleApplications bundleApplication = resourcebundlesService
+			.find(bundleApplicationName);
 
 		final List<Resourcebundles> resourcebundles = resourcebundlesService
 			.findResourceBundles(bundleApplication, baseName, locale);

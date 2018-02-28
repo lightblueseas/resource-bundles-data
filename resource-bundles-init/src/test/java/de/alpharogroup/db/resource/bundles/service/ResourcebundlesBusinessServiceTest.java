@@ -48,6 +48,13 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 
 	@Override
 	@Test(enabled = DISABLED)
+	public void testDeleteBundleName() throws URISyntaxException, IOException
+	{
+		super.testDeleteBundleName();
+	}
+
+	@Override
+	@Test(enabled = DISABLED)
 	public void testFindBundleApplications()
 	{
 		super.testFindBundleApplications();
@@ -68,7 +75,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 	}
 
 	@Override
-	@Test(enabled = ENABLED)
+	@Test(enabled = DISABLED)
 	public void testFindResourceBundles()
 	{
 		super.testFindResourceBundles();
@@ -86,11 +93,5 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();
-	}
-
-	@Override
-	@Test(enabled = DISABLED)
-	public void testDeleteBundleName() throws URISyntaxException, IOException {
-		super.testDeleteBundleName();
 	}
 }

@@ -41,6 +41,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * The entity class {@link BundleNames} holds the data from the {@link BaseNames} and the
@@ -56,6 +57,7 @@ import lombok.Setter;
 		@NamedQuery(name = BundleNames.NQ_FIND_BY_OWNER, query = "select bn from BundleNames bn where bn.owner=:owner") })
 @Getter
 @Setter
+@ToString(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)

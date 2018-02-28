@@ -48,6 +48,11 @@ public class DatabaseControl extends Control
 
 	/**
 	 * Instantiates a new {@link DatabaseControl}.
+	 *
+	 * @param resourcebundlesService
+	 *            the resourcebundles service
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 */
 	public DatabaseControl(@NonNull final ResourcebundlesService resourcebundlesService,
 		@NonNull final String bundleApplicationName)

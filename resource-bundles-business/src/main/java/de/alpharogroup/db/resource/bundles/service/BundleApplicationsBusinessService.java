@@ -100,21 +100,6 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(final String name)
-	{
-		BundleApplications baseBundleApplication = find(name);
-		if (baseBundleApplication == null)
-		{
-			baseBundleApplication = BundleApplications.builder().name(name).build();
-			baseBundleApplication = merge(baseBundleApplication);
-		}
-		return baseBundleApplication;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public BundleApplications getOrCreateNewBundleApplications(final String name,
 		final LanguageLocales defaultLocale)
 	{
@@ -123,6 +108,20 @@ public class BundleApplicationsBusinessService
 		{
 			baseBundleApplication = BundleApplications.builder().name(name)
 				.defaultLocale(defaultLocale).build();
+			baseBundleApplication = merge(baseBundleApplication);
+		}
+		return baseBundleApplication;
+	}
+
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(String name,
+		LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
+	{
+		BundleApplications baseBundleApplication = find(name);
+		if (baseBundleApplication == null)
+		{
+			baseBundleApplication = BundleApplications.builder().name(name)
+				.defaultLocale(defaultLocale).supportedLocales(supportedLocales).build();
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;

@@ -79,6 +79,19 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void delete(BundleNames bundleNames)
+	{
+		bundleNames.setBaseName(null);
+		bundleNames.setLocale(null);
+		bundleNames.setOwner(null);
+		final BundleNames merged = super.merge(bundleNames);
+		super.delete(merged);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<BundleNames> find(final BundleApplications owner, final BaseNames baseName)
 	{
 		if (baseName != null)
@@ -209,18 +222,6 @@ public class BundleNamesBusinessService
 	public void setBundleNamesRepository(final BundleNamesRepository repository)
 	{
 		setRepository(repository);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(BundleNames bundleNames) {
-		bundleNames.setBaseName(null);
-		bundleNames.setLocale(null);
-		bundleNames.setOwner(null);
-		final BundleNames merged = super.merge(bundleNames);
-		super.delete(merged);
 	};
 
 }

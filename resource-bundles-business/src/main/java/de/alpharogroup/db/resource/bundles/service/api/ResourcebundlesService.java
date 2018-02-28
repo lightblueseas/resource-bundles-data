@@ -43,18 +43,8 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 {
 
 	/**
-	 * Find the {@link BundleApplications} object from the given name.
-	 *
-	 * @param name
-	 *            the name
-	 *
-	 * @return the found {@link BundleApplications} object or null if not.
-	 */
-	BundleApplications find(final String name);
-
-	/**
-	 * Checks if a {@link Resourcebundles} object exists from the given
-	 * baseName, the given {@link Locale} object and the given properties key.
+	 * Checks if a {@link Resourcebundles} object exists from the given baseName, the given
+	 * {@link Locale} object and the given properties key.
 	 *
 	 * @param owner
 	 *            the owner
@@ -64,8 +54,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the locale
 	 * @param key
 	 *            the properties key
-	 * @return the found {@link Resourcebundles} object or null if it does not
-	 *         exists.
+	 * @return the found {@link Resourcebundles} object or null if it does not exists.
 	 */
 	Resourcebundles contains(final BundleApplications owner, final String baseName,
 		final Locale locale, final String key);
@@ -94,18 +83,27 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the value
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
-	List<Resourcebundles> find(final BundleApplications owner, final String baseName, final String locale,
-			final String key, final String value);
+	List<Resourcebundles> find(final BundleApplications owner, final String baseName,
+		final String locale, final String key, final String value);
 
 	/**
-	 * Find a list of {@link Resourcebundles} objects from the given
-	 * {@link BundleNames} object.
+	 * Find a list of {@link Resourcebundles} objects from the given {@link BundleNames} object.
 	 *
 	 * @param bundleName
 	 *            the bundle name
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
 	List<Resourcebundles> find(BundleNames bundleName);
+
+	/**
+	 * Find the {@link BundleApplications} object from the given name.
+	 *
+	 * @param name
+	 *            the name
+	 *
+	 * @return the found {@link BundleApplications} object or null if not.
+	 */
+	BundleApplications find(final String name);
 
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given

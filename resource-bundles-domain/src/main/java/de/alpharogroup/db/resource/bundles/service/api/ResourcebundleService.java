@@ -39,16 +39,6 @@ import de.alpharogroup.service.domain.DomainService;
 public interface ResourcebundleService extends DomainService<Integer, Resourcebundle>
 {
 	/**
-	 * Find the {@link BundleApplication} object from the given name.
-	 *
-	 * @param name
-	 *            the name
-	 *
-	 * @return the found {@link BundleApplication} object or null if not.
-	 */
-	BundleApplication find(final String name);
-
-	/**
 	 * Checks if a resource exists with the given parameters.
 	 *
 	 * @param bundleApplication
@@ -97,6 +87,16 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 */
 	List<Resourcebundle> find(BundleApplication bundleApplication, String baseName, String locale,
 		String key, String value);
+
+	/**
+	 * Find the {@link BundleApplication} object from the given name.
+	 *
+	 * @param name
+	 *            the name
+	 *
+	 * @return the found {@link BundleApplication} object or null if not.
+	 */
+	BundleApplication find(final String name);
 
 	/**
 	 * Find resource bundles from the given parameters.

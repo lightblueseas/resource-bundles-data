@@ -60,7 +60,7 @@ import lombok.ToString;
 @Table(name = "bundle_applications")
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> implements Cloneable
 {

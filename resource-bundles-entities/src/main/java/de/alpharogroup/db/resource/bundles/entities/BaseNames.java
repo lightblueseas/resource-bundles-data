@@ -42,7 +42,7 @@ import lombok.ToString;
 @Table(name = "basenames")
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
 public class BaseNames extends LargeNameBaseEntity<Integer> implements Cloneable
 {

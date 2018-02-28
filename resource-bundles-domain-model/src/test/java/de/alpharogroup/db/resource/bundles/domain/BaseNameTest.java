@@ -22,27 +22,28 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.entities;
+package de.alpharogroup.db.resource.bundles.domain;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.beanutils.BeanUtils;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.collections.pairs.ValueBox;
 import de.alpharogroup.test.objects.evaluations.EqualsHashCodeAndToStringEvaluator;
 
 /**
- * The class {@link BaseNamesTest}.
+ * The unit test class for the class {@link BaseName}.
  */
-public class BaseNamesTest
+public class BaseNameTest
 {
 
 	/**
-	 * Test method for {@link BaseNames#equals(Object)} , {@link BaseNames#hashCode()} and
-	 * {@link BaseNames#toString()}.
+	 * Test method for {@link BaseName#equals(Object)} , {@link BaseName#hashCode()} and
+	 * {@link BaseName#toString()}
 	 *
 	 * @throws NoSuchMethodException
 	 *             if an accessor method for this property cannot be found
@@ -61,15 +62,20 @@ public class BaseNamesTest
 	{
 		boolean expected;
 		boolean actual;
-		final BaseNames first = BaseNames.builder().build();
-		first.setId(1);
-		final BaseNames second = new BaseNames("Hello");
-		final BaseNames third = (BaseNames)BeanUtils.cloneBean(first);
-		final BaseNames fourth = (BaseNames)BeanUtils.cloneBean(first);
-
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(first, second,
-			third, fourth);
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(BaseName.class);
 		expected = true;
 		assertEquals(expected, actual);
+	}
+
+
+	/**
+	 * Test method for {@link ValueBox}
+	 */
+	@Test
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(BaseName.class);
 	}
 }
