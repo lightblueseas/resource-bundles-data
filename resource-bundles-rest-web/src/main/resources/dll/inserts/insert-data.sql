@@ -203,7 +203,7 @@ INSERT INTO language_locales (id, version, locale) VALUES (16,1,'nl');
 INSERT INTO language_locales (id, version, locale) VALUES (17,1,'nl_BE');
 INSERT INTO language_locales (id, version, locale) VALUES (18,1,'nl_NL');
 
-INSERT INTO bundle_applications (id, version, name, default_locale_id) VALUES (1, 1, 'AwesomeApp', 1);
+INSERT INTO bundle_applications (id, version, name, default_locale_id) VALUES (1, 1, 'base-bundle-application', 1);
 
 INSERT INTO basenames (id, version, name) VALUES (1,1,'base-resource-bundles');
 INSERT INTO basenames (id, version, name) VALUES (2,1,'test');

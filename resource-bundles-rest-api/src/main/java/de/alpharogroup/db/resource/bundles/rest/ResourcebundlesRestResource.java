@@ -77,8 +77,11 @@ public class ResourcebundlesRestResource
 	public Response getProperties(String bundleappname, String baseName, String locale)
 	{
 		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
-		final Properties properties = getDomainService().getProperties(bundleApplication, baseName,
+		Properties properties = getDomainService().getProperties(bundleApplication, baseName,
 			locale);
+		if(properties == null) {
+			properties = new Properties();
+		}
 		return Response.ok(properties).build();
 	}
 
