@@ -10,7 +10,7 @@
 <booleanAttribute key="M2_SKIP_TESTS" value="false"/>
 <intAttribute key="M2_THREADS" value="8"/>
 <booleanAttribute key="M2_UPDATE_SNAPSHOTS" value="false"/>
-<stringAttribute key="M2_USER_SETTINGS" value=""/>
+<stringAttribute key="M2_USER_SETTINGS" value="~/.m2/settings.xml"/>
 <booleanAttribute key="M2_WORKSPACE_RESOLUTION" value="false"/>
 <stringAttribute key="org.eclipse.jdt.launching.WORKING_DIRECTORY" value="${project_loc:resource-bundles-data}"/>
 </launchConfiguration>
