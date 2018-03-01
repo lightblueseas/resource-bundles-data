@@ -24,43 +24,50 @@
  */
 package de.alpharogroup.db.resource.bundles.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.versionable.VersionableLargeNameEntity;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import de.alpharogroup.db.entity.name.unique.ExtraSmallUniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
- * Entity class for saving in database base names of the resource bundles. The base name if you see
- * it from the properties file view the name of the properties file without the locale suffix.
+ * The entity class {@link Countries} is keeping the information for all countries in the world
  */
 @Entity
-@Table(name = "basenames")
+@Table(name = "countries")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
-@ToString(callSuper = true)
 @NoArgsConstructor
-public class BaseNames extends VersionableLargeNameEntity<Integer> implements Cloneable
+public class Countries extends ExtraSmallUniqueNameEntity<Integer> implements Cloneable
 {
 
-	/**
-	 * Serial Version UID
-	 */
+	/** The serial Version UID. */
 	private static final long serialVersionUID = 1L;
+	/** The iso3166 name with two characters. */
+	@Column(name = "iso3166_a2name", length = 2)
+	private String iso3166A2name;
 
 	/**
-	 * Instantiates a new {@link BaseNames} entity object.
+	 * Instantiates a new countries.
 	 *
 	 * @param name
 	 *            the name
+	 * @param iso3166a2name
+	 *            the iso 3166 a 2 name
 	 */
 	@Builder
-	BaseNames(String name)
+	public Countries(String name, String iso3166a2name)
 	{
 		super(name);
+		iso3166A2name = iso3166a2name;
 	}
+
 }

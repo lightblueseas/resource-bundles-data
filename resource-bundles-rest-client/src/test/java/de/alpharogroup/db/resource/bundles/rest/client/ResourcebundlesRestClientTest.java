@@ -115,8 +115,8 @@ public class ResourcebundlesRestClientTest
 		Response response;
 		Properties properties;
 		// http://localhost:8080/resourcebundle/get/properties/base-bundle-application/base-resource-bundles/de
-		response = resourcebundlesResource.getProperties("base-bundle-application", "base-resource-bundles",
-			"de");
+		response = resourcebundlesResource.getProperties("base-bundle-application",
+			"base-resource-bundles", "de");
 
 		properties = response.readEntity(Properties.class);
 		AssertJUnit.assertNotNull(properties);

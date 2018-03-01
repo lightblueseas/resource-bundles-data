@@ -26,6 +26,12 @@ create table bundlenames (
         owner_id int4,
         primary key (id)
     );
+create table countries (
+       id int4 not null,
+        name varchar(64) unique,
+        iso3166_a2name varchar(2),
+        primary key (id)
+    );
 create table language_locales (
        id int4 not null,
         version int4,

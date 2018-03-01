@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>5.3.0</version>
+		<version>5.3.2</version>
 		<relativePath></relativePath>
 	</parent>
 
 	<artifactId>resource-bundles-data</artifactId>
-	<version>5.3.0-SNAPSHOT</version>
+	<version>5.2.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<inceptionYear>2015</inceptionYear>
 
@@ -22,13 +22,9 @@
 		providing resource bundles also for the web and can be used also with other languages than java.</description>
 
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
-
 	
 	<properties>
-		<!-- MEANBEAN version -->
-		<meanbean.version>2.0.3</meanbean.version>
 	</properties>
-
 
 	<modules>
 		<module>resource-bundles-entities</module>
@@ -111,12 +107,6 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-			<!-- MEANBEAN DEPENDENCY -->
-			<dependency>
-				<groupId>org.meanbean</groupId>
-				<artifactId>meanbean</artifactId>
-				<version>${meanbean.version}</version>
 			</dependency>
 
 		</dependencies>

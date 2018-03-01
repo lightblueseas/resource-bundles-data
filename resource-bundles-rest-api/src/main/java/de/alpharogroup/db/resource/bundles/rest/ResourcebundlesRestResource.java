@@ -79,7 +79,8 @@ public class ResourcebundlesRestResource
 		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
 		Properties properties = getDomainService().getProperties(bundleApplication, baseName,
 			locale);
-		if(properties == null) {
+		if (properties == null)
+		{
 			properties = new Properties();
 		}
 		return Response.ok(properties).build();

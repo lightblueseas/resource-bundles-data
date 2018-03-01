@@ -28,7 +28,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.unique.ExtraSmallUNameBaseEntity;
+import de.alpharogroup.db.entity.name.versionable.unique.VersionableExtraSmallUniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +44,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class Languages extends ExtraSmallUNameBaseEntity<Integer> implements Cloneable
+public class Languages extends VersionableExtraSmallUniqueNameEntity<Integer> implements Cloneable
 {
 
 	/** Serial Version UID */

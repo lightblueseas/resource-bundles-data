@@ -13,6 +13,7 @@
 		<class>de.alpharogroup.db.resource.bundles.entities.BaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleApplications</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleNames</class>
+		<class>de.alpharogroup.db.resource.bundles.entities.Countries</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.Languages</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.LanguageLocales</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.PropertiesKeys</class>

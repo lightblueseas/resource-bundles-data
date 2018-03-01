@@ -10,6 +10,7 @@ drop table basenames;
 drop table bundle_application_language_locales;
 drop table bundle_applications;
 drop table bundlenames;
+drop table countries;
 drop table language_locales;
 drop table languages;
 drop table properties_keys;
