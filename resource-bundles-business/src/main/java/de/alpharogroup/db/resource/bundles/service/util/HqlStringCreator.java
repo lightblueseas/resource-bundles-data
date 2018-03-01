@@ -132,6 +132,42 @@ public class HqlStringCreator
 	}
 
 	/**
+	 * Creates hql query for {@link Languages}.
+	 *
+	 * @param name
+	 *            the name
+	 * @param iso639Dash1
+	 *            the iso639Dash1
+	 *
+	 * @return the hql string
+	 */
+	public static String forCountries(final String name, final String iso3166A2name)
+	{
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select c from " + Languages.class.getSimpleName() + " c");
+		final boolean nameIsNotNull = name != null && !name.isEmpty();
+		if (nameIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where c.name=:name");
+		}
+		final boolean iso3166A2nameIsNotNull = iso3166A2name != null && !iso3166A2name.isEmpty();
+		if (iso3166A2nameIsNotNull)
+		{
+			sb.append(" ");
+			if (nameIsNotNull)
+			{
+				sb.append("and c.iso3166A2name=:iso3166A2name");
+			}
+			else
+			{
+				sb.append("where c.iso3166A2name=:iso3166A2name");
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
 	 * Creates hql query for {@link LanguageLocales}.
 	 *
 	 * @param locale

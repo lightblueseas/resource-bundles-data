@@ -22,49 +22,18 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.domain;
+package de.alpharogroup.db.resource.bundles.mapper;
 
-import de.alpharogroup.domain.VersionableNameBaseDomainObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.stereotype.Component;
+
+import de.alpharogroup.db.entitymapper.AbstractEntityDOMapper;
+import de.alpharogroup.db.resource.bundles.domain.Country;
+import de.alpharogroup.db.resource.bundles.entities.Countries;
 
 /**
- * The class {@link Language}.
+ * The class {@link CountriesMapper}.
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class Language extends VersionableNameBaseDomainObject<Integer>
+@Component
+public class CountriesMapper extends AbstractEntityDOMapper<Countries, Country>
 {
-
-	/**
-	 * The serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/** The iso639_1 code with two characters. */
-	private String iso639Dash1;
-
-	/**
-	 * Instantiates a new {@link Language} domain object.
-	 *
-	 * @param name
-	 *            the name
-	 * @param iso639Dash1
-	 *            the iso 639 dash 1
-	 */
-	@Builder
-	Language(String name, String iso639Dash1)
-	{
-		super(name);
-		this.iso639Dash1 = iso639Dash1;
-	}
 }

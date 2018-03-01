@@ -17,6 +17,11 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>domain-api</artifactId>
 		</dependency>
+		
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>domain-mapper</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>

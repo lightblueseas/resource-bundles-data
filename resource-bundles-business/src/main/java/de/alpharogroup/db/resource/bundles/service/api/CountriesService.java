@@ -22,49 +22,35 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.domain;
+package de.alpharogroup.db.resource.bundles.service.api;
 
-import de.alpharogroup.domain.VersionableNameBaseDomainObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import de.alpharogroup.db.resource.bundles.entities.Countries;
+import de.alpharogroup.db.service.api.BusinessService;
 
 /**
- * The class {@link Language}.
+ * The interface {@link CountriesService}.
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-public class Language extends VersionableNameBaseDomainObject<Integer>
+public interface CountriesService extends BusinessService<Countries, Integer>
 {
 
 	/**
-	 * The serialVersionUID.
+	 * Find the {@link Countries} object from the given ISO 3166-1 alpha-2 name.
+	 *
+	 * @param iso3166A2name
+	 *            the iso 3166 A 2 name
+	 * @return the found {@link Countries} object or null if not.
 	 */
-	private static final long serialVersionUID = 1L;
-
-	/** The iso639_1 code with two characters. */
-	private String iso639Dash1;
+	Countries find(final String iso3166A2name);
 
 	/**
-	 * Instantiates a new {@link Language} domain object.
+	 * Find the {@link Countries} object from the given ISO 3166-1 alpha-2 name.
 	 *
 	 * @param name
 	 *            the name
-	 * @param iso639Dash1
-	 *            the iso 639 dash 1
+	 * @param iso3166A2name
+	 *            the iso 3166 A 2 name
+	 * @return the found {@link Countries} object or null if not.
 	 */
-	@Builder
-	Language(String name, String iso639Dash1)
-	{
-		super(name);
-		this.iso639Dash1 = iso639Dash1;
-	}
+	Countries find(final String name, final String iso3166A2name);
+
 }

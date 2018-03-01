@@ -32,7 +32,6 @@ import java.lang.reflect.InvocationTargetException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.collections.pairs.ValueBox;
 import de.alpharogroup.test.objects.evaluations.EqualsHashCodeAndToStringEvaluator;
 
 /**
@@ -70,7 +69,7 @@ public class BaseNameTest
 
 
 	/**
-	 * Test method for {@link ValueBox}
+	 * Test method for {@link BaseName}
 	 */
 	@Test
 	public void testWithBeanTester()

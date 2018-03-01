@@ -24,8 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.domain;
 
-import de.alpharogroup.domain.VersionableNameBaseDomainObject;
-import lombok.AllArgsConstructor;
+import de.alpharogroup.domain.NameDomainObject;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,37 +33,35 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The class {@link Language}.
+ * The domain class {@link Country} is keeping the information for all countries in the world
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@AllArgsConstructor
-public class Language extends VersionableNameBaseDomainObject<Integer>
+public class Country extends NameDomainObject<Integer>
 {
 
-	/**
-	 * The serialVersionUID.
-	 */
+	/** The serial Version UID. */
 	private static final long serialVersionUID = 1L;
 
-	/** The iso639_1 code with two characters. */
-	private String iso639Dash1;
+	/** The iso3166 name with two characters. */
+	private String iso3166A2name;
 
 	/**
-	 * Instantiates a new {@link Language} domain object.
+	 * Instantiates a new countries.
 	 *
 	 * @param name
 	 *            the name
-	 * @param iso639Dash1
-	 *            the iso 639 dash 1
+	 * @param iso3166a2name
+	 *            the iso 3166 a 2 name
 	 */
 	@Builder
-	Language(String name, String iso639Dash1)
+	public Country(String name, String iso3166a2name)
 	{
 		super(name);
-		this.iso639Dash1 = iso639Dash1;
+		iso3166A2name = iso3166a2name;
 	}
+
 }
