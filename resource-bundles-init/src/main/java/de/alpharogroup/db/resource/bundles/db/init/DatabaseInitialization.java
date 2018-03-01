@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.init.AbstractDatabaseInitialization;
 
 /**
@@ -51,13 +52,16 @@ public class DatabaseInitialization extends AbstractDatabaseInitialization
 	/**
 	 * {@inheritDoc}
 	 */
+	@Override
 	protected List<File> getScriptFiles()
 	{
 		final File insertsDir = getInsertDir();
 		final List<File> scriptFiles = new ArrayList<>();
+		scriptFiles.add(new File(insertsDir, "insert_countries.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_languages.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_resourcebundles.sql"));
-		return new ArrayList<>();
+//		return scriptFiles;
+		return ListExtensions.newArrayList();
 	}
 
 }
