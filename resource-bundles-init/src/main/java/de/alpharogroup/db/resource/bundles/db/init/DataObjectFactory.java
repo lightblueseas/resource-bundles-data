@@ -41,6 +41,132 @@ import lombok.experimental.UtilityClass;
 public class DataObjectFactory
 {
 
+	public static List<Countries> newAvailableCountries() {
+		final Map<String, String> countriesMap = new LinkedHashMap<>();
+		countriesMap.put("AE", "United Arab Emirates");
+		countriesMap.put("JO", "Jordan");
+		countriesMap.put("SY", "Syria");
+		countriesMap.put("HR", "Croatia");
+		countriesMap.put("BE", "Belgium");
+		countriesMap.put("PA", "Panama");
+		countriesMap.put("MT", "Malta");
+		countriesMap.put("VE", "Venezuela");
+		countriesMap.put("TW", "Taiwan");
+		countriesMap.put("DK", "Denmark");
+		countriesMap.put("PR", "Puerto Rico");
+		countriesMap.put("VN", "Vietnam");
+		countriesMap.put("US", "United States");
+		countriesMap.put("ME", "Montenegro");
+		countriesMap.put("SE", "Sweden");
+		countriesMap.put("BO", "Bolivia");
+		countriesMap.put("SG", "Singapore");
+		countriesMap.put("BH", "Bahrain");
+		countriesMap.put("SA", "Saudi Arabia");
+		countriesMap.put("YE", "Yemen");
+		countriesMap.put("IN", "India");
+		countriesMap.put("MT", "Malta");
+		countriesMap.put("FI", "Finland");
+		countriesMap.put("BA", "Bosnia and Herzegovina");
+		countriesMap.put("UA", "Ukraine");
+		countriesMap.put("CH", "Switzerland");
+		countriesMap.put("AR", "Argentina");
+		countriesMap.put("EG", "Egypt");
+		countriesMap.put("JP", "Japan");
+		countriesMap.put("SV", "El Salvador");
+		countriesMap.put("BR", "Brazil");
+		countriesMap.put("IS", "Iceland");
+		countriesMap.put("CZ", "Czech Republic");
+		countriesMap.put("PL", "Poland");
+		countriesMap.put("ES", "Spain");
+		countriesMap.put("MY", "Malaysia");
+		countriesMap.put("ES", "Spain");
+		countriesMap.put("CO", "Colombia");
+		countriesMap.put("BG", "Bulgaria");
+		countriesMap.put("BA", "Bosnia and Herzegovina");
+		countriesMap.put("PY", "Paraguay");
+		countriesMap.put("EC", "Ecuador");
+		countriesMap.put("US", "United States");
+		countriesMap.put("SD", "Sudan");
+		countriesMap.put("RO", "Romania");
+		countriesMap.put("PH", "Philippines");
+		countriesMap.put("TN", "Tunisia");
+		countriesMap.put("ME", "Montenegro");
+		countriesMap.put("GT", "Guatemala");
+		countriesMap.put("KR", "South Korea");
+		countriesMap.put("CY", "Cyprus");
+		countriesMap.put("MX", "Mexico");
+		countriesMap.put("RU", "Russia");
+		countriesMap.put("HN", "Honduras");
+		countriesMap.put("HK", "Hong Kong");
+		countriesMap.put("NO", "Norway");
+		countriesMap.put("HU", "Hungary");
+		countriesMap.put("TH", "Thailand");
+		countriesMap.put("IQ", "Iraq");
+		countriesMap.put("CL", "Chile");
+		countriesMap.put("MA", "Morocco");
+		countriesMap.put("IE", "Ireland");
+		countriesMap.put("TR", "Turkey");
+		countriesMap.put("EE", "Estonia");
+		countriesMap.put("QA", "Qatar");
+		countriesMap.put("PT", "Portugal");
+		countriesMap.put("LU", "Luxembourg");
+		countriesMap.put("OM", "Oman");
+		countriesMap.put("AL", "Albania");
+		countriesMap.put("DO", "Dominican Republic");
+		countriesMap.put("CU", "Cuba");
+		countriesMap.put("NZ", "New Zealand");
+		countriesMap.put("RS", "Serbia");
+		countriesMap.put("CH", "Switzerland");
+		countriesMap.put("UY", "Uruguay");
+		countriesMap.put("GR", "Greece");
+		countriesMap.put("IL", "Israel");
+		countriesMap.put("ZA", "South Africa");
+		countriesMap.put("TH", "Thailand");
+		countriesMap.put("FR", "France");
+		countriesMap.put("AT", "Austria");
+		countriesMap.put("NO", "Norway");
+		countriesMap.put("AU", "Australia");
+		countriesMap.put("NL", "Netherlands");
+		countriesMap.put("CA", "Canada");
+		countriesMap.put("LV", "Latvia");
+		countriesMap.put("LU", "Luxembourg");
+		countriesMap.put("CR", "Costa Rica");
+		countriesMap.put("KW", "Kuwait");
+		countriesMap.put("LY", "Libya");
+		countriesMap.put("CH", "Switzerland");
+		countriesMap.put("DE", "Germany");
+		countriesMap.put("DZ", "Algeria");
+		countriesMap.put("SK", "Slovakia");
+		countriesMap.put("LT", "Lithuania");
+		countriesMap.put("IT", "Italy");
+		countriesMap.put("IE", "Ireland");
+		countriesMap.put("SG", "Singapore");
+		countriesMap.put("CA", "Canada");
+		countriesMap.put("BE", "Belgium");
+		countriesMap.put("CN", "China");
+		countriesMap.put("JP", "Japan");
+		countriesMap.put("GR", "Greece");
+		countriesMap.put("RS", "Serbia");
+		countriesMap.put("IN", "India");
+		countriesMap.put("LB", "Lebanon");
+		countriesMap.put("NI", "Nicaragua");
+		countriesMap.put("MK", "Macedonia");
+		countriesMap.put("BY", "Belarus");
+		countriesMap.put("SI", "Slovenia");
+		countriesMap.put("PE", "Peru");
+		countriesMap.put("ID", "Indonesia");
+		countriesMap.put("GB", "United Kingdom");
+
+		final List<Countries> countries = new ArrayList<>();
+		for (final Map.Entry<String, String> entry : countriesMap.entrySet())
+		{
+			countries.add(
+				Countries.builder().name(entry.getValue())
+				.iso3166a2name(entry.getKey()).build());
+		}
+		return countries;
+	}
+
 	public static List<Countries> newCountries() {
 		final Map<String, String> countriesMap = new LinkedHashMap<>();
 		countriesMap.put("AF","AFG");
