@@ -60,7 +60,7 @@ public class DatabaseInitialization extends AbstractDatabaseInitialization
 		scriptFiles.add(new File(insertsDir, "insert_countries.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_languages.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_resourcebundles.sql"));
-//		return scriptFiles;
+		// return scriptFiles;
 		return ListExtensions.newArrayList();
 	}
 
