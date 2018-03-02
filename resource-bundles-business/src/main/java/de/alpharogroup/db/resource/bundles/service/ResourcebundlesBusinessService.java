@@ -113,9 +113,11 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Resourcebundles contains(final String baseName, final Locale locale, final String key)
+	public void delete(BundleNames bundleName)
 	{
-		return getResourcebundle(baseName, locale, key);
+		final List<Resourcebundles> list = find(bundleName);
+		delete(list);
+		bundleNamesService.delete(bundleName);
 	}
 
 	/**
@@ -130,6 +132,7 @@ public class ResourcebundlesBusinessService
 		}
 	}
 
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -137,6 +140,7 @@ public class ResourcebundlesBusinessService
 	public void delete(Resourcebundles resourcebundles)
 	{
 		resourcebundles.setBundleName(null);
+		resourcebundles.setKey(null);
 		resourcebundles = super.merge(resourcebundles);
 		super.delete(resourcebundles);
 	}
@@ -179,32 +183,20 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Deprecated
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<Resourcebundles> find(final String baseName, final String locale, final String key,
-		final String value)
+	public List<Resourcebundles> find(BundleNames bundleName)
 	{
-		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key, value);
-		final Query query = getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty())
-		{
-			query.setParameter("baseName", baseName);
-		}
-		if (locale != null && !locale.isEmpty())
-		{
-			query.setParameter("locale", locale);
-		}
-		if (key != null && !key.isEmpty())
-		{
-			query.setParameter("key", key);
-		}
-		if (value != null && !value.isEmpty())
-		{
-			query.setParameter("value", value);
-		}
-		final List<Resourcebundles> resourcebundles = query.getResultList();
-		return resourcebundles;
+		return find(bundleName.getOwner(), bundleName.getBaseName().getName(),
+			bundleName.getLocale().getLocale(), null, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications find(String name)
+	{
+		return bundleApplicationsService.find(name);
 	}
 
 	/**
@@ -237,27 +229,6 @@ public class ResourcebundlesBusinessService
 		final Locale locale = LocaleResolver.resolveLocale(bundleName.getLocale().getLocale());
 		final BundleApplications owner = bundleName.getOwner();
 		return findResourceBundles(owner, baseName, locale);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Deprecated
-	@Override
-	public List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale)
-	{
-		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), null, null);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Deprecated
-	@Override
-	public List<Resourcebundles> findResourceBundles(final String baseName, final Locale locale,
-		final String key)
-	{
-		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), key, null);
 	}
 
 	/**
@@ -302,47 +273,11 @@ public class ResourcebundlesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@Deprecated
-	@Override
-	public Properties getProperties(final String baseName, final Locale locale)
-	{
-		final Properties properties = new Properties();
-		final List<Resourcebundles> resourcebundles = findResourceBundles(baseName, locale);
-		for (final Resourcebundles resourcebundle : resourcebundles)
-		{
-			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
-		}
-		return properties;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Properties getProperties(final String baseName, final String localeCode)
-	{
-		return getProperties(baseName, LocaleResolver.resolveLocale(localeCode));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public Resourcebundles getResourcebundle(BundleApplications owner, String baseName,
 		Locale locale, String key)
 	{
 		return ListExtensions.getFirst(findResourceBundles(owner, baseName, locale, key));
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Deprecated
-	@Override
-	public Resourcebundles getResourcebundle(final String baseName, final Locale locale,
-		final String key)
-	{
-		return ListExtensions.getFirst(findResourceBundles(baseName, locale, key));
 	}
 
 	/**
@@ -564,15 +499,6 @@ public class ResourcebundlesBusinessService
 		log.info("Finish of processing: " + bundleName.getBaseName().getName());
 		log.info("===============================================================");
 		return bundleName;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public BundleApplications find(String name)
-	{
-		return bundleApplicationsService.find(name);
 	}
 
 }

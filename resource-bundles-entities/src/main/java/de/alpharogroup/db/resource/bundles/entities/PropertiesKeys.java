@@ -27,7 +27,7 @@ package de.alpharogroup.db.resource.bundles.entities;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.ExtraLargeNameBaseEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableExtraLargeNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +44,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class PropertiesKeys extends ExtraLargeNameBaseEntity<Integer> implements Cloneable
+public class PropertiesKeys extends VersionableExtraLargeNameEntity<Integer> implements Cloneable
 {
 
 	/** Serial Version UID */

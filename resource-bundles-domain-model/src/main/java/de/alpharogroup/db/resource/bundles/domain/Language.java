@@ -24,7 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.domain;
 
-import de.alpharogroup.domain.NameBaseDomainObject;
+import de.alpharogroup.domain.VersionableNameBaseDomainObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -42,7 +42,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
-public class Language extends NameBaseDomainObject<Integer>
+public class Language extends VersionableNameBaseDomainObject<Integer>
 {
 
 	/**

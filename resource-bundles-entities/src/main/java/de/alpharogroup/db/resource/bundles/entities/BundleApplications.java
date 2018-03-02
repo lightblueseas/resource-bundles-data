@@ -37,7 +37,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.unique.ExtraLargeUNameBaseEntity;
+import de.alpharogroup.db.entity.name.versionable.unique.VersionableExtraLargeUniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,9 +60,11 @@ import lombok.ToString;
 @Table(name = "bundle_applications")
 @Getter
 @Setter
-@ToString
+@ToString(callSuper = true)
 @NoArgsConstructor
-public class BundleApplications extends ExtraLargeUNameBaseEntity<Integer> implements Cloneable
+public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<Integer>
+	implements
+		Cloneable
 {
 
 	/** The Constant serialVersionUID. */

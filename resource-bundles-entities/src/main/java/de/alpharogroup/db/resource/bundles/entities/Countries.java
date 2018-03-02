@@ -22,64 +22,52 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.domain;
+package de.alpharogroup.db.resource.bundles.entities;
 
-import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
-import de.alpharogroup.domain.NameBaseDomainObject;
-import lombok.AllArgsConstructor;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import de.alpharogroup.db.entity.name.unique.ExtraSmallUniqueNameEntity;
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
- * The class {@link BundleApplication}.
+ * The entity class {@link Countries} is keeping the information for all countries in the world
  */
+@Entity
+@Table(name = "countries")
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Getter
 @Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@AllArgsConstructor
-public class BundleApplication extends NameBaseDomainObject<Integer>
+public class Countries extends ExtraSmallUniqueNameEntity<Integer> implements Cloneable
 {
 
-	/**
-	 * The serialVersionUID.
-	 */
+	/** The serial Version UID. */
 	private static final long serialVersionUID = 1L;
+	/** The iso3166 name with two characters. */
+	@Column(name = "iso3166_a2name", length = 2)
+	private String iso3166A2name;
 
 	/**
-	 * The default locale of this bundle application.
-	 */
-	private LanguageLocale defaultLocale;
-
-	/**
-	 * The supported locale objects that are mandatory for this bundle application.
-	 */
-	private Set<LanguageLocale> supportedLocales;
-
-
-	/**
-	 * Instantiates a new {@link BundleApplication} domain object.
+	 * Instantiates a new countries.
 	 *
 	 * @param name
 	 *            the name
-	 * @param bundleNames
-	 *            the bundle names
-	 * @param defaultLocale
-	 *            the default locale
+	 * @param iso3166a2name
+	 *            the iso 3166 a 2 name
 	 */
 	@Builder
-	BundleApplication(final String name,
-		final LanguageLocale defaultLocale, final Set<LanguageLocale> supportedLocales)
+	public Countries(String name, String iso3166a2name)
 	{
 		super(name);
-		this.defaultLocale = defaultLocale;
-		this.supportedLocales = supportedLocales;
+		iso3166A2name = iso3166a2name;
 	}
 
 }

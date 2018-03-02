@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -32,6 +33,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.alpharogroup.collections.CollectionExtensions;
+import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -41,6 +44,8 @@ import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepositor
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
+import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
+import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.service.domain.AbstractDomainService;
 
 /**
@@ -57,175 +62,193 @@ public class ResourcebundleDomainService
 
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
-//
-//	private final CacheableMap<String, String, DatabaseListResourceBundle> cache = new CacheableMap<String, String, DatabaseListResourceBundle>()
-//	{
-//
-//		@Override
-//		public DatabaseListResourceBundle newValue(final String baseName, final String locale)
-//		{
-//			return new DatabaseListResourceBundle(baseName, LocaleResolver.resolveLocale(locale),
-//				resourcebundlesService);
-//		}
-//	};
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Resourcebundle contains(final String baseName, final Locale locale, final String key)
-//	{
-//		return find(baseName, locale, key);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Resourcebundle find(final String baseName, final Locale locale, final String key)
-//	{
-//		return find(baseName, LocaleExtensions.getLocaleFilenameSuffix(locale), key);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Resourcebundle find(final String baseName, final String locale, final String key)
-//	{
-//		return ListExtensions.getFirst(find(baseName, locale, key, null));
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	@SuppressWarnings("unchecked")
-//	public List<Resourcebundle> find(final String baseName, final String locale, final String key,
-//		final String value)
-//	{
-//		final String hqlString = HqlStringCreator.forResourcebundles(baseName, locale, key);
-//		final Query query = getRepository().getQuery(hqlString);
-//		if (baseName != null && !baseName.isEmpty())
-//		{
-//			query.setParameter("baseName", baseName);
-//		}
-//		if (locale != null && !locale.isEmpty())
-//		{
-//			query.setParameter("locale", locale);
-//		}
-//		if (key != null && !key.isEmpty())
-//		{
-//			query.setParameter("key", key);
-//		}
-//		if (value != null && !value.isEmpty())
-//		{
-//			query.setParameter("value", value);
-//		}
-//		final List<Resourcebundles> entities = query.getResultList();
-//		final List<Resourcebundle> bos = getMapper().toDomainObjects(entities);
-//		return bos;
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Deprecated
-//	@Override
-//	public List<Resourcebundle> findResourceBundles(final String baseName, final Locale locale)
-//	{
-//		return null;
-//	}
-//
-//	private DatabaseListResourceBundle getDatabaseListResourceBundle(final String baseName,
-//		final String locale)
-//	{
-//		return cache.getValue(baseName, locale);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Properties getProperties(final String baseName, final Locale locale)
-//	{
-//		return resourcebundlesService.getProperties(baseName, locale);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Properties getProperties(final String baseName, final String locale)
-//	{
-//		return resourcebundlesService.getProperties(baseName, locale);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public Resourcebundle getResourcebundle(final String baseName, final Locale locale,
-//		final String key)
-//	{
-//		return find(baseName, locale, key);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String getString(final BundleKey bundleKey)
-//	{
-//		return getString(bundleKey.getBaseName(),
-//			LocaleExtensions.getLocaleFilenameSuffix(bundleKey.getLocale()),
-//			bundleKey.getResourceBundleKey().getKey(),
-//			bundleKey.getResourceBundleKey().getDefaultValue(),
-//			bundleKey.getResourceBundleKey().getParameters());
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String getString(final String baseName, final String locale, final String key)
-//	{
-//		return getString(baseName, locale, key, null, null);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String getString(final String baseName, final String locale, final String key,
-//		final Object[] params)
-//	{
-//		return getString(baseName, locale, key, null, params);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String getString(final String baseName, final String locale, final String key,
-//		final String defaultValue)
-//	{
-//		return getString(baseName, locale, key, defaultValue, null);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public String getString(final String baseName, final String locale, final String key,
-//		final String defaultValue, final Object[] params)
-//	{
-//		final DatabaseListResourceBundle listResourceBundle = getDatabaseListResourceBundle(
-//			baseName, locale);
-//		final String value = ResourceBundleExtensions.getString(listResourceBundle, key,
-//			defaultValue, params);
-//		return value;
-//	}
+
+	@Override
+	public Resourcebundle contains(final BundleApplication bundleApplication, final String baseName,
+		final Locale locale, final String key)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.contains(owner, baseName,
+			locale, key);
+		if (resourcebundles != null)
+		{
+			return getMapper().toDomainObject(resourcebundles);
+		}
+		return null;
+	}
+
+	@Override
+	public Resourcebundle find(final BundleApplication bundleApplication, final String baseName,
+		final Locale locale, final String key)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+
+		final List<Resourcebundles> list = resourcebundlesService.find(owner, baseName,
+			LocaleExtensions.getLocaleFilenameSuffix(locale), key, null);
+		final Resourcebundles first = ListExtensions.getFirst(list);
+		if (first != null)
+		{
+			return getMapper().toDomainObject(first);
+		}
+		return null;
+	}
+
+	@Override
+	public List<Resourcebundle> find(final BundleApplication bundleApplication,
+		final String baseName, final String locale, final String key, final String value)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+
+		final List<Resourcebundles> list = resourcebundlesService.find(owner, baseName, locale, key,
+			value);
+		if (CollectionExtensions.isNotEmpty(list))
+		{
+			return getMapper().toDomainObjects(list);
+		}
+		return ListExtensions.newArrayList();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplication find(final String name)
+	{
+		final BundleApplications bundleApplications = resourcebundlesService.find(name);
+		if (bundleApplications != null)
+		{
+			final BundleApplication bundleApplication = getMapper().map(bundleApplications,
+				BundleApplication.class);
+			return bundleApplication;
+		}
+		return null;
+	}
+
+	@Override
+	public List<Resourcebundle> findResourceBundles(final BundleApplication bundleApplication,
+		final String baseName, final Locale locale)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final List<Resourcebundles> list = resourcebundlesService.findResourceBundles(owner,
+			baseName, locale);
+		if (CollectionExtensions.isNotEmpty(list))
+		{
+			return getMapper().toDomainObjects(list);
+		}
+		return ListExtensions.newArrayList();
+	}
+
+	@Override
+	public Properties getProperties(final BundleApplication bundleApplication,
+		final String baseName, final Locale locale)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		return resourcebundlesService.getProperties(owner, baseName, locale);
+	}
+
+	@Override
+	public Properties getProperties(final BundleApplication bundleApplication,
+		final String baseName, final String localeCode)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		return resourcebundlesService.getProperties(owner, baseName, localeCode);
+	}
+
+	@Override
+	public Resourcebundle getResourcebundle(final BundleApplication bundleApplication,
+		final String baseName, final Locale locale, final String key)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.getResourcebundle(owner,
+			baseName, locale, key);
+		if (resourcebundles != null)
+		{
+			return getMapper().toDomainObject(resourcebundles);
+		}
+		return null;
+	}
+
+	@Override
+	public String getString(final BundleApplication bundleApplication, final BundleKey bundleKey)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.getResourcebundle(owner,
+			bundleKey.getBaseName(), bundleKey.getLocale(),
+			bundleKey.getResourceBundleKey().getKey());
+		if (resourcebundles != null)
+		{
+			return getMapper().toDomainObject(resourcebundles).getValue();
+		}
+		return "";
+	}
+
+	@Override
+	public String getString(final BundleApplication bundleApplication, final String baseName,
+		final String locale, final String key)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.getResourcebundle(owner,
+			baseName, LocaleResolver.resolveLocaleCode(locale), key);
+		if (resourcebundles != null)
+		{
+			return getMapper().toDomainObject(resourcebundles).getValue();
+		}
+		return "";
+	}
+
+	@Override
+	public String getString(final BundleApplication bundleApplication, final String baseName,
+		final String locale, final String key, final Object[] parameters)
+	{
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.getResourcebundle(owner,
+			baseName, LocaleResolver.resolveLocaleCode(locale), key);
+		String value = "";
+		if (resourcebundles != null)
+		{
+			value = getMapper().toDomainObject(resourcebundles).getValue();
+			if (parameters != null && 0 < parameters.length)
+			{
+				value = MessageFormat.format(value, parameters);
+			}
+		}
+		return value;
+	}
+
+	@Override
+	public String getString(final BundleApplication bundleApplication, final String baseName,
+		final String locale, final String key, final String defaultValue)
+	{
+
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.getResourcebundle(owner,
+			baseName, LocaleResolver.resolveLocaleCode(locale), key);
+		if (resourcebundles != null)
+		{
+			return getMapper().toDomainObject(resourcebundles).getValue();
+		}
+		return defaultValue;
+	}
+
+	@Override
+	public String getString(final BundleApplication bundleApplication, final String baseName,
+		final String locale, final String key, final String defaultValue, final Object[] parameters)
+	{
+
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		final Resourcebundles resourcebundles = resourcebundlesService.getResourcebundle(owner,
+			baseName, LocaleResolver.resolveLocaleCode(locale), key);
+		String value = defaultValue;
+		if (resourcebundles != null)
+		{
+			value = getMapper().toDomainObject(resourcebundles).getValue();
+			if (parameters != null && 0 < parameters.length)
+			{
+				value = MessageFormat.format(value, parameters);
+			}
+		}
+		return value;
+	}
 
 	/**
 	 * Sets the specific {@link ResourcebundlesMapper}.
@@ -234,7 +257,7 @@ public class ResourcebundleDomainService
 	 *            the new {@link ResourcebundlesMapper}.
 	 */
 	@Autowired
-	public void setResourcebundlesMapper(ResourcebundlesMapper mapper)
+	public void setResourcebundlesMapper(final ResourcebundlesMapper mapper)
 	{
 		setMapper(mapper);
 	}
@@ -244,150 +267,13 @@ public class ResourcebundleDomainService
 	{
 		setRepository(repository);
 	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public void updateProperties(final Properties properties, final String baseName,
-//		final Locale locale)
-//	{// TODO change with appropriate bundleApp
-//		resourcebundlesService.updateProperties(null, properties, baseName, locale);
-//	}
-//
-//	/**
-//	 * {@inheritDoc}
-//	 */
-//	@Override
-//	public void updateProperties(final Properties properties, final String baseName,
-//		final Locale locale, final boolean update)
-//	{// TODO change with appropriate bundleApp
-//		// resourcebundlesService.updateProperties(null, properties, baseName, locale, update);
-//	}
 
 	@Override
-	public Resourcebundle contains(BundleApplication bundleApplication, String baseName,
-		Locale locale, String key)
+	public void updateProperties(final BundleApplication bundleApplication,
+		final Properties properties, final String baseName, final Locale locale)
 	{
-
-		// TODO Auto-generated method stub
-		return null;
+		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
+		resourcebundlesService.updateProperties(owner, properties, baseName, locale);
 	}
-
-	@Override
-	public Resourcebundle find(BundleApplication bundleApplication, String baseName, Locale locale,
-		String key)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Resourcebundle> find(BundleApplication bundleApplication, String baseName,
-		String locale, String key, String value)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Resourcebundle> findResourceBundles(BundleApplication bundleApplication,
-		String baseName, Locale locale)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Properties getProperties(BundleApplication bundleApplication, String baseName,
-		Locale locale)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Properties getProperties(BundleApplication bundleApplication, String baseName,
-		String locale)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Resourcebundle getResourcebundle(BundleApplication bundleApplication, String baseName,
-		Locale locale, String key)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getString(BundleApplication bundleApplication, BundleKey bundleKey)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getString(BundleApplication bundleApplication, String baseName, String locale,
-		String key)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getString(BundleApplication bundleApplication, String baseName, String locale,
-		String key, Object[] params)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getString(BundleApplication bundleApplication, String baseName, String locale,
-		String key, String defaultValue)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getString(BundleApplication bundleApplication, String baseName, String locale,
-		String key, String defaultValue, Object[] params)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void updateProperties(BundleApplication bundleApplication, Properties properties,
-		String baseName, Locale locale)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void updateProperties(BundleApplication bundleApplication, Properties properties,
-		String baseName, Locale locale, boolean update)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public BundleApplication find(String name)
-	{
-		final BundleApplications bundleApplications = resourcebundlesService.find(name);
-		final BundleApplication bundleApplication = getMapper().map(bundleApplications, BundleApplication.class);
-		return bundleApplication;
-	}
-
-
 
 }

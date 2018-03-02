@@ -27,6 +27,7 @@ package de.alpharogroup.db.resource.bundles.service.util;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
@@ -126,6 +127,41 @@ public class HqlStringCreator
 			else
 			{
 				sb.append("where bn.locale.locale=:locale");
+			}
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Creates hql query for {@link Countries}.
+	 *
+	 * @param name
+	 *            the name
+	 * @param iso3166A2name
+	 *            the iso 3166 A 2 name
+	 * @return the hql string
+	 */
+	public static String forCountries(final String name, final String iso3166A2name)
+	{
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select c from " + Languages.class.getSimpleName() + " c");
+		final boolean nameIsNotNull = name != null && !name.isEmpty();
+		if (nameIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where c.name=:name");
+		}
+		final boolean iso3166A2nameIsNotNull = iso3166A2name != null && !iso3166A2name.isEmpty();
+		if (iso3166A2nameIsNotNull)
+		{
+			sb.append(" ");
+			if (nameIsNotNull)
+			{
+				sb.append("and c.iso3166A2name=:iso3166A2name");
+			}
+			else
+			{
+				sb.append("where c.iso3166A2name=:iso3166A2name");
 			}
 		}
 		return sb.toString();

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -5,62 +6,25 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>5.0.0</version>
-		<relativePath />
+		<version>5.4.1</version>
+		<relativePath></relativePath>
 	</parent>
 
 	<artifactId>resource-bundles-data</artifactId>
+	<version>5.2.0</version>
 	<packaging>pom</packaging>
-	<version>5.1.0</version>
 	<inceptionYear>2015</inceptionYear>
 
 	<name>${project.artifactId}</name>
 
-	<description>
-		This project provides Java resource bundles(i18n) that can be saved to your prefered database and load back. 
+	<description>This project provides Java resource bundles(i18n) that can be saved to your prefered database and load back. 
 		It is kept simple and have only one table in the database. There is also restful web services provided for 
-		providing resource bundles also for the web and can be used also with other languages than java.
-	</description>
+		providing resource bundles also for the web and can be used also with other languages than java.</description>
 
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
-
-	<scm>
-		<connection>scm:git:git:@github.com:lightblueseas/resource-bundles-data.git</connection>
-		<developerConnection>scm:git:git@github.com:lightblueseas/resource-bundles-data.git</developerConnection>
-		<url>git:@github.com:lightblueseas/resource-bundles-data.git</url>
-	</scm>
-
-	<developers>
-
-		<developer>
-			<id>astrapi69</id>
-			<name>Asterios Raptis</name>
-			<timezone>Berlin</timezone>
-			<roles>
-				<role>Project manager</role>
-				<role>Developer</role>
-			</roles>
-		</developer>
-
-	</developers>
-
-	<licenses>
-		<license>
-			<name>MIT License</name>
-			<url>http://www.opensource.org/licenses/mit-license.php</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<ciManagement>
-		<system>travis-ci</system>
-		<url>https://travis-ci.org/lightblueseas/resource-bundles-data</url>
-	</ciManagement>
-
-	<issueManagement>
-		<system>github</system>
-		<url>https://github.com/lightblueseas/resource-bundles-data/issues</url>
-	</issueManagement>
+	
+	<properties>
+	</properties>
 
 	<modules>
 		<module>resource-bundles-entities</module>
@@ -70,10 +34,46 @@
 		<module>resource-bundles-rest-web</module>
 		<module>resource-bundles-rest-client</module>
 		<module>resource-bundles-domain</module>
+		<module>resource-bundles-domain-model</module>
 	</modules>
 
-	<properties>
-	</properties>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+
+		<developer>
+			<id>astrapi69</id>
+			<name>Asterios Raptis</name>
+			<roles>
+				<role>Project manager</role>
+				<role>Developer</role>
+			</roles>
+			<timezone>Berlin</timezone>
+		</developer>
+
+	</developers>
+
+	<scm>
+		<connection>scm:git:git:@github.com:lightblueseas/resource-bundles-data.git</connection>
+		<developerConnection>scm:git:git@github.com:lightblueseas/resource-bundles-data.git</developerConnection>
+		<url>git:@github.com:lightblueseas/resource-bundles-data.git</url>
+	</scm>
+
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/lightblueseas/resource-bundles-data/issues</url>
+	</issueManagement>
+
+	<ciManagement>
+		<system>travis-ci</system>
+		<url>https://travis-ci.org/lightblueseas/resource-bundles-data</url>
+	</ciManagement>
 
 	<dependencyManagement>
 
@@ -88,6 +88,12 @@
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-domain</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>resource-bundles-domain-model</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

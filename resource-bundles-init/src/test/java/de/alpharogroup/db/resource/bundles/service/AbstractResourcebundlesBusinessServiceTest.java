@@ -25,13 +25,14 @@
 package de.alpharogroup.db.resource.bundles.service;
 
 import static org.testng.Assert.assertNotEquals;
-import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -44,6 +45,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import de.alpharogroup.collections.properties.PropertiesExtensions;
+import de.alpharogroup.db.init.AbstractDatabaseInitialization;
+import de.alpharogroup.db.resource.bundles.db.init.DatabaseInitialization;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -57,13 +60,16 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import de.alpharogroup.exception.ExceptionExtensions;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link AbstractResourcebundlesBusinessServiceTest}.
  */
+@Slf4j
 public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
 {
 
@@ -86,6 +92,8 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	/** The properties keys service. */
 	@Autowired
 	protected PropertiesKeysService propertiesKeysService;
+
+	private DatabaseInitialization databaseInitialization;
 
 	private BundleApplications getOrCreateBundleApplication(final String applicationName,
 		final LanguageLocales defaultLocale)
@@ -112,17 +120,17 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	}
 
 	/**
-	 * Inits a resourcebundles.
+	 * Inits the bundle app 'bar-date.com' with two resourcebundles.
 	 */
-	protected void initBundleApplicationsBarDate()
+	protected void initBundleApplicationsBarDateDotCom()
 	{
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "bar-date.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
-			Locale.GERMAN, "resource.bundles.test.label");
+		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
+			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
 			final BundleNames bundleName = bundleNamesService
@@ -134,8 +142,8 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundlesService.saveOrUpdate(resourcebundles);
 		}
 
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
-			"resource.bundles.test.label");
+		resourcebundles = resourcebundlesService.contains(bundleApplication, "resource.bundles",
+			Locale.UK, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
 
@@ -150,17 +158,17 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	}
 
 	/**
-	 * Inits the resourcebundles.
+	 * Inits the bundle app 'foo-dating.com' with two resourcebundles.
 	 */
-	protected void initResourcebundles()
+	protected void initBundleApplicationsFooDatingDotCom()
 	{
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "foo-dating.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		Resourcebundles resourcebundles = resourcebundlesService.contains("resource.bundles",
-			Locale.GERMAN, "resource.bundles.test.label");
+		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
+			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
 			final BundleNames bundleName = bundleNamesService
@@ -172,8 +180,8 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundlesService.merge(resourcebundles);
 		}
 
-		resourcebundles = resourcebundlesService.contains("resource.bundles", Locale.UK,
-			"resource.bundles.test.label");
+		resourcebundles = resourcebundlesService.contains(bundleApplication, "resource.bundles",
+			Locale.UK, "resource.bundles.test.label");
 		if (resourcebundles == null)
 		{
 
@@ -184,6 +192,39 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
+		}
+	}
+
+	/**
+	 * Initialize the db.
+	 */
+	protected void initializeDatabase()
+	{
+		if (databaseInitialization == null)
+		{
+			Properties dbProperties;
+			try
+			{
+				dbProperties = PropertiesFileExtensions.loadProperties("jdbc.properties");
+				dbProperties.setProperty(AbstractDatabaseInitialization.JDBC_CREATE_DB_PROCESS_KEY,
+					"create-empty");
+				databaseInitialization = new DatabaseInitialization(dbProperties);
+			}
+			catch (final IOException e)
+			{
+				log.error("IOException", e);
+			}
+		}
+		if (databaseInitialization != null)
+		{
+			try
+			{
+				databaseInitialization.initializeDatabase();
+			}
+			catch (ClassNotFoundException | SQLException | IOException e)
+			{
+				log.error(ExceptionExtensions.toString(databaseInitialization), e);
+			}
 		}
 	}
 
@@ -200,8 +241,8 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 	public void testBundleApplicationsWithSameNameResourceBundles()
 	{
-		initResourcebundles();
-		initBundleApplicationsBarDate();
+		initBundleApplicationsFooDatingDotCom();
+		initBundleApplicationsBarDateDotCom();
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
 		final String applicationName = "bar-date.com";
@@ -210,7 +251,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		final Set<BundleNames> bundleNames = bundleApplicationsService.find(bundleApplication);
 		assertNotNull(bundleNames);
-		assertTrue(bundleNames.size() == 0);
+		assertTrue(bundleNames.size() == 2);
 		final String applicationName2 = "foo-dating.com";
 		final BundleApplications bundleApplication2 = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName2, languageLocales);
@@ -218,6 +259,50 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<BundleNames> bundleNames2 = bundleApplicationsService.find(bundleApplication2);
 
 		assertNotEquals(bundleNames, bundleNames2);
+	}
+
+	public void testDeleteBundleName() throws URISyntaxException, IOException
+	{
+
+		final String bundlepackage = "";
+		final String bundlename = "ApplicationBasePage";
+		final Map<File, Locale> fileToLocaleMap = LocaleResolver.resolveLocales(bundlepackage,
+			bundlename, false);
+		final Locale defaultLocale = Locale.GERMANY;
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName,
+			languageLocales);
+
+		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet())
+		{
+			final File propertiesFile = entry.getKey();
+			Locale locale = entry.getValue();
+			if (locale == null)
+			{
+				final BundleNames bundleNames = bundleNamesService
+					.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
+				bundleApplication = bundleApplicationsService.merge(bundleApplication);
+				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
+				if (loc != null)
+				{
+					locale = LocaleResolver.resolveLocale(loc.getLocale());
+				}
+				else
+				{
+					locale = defaultLocale;
+				}
+			}
+			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
+			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
+				locale);
+		}
+
+		final BundleNames bundleNames = bundleNamesService
+			.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
+
+		resourcebundlesService.delete(bundleNames);
 	}
 
 	public void testFindBaseNames()
@@ -291,18 +376,19 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	 */
 	public void testFindResourceBundles()
 	{
-		initResourcebundles();
+		initBundleApplicationsFooDatingDotCom();
+		final String bundleApplicationName = "foo-dating.com";
 		DatabaseListResourceBundle databaseResourceBundle = new DatabaseListResourceBundle(
-			"resource.bundles", Locale.UK, resourcebundlesService);
+			bundleApplicationName, "resource.bundles", Locale.UK, resourcebundlesService);
 		String actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		String expected = "First label";
 		assertEquals(expected, actual);
-		databaseResourceBundle = new DatabaseListResourceBundle("resource.bundles", Locale.GERMAN,
-			resourcebundlesService);
+		databaseResourceBundle = new DatabaseListResourceBundle(bundleApplicationName,
+			"resource.bundles", Locale.GERMAN, resourcebundlesService);
 		actual = databaseResourceBundle.getString("resource.bundles.test.label");
 		expected = "Erstes label";
 		assertEquals(expected, actual);
-		// truncate();
+		initializeDatabase();
 	}
 
 	/**
@@ -327,9 +413,9 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Properties properties = PropertiesFileExtensions.loadProperties(propertiesFile);
 		resourcebundlesService.updateProperties(bundleApplication, properties, baseName, locale);
 		final Set<Resourcebundles> rb = new HashSet<>(
-			resourcebundlesService.findResourceBundles(baseName, locale));
+			resourcebundlesService.findResourceBundles(bundleApplication, baseName, locale));
 		assertEquals(4, rb.size());
-		// truncate();
+		initializeDatabase();
 	}
 
 	/**
@@ -380,19 +466,6 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
 		assertEquals(633, rb.size());
-	}
-
-	/**
-	 * Truncate the table 'resourcebundles'.
-	 */
-	protected void truncate()
-	{
-		final List<BundleApplications> ba = bundleApplicationsService.findAll();
-		ba.forEach(bundleApplication -> {
-			bundleApplicationsService.delete(bundleApplication);
-		});
-		final List<Resourcebundles> rb = resourcebundlesService.findAll();
-		resourcebundlesService.delete(rb);
 	}
 
 }

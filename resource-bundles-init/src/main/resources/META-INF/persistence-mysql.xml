@@ -4,11 +4,12 @@
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
 	<persistence-unit name="resourcebundles"
 		transaction-type="RESOURCE_LOCAL">
-		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 		<class>de.alpharogroup.db.resource.bundles.entities.BaseNames</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleApplications</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.BundleNames</class>
+		<class>de.alpharogroup.db.resource.bundles.entities.Countries</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.Languages</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.LanguageLocales</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.PropertiesKeys</class>
@@ -20,11 +21,19 @@
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/resourcebundles" />
 			<property name="hibernate.connection.user" value="root" />
 			<property name="hibernate.connection.password" value="" />
-			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5Dialect" />			
 			<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.event.merge.entity_copy_observer"
 				value="allow" />
 			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+
+			<property name="hibernate.cache.region.factory_class"
+				value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="false" />
+			<property name="hibernate.cache.use_query_cache" value="false" />
+			<property name="net.sf.ehcache.configurationResourceName"
+				value="ehcache.xml" />
 		</properties>
 
 	</persistence-unit>

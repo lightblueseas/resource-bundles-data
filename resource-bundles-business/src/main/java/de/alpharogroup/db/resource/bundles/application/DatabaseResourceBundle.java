@@ -40,19 +40,24 @@ public class DatabaseResourceBundle extends ResourceBundle
 	/**
 	 * Instantiates a new database resource bundle.
 	 *
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 */
-	public DatabaseResourceBundle(String baseName, Locale locale)
+	public DatabaseResourceBundle(final String bundleApplicationName, String baseName,
+		Locale locale)
 	{
-		setParent(new DatabaseListResourceBundle(baseName, locale));
+		setParent(new DatabaseListResourceBundle(bundleApplicationName, baseName, locale));
 	}
 
 	/**
 	 * Instantiates a new database resource bundle.
 	 *
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -60,10 +65,11 @@ public class DatabaseResourceBundle extends ResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public DatabaseResourceBundle(String baseName, Locale locale,
-		ResourcebundlesService resourcebundlesService)
+	public DatabaseResourceBundle(final String bundleApplicationName, String baseName,
+		Locale locale, ResourcebundlesService resourcebundlesService)
 	{
-		setParent(new DatabaseListResourceBundle(baseName, locale, resourcebundlesService));
+		setParent(new DatabaseListResourceBundle(bundleApplicationName, baseName, locale,
+			resourcebundlesService));
 	}
 
 	/**
