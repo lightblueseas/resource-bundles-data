@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>5.4.1</version>
+		<version>6.0.0</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -24,6 +24,7 @@
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
 	
 	<properties>
+		<resourcebundle-inspector.version>2.19.0</resourcebundle-inspector.version>
 	</properties>
 
 	<modules>
