@@ -25,6 +25,7 @@
 package de.alpharogroup.db.resource.bundles.service;
 
 import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertNull;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
@@ -303,6 +304,20 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
 
 		resourcebundlesService.delete(bundleNames);
+	}
+
+	public void testDeleteBundleApplications()
+	{
+		initBundleApplicationsFooDatingDotCom();
+
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		bundleApplicationsService.delete(bundleApplication);
+		BundleApplications bundleApplications = bundleApplicationsService.find(applicationName);
+		assertNull(bundleApplications);
 	}
 
 	public void testFindBaseNames()

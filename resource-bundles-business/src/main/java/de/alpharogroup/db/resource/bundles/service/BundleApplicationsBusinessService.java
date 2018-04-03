@@ -42,6 +42,7 @@ import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 
@@ -63,6 +64,10 @@ public class BundleApplicationsBusinessService
 	/** The Bundle names service. */
 	@Autowired
 	private BundleNamesService bundleNamesService;
+
+	/** The resourcebundles service. */
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
 
 	@Override
 	public Set<BundleNames> find(final BundleApplications owner)
@@ -139,14 +144,16 @@ public class BundleApplicationsBusinessService
 	}
 	
 	@Override
-	public void delete(BundleApplications object)
+	public void delete(BundleApplications bundleApplications)
 	{
-		List<BundleNames> bundleNames = bundleNamesService.find(object);
+		List<BundleNames> bundleNames = bundleNamesService.find(bundleApplications);
 		for (BundleNames bundleName : bundleNames)
 		{
-			bundleNamesService.delete(bundleName);
+			resourcebundlesService.delete(bundleName);
 		}
-		super.delete(object);
+		bundleApplications.setDefaultLocale(null);
+		BundleApplications merged = merge(bundleApplications);		
+		super.delete(merged);
 	}
 
 }

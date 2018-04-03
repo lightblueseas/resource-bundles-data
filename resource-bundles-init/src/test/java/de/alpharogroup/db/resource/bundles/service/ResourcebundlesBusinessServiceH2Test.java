@@ -87,5 +87,12 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 		super.testUpdatePropertiesUpdate();
 	}
 
+	@Override
+	@Test(enabled = true)
+	public void testDeleteBundleApplications()
+	{
+		super.testDeleteBundleApplications();
+	}
+
 
 }
