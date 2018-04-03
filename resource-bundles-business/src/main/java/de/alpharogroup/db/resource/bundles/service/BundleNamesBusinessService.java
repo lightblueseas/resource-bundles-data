@@ -92,6 +92,15 @@ public class BundleNamesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public List<BundleNames> find(BundleApplications owner)
+	{
+		return find(owner, null, (String)null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public List<BundleNames> find(final BundleApplications owner, final BaseNames baseName)
 	{
 		if (baseName != null)
