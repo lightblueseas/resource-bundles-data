@@ -41,6 +41,7 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 
@@ -58,6 +59,10 @@ public class BundleApplicationsBusinessService
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	/** The Bundle names service. */
+	@Autowired
+	private BundleNamesService bundleNamesService;
 
 	@Override
 	public Set<BundleNames> find(final BundleApplications owner)
@@ -131,6 +136,17 @@ public class BundleApplicationsBusinessService
 	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
 	{
 		setRepository(repository);
+	}
+	
+	@Override
+	public void delete(BundleApplications object)
+	{
+		List<BundleNames> bundleNames = bundleNamesService.find(object);
+		for (BundleNames bundleName : bundleNames)
+		{
+			bundleNamesService.delete(bundleName);
+		}
+		super.delete(object);
 	}
 
 }
