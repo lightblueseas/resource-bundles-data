@@ -4,6 +4,10 @@
 Version 5.3.0-SNAPSHOT
 -------------
 
+CHANGED:
+
+- overwrite of delete method in business service for BundleApplications 
+
 
 Version 5.2.0
 -------------
