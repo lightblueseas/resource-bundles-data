@@ -37,7 +37,9 @@
 
 	<jdbc:embedded-database id="dataSource" type="H2">
 		<jdbc:script location="classpath:dll/inserts/initializeSchema.sql" />
-		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
+		<jdbc:script location="classpath:dll/inserts/merge_countries_h2.sql" />
+		<jdbc:script location="classpath:dll/inserts/merge_languages_h2.sql" />
+		<jdbc:script location="classpath:dll/inserts/merge_resourcebundles_h2.sql" />
 	</jdbc:embedded-database>
 
 	<!-- h2 tomcat.dbcp DataSource configuration -->

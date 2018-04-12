@@ -42,6 +42,9 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
@@ -58,7 +61,9 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.CountriesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.exception.ExceptionExtensions;
@@ -93,6 +98,15 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	/** The properties keys service. */
 	@Autowired
 	protected PropertiesKeysService propertiesKeysService;
+
+	@Autowired
+	protected LanguagesService languagesService;
+	
+	@PersistenceUnit
+	protected EntityManagerFactory entityManagerFactory;
+
+	@Autowired
+	protected CountriesService countriesService;
 
 	private DatabaseInitialization databaseInitialization;
 
