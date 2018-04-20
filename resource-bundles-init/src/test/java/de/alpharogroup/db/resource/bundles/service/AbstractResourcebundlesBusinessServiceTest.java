@@ -54,6 +54,7 @@ import de.alpharogroup.db.resource.bundles.db.init.DatabaseInitialization;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
@@ -495,6 +496,19 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
 		assertEquals(633, rb.size());
+	}
+	
+
+	protected void initCountries() {		
+		List<Countries> availableCountries = DataObjectFactory.newCountries();
+		for (Countries countries : availableCountries)
+		{
+			Countries foundCountry = countriesService.find(countries.getIso3166A2name());
+			if (foundCountry == null)
+			{
+				countriesService.merge(countries);
+			}
+		}
 	}
 
 }
