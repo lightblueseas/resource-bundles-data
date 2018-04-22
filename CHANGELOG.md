@@ -7,7 +7,8 @@ Version 5.3.0-SNAPSHOT
 CHANGED:
 
 - overwrite of delete method in business service for BundleApplications 
-- update of parent version to 6.1.0
+- update of parent version to 6.2.0
+- new method isSupported created in BundleApplications
 
 
 Version 5.2.0
