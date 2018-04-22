@@ -72,7 +72,7 @@ public class BundleApplicationsBusinessService
 	@Override
 	public Set<BundleNames> find(final BundleApplications owner)
 	{
-		final TypedQuery<BundleNames> typedQuery = getRepository().getEntityManager()
+		final TypedQuery<BundleNames> typedQuery = getEntityManager()
 			.createNamedQuery(BundleNames.NQ_FIND_BY_OWNER, BundleNames.class)
 			.setParameter("owner", owner);
 
