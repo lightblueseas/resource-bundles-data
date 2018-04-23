@@ -45,6 +45,7 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
+import lombok.NonNull;
 
 /**
  * The class {@link BundleApplicationsBusinessService}.
@@ -69,6 +70,9 @@ public class BundleApplicationsBusinessService
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<BundleNames> find(final BundleApplications owner)
 	{
@@ -110,39 +114,54 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(final String name,
-		final LanguageLocales defaultLocale)
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocales defaultLocale)
 	{
-		BundleApplications baseBundleApplication = find(name);
-		if (baseBundleApplication == null)
-		{
-			baseBundleApplication = BundleApplications.builder().name(name)
-				.defaultLocale(defaultLocale).build();
-			baseBundleApplication = merge(baseBundleApplication);
-		}
-		return baseBundleApplication;
+		return getOrCreateNewBundleApplications(name, defaultLocale, null);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(String name,
-		LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
 	{
 		BundleApplications baseBundleApplication = find(name);
 		if (baseBundleApplication == null)
 		{
-			baseBundleApplication = BundleApplications.builder().name(name)
-				.defaultLocale(defaultLocale).supportedLocales(supportedLocales).build();
+			if(supportedLocales != null) {
+				baseBundleApplication = BundleApplications.builder()
+					.name(name)
+					.defaultLocale(defaultLocale)
+					.supportedLocales(supportedLocales)
+					.build();				
+			} else {
+				baseBundleApplication = BundleApplications.builder()
+					.name(name)
+					.defaultLocale(defaultLocale)
+					.build();				
+			}
+			baseBundleApplication.addSupportedLanguageLocale(defaultLocale);
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;
 	}
 
+	/**
+	 * Sets the bundle applications repository.
+	 *
+	 * @param repository the new bundle applications repository
+	 */
 	@Autowired
 	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
 	{
 		setRepository(repository);
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void delete(BundleApplications bundleApplications)
 	{

@@ -70,6 +70,7 @@ import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.exception.ExceptionExtensions;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import de.alpharogroup.resourcebundle.locale.Locales;
 import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
 import lombok.extern.slf4j.Slf4j;
 
@@ -142,9 +143,21 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	{
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+
+		final LanguageLocales supportedEnglishLanguageLocale = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.ENGLISH);
+
+		final LanguageLocales supportedHellenicLanguageLocale = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locales.HELLENIC);
+		
 		final String applicationName = "bar-date.com";
 		final BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+
+		bundleApplication.addSupportedLanguageLocale(supportedEnglishLanguageLocale);
+		bundleApplication.addSupportedLanguageLocale(supportedHellenicLanguageLocale);
+		bundleApplicationsService.merge(bundleApplication);
+		
 		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
 			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
@@ -509,6 +522,27 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 				countriesService.merge(countries);
 			}
 		}
+	}
+	
+	public void testSupportedLanguageLocales() {
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+
+		final LanguageLocales supportedEnglishLanguageLocale = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.ENGLISH);
+
+		final LanguageLocales supportedHellenicLanguageLocale = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locales.HELLENIC);
+		
+
+		initBundleApplicationsBarDateDotCom();
+		final String applicationName = "bar-date.com";
+		
+		BundleApplications bundleApplications = bundleApplicationsService.find(applicationName);
+
+		assertTrue(bundleApplications.isSupported(languageLocales));
+		assertTrue(bundleApplications.isSupported(supportedEnglishLanguageLocale));
+		assertTrue(bundleApplications.isSupported(supportedHellenicLanguageLocale));		
 	}
 
 }

@@ -30,6 +30,7 @@ import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
+import lombok.NonNull;
 
 public interface BundleApplicationsService extends BusinessService<BundleApplications, Integer>
 {
@@ -73,8 +74,8 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *            the default locale
 	 * @return the existing or a new {@link BundleApplications} object
 	 */
-	BundleApplications getOrCreateNewBundleApplications(final String name,
-		final LanguageLocales defaultLocale);
+	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocales defaultLocale);
 
 	/**
 	 * Gets the {@link BundleApplications} object from the given name or creates a new
@@ -88,7 +89,7 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *            the supported locales
 	 * @return the existing or a new {@link BundleApplications} object
 	 */
-	BundleApplications getOrCreateNewBundleApplications(final String name,
-		final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales);
+	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocales defaultLocale, @NonNull final Set<LanguageLocales> supportedLocales);
 
 }

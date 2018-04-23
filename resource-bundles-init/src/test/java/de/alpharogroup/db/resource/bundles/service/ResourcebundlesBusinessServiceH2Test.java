@@ -49,6 +49,7 @@ import de.alpharogroup.file.search.PathFinder;
 public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundlesBusinessServiceTest
 {
 
+
 	@Override
 	@Test(enabled = true)
 	public void testBundleApplicationsWithSameNameResourceBundles()
@@ -124,5 +125,12 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 		tx.commit();
 		all = languagesService.findAll();
 		System.out.println(all);
+	}
+
+	@Test(enabled = true)
+	@Override
+	public void testSupportedLanguageLocales()
+	{
+		super.testSupportedLanguageLocales();
 	}
 }
