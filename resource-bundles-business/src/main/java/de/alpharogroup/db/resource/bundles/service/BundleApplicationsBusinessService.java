@@ -134,7 +134,6 @@ public class BundleApplicationsBusinessService
 			baseBundleApplication = ResourceBundlesDomainObjectFactory.getInstance()
 				.newBundleApplications(name, defaultLocale, supportedLocales);
 
-			baseBundleApplication.addSupportedLanguageLocale(defaultLocale);
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;
