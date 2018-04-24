@@ -39,6 +39,7 @@ import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
@@ -130,18 +131,9 @@ public class BundleApplicationsBusinessService
 		BundleApplications baseBundleApplication = find(name);
 		if (baseBundleApplication == null)
 		{
-			if(supportedLocales != null) {
-				baseBundleApplication = BundleApplications.builder()
-					.name(name)
-					.defaultLocale(defaultLocale)
-					.supportedLocales(supportedLocales)
-					.build();				
-			} else {
-				baseBundleApplication = BundleApplications.builder()
-					.name(name)
-					.defaultLocale(defaultLocale)
-					.build();				
-			}
+			baseBundleApplication = ResourceBundlesDomainObjectFactory.getInstance()
+				.newBundleApplications(name, defaultLocale, supportedLocales);
+
 			baseBundleApplication.addSupportedLanguageLocale(defaultLocale);
 			baseBundleApplication = merge(baseBundleApplication);
 		}
@@ -151,7 +143,8 @@ public class BundleApplicationsBusinessService
 	/**
 	 * Sets the bundle applications repository.
 	 *
-	 * @param repository the new bundle applications repository
+	 * @param repository
+	 *            the new bundle applications repository
 	 */
 	@Autowired
 	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
@@ -171,7 +164,7 @@ public class BundleApplicationsBusinessService
 			resourcebundlesService.delete(bundleName);
 		}
 		bundleApplications.setDefaultLocale(null);
-		BundleApplications merged = merge(bundleApplications);		
+		BundleApplications merged = merge(bundleApplications);
 		super.delete(merged);
 	}
 
