@@ -9,6 +9,7 @@ CHANGED:
 - overwrite of delete method in business service for BundleApplications 
 - update of parent version to 6.2.0
 - new method isSupported created in BundleApplications
+- add LanguageLocales to BundleApplications if not supported
 
 
 Version 5.2.0
