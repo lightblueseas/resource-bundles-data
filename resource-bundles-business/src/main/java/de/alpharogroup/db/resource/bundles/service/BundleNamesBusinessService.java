@@ -40,6 +40,7 @@ import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.BundleNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
@@ -212,8 +213,8 @@ public class BundleNamesBusinessService
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	@Override
-	public BundleNames getOrCreateNewBundleNames(final BundleApplications owner,
-		final String baseName, final Locale locale)
+	public BundleNames getOrCreateNewBundleNames(BundleApplications owner, final String baseName,
+		final Locale locale)
 	{
 		BundleNames bundleNames = find(owner, baseName, locale);
 		if (bundleNames == null)
@@ -221,8 +222,16 @@ public class BundleNamesBusinessService
 			final LanguageLocales dbLocale = languageLocalesService
 				.getOrCreateNewLanguageLocales(locale);
 			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
-			bundleNames = BundleNames.builder().owner(owner).baseName(bn).locale(dbLocale).build();
+			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(owner, bn,
+				dbLocale);
 			bundleNames = merge(bundleNames);
+
+			if (!owner.isSupported(dbLocale))
+			{
+				owner = bundleApplicationsService.get(owner.getId());
+				owner.addSupportedLanguageLocale(dbLocale);
+				bundleApplicationsService.merge(owner);
+			}
 		}
 		return bundleNames;
 	}

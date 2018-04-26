@@ -151,12 +151,12 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			.getOrCreateNewLanguageLocales(Locales.HELLENIC);
 		
 		final String applicationName = "bar-date.com";
-		final BundleApplications bundleApplication = bundleApplicationsService
+		BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 
 		bundleApplication.addSupportedLanguageLocale(supportedEnglishLanguageLocale);
 		bundleApplication.addSupportedLanguageLocale(supportedHellenicLanguageLocale);
-		bundleApplicationsService.merge(bundleApplication);
+		bundleApplication = bundleApplicationsService.merge(bundleApplication);
 		
 		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
 			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");

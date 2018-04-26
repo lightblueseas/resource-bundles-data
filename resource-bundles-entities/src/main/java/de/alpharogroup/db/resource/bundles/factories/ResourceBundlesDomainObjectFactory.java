@@ -94,7 +94,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	 */
 	public BundleApplications newBundleApplications(final String name,
 		final LanguageLocales defaultLocale)
-	{		
+	{
 		return newBundleApplications(name, defaultLocale, SetExtensions.newHashSet(defaultLocale));
 	}
 
@@ -109,7 +109,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	 */
 	public BundleApplications newBundleApplications(final String name,
 		final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
-	{	
+	{
 		if (supportedLocales == null)
 		{
 			supportedLocales = SetExtensions.newHashSet();
@@ -123,16 +123,19 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	/**
 	 * Factory method for create a new {@link BundleNames}.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 * @return the new {@link BundleNames}
 	 */
-	public BundleNames newBundleName(final BaseNames baseName, final LanguageLocales locale)
+	public BundleNames newBundleName(final BundleApplications owner, final BaseNames baseName,
+		final LanguageLocales locale)
 	{
-		final BundleNames bundleNames = BundleNames.builder().baseName(baseName).locale(locale)
-			.build();
+		final BundleNames bundleNames = BundleNames.builder().owner(owner).baseName(baseName)
+			.locale(locale).build();
 		return bundleNames;
 	}
 
