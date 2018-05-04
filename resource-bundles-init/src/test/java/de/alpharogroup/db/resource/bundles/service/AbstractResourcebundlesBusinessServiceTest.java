@@ -103,7 +103,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 	@Autowired
 	protected LanguagesService languagesService;
-	
+
 	@PersistenceUnit
 	protected EntityManagerFactory entityManagerFactory;
 
@@ -149,7 +149,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		final LanguageLocales supportedHellenicLanguageLocale = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locales.HELLENIC);
-		
+
 		final String applicationName = "bar-date.com";
 		BundleApplications bundleApplication = bundleApplicationsService
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
@@ -157,7 +157,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		bundleApplication.addSupportedLanguageLocale(supportedEnglishLanguageLocale);
 		bundleApplication.addSupportedLanguageLocale(supportedHellenicLanguageLocale);
 		bundleApplication = bundleApplicationsService.merge(bundleApplication);
-		
+
 		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
 			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");
 		if (resourcebundles == null)
@@ -221,6 +221,19 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, "First label");
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
+		}
+	}
+
+	protected void initCountries()
+	{
+		List<Countries> availableCountries = DataObjectFactory.newCountries();
+		for (Countries countries : availableCountries)
+		{
+			Countries foundCountry = countriesService.find(countries.getIso3166A2name());
+			if (foundCountry == null)
+			{
+				countriesService.merge(countries);
+			}
 		}
 	}
 
@@ -290,6 +303,20 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		assertNotEquals(bundleNames, bundleNames2);
 	}
 
+	public void testDeleteBundleApplications()
+	{
+		initBundleApplicationsFooDatingDotCom();
+
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+		final String applicationName = "foo-dating.com";
+		final BundleApplications bundleApplication = bundleApplicationsService
+			.getOrCreateNewBundleApplications(applicationName, languageLocales);
+		bundleApplicationsService.delete(bundleApplication);
+		BundleApplications bundleApplications = bundleApplicationsService.find(applicationName);
+		assertNull(bundleApplications);
+	}
+
 	public void testDeleteBundleName() throws URISyntaxException, IOException
 	{
 
@@ -332,20 +359,6 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
 
 		resourcebundlesService.delete(bundleNames);
-	}
-
-	public void testDeleteBundleApplications()
-	{
-		initBundleApplicationsFooDatingDotCom();
-
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
-		final String applicationName = "foo-dating.com";
-		final BundleApplications bundleApplication = bundleApplicationsService
-			.getOrCreateNewBundleApplications(applicationName, languageLocales);
-		bundleApplicationsService.delete(bundleApplication);
-		BundleApplications bundleApplications = bundleApplicationsService.find(applicationName);
-		assertNull(bundleApplications);
 	}
 
 	public void testFindBaseNames()
@@ -434,6 +447,29 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		initializeDatabase();
 	}
 
+	public void testSupportedLanguageLocales()
+	{
+		final LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.GERMANY);
+
+		final LanguageLocales supportedEnglishLanguageLocale = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locale.ENGLISH);
+
+		final LanguageLocales supportedHellenicLanguageLocale = languageLocalesService
+			.getOrCreateNewLanguageLocales(Locales.HELLENIC);
+
+
+		initBundleApplicationsBarDateDotCom();
+		final String applicationName = "bar-date.com";
+
+		BundleApplications bundleApplications = bundleApplicationsService.find(applicationName);
+
+		assertTrue(bundleApplications.isSupported(languageLocales));
+		assertTrue(bundleApplications.isSupported(supportedEnglishLanguageLocale));
+		assertTrue(bundleApplications.isSupported(supportedHellenicLanguageLocale));
+	}
+
+
 	/**
 	 * Test method for
 	 * {@link ResourcebundlesService#updateProperties(java.util.Properties, String, Locale)}
@@ -509,40 +545,6 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
 		assertEquals(633, rb.size());
-	}
-	
-
-	protected void initCountries() {		
-		List<Countries> availableCountries = DataObjectFactory.newCountries();
-		for (Countries countries : availableCountries)
-		{
-			Countries foundCountry = countriesService.find(countries.getIso3166A2name());
-			if (foundCountry == null)
-			{
-				countriesService.merge(countries);
-			}
-		}
-	}
-	
-	public void testSupportedLanguageLocales() {
-		final LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.GERMANY);
-
-		final LanguageLocales supportedEnglishLanguageLocale = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locale.ENGLISH);
-
-		final LanguageLocales supportedHellenicLanguageLocale = languageLocalesService
-			.getOrCreateNewLanguageLocales(Locales.HELLENIC);
-		
-
-		initBundleApplicationsBarDateDotCom();
-		final String applicationName = "bar-date.com";
-		
-		BundleApplications bundleApplications = bundleApplicationsService.find(applicationName);
-
-		assertTrue(bundleApplications.isSupported(languageLocales));
-		assertTrue(bundleApplications.isSupported(supportedEnglishLanguageLocale));
-		assertTrue(bundleApplications.isSupported(supportedHellenicLanguageLocale));		
 	}
 
 }

@@ -172,9 +172,6 @@ public class HqlStringCreator
 	 *
 	 * @param locale
 	 *            the locale
-	 * @param locale
-	 *            the locale
-	 *
 	 * @return the hql string
 	 */
 	public static String forLanguageLocales(final String locale)

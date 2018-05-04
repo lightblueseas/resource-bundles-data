@@ -75,6 +75,22 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	public void delete(BundleApplications bundleApplications)
+	{
+		List<BundleNames> bundleNames = bundleNamesService.find(bundleApplications);
+		for (BundleNames bundleName : bundleNames)
+		{
+			resourcebundlesService.delete(bundleName);
+		}
+		bundleApplications.setDefaultLocale(null);
+		BundleApplications merged = merge(bundleApplications);
+		super.delete(merged);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Set<BundleNames> find(final BundleApplications owner)
 	{
 		final TypedQuery<BundleNames> typedQuery = getEntityManager()
@@ -149,22 +165,6 @@ public class BundleApplicationsBusinessService
 	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
 	{
 		setRepository(repository);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(BundleApplications bundleApplications)
-	{
-		List<BundleNames> bundleNames = bundleNamesService.find(bundleApplications);
-		for (BundleNames bundleName : bundleNames)
-		{
-			resourcebundlesService.delete(bundleName);
-		}
-		bundleApplications.setDefaultLocale(null);
-		BundleApplications merged = merge(bundleApplications);
-		super.delete(merged);
 	}
 
 }

@@ -53,6 +53,50 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
+	@Test(enabled = true)
+	@Transactional
+	public void testCountries() throws IOException
+	{
+		initCountries();
+
+		final File projectDir = PathFinder.getProjectDirectory();
+		final File iso3166A2ToCountryNameFile = PathFinder.getRelativePathTo(projectDir, "/",
+			"src/main/resources", "iso3166_a2_countries_names_en.txt");
+		List<Countries> list = countriesService.findAll();
+
+		List<String> linesInList = ReadFileExtensions.readLinesInList(iso3166A2ToCountryNameFile);
+
+		for (String line : linesInList)
+		{
+			String[] keyValue = line.split("=");
+			String iso3166A2name = keyValue[0];
+			String name = keyValue[1];
+			System.out.println(iso3166A2name + "=" + name);
+			Countries country = countriesService.find(iso3166A2name);
+			if (country != null)
+			{
+				country.setName(name);
+			}
+			else
+			{
+				country = Countries.builder().iso3166a2name(iso3166A2name).name(name).build();
+			}
+			Countries merged = countriesService.merge(country);
+
+		}
+
+
+		// List<Countries> availableCountries = DataObjectFactory.newCountries();
+		// for (Countries countries : availableCountries)
+		// {
+		// Countries foundCountry = countriesService.find(countries.getIso3166A2name());
+		// if (foundCountry == null)
+		// {
+		// countriesService.merge(countries);
+		// }
+		// }
+	}
+
 	@Override
 	@Test(enabled = DISABLED)
 	public void testDeleteBundleName() throws URISyntaxException, IOException
@@ -102,47 +146,5 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 		super.testUpdatePropertiesUpdate();
 	}
 
-	@Test(enabled = true)
-	@Transactional 
-	public void testCountries() throws IOException
-	{
-		initCountries();
-		
-		final File projectDir = PathFinder.getProjectDirectory();
-		final File iso3166A2ToCountryNameFile = PathFinder.getRelativePathTo(projectDir, "/",
-			"src/main/resources", "iso3166_a2_countries_names_en.txt");
-		List<Countries> list = countriesService.findAll();
-		
-		List<String> linesInList = ReadFileExtensions.readLinesInList(iso3166A2ToCountryNameFile);
-		
-		for (String line : linesInList)
-		{
-			String[] keyValue = line.split("=");
-			String iso3166A2name = keyValue[0];
-			String name = keyValue[1];
-			System.out.println(iso3166A2name + "=" + name);
-			Countries country = countriesService.find(iso3166A2name);
-			if(country != null) {
-				country.setName(name);
-			} else {
-				country = Countries.builder()
-				.iso3166a2name(iso3166A2name).name(name).build();
-			}
-			Countries merged = countriesService.merge(country);
-			
-		}
-		
-		
-//		List<Countries> availableCountries = DataObjectFactory.newCountries();
-//		for (Countries countries : availableCountries)
-//		{
-//			Countries foundCountry = countriesService.find(countries.getIso3166A2name());
-//			if (foundCountry == null)
-//			{
-//				countriesService.merge(countries);
-//			}
-//		}
-	}
-	
-	
+
 }

@@ -90,6 +90,7 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 * @return the existing or a new {@link BundleApplications} object
 	 */
 	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
-		@NonNull final LanguageLocales defaultLocale, @NonNull final Set<LanguageLocales> supportedLocales);
+		@NonNull final LanguageLocales defaultLocale,
+		@NonNull final Set<LanguageLocales> supportedLocales);
 
 }

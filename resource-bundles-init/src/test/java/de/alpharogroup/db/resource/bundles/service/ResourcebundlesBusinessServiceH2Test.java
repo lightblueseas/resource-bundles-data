@@ -57,6 +57,34 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
+	@Test(enabled = true)
+	@Transactional
+	public void testCountries() throws IOException
+	{
+		final File projectDir = PathFinder.getProjectDirectory();
+		final File mergeSqlFile = PathFinder.getRelativePathTo(projectDir, "/",
+			"src/main/resources/dll/inserts", "merge_languages_H2.sql");
+		List<Languages> all = languagesService.findAll();
+
+		String sqlString = ReadFileExtensions.readFromFile(mergeSqlFile);
+		EntityTransaction tx = null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query nativeQuery = entityManager.createNativeQuery(sqlString);
+		tx = entityManager.getTransaction();
+		tx.begin();
+		nativeQuery.executeUpdate();
+		tx.commit();
+		all = languagesService.findAll();
+		System.out.println(all);
+	}
+
+	@Override
+	@Test(enabled = true)
+	public void testDeleteBundleApplications()
+	{
+		super.testDeleteBundleApplications();
+	}
+
 	@Override
 	@Test(enabled = true)
 	public void testFindBundleApplications()
@@ -85,6 +113,13 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 		super.testFindResourceBundles();
 	}
 
+	@Test(enabled = true)
+	@Override
+	public void testSupportedLanguageLocales()
+	{
+		super.testSupportedLanguageLocales();
+	}
+
 	@Override
 	@Test(enabled = true)
 	public void testUpdateProperties() throws URISyntaxException, IOException
@@ -97,40 +132,5 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();
-	}
-
-	@Override
-	@Test(enabled = true)
-	public void testDeleteBundleApplications()
-	{
-		super.testDeleteBundleApplications();
-	}
-
-	@Test(enabled = true)
-	@Transactional 
-	public void testCountries() throws IOException
-	{
-		final File projectDir = PathFinder.getProjectDirectory();
-		final File mergeSqlFile = PathFinder.getRelativePathTo(projectDir, "/",
-			"src/main/resources/dll/inserts", "merge_languages_H2.sql");
-		List<Languages> all = languagesService.findAll();
-	
-		String sqlString = ReadFileExtensions.readFromFile(mergeSqlFile);
-		 EntityTransaction tx = null; 
-		 EntityManager entityManager = entityManagerFactory.createEntityManager();
-		 Query nativeQuery = entityManager.createNativeQuery(sqlString);
-		tx = entityManager.getTransaction();
-		tx.begin();
-		nativeQuery.executeUpdate();
-		tx.commit();
-		all = languagesService.findAll();
-		System.out.println(all);
-	}
-
-	@Test(enabled = true)
-	@Override
-	public void testSupportedLanguageLocales()
-	{
-		super.testSupportedLanguageLocales();
 	}
 }

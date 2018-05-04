@@ -121,6 +121,22 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 	}
 
 	/**
+	 * Adds the given {@link LanguageLocales} to the supported language locales.
+	 *
+	 * @param supportedLocale
+	 *            the supported locale to add
+	 * @return true, if successful
+	 */
+	public boolean addSupportedLanguageLocale(LanguageLocales supportedLocale)
+	{
+		if (supportedLocales == null)
+		{
+			supportedLocales = new HashSet<>();
+		}
+		return supportedLocales.add(supportedLocale);
+	}
+
+	/**
 	 * Checks if the given {@link LanguageLocales} is supported
 	 *
 	 * @param supportedLocale
@@ -133,28 +149,16 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 	}
 
 	/**
-	 * Adds the given {@link LanguageLocales} to the supported language locales.
-	 *
-	 * @param supportedLocale the supported locale to add
-	 * @return true, if successful
-	 */
-	public boolean addSupportedLanguageLocale(LanguageLocales supportedLocale)
-	{
-		if(supportedLocales == null) {
-			supportedLocales = new HashSet<>();
-		}
-		return supportedLocales.add(supportedLocale);
-	}
-
-	/**
 	 * Removes the supported language locale.
 	 *
-	 * @param supportedLocale the supported locale
+	 * @param supportedLocale
+	 *            the supported locale
 	 * @return true, if successful
 	 */
 	public boolean removeSupportedLanguageLocale(LanguageLocales supportedLocale)
 	{
-		if(supportedLocales == null) {
+		if (supportedLocales == null)
+		{
 			supportedLocales = new HashSet<>();
 			return false;
 		}
