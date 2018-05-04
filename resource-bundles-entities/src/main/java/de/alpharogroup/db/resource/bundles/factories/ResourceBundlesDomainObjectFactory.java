@@ -25,9 +25,10 @@
 package de.alpharogroup.db.resource.bundles.factories;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Locale;
+import java.util.Set;
 
+import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -94,24 +95,47 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	public BundleApplications newBundleApplications(final String name,
 		final LanguageLocales defaultLocale)
 	{
+		return newBundleApplications(name, defaultLocale, SetExtensions.newHashSet(defaultLocale));
+	}
+
+	/**
+	 * Factory method for create a new {@link BundleApplications}.
+	 *
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @return the new {@link BundleApplications}
+	 */
+	public BundleApplications newBundleApplications(final String name,
+		final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
+	{
+		if (supportedLocales == null)
+		{
+			supportedLocales = SetExtensions.newHashSet();
+		}
+		supportedLocales.add(defaultLocale);
 		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
-			.defaultLocale(defaultLocale).supportedLocales(new HashSet<>()).build();
+			.defaultLocale(defaultLocale).supportedLocales(supportedLocales).build();
 		return bundleApplications;
 	}
 
 	/**
 	 * Factory method for create a new {@link BundleNames}.
 	 *
+	 * @param owner
+	 *            the owner
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 * @return the new {@link BundleNames}
 	 */
-	public BundleNames newBundleName(final BaseNames baseName, final LanguageLocales locale)
+	public BundleNames newBundleName(final BundleApplications owner, final BaseNames baseName,
+		final LanguageLocales locale)
 	{
-		final BundleNames bundleNames = BundleNames.builder().baseName(baseName).locale(locale)
-			.build();
+		final BundleNames bundleNames = BundleNames.builder().owner(owner).baseName(baseName)
+			.locale(locale).build();
 		return bundleNames;
 	}
 

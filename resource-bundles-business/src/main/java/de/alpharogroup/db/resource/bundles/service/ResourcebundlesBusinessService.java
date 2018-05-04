@@ -339,6 +339,7 @@ public class ResourcebundlesBusinessService
 			if (bundleNames == null)
 			{
 				bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
+					resourcebundles.getBundleName().getOwner(),
 					resourcebundles.getBundleName().getBaseName(),
 					resourcebundles.getBundleName().getLocale());
 				bundleNames.setBaseName(baseName);
@@ -396,6 +397,7 @@ public class ResourcebundlesBusinessService
 			if (bundleNames == null)
 			{
 				bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
+					resourcebundles.getBundleName().getOwner(),
 					resourcebundles.getBundleName().getBaseName(),
 					resourcebundles.getBundleName().getLocale());
 				bundleNames.setBaseName(baseName);

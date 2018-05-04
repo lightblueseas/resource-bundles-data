@@ -37,7 +37,9 @@
 
 	<jdbc:embedded-database id="dataSource" type="H2">
 		<jdbc:script location="classpath:dll/inserts/initializeSchema.sql" />
-		<jdbc:script location="classpath:dll/inserts/insert_resourcebundles.sql" />
+		<jdbc:script location="classpath:dll/inserts/merge_countries_h2.sql" />
+		<jdbc:script location="classpath:dll/inserts/merge_languages_h2.sql" />
+		<jdbc:script location="classpath:dll/inserts/merge_resourcebundles_h2.sql" />
 	</jdbc:embedded-database>
 
 	<!-- h2 tomcat.dbcp DataSource configuration -->
@@ -65,7 +67,8 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="jpaVendorAdapter"	class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+	<bean id="jpaVendorAdapter"
+		class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="generateDdl" value="true" />
 		<property name="showSql" value="true" />
 		<property name="database" value="H2" />
@@ -89,7 +92,7 @@
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="resourcebundles" />
+		<property name="persistenceUnitName" value="${jdbc.db.name}" />
 		<property name="dataSource" ref="dataSource" />
 		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
 	</bean>
@@ -101,4 +104,3 @@
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>
-

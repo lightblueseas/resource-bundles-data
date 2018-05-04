@@ -24,11 +24,22 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.Test;
+
+import de.alpharogroup.db.resource.bundles.entities.Languages;
+import de.alpharogroup.file.read.ReadFileExtensions;
+import de.alpharogroup.file.search.PathFinder;
 
 
 /**
@@ -38,11 +49,40 @@ import org.testng.annotations.Test;
 public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundlesBusinessServiceTest
 {
 
+
 	@Override
 	@Test(enabled = true)
 	public void testBundleApplicationsWithSameNameResourceBundles()
 	{
 		super.testBundleApplicationsWithSameNameResourceBundles();
+	}
+
+	@Test(enabled = true)
+	@Transactional
+	public void testCountries() throws IOException
+	{
+		final File projectDir = PathFinder.getProjectDirectory();
+		final File mergeSqlFile = PathFinder.getRelativePathTo(projectDir, "/",
+			"src/main/resources/dll/inserts", "merge_languages_H2.sql");
+		List<Languages> all = languagesService.findAll();
+
+		String sqlString = ReadFileExtensions.readFromFile(mergeSqlFile);
+		EntityTransaction tx = null;
+		EntityManager entityManager = entityManagerFactory.createEntityManager();
+		Query nativeQuery = entityManager.createNativeQuery(sqlString);
+		tx = entityManager.getTransaction();
+		tx.begin();
+		nativeQuery.executeUpdate();
+		tx.commit();
+		all = languagesService.findAll();
+		System.out.println(all);
+	}
+
+	@Override
+	@Test(enabled = true)
+	public void testDeleteBundleApplications()
+	{
+		super.testDeleteBundleApplications();
 	}
 
 	@Override
@@ -73,6 +113,13 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 		super.testFindResourceBundles();
 	}
 
+	@Test(enabled = true)
+	@Override
+	public void testSupportedLanguageLocales()
+	{
+		super.testSupportedLanguageLocales();
+	}
+
 	@Override
 	@Test(enabled = true)
 	public void testUpdateProperties() throws URISyntaxException, IOException
@@ -86,6 +133,4 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	{
 		super.testUpdatePropertiesUpdate();
 	}
-
-
 }

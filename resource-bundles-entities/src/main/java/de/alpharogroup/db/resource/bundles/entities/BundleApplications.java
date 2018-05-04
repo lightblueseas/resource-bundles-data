@@ -35,6 +35,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import de.alpharogroup.db.entity.name.versionable.unique.VersionableExtraLargeUniqueNameEntity;
@@ -57,6 +59,10 @@ import lombok.ToString;
  * Note: The supported locale objects for a real application are mandatory as the default locale.
  */
 @Entity
+@NamedQueries({
+		@NamedQuery(name = BundleApplications.NQ_FIND_SUPPORTED_LANGUAGE_LOCALE, query = "select ba from BundleApplications ba where :languageLocale member of ba.supportedLocales"),
+		@NamedQuery(name = BundleApplications.NQ_FIND_JOIN_SUPPORTED_LANGUAGE_LOCALE, query = "select ba from BundleApplications ba inner join ba.supportedLocales sl where sl.id = :languageLocale") })
+
 @Table(name = "bundle_applications")
 @Getter
 @Setter
@@ -69,6 +75,12 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	public static final String NQ_FIND_SUPPORTED_LANGUAGE_LOCALE = "BundleApplications."
+		+ "findSupportedLanguageLocale";
+	public static final String NQ_FIND_JOIN_SUPPORTED_LANGUAGE_LOCALE = "BundleApplications."
+		+ "findWithJoinSupportedLanguageLocale";
+
 
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
@@ -106,6 +118,51 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 		super(name);
 		this.defaultLocale = defaultLocale;
 		this.supportedLocales = supportedLocales;
+	}
+
+	/**
+	 * Adds the given {@link LanguageLocales} to the supported language locales.
+	 *
+	 * @param supportedLocale
+	 *            the supported locale to add
+	 * @return true, if successful
+	 */
+	public boolean addSupportedLanguageLocale(LanguageLocales supportedLocale)
+	{
+		if (supportedLocales == null)
+		{
+			supportedLocales = new HashSet<>();
+		}
+		return supportedLocales.add(supportedLocale);
+	}
+
+	/**
+	 * Checks if the given {@link LanguageLocales} is supported
+	 *
+	 * @param supportedLocale
+	 *            the supported locale
+	 * @return true, if the given {@link LanguageLocales} is supported otherwise false
+	 */
+	public boolean isSupported(LanguageLocales supportedLocale)
+	{
+		return getSupportedLocales().contains(supportedLocale);
+	}
+
+	/**
+	 * Removes the supported language locale.
+	 *
+	 * @param supportedLocale
+	 *            the supported locale
+	 * @return true, if successful
+	 */
+	public boolean removeSupportedLanguageLocale(LanguageLocales supportedLocale)
+	{
+		if (supportedLocales == null)
+		{
+			supportedLocales = new HashSet<>();
+			return false;
+		}
+		return supportedLocales.remove(supportedLocale);
 	}
 
 }

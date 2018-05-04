@@ -74,11 +74,11 @@ public class CountriesBusinessService
 		}
 		if (iso3166a2name != null && !iso3166a2name.isEmpty())
 		{
-			query.setParameter("iso3166a2name", iso3166a2name);
+			query.setParameter("iso3166A2name", iso3166a2name);
 		}
 
-		final List<Countries> languages = query.getResultList();
-		return ListExtensions.getFirst(languages);
+		final List<Countries> countries = query.getResultList();
+		return ListExtensions.getFirst(countries);
 	}
 
 	@Autowired

@@ -26,6 +26,7 @@
 			<property name="hibernate.connection.password" value="" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
 			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.jta.allowTransactionAccess" value="true" />
 			<property name="hibernate.event.merge.entity_copy_observer"
 				value="allow" />
 			<property name="hibernate.enable_lazy_load_no_trans" value="true" />

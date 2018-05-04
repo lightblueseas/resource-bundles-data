@@ -24,7 +24,6 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import java.text.MessageFormat;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
@@ -46,6 +45,7 @@ import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import de.alpharogroup.resourcebundle.locale.ResourceBundleExtensions;
 import de.alpharogroup.service.domain.AbstractDomainService;
 
 /**
@@ -207,10 +207,7 @@ public class ResourcebundleDomainService
 		if (resourcebundles != null)
 		{
 			value = getMapper().toDomainObject(resourcebundles).getValue();
-			if (parameters != null && 0 < parameters.length)
-			{
-				value = MessageFormat.format(value, parameters);
-			}
+			value = ResourceBundleExtensions.format(value, parameters);
 		}
 		return value;
 	}
@@ -242,10 +239,7 @@ public class ResourcebundleDomainService
 		if (resourcebundles != null)
 		{
 			value = getMapper().toDomainObject(resourcebundles).getValue();
-			if (parameters != null && 0 < parameters.length)
-			{
-				value = MessageFormat.format(value, parameters);
-			}
+			value = ResourceBundleExtensions.format(value, parameters);
 		}
 		return value;
 	}

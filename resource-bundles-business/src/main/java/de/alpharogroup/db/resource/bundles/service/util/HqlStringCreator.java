@@ -144,7 +144,7 @@ public class HqlStringCreator
 	public static String forCountries(final String name, final String iso3166A2name)
 	{
 		final StringBuilder sb = new StringBuilder();
-		sb.append("select c from " + Languages.class.getSimpleName() + " c");
+		sb.append("select c from " + Countries.class.getSimpleName() + " c");
 		final boolean nameIsNotNull = name != null && !name.isEmpty();
 		if (nameIsNotNull)
 		{
@@ -172,9 +172,6 @@ public class HqlStringCreator
 	 *
 	 * @param locale
 	 *            the locale
-	 * @param locale
-	 *            the locale
-	 *
 	 * @return the hql string
 	 */
 	public static String forLanguageLocales(final String locale)

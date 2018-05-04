@@ -39,10 +39,14 @@ import de.alpharogroup.collections.set.SetExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
+import lombok.NonNull;
 
 /**
  * The class {@link BundleApplicationsBusinessService}.
@@ -59,10 +63,37 @@ public class BundleApplicationsBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The Bundle names service. */
+	@Autowired
+	private BundleNamesService bundleNamesService;
+
+	/** The resourcebundles service. */
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(BundleApplications bundleApplications)
+	{
+		List<BundleNames> bundleNames = bundleNamesService.find(bundleApplications);
+		for (BundleNames bundleName : bundleNames)
+		{
+			resourcebundlesService.delete(bundleName);
+		}
+		bundleApplications.setDefaultLocale(null);
+		BundleApplications merged = merge(bundleApplications);
+		super.delete(merged);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public Set<BundleNames> find(final BundleApplications owner)
 	{
-		final TypedQuery<BundleNames> typedQuery = getRepository().getEntityManager()
+		final TypedQuery<BundleNames> typedQuery = getEntityManager()
 			.createNamedQuery(BundleNames.NQ_FIND_BY_OWNER, BundleNames.class)
 			.setParameter("owner", owner);
 
@@ -100,33 +131,36 @@ public class BundleApplicationsBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(final String name,
-		final LanguageLocales defaultLocale)
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocales defaultLocale)
 	{
-		BundleApplications baseBundleApplication = find(name);
-		if (baseBundleApplication == null)
-		{
-			baseBundleApplication = BundleApplications.builder().name(name)
-				.defaultLocale(defaultLocale).build();
-			baseBundleApplication = merge(baseBundleApplication);
-		}
-		return baseBundleApplication;
+		return getOrCreateNewBundleApplications(name, defaultLocale, null);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public BundleApplications getOrCreateNewBundleApplications(String name,
-		LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
 	{
 		BundleApplications baseBundleApplication = find(name);
 		if (baseBundleApplication == null)
 		{
-			baseBundleApplication = BundleApplications.builder().name(name)
-				.defaultLocale(defaultLocale).supportedLocales(supportedLocales).build();
+			baseBundleApplication = ResourceBundlesDomainObjectFactory.getInstance()
+				.newBundleApplications(name, defaultLocale, supportedLocales);
+
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;
 	}
 
+	/**
+	 * Sets the bundle applications repository.
+	 *
+	 * @param repository
+	 *            the new bundle applications repository
+	 */
 	@Autowired
 	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
 	{
