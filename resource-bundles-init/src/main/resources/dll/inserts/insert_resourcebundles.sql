@@ -34,13 +34,24 @@ INSERT INTO properties_keys (id, version, name) VALUES (3, 1, 'com.example.gui.w
 INSERT INTO properties_keys (id, version, name) VALUES (4, 1, 'com.example.gui.prop.with.params.label');
 INSERT INTO properties_keys (id, version, name) VALUES (5, 1, 'com.example.gui.window.buttons.cancel');
 
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (1, 1, 1, 'Erstes label', 1);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (2, 1, 1, 'First label', 2);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (3, 1, 2, 'Speichern', 3);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (4, 1, 3, 'Hallo, dort!', 3);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (5, 1, 4, 'Hallo ich bin {0} und komme aus {1}.', 3);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (6, 1, 5, 'Abbrechen', 3);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (7, 1, 2, 'Save', 4);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (8, 1, 3, 'Hello, there!', 4);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (9, 1, 4, 'Hello i am {0} and i come from {1}.', 4);
-INSERT INTO resourcebundles (id, version, properties_key_id, value, bundlename_id) VALUES (10, 1, 5, 'Cancel', 4);
+INSERT INTO properties_values (id, version, name) VALUES (1, 1, 'Erstes label');
+INSERT INTO properties_values (id, version, name) VALUES (2, 1, 'First label');
+INSERT INTO properties_values (id, version, name) VALUES (3, 1, 'Speichern');
+INSERT INTO properties_values (id, version, name) VALUES (4, 1, 'Hallo, dort!');
+INSERT INTO properties_values (id, version, name) VALUES (5, 1, 'Hallo ich bin {0} und komme aus {1}.');
+INSERT INTO properties_values (id, version, name) VALUES (6, 1, 'Abbrechen');
+INSERT INTO properties_values (id, version, name) VALUES (7, 1, 'Save');
+INSERT INTO properties_values (id, version, name) VALUES (8, 1, 'Hello, there!');
+INSERT INTO properties_values (id, version, name) VALUES (9, 1, 'Hello i am {0} and i come from {1}.');
+INSERT INTO properties_values (id, version, name) VALUES (10, 1, 'Cancel');
+
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (1, 1, 1, 1, 1);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (2, 1, 1, 2, 2);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (3, 1, 2, 3, 3);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (4, 1, 3, 4, 3);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (5, 1, 4, 5, 3);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (6, 1, 5, 6, 3);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (7, 1, 2, 7, 4);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (8, 1, 3, 8, 4);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (9, 1, 4, 9, 4);
+INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (10, 1, 5, 10, 4);
