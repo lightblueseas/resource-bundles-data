@@ -48,6 +48,7 @@ import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
@@ -56,6 +57,7 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
+import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
@@ -94,6 +96,10 @@ public class ResourcebundlesBusinessService
 	/** The properties keys service. */
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
+	
+	/** The properties values service. */
+	@Autowired
+	private PropertiesValuesService propertiesValuesService;
 
 	/** The bundle applications service. */
 	@Autowired
@@ -141,6 +147,7 @@ public class ResourcebundlesBusinessService
 	{
 		resourcebundles.setBundleName(null);
 		resourcebundles.setKey(null);
+		resourcebundles.setValue(null);
 		resourcebundles = super.merge(resourcebundles);
 		super.delete(resourcebundles);
 	}
@@ -241,7 +248,7 @@ public class ResourcebundlesBusinessService
 		final List<Resourcebundles> resourcebundles = findResourceBundles(owner, baseName, locale);
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue().getName());
 		}
 		return properties;
 	}
@@ -265,7 +272,7 @@ public class ResourcebundlesBusinessService
 		final List<Resourcebundles> resourcebundles = findResourceBundles(bundleName);
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue());
+			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue().getName());
 		}
 		return properties;
 	}
@@ -429,17 +436,18 @@ public class ResourcebundlesBusinessService
 	{
 		Resourcebundles resourcebundle = getResourcebundle(bundleName.getOwner(), baseName, locale,
 			key);
+		PropertiesValues pvalue = propertiesValuesService.getOrCreateNewPropertiesValues(value);
 		if (resourcebundle != null)
 		{
 			if (update)
 			{
-				resourcebundle.setValue(value);
+				resourcebundle.setValue(pvalue);
 			}
 		}
 		else
 		{
 			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
-			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(value)
+			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(pvalue)
 				.build();
 		}
 		resourcebundle = merge(resourcebundle);

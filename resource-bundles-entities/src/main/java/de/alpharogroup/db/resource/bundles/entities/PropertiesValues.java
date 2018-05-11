@@ -24,15 +24,10 @@
  */
 package de.alpharogroup.db.resource.bundles.entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.ForeignKey;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.version.VersionableBaseEntity;
-import lombok.AllArgsConstructor;
+import de.alpharogroup.db.entity.name.versionable.unique.VersionableMegaLargeUniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,35 +35,31 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The entity class {@link Resourcebundles} holds the all data of the values of the resource
- * bundles.
+ * The entity class {@link PropertiesValues} holds the data only for the properties values. </br>
+ * </br>
  */
 @Entity
-@Table(name = "resourcebundles")
+@Table(name = "properties_values")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
-public class Resourcebundles extends VersionableBaseEntity<Integer> implements Cloneable
+public class PropertiesValues extends VersionableMegaLargeUniqueNameEntity<Integer> implements Cloneable
 {
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
 
-	/** The bundleName from this {@link BundleNames} object. */
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_BUNDLENAME_ID"))
-	private BundleNames bundleName;
+	/**
+	 * Instantiates a new {@link PropertiesValues} entity object.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	@Builder
+	PropertiesValues(String name)
+	{
+		super(name);
+	}
 
-	/** The properties key from this {@link BundleNames} object. */
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "properties_key_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_KEY_ID"))
-	private PropertiesKeys key;
-
-	/** The value for the properties key. */
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "properties_value_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_VALUE_ID"))
-	private PropertiesValues value;
 }

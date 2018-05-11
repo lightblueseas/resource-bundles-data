@@ -6,4 +6,5 @@ create table countries (id int4 not null, name varchar(64) unique, iso3166_a2nam
 create table language_locales (id int4 not null, version int4, locale varchar(64) unique, primary key (id));
 create table languages (id int4 not null, version int4, name varchar(64) unique, iso639_1 varchar(2), primary key (id));
 create table properties_keys (id int4 not null, version int4, name varchar(1024), primary key (id));
-create table resourcebundles (id int4 not null, version int4, value varchar(2048), bundlename_id int4, properties_key_id int4, primary key (id));
+create table properties_values (id int4 not null, version int4, name varchar(8192) unique, primary key (id));
+create table resourcebundles (id int4 not null, version int4, bundlename_id int4, properties_key_id int4, properties_value_id int4, primary key (id));

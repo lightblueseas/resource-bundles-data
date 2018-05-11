@@ -22,46 +22,29 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.entities;
+package de.alpharogroup.db.resource.bundles.service.api;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
+import de.alpharogroup.db.service.api.BusinessService;
 
-import de.alpharogroup.db.entity.name.versionable.VersionableExtraLargeNameEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-
-/**
- * The entity class {@link PropertiesKeys} holds the data only for the properties keys not the
- * values. </br>
- * </br>
- * Note: The values of the properties keys is in the entity class {@link PropertiesValues}.
- */
-@Entity
-@Table(name = "properties_keys")
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class PropertiesKeys extends VersionableExtraLargeNameEntity<Integer> implements Cloneable
+public interface PropertiesValuesService extends BusinessService<PropertiesValues, Integer>
 {
 
-	/** Serial Version UID */
-	private static final long serialVersionUID = 1L;
+	/**
+	 * Find the {@link PropertiesValues} object from the given properties value.
+	 * 
+	 * @param propertiesValue
+	 *            the properties value
+	 * @return the found {@link PropertiesValues} object or null if not.
+	 */
+	PropertiesValues find(final String propertiesValue);
 
 	/**
-	 * Instantiates a new {@link PropertiesKeys} entity object.
+	 * Gets the or creates a new {@link PropertiesValues} object
 	 *
-	 * @param name
-	 *            the name
+	 * @param value
+	 *            the value
+	 * @return the {@link PropertiesValues} object
 	 */
-	@Builder
-	PropertiesKeys(String name)
-	{
-		super(name);
-	}
-
+	PropertiesValues getOrCreateNewPropertiesValues(final String value);
 }

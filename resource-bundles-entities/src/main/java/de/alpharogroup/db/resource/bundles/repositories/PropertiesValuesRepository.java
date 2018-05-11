@@ -22,46 +22,21 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.entities;
+package de.alpharogroup.db.resource.bundles.repositories;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.entity.name.versionable.VersionableExtraLargeNameEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import de.alpharogroup.db.repository.AbstractRepository;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 
 /**
- * The entity class {@link PropertiesKeys} holds the data only for the properties keys not the
- * values. </br>
- * </br>
- * Note: The values of the properties keys is in the entity class {@link PropertiesValues}.
+ * The class {@link PropertiesValuesRepository}.
  */
-@Entity
-@Table(name = "properties_keys")
-@Getter
-@Setter
-@ToString
-@NoArgsConstructor
-public class PropertiesKeys extends VersionableExtraLargeNameEntity<Integer> implements Cloneable
+@Repository("propertiesValuesRepository")
+public class PropertiesValuesRepository extends AbstractRepository<PropertiesValues, Integer>
 {
-
-	/** Serial Version UID */
-	private static final long serialVersionUID = 1L;
-
 	/**
-	 * Instantiates a new {@link PropertiesKeys} entity object.
-	 *
-	 * @param name
-	 *            the name
+	 * The serialVersionUID.
 	 */
-	@Builder
-	PropertiesKeys(String name)
-	{
-		super(name);
-	}
-
+	private static final long serialVersionUID = 1L;
 }

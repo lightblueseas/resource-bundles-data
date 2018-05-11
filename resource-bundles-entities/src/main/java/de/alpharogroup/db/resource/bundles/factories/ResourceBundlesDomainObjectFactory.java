@@ -35,6 +35,7 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
@@ -196,6 +197,19 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	}
 
 	/**
+	 * Factory method for create a new {@link PropertiesValues}.
+	 *
+	 * @param name
+	 *            the name
+	 *
+	 * @return the new {@link PropertiesValues}
+	 */
+	public PropertiesValues newPropertiesValues(final String name)
+	{
+		return PropertiesValues.builder().name(name).build();
+	}
+
+	/**
 	 * Factory method for create a new {@link Resourcebundles}.
 	 *
 	 * @param bundleName
@@ -207,7 +221,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	 * @return the new {@link Resourcebundles}
 	 */
 	public Resourcebundles newResourcebundles(final BundleNames bundleName,
-		final PropertiesKeys key, final String value)
+		final PropertiesKeys key, final PropertiesValues value)
 	{
 		final Resourcebundles resourcebundles = Resourcebundles.builder().bundleName(bundleName)
 			.key(key).value(value).build();

@@ -31,6 +31,7 @@ import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 
 /**
@@ -239,6 +240,26 @@ public class HqlStringCreator
 		{
 			sb.append(" ");
 			sb.append("where bn.name=:propertiesKey");
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * Creates hql query for {@link PropertiesValues}.
+	 *
+	 * @param propertiesValue
+	 *            the properties value
+	 * @return the hql string
+	 */
+	public static String forPropertiesValues(final String propertiesValue)
+	{
+		final StringBuilder sb = new StringBuilder();
+		sb.append("select bn from " + PropertiesValues.class.getSimpleName() + " bn");
+		final boolean propertiesValueIsNotNull = propertiesValue != null && !propertiesValue.isEmpty();
+		if (propertiesValueIsNotNull)
+		{
+			sb.append(" ");
+			sb.append("where bn.name=:propertiesValue");
 		}
 		return sb.toString();
 	}

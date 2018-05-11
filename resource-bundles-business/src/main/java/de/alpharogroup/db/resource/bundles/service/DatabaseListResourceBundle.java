@@ -112,7 +112,7 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 		int i = 0;
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			all[i] = new Object[] { resourcebundle.getKey().getName(), resourcebundle.getValue() };
+			all[i] = new Object[] { resourcebundle.getKey().getName(), resourcebundle.getValue().getName() };
 			i++;
 		}
 		return all;
