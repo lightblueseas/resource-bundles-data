@@ -24,20 +24,14 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.BaseNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
-import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
@@ -56,36 +50,6 @@ public class BaseNamesBusinessService
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public BaseNames find(String baseName)
-	{
-		final String hqlString = HqlStringCreator.forBaseNames(baseName);
-		final Query query = getQuery(hqlString);
-		if (baseName != null && !baseName.isEmpty())
-		{
-			query.setParameter("baseName", baseName);
-		}
-		final List<BaseNames> baseNames = query.getResultList();
-		return ListExtensions.getFirst(baseNames);
-	}
-
-	@Override
-	public BaseNames getOrCreateNewBaseNames(final String baseName)
-	{
-		// check if baseNames exists...
-		BaseNames foundBaseName = find(baseName);
-		if (foundBaseName == null)
-		{
-			foundBaseName = ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(baseName);
-			foundBaseName = merge(foundBaseName);
-		}
-		return foundBaseName;
-	}
-
-	/**
 	 * Sets the repository.
 	 *
 	 * @param repository
@@ -95,6 +59,15 @@ public class BaseNamesBusinessService
 	public void setBaseNamesRepository(final BaseNamesRepository repository)
 	{
 		setRepository(repository);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BaseNames newNameEntity(String value)
+	{
+		return ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(value);
 	}
 
 }

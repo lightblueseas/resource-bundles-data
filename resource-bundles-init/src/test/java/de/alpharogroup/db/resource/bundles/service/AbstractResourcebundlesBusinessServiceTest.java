@@ -172,9 +172,9 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
 			value = "Erstes label";
-			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewPropertiesValues(value);
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundlesService.saveOrUpdate(resourcebundles);
@@ -188,9 +188,9 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
 			value = "First label";
-			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewPropertiesValues(value);
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
@@ -215,9 +215,9 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
 			value = "Erstes label";
-			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewPropertiesValues(value);
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundlesService.merge(resourcebundles);
@@ -231,9 +231,9 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
 			value = "First label";
-			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewPropertiesValues(value);
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
 				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
@@ -416,7 +416,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 
-		final BaseNames actual = baseNamesService.getOrCreateNewBaseNames(baseName);
+		final BaseNames actual = baseNamesService.getOrCreateNewNameEntity(baseName);
 		assertNotNull(actual);
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);

@@ -221,7 +221,7 @@ public class BundleNamesBusinessService
 		{
 			final LanguageLocales dbLocale = languageLocalesService
 				.getOrCreateNewLanguageLocales(locale);
-			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
+			final BaseNames bn = baseNamesService.getOrCreateNewNameEntity(baseName);
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(owner, bn,
 				dbLocale);
 			bundleNames = merge(bundleNames);

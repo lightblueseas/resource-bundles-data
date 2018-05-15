@@ -24,20 +24,14 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.PropertiesValuesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
-import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
@@ -64,33 +58,10 @@ public class PropertiesValuesBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public PropertiesValues find(String propertiesValue)
+	public PropertiesValues newNameEntity(String value)
 	{
-		final String hqlString = HqlStringCreator.forPropertiesValues(propertiesValue);
-		final Query query = getQuery(hqlString);
-		if (propertiesValue != null && !propertiesValue.isEmpty())
-		{
-			query.setParameter("propertiesValue", propertiesValue);
-		}
-		final List<PropertiesValues> propertiesValues = query.getResultList();
-		return ListExtensions.getFirst(propertiesValues);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public PropertiesValues getOrCreateNewPropertiesValues(String value)
-	{
-		PropertiesValues pvalue = find(value);
-		if (pvalue == null)
-		{
-			pvalue = ResourceBundlesDomainObjectFactory.getInstance().newPropertiesValues(value);
-			pvalue = merge(pvalue);
-		}
-		return pvalue;
+		return ResourceBundlesDomainObjectFactory.getInstance().newPropertiesValues(value);
 	}
 
 }

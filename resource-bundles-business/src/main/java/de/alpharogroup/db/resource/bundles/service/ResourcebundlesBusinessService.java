@@ -436,7 +436,7 @@ public class ResourcebundlesBusinessService
 	{
 		Resourcebundles resourcebundle = getResourcebundle(bundleName.getOwner(), baseName, locale,
 			key);
-		PropertiesValues pvalue = propertiesValuesService.getOrCreateNewPropertiesValues(value);
+		PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 		if (resourcebundle != null)
 		{
 			if (update)
@@ -446,7 +446,7 @@ public class ResourcebundlesBusinessService
 		}
 		else
 		{
-			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewPropertiesKeys(key);
+			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewNameEntity(key);
 			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(pvalue)
 				.build();
 		}

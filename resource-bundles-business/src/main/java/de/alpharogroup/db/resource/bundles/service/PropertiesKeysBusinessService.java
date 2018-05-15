@@ -24,20 +24,14 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.PropertiesKeysRepository;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
-import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
@@ -55,39 +49,19 @@ public class PropertiesKeysBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public PropertiesKeys find(String propertiesKey)
-	{
-		final String hqlString = HqlStringCreator.forPropertiesKeys(propertiesKey);
-		final Query query = getQuery(hqlString);
-		if (propertiesKey != null && !propertiesKey.isEmpty())
-		{
-			query.setParameter("propertiesKey", propertiesKey);
-		}
-		final List<PropertiesKeys> propertiesKeys = query.getResultList();
-		return ListExtensions.getFirst(propertiesKeys);
-	}
-
-	@Override
-	public PropertiesKeys getOrCreateNewPropertiesKeys(final String key)
-	{
-		PropertiesKeys pkey = find(key);
-		if (pkey == null)
-		{
-			pkey = ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(key);
-			pkey = merge(pkey);
-		}
-		return pkey;
-	}
-
 	@Autowired
 	public void setPropertiesKeysRepository(final PropertiesKeysRepository repository)
 	{
 		setRepository(repository);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public PropertiesKeys newNameEntity(String value)
+	{
+		return ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(value);
 	}
 
 }

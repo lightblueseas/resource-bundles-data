@@ -24,7 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.service.util;
 
-import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.entity.name.JpqlStringFactory;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
@@ -39,27 +39,6 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
  */
 public class HqlStringCreator
 {
-
-	/**
-	 * Creates hql query for {@link BaseNames}.
-	 *
-	 * @param baseName
-	 *            the base name
-	 *
-	 * @return the hql string
-	 */
-	public static String forBaseNames(final String baseName)
-	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("select bn from " + BaseNames.class.getSimpleName() + " bn");
-		final boolean baseNameIsNotNull = baseName != null && !baseName.isEmpty();
-		if (baseNameIsNotNull)
-		{
-			sb.append(" ");
-			sb.append("where bn.name=:baseName");
-		}
-		return sb.toString();
-	}
 
 	/**
 	 * Creates hql query for {@link BundleApplications}.
@@ -233,15 +212,7 @@ public class HqlStringCreator
 	 */
 	public static String forPropertiesKeys(final String propertiesKey)
 	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("select bn from " + PropertiesKeys.class.getSimpleName() + " bn");
-		final boolean propertiesKeyIsNotNull = propertiesKey != null && !propertiesKey.isEmpty();
-		if (propertiesKeyIsNotNull)
-		{
-			sb.append(" ");
-			sb.append("where bn.name=:propertiesKey");
-		}
-		return sb.toString();
+		return JpqlStringFactory.forNameEntity(PropertiesKeys.class, propertiesKey);
 	}
 
 	/**
@@ -253,15 +224,7 @@ public class HqlStringCreator
 	 */
 	public static String forPropertiesValues(final String propertiesValue)
 	{
-		final StringBuilder sb = new StringBuilder();
-		sb.append("select bn from " + PropertiesValues.class.getSimpleName() + " bn");
-		final boolean propertiesValueIsNotNull = propertiesValue != null && !propertiesValue.isEmpty();
-		if (propertiesValueIsNotNull)
-		{
-			sb.append(" ");
-			sb.append("where bn.name=:propertiesValue");
-		}
-		return sb.toString();
+		return JpqlStringFactory.forNameEntity(PropertiesValues.class, propertiesValue);
 	}
 
 	/**

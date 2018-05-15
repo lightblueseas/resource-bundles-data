@@ -25,26 +25,9 @@
 package de.alpharogroup.db.resource.bundles.service.api;
 
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
-import de.alpharogroup.db.service.api.BusinessService;
+import de.alpharogroup.service.api.NameEntityService;
 
-public interface PropertiesValuesService extends BusinessService<PropertiesValues, Integer>
+public interface PropertiesValuesService extends NameEntityService<PropertiesValues, Integer>
 {
 
-	/**
-	 * Find the {@link PropertiesValues} object from the given properties value.
-	 * 
-	 * @param propertiesValue
-	 *            the properties value
-	 * @return the found {@link PropertiesValues} object or null if not.
-	 */
-	PropertiesValues find(final String propertiesValue);
-
-	/**
-	 * Gets the or creates a new {@link PropertiesValues} object
-	 *
-	 * @param value
-	 *            the value
-	 * @return the {@link PropertiesValues} object
-	 */
-	PropertiesValues getOrCreateNewPropertiesValues(final String value);
 }
