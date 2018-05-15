@@ -54,7 +54,7 @@ create table properties_keys (
 create table properties_values (
        id int4 not null,
         version int4,
-        name varchar(8192) unique,
+        name varchar(4096) unique,
         primary key (id)
     );
 create table resourcebundles (
