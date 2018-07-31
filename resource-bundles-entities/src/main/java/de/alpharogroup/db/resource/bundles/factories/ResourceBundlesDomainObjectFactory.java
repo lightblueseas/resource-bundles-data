@@ -28,7 +28,7 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.Set;
 
-import de.alpharogroup.collections.set.SetExtensions;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -96,7 +96,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	public BundleApplications newBundleApplications(final String name,
 		final LanguageLocales defaultLocale)
 	{
-		return newBundleApplications(name, defaultLocale, SetExtensions.newHashSet(defaultLocale));
+		return newBundleApplications(name, defaultLocale, SetFactory.newHashSet(defaultLocale));
 	}
 
 	/**
@@ -113,7 +113,7 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	{
 		if (supportedLocales == null)
 		{
-			supportedLocales = SetExtensions.newHashSet();
+			supportedLocales = SetFactory.newHashSet();
 		}
 		supportedLocales.add(defaultLocale);
 		final BundleApplications bundleApplications = BundleApplications.builder().name(name)

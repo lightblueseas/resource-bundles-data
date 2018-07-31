@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.collections.set.SetExtensions;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -98,7 +98,7 @@ public class BundleApplicationsBusinessService
 			.setParameter("owner", owner);
 
 		final List<BundleNames> bundleNames = typedQuery.getResultList();
-		return SetExtensions.newHashSet(bundleNames);
+		return SetFactory.newHashSet(bundleNames);
 	}
 
 	/**

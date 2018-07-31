@@ -1,43 +1,41 @@
 Manifest-Version: 1.0
 Class-Path: validation-api-2.0.1.Final.jar xml-apis-1.4.01.jar resourc
- e-bundles-rest-api.jar rest-api-6.3.0-SNAPSHOT.jar domain-api-6.3.0-S
- NAPSHOT.jar lombok-1.16.20.jar slf4j-api-1.7.25.jar slf4j-log4j12-1.7
- .25.jar log4j-1.2.17.jar log4j-api-2.11.0.jar log4j-core-2.11.0.jar j
- avax.ws.rs-api-2.1.jar jackson-jaxrs-json-provider-2.9.5.jar jackson-
- jaxrs-base-2.9.5.jar jackson-core-2.9.5.jar jackson-databind-2.9.5.ja
- r jackson-annotations-2.9.0.jar jackson-module-jaxb-annotations-2.9.5
- .jar jackson-datatype-jaxrs-2.9.5.jar javaee-api-7.0.jar javax.mail-1
- .5.0.jar activation-1.1.jar resource-bundles-domain.jar domain-mapper
- -6.3.0-SNAPSHOT.jar data-api-6.3.0-SNAPSHOT.jar base-entities-6.3.0-S
- NAPSHOT.jar hibernate-core-5.2.12.Final.jar jboss-logging-3.3.0.Final
- .jar hibernate-jpa-2.1-api-1.0.0.Final.jar javassist-3.20.0-GA.jar an
- tlr-2.7.7.jar jboss-transaction-api_1.2_spec-1.0.1.Final.jar jandex-2
- .0.3.Final.jar classmate-1.3.0.jar dom4j-1.6.1.jar hibernate-commons-
- annotations-5.0.1.Final.jar entities-api-6.3.0-SNAPSHOT.jar spring-co
- re-4.3.15.RELEASE.jar commons-logging-1.2.jar spring-orm-4.3.15.RELEA
- SE.jar spring-beans-4.3.15.RELEASE.jar spring-jdbc-4.3.15.RELEASE.jar
-  spring-tx-4.3.15.RELEASE.jar jcommons-lang-4.31.0.jar commons-collec
- tions4-4.1.jar commons-io-2.6.jar commons-codec-1.11.jar commons-lang
- 3-3.7.jar joda-time-2.9.9.jar silly-collections-4.28.0.jar jobject-co
- mpare-1.10.0.jar commons-beanutils-1.9.3.jar commons-collections-3.2.
- 2.jar jobject-core-1.10.0.jar jobject-diff-1.10.0.jar xml-extensions-
- 4.18.0.jar xercesImpl-2.11.0.jar xmlbeans-2.6.0.jar stax-api-1.0.1.ja
- r jettison-1.3.8.jar xstream-1.4.9.jar xmlpull-1.1.3.1.jar xpp3_min-1
- .1.4c.jar file-worker-4.19.0.jar poi-3.17.jar poi-ooxml-3.17.jar poi-
- ooxml-schemas-3.17.jar curvesapi-1.04.jar zip4j-1.3.2.jar jobject-clo
- ne-1.10.0.jar cloning-1.9.9.jar objenesis-2.6.jar jobject-copy-1.10.0
- .jar json-20171018.jar dozer-5.5.1.jar jcl-over-slf4j-1.7.25.jar jobj
- ect-merge-1.10.0.jar resource-bundles-domain-model.jar resource-bundl
- es-business.jar business-api-6.3.0-SNAPSHOT.jar base-service-api-6.3.
- 0-SNAPSHOT.jar resource-bundles-entities.jar spring-context-4.3.15.RE
- LEASE.jar spring-aop-4.3.15.RELEASE.jar spring-expression-4.3.15.RELE
- ASE.jar resourcebundle-inspector-2.20.0.jar nv-i18n-1.23.jar javax.se
- rvlet-api-3.1.0.jar spring-web-4.3.15.RELEASE.jar cxf-rt-frontend-jax
- rs-3.2.4.jar cxf-core-3.2.4.jar woodstox-core-5.0.3.jar stax2-api-3.1
- .4.jar xmlschema-core-2.2.3.jar javax.annotation-api-1.3.jar cxf-rt-t
- ransports-http-3.2.4.jar hibernate-entitymanager-5.2.12.Final.jar byt
- e-buddy-1.6.14.jar hibernate-ehcache-5.2.12.Final.jar ehcache-2.10.3.
- jar hibernate-validator-6.0.7.Final.jar cglib-3.2.6.jar asm-6.0.jar a
- nt-1.9.6.jar ant-launcher-1.9.6.jar postgresql-42.2.2.jar h2-1.4.197.
- jar jetty-jmx-9.4.8.v20171121.jar
+ e-bundles-rest-api.jar rest-api-6.3.jar domain-api-6.3.jar lombok-1.1
+ 8.0.jar slf4j-api-1.7.25.jar slf4j-log4j12-1.7.25.jar log4j-1.2.17.ja
+ r log4j-api-2.11.0.jar log4j-core-2.11.0.jar javax.ws.rs-api-2.1.jar 
+ jackson-jaxrs-json-provider-2.9.6.jar jackson-jaxrs-base-2.9.6.jar ja
+ ckson-core-2.9.6.jar jackson-databind-2.9.6.jar jackson-annotations-2
+ .9.0.jar jackson-module-jaxb-annotations-2.9.6.jar jackson-datatype-j
+ axrs-2.9.6.jar javaee-api-7.0.jar javax.mail-1.5.0.jar activation-1.1
+ .jar resource-bundles-domain.jar domain-mapper-6.3.jar data-api-6.3.j
+ ar base-entities-6.3.jar hibernate-core-5.2.12.Final.jar jboss-loggin
+ g-3.3.0.Final.jar hibernate-jpa-2.1-api-1.0.0.Final.jar javassist-3.2
+ 0.0-GA.jar antlr-2.7.7.jar jboss-transaction-api_1.2_spec-1.0.1.Final
+ .jar jandex-2.0.3.Final.jar classmate-1.3.0.jar dom4j-1.6.1.jar hiber
+ nate-commons-annotations-5.0.1.Final.jar entities-api-6.3.jar spring-
+ core-4.3.15.RELEASE.jar commons-logging-1.2.jar spring-orm-4.3.15.REL
+ EASE.jar spring-beans-4.3.15.RELEASE.jar spring-jdbc-4.3.15.RELEASE.j
+ ar spring-tx-4.3.15.RELEASE.jar jcommons-lang-4.35.jar commons-collec
+ tions4-4.2.jar commons-io-2.6.jar commons-codec-1.11.jar commons-lang
+ 3-3.7.jar joda-time-2.10.jar silly-collections-4.33.jar jobject-compa
+ re-1.12.jar commons-beanutils-1.9.3.jar commons-collections-3.2.2.jar
+  jobject-core-1.12.jar jobject-diff-1.12.jar xml-extensions-4.20.jar 
+ xercesImpl-2.12.0.jar xmlbeans-3.0.0.jar jettison-1.4.0.jar xstream-1
+ .4.10.jar xmlpull-1.1.3.1.jar xpp3_min-1.1.4c.jar json-20180130.jar f
+ ile-worker-4.22.jar poi-3.17.jar poi-ooxml-3.17.jar poi-ooxml-schemas
+ -3.17.jar curvesapi-1.04.jar zip4j-1.3.2.jar crypt-api-5.4.jar jobjec
+ t-clone-1.12.jar cloning-1.9.10.jar objenesis-2.6.jar jobject-copy-1.
+ 12.jar dozer-5.5.1.jar jcl-over-slf4j-1.7.25.jar jobject-merge-1.12.j
+ ar resource-bundles-domain-model.jar resource-bundles-business.jar bu
+ siness-api-6.3.jar base-service-api-6.3.jar resource-bundles-entities
+ .jar spring-context-4.3.15.RELEASE.jar spring-aop-4.3.15.RELEASE.jar 
+ spring-expression-4.3.15.RELEASE.jar resourcebundle-inspector-3.jar n
+ v-i18n-1.23.jar javax.servlet-api-3.1.0.jar spring-web-4.3.15.RELEASE
+ .jar cxf-rt-frontend-jaxrs-3.2.5.jar cxf-core-3.2.5.jar woodstox-core
+ -5.0.3.jar stax2-api-3.1.4.jar xmlschema-core-2.2.3.jar javax.annotat
+ ion-api-1.3.jar cxf-rt-transports-http-3.2.5.jar hibernate-entitymana
+ ger-5.2.12.Final.jar byte-buddy-1.6.14.jar hibernate-ehcache-5.2.12.F
+ inal.jar ehcache-2.10.3.jar hibernate-validator-6.0.7.Final.jar cglib
+ -3.2.6.jar asm-6.0.jar ant-1.9.6.jar ant-launcher-1.9.6.jar postgresq
+ l-42.2.4.jar h2-1.4.197.jar jetty-jmx-9.4.11.v20180605.jar
 

@@ -35,6 +35,12 @@
 			<artifactId>test-objects</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- JOBJECT-EVALUATE DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>jobject-evaluate</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>	
 	

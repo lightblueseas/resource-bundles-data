@@ -34,6 +34,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -105,7 +106,7 @@ public class ResourcebundleDomainService
 		{
 			return getMapper().toDomainObjects(list);
 		}
-		return ListExtensions.newArrayList();
+		return ListFactory.newArrayList();
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class ResourcebundleDomainService
 		{
 			return getMapper().toDomainObjects(list);
 		}
-		return ListExtensions.newArrayList();
+		return ListFactory.newArrayList();
 	}
 
 	@Override

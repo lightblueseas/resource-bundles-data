@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>6.3.0-SNAPSHOT</version>
+		<version>6.3</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -24,8 +24,11 @@
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
 	
 	<properties>
-		<resourcebundle-inspector.version>2.20.0</resourcebundle-inspector.version>		
-		<silly-collections.version>4.28.0</silly-collections.version>
+		<resourcebundle-inspector.version>3</resourcebundle-inspector.version>		
+		<silly-collections.version>4.33</silly-collections.version>
+		<!-- JOBJECT-EXTENSIONS versions -->
+		<jobject-extensions.version>1.12</jobject-extensions.version>
+		<jobject-evaluate.version>${jobject-extensions.version}</jobject-evaluate.version>
 	</properties>
 
 	<modules>
@@ -109,6 +112,12 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<!-- JOBJECT-EVALUATE DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-evaluate</artifactId>
+				<version>${jobject-evaluate.version}</version>
 			</dependency>
 
 		</dependencies>
