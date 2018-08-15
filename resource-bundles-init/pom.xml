@@ -10,10 +10,7 @@
 	</parent>
 
 	<artifactId>resource-bundles-init</artifactId>
-	<properties>
-		<!-- HIBERNATE MAVEN PLUGIN versions -->
-		<hibernate3-maven-plugin.version>2.2</hibernate3-maven-plugin.version>
-	</properties>
+	
 	<dependencies>
 
 		<dependency>
