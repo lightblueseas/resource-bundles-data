@@ -22,41 +22,18 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.domain;
+package de.alpharogroup.db.resource.bundles.mapper;
 
-import de.alpharogroup.domain.VersionableBaseDomainObject;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import org.springframework.stereotype.Component;
+
+import de.alpharogroup.db.entitymapper.AbstractEntityDOMapper;
+import de.alpharogroup.db.resource.bundles.domain.PropertiesValue;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 
 /**
- * The class {@link Resourcebundle}.
+ * The class {@link PropertiesValuesMapper}.
  */
-@Getter
-@Setter
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Resourcebundle extends VersionableBaseDomainObject<Integer>
+@Component
+public class PropertiesValuesMapper extends AbstractEntityDOMapper<PropertiesValues, PropertiesValue>
 {
-
-	/**
-	 * The serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/** The bundleName. */
-	private BundleName bundleName;
-
-	/** The properties key. */
-	private PropertiesKey key;
-
-	/** The value for the properties key. */
-	private PropertiesValue value;
 }

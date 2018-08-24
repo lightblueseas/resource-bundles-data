@@ -24,8 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.domain;
 
-import de.alpharogroup.domain.VersionableBaseDomainObject;
-import lombok.AllArgsConstructor;
+import de.alpharogroup.domain.VersionableNameBaseDomainObject;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,29 +33,29 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The class {@link Resourcebundle}.
+ * The class {@link PropertiesValue}.
  */
 @Getter
 @Setter
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@AllArgsConstructor
-@Builder
-public class Resourcebundle extends VersionableBaseDomainObject<Integer>
+public class PropertiesValue extends VersionableNameBaseDomainObject<Integer>
 {
-
 	/**
 	 * The serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/** The bundleName. */
-	private BundleName bundleName;
-
-	/** The properties key. */
-	private PropertiesKey key;
-
-	/** The value for the properties key. */
-	private PropertiesValue value;
+	/**
+	 * Instantiates a new {@link PropertiesValue} domain object.
+	 *
+	 * @param name
+	 *            the name
+	 */
+	@Builder
+	PropertiesValue(String name)
+	{
+		super(name);
+	}
 }

@@ -178,7 +178,8 @@ public class ResourcebundleDomainService
 			bundleKey.getResourceBundleKey().getKey());
 		if (resourcebundles != null)
 		{
-			return getMapper().toDomainObject(resourcebundles).getValue();
+			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
+			return domainObject.getValue().getName();
 		}
 		return "";
 	}
@@ -192,7 +193,8 @@ public class ResourcebundleDomainService
 			baseName, LocaleResolver.resolveLocaleCode(locale), key);
 		if (resourcebundles != null)
 		{
-			return getMapper().toDomainObject(resourcebundles).getValue();
+			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
+			return domainObject.getValue().getName();
 		}
 		return "";
 	}
@@ -207,7 +209,8 @@ public class ResourcebundleDomainService
 		String value = "";
 		if (resourcebundles != null)
 		{
-			value = getMapper().toDomainObject(resourcebundles).getValue();
+			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
+			value = domainObject.getValue().getName();			
 			value = ResourceBundleExtensions.format(value, parameters);
 		}
 		return value;
@@ -223,7 +226,8 @@ public class ResourcebundleDomainService
 			baseName, LocaleResolver.resolveLocaleCode(locale), key);
 		if (resourcebundles != null)
 		{
-			return getMapper().toDomainObject(resourcebundles).getValue();
+			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
+			return domainObject.getValue().getName();
 		}
 		return defaultValue;
 	}
@@ -239,7 +243,8 @@ public class ResourcebundleDomainService
 		String value = defaultValue;
 		if (resourcebundles != null)
 		{
-			value = getMapper().toDomainObject(resourcebundles).getValue();
+			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
+			value = domainObject.getValue().getName();			
 			value = ResourceBundleExtensions.format(value, parameters);
 		}
 		return value;
