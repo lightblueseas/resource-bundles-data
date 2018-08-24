@@ -76,7 +76,8 @@ public class ResourcebundlesRestResource
 	@Override
 	public Response getProperties(String bundleappname, String baseName, String locale)
 	{
-		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final ResourcebundleService resourcebundleService = getDomainService();
+		final BundleApplication bundleApplication = resourcebundleService.find(bundleappname);
 		Properties properties = getDomainService().getProperties(bundleApplication, baseName,
 			locale);
 		if (properties == null)
