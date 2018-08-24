@@ -6,12 +6,12 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>6.3</version>
+		<version>6.4</version>
 		<relativePath></relativePath>
 	</parent>
 
 	<artifactId>resource-bundles-data</artifactId>
-	<version>5.4.0-SNAPSHOT</version>
+	<version>5.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<inceptionYear>2015</inceptionYear>
 
@@ -23,19 +23,6 @@
 
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
 	
-	<properties>
-		<resourcebundle-inspector.version>3</resourcebundle-inspector.version>		
-		<silly-collections.version>4.33</silly-collections.version>
-		<!-- JOBJECT-EXTENSIONS versions -->
-		<jobject-extensions.version>1.12</jobject-extensions.version>
-		<jobject-evaluate.version>${jobject-extensions.version}</jobject-evaluate.version>
-		<!-- JETTY version -->
-		<jetty9.version>9.4.6.v20170531</jetty9.version>
-		<!-- JETTY9-RUNNER version -->
-		<jetty9-runner.version>3.14.0</jetty9-runner.version>
-		
-	</properties>
-
 	<modules>
 		<module>resource-bundles-entities</module>
 		<module>resource-bundles-business</module>
@@ -117,12 +104,6 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
-			</dependency>
-			<!-- JOBJECT-EVALUATE DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-evaluate</artifactId>
-				<version>${jobject-evaluate.version}</version>
 			</dependency>
 
 		</dependencies>

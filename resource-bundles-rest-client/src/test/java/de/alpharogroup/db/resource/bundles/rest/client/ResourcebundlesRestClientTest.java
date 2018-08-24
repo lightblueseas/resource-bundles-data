@@ -82,7 +82,7 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#find(String, String, String)}.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFind()
 	{
 		// http://localhost:8080/resourcebundle/find/base-bundle-application/base-resource-bundles/de_DE/resource.bundles.test.label
@@ -96,7 +96,7 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#get(String)}.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGet()
 	{
 		// http://localhost:8080/resourcebundle/get/1
@@ -109,7 +109,7 @@ public class ResourcebundlesRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#getProperties(String, String, String)}.
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetProperties()
 	{
 		Response response;
@@ -135,7 +135,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getResponseString(String, String, String)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetResponseString()
 	{
 		// http://localhost:8080/resourcebundle/get/r/string/base-bundle-application/base-resource-bundles/de/resource.bundles.test.label
@@ -151,7 +151,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetString()
 	{
 		// http://localhost:8080/resourcebundle/get/string/base-bundle-application/base-resource-bundles/de_DE/resource.bundles.test.label
@@ -166,7 +166,7 @@ public class ResourcebundlesRestClientTest
 	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}.
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testGetStringWithParameters()
 	{
 		// http://localhost:8080/resourcebundle/get/string/base-bundle-application/test/de_DE/com.example.gui.prop.with.params.label/parameters?parameter=Fritz&parameter=Deutschland
