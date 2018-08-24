@@ -29,6 +29,11 @@
 		<!-- JOBJECT-EXTENSIONS versions -->
 		<jobject-extensions.version>1.12</jobject-extensions.version>
 		<jobject-evaluate.version>${jobject-extensions.version}</jobject-evaluate.version>
+		<!-- JETTY version -->
+		<jetty9.version>9.4.6.v20170531</jetty9.version>
+		<!-- JETTY9-RUNNER version -->
+		<jetty9-runner.version>3.14.0</jetty9-runner.version>
+		
 	</properties>
 
 	<modules>

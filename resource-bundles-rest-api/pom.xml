@@ -25,6 +25,11 @@
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
+			<artifactId>resource-bundles-domain-model</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
 			<artifactId>resourcebundle-inspector</artifactId>
 		</dependency>
 
