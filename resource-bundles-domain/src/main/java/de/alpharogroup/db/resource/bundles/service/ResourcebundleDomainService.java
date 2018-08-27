@@ -276,4 +276,12 @@ public class ResourcebundleDomainService
 		resourcebundlesService.updateProperties(owner, properties, baseName, locale);
 	}
 
+	@Override
+	public List<BundleApplication> findAllBundleApplications()
+	{
+		List<BundleApplications> allBundleApplications = resourcebundlesService.findAllBundleApplications();
+		List<BundleApplication> domainObjects = getMapper().map(allBundleApplications, BundleApplication.class);
+		return domainObjects;
+	}
+
 }

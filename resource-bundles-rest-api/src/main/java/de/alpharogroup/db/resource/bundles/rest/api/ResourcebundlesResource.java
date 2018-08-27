@@ -116,6 +116,28 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 		@PathParam("key") String key);
 
 	/**
+	 * Gets the bundle application over the given name
+	 *
+	 * @param bundleappname
+	 *            the name of the bundle application
+	 * @return the bundle app
+	 */
+	@GET
+	@Path("/get/r/app/{bundleappname}")
+	Response getBundleApp(@PathParam("bundleappname") String bundleappname);
+	
+	/**
+	 * Gets the bundle application over the given name
+	 *
+	 * @param bundleappname
+	 *            the name of the bundle application
+	 * @return the bundle app
+	 */
+	@GET
+	@Path("/get/r/all/apps")
+	Response findAllBundleApplications();
+
+	/**
 	 * Find the {@link String} from the given arguments.
 	 *
 	 * @param bundleappname

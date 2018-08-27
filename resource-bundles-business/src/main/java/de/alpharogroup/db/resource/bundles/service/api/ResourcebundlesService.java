@@ -119,7 +119,14 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	List<Resourcebundles> findResourceBundles(final BundleApplications owner, final String baseName,
 		final Locale locale);
-
+		
+	/**
+	 * Finds all bundle applications.
+	 *
+	 * @return the list of the found {@link BundleApplications} objects.
+	 */
+	List<BundleApplications> findAllBundleApplications();
+	
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
 	 * {@link Locale} object and the given properties key.

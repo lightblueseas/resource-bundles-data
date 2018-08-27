@@ -256,4 +256,12 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	void updateProperties(BundleApplication bundleApplication, Properties properties,
 		String baseName, Locale locale);
 
+
+	/**
+	 * Finds all bundle applications.
+	 *
+	 * @return the list of the found {@link BundleApplication} objects.
+	 */
+	List<BundleApplication> findAllBundleApplications();
+	
 }

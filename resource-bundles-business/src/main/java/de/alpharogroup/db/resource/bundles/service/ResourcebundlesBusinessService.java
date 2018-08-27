@@ -511,4 +511,10 @@ public class ResourcebundlesBusinessService
 		return bundleName;
 	}
 
+	@Override
+	public List<BundleApplications> findAllBundleApplications()
+	{
+		return bundleApplicationsService.findAll();
+	}
+
 }

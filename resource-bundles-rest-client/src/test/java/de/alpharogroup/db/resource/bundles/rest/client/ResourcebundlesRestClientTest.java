@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.rest.client;
 
+import java.util.List;
 import java.util.Properties;
 
 import javax.ws.rs.core.Response;
@@ -34,6 +35,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
@@ -45,11 +47,11 @@ import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 public class ResourcebundlesRestClientTest
 {
 
-	/** The rest client. */
-	private ResourcebundlesRestClient restClient;
-
 	/** The resourcebundles resource. */
 	private ResourcebundlesResource resourcebundlesResource;
+
+	/** The rest client. */
+	private ResourcebundlesRestClient restClient;
 
 	/**
 	 * Sets the up method.
@@ -94,6 +96,20 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
+	 * Test method for {@link ResourcebundlesResource#findAllBundleApplications()}
+	 */
+	@SuppressWarnings("unchecked")
+	@Test(enabled = false)
+	public void testfindAllBundleApplications()
+	{
+		// http://localhost:8080/resourcebundle/get/r/all/apps
+		final Response response = resourcebundlesResource.findAllBundleApplications();
+		final List<BundleApplication> bundleApplications = response.readEntity(List.class);
+		AssertJUnit.assertNotNull(bundleApplications);
+		AssertJUnit.assertEquals(2, bundleApplications.size());
+	}
+
+	/**
 	 * Test method for {@link ResourcebundlesResource#get(String)}.
 	 */
 	@Test(enabled = false)
@@ -104,6 +120,19 @@ public class ResourcebundlesRestClientTest
 			.get(Integer.valueOf(1).toString());
 		AssertJUnit.assertNotNull(resourcebundle1);
 		AssertJUnit.assertEquals("Erstes label", resourcebundle1.getValue().getName());
+	}
+
+	/**
+	 * Test method for {@link ResourcebundlesResource#getBundleApp(String)}
+	 */
+	@Test(enabled = false)
+	public void testGetBundleApp()
+	{
+		// http://localhost:8080/resourcebundle/get/r/app/base-bundle-application
+		final Response response = resourcebundlesResource.getBundleApp("base-bundle-application");
+		final BundleApplication bundleApplication = response.readEntity(BundleApplication.class);
+		AssertJUnit.assertNotNull(bundleApplication);
+		AssertJUnit.assertEquals("base-bundle-application", bundleApplication.getName());
 	}
 
 	/**

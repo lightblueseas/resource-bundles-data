@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.rest;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -128,5 +129,20 @@ public class ResourcebundlesRestResource
 		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
 	}
 
+	@Override
+	public Response getBundleApp(String name)
+	{
+		final ResourcebundleService resourcebundleService = getDomainService();
+		final BundleApplication bundleApplication = resourcebundleService.find(name);
+		return Response.ok(bundleApplication).build();
+	}
+
+	@Override
+	public Response findAllBundleApplications()
+	{
+		final ResourcebundleService resourcebundleService = getDomainService();
+		List<BundleApplication> allBundleApplications = resourcebundleService.findAllBundleApplications();
+		return Response.ok(allBundleApplications).build();
+	}
 
 }

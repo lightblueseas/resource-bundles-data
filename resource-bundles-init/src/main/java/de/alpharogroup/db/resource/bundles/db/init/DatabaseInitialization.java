@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.init.AbstractDatabaseInitialization;
 
 /**
@@ -60,9 +59,7 @@ public class DatabaseInitialization extends AbstractDatabaseInitialization
 		scriptFiles.add(new File(insertsDir, "insert_countries.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_languages.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_resourcebundles.sql"));
-		// return scriptFiles;
-		// TODO investigate...
-		return ListFactory.newArrayList();
+		 return scriptFiles;
 	}
 
 }
