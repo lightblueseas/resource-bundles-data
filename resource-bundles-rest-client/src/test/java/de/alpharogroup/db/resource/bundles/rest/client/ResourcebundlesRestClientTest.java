@@ -24,12 +24,15 @@
  */
 package de.alpharogroup.db.resource.bundles.rest.client;
 
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertTrue;
+
 import java.util.List;
 import java.util.Properties;
 
 import javax.ws.rs.core.Response;
 
-import org.testng.AssertJUnit;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -66,7 +69,7 @@ public class ResourcebundlesRestClientTest
 		{
 			restClient = new ResourcebundlesRestClient();
 			resourcebundlesResource = restClient.getResourcebundlesResource();
-			AssertJUnit.assertNotNull(resourcebundlesResource);
+			assertNotNull(resourcebundlesResource);
 		}
 	}
 
@@ -91,8 +94,8 @@ public class ResourcebundlesRestClientTest
 		final Resourcebundle resourcebundle2 = resourcebundlesResource.find(
 			"base-bundle-application", "base-resource-bundles", "de",
 			"resource.bundles.test.label");
-		AssertJUnit.assertNotNull(resourcebundle2);
-		AssertJUnit.assertEquals("Erstes label", resourcebundle2.getValue().getName());
+		assertNotNull(resourcebundle2);
+		assertEquals("Erstes label", resourcebundle2.getValue().getName());
 	}
 
 	/**
@@ -105,8 +108,8 @@ public class ResourcebundlesRestClientTest
 		// http://localhost:8080/resourcebundle/get/r/all/apps
 		final Response response = resourcebundlesResource.findAllBundleApplications();
 		final List<BundleApplication> bundleApplications = response.readEntity(List.class);
-		AssertJUnit.assertNotNull(bundleApplications);
-		AssertJUnit.assertEquals(2, bundleApplications.size());
+		assertNotNull(bundleApplications);
+		assertEquals(2, bundleApplications.size());
 	}
 
 	/**
@@ -118,8 +121,8 @@ public class ResourcebundlesRestClientTest
 		// http://localhost:8080/resourcebundle/get/1
 		final Resourcebundle resourcebundle1 = resourcebundlesResource
 			.get(Integer.valueOf(1).toString());
-		AssertJUnit.assertNotNull(resourcebundle1);
-		AssertJUnit.assertEquals("Erstes label", resourcebundle1.getValue().getName());
+		assertNotNull(resourcebundle1);
+		assertEquals("Erstes label", resourcebundle1.getValue().getName());
 	}
 
 	/**
@@ -131,8 +134,8 @@ public class ResourcebundlesRestClientTest
 		// http://localhost:8080/resourcebundle/get/r/app/base-bundle-application
 		final Response response = resourcebundlesResource.getBundleApp("base-bundle-application");
 		final BundleApplication bundleApplication = response.readEntity(BundleApplication.class);
-		AssertJUnit.assertNotNull(bundleApplication);
-		AssertJUnit.assertEquals("base-bundle-application", bundleApplication.getName());
+		assertNotNull(bundleApplication);
+		assertEquals("base-bundle-application", bundleApplication.getName());
 	}
 
 	/**
@@ -148,16 +151,16 @@ public class ResourcebundlesRestClientTest
 			"base-resource-bundles", "de");
 
 		properties = response.readEntity(Properties.class);
-		AssertJUnit.assertNotNull(properties);
-		AssertJUnit.assertEquals("Erstes label",
+		assertNotNull(properties);
+		assertEquals("Erstes label",
 			properties.getProperty("resource.bundles.test.label"));
 
 		// http://localhost:8080/resourcebundle/get/properties/base-bundle-application/test/de_DE
 		response = resourcebundlesResource.getProperties("base-bundle-application", "test",
 			"en_US");
 		properties = response.readEntity(Properties.class);
-		AssertJUnit.assertNotNull(properties);
-		AssertJUnit.assertTrue(properties.size() == 4);
+		assertNotNull(properties);
+		assertTrue(properties.size() == 4);
 	}
 
 	/**
@@ -172,8 +175,8 @@ public class ResourcebundlesRestClientTest
 			"base-bundle-application", "base-resource-bundles", "de",
 			"resource.bundles.test.label");
 		final KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
-		AssertJUnit.assertNotNull(keyValuePair);
-		AssertJUnit.assertEquals("Erstes label", keyValuePair.getValue());
+		assertNotNull(keyValuePair);
+		assertEquals("Erstes label", keyValuePair.getValue());
 	}
 
 	/**
@@ -187,8 +190,8 @@ public class ResourcebundlesRestClientTest
 		final Response response = resourcebundlesResource.getString("base-bundle-application",
 			"base-resource-bundles", "de", "resource.bundles.test.label");
 		final KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
-		AssertJUnit.assertNotNull(keyValuePair);
-		AssertJUnit.assertEquals("Erstes label", keyValuePair.getValue());
+		assertNotNull(keyValuePair);
+		assertEquals("Erstes label", keyValuePair.getValue());
 	}
 
 	/**
@@ -206,8 +209,8 @@ public class ResourcebundlesRestClientTest
 			"de_DE", "com.example.gui.prop.with.params.label", paramsGerman);
 
 		KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
-		AssertJUnit.assertNotNull(keyValuePair);
-		AssertJUnit.assertEquals("Hallo ich bin Fritz und komme aus Deutschland.",
+		assertNotNull(keyValuePair);
+		assertEquals("Hallo ich bin Fritz und komme aus Deutschland.",
 			keyValuePair.getValue());
 
 		// http://localhost:8080/resourcebundle/get/string/base-bundle-application/test/en_US/com.example.gui.prop.with.params.label/parameters?parameter=Fritz&parameter=Germany
@@ -215,8 +218,8 @@ public class ResourcebundlesRestClientTest
 		response = resourcebundlesResource.getString("base-bundle-application", baseName, "en_US",
 			"com.example.gui.prop.with.params.label", paramsBritain);
 		keyValuePair = response.readEntity(KeyValuePair.class);
-		AssertJUnit.assertNotNull(keyValuePair);
-		AssertJUnit.assertEquals("Hello i am Fritz and i come from Germany.",
+		assertNotNull(keyValuePair);
+		assertEquals("Hello i am Fritz and i come from Germany.",
 			keyValuePair.getValue());
 	}
 

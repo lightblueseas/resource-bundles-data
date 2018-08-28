@@ -13,6 +13,7 @@
 	<jaxrs:server id="service" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="resourcebundlesResource" />
+			<ref bean="countriesResource" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
@@ -22,6 +23,9 @@
 	<!-- web resources -->
 	<bean id="resourcebundlesResource" class="de.alpharogroup.db.resource.bundles.rest.ResourcebundlesRestResource">
 		<property name="domainService" ref="resourcebundleDomainService"></property>
+	</bean>
+	<bean id="countriesResource" class="de.alpharogroup.db.resource.bundles.rest.CountriesRestResource">
+		<property name="domainService" ref="countryDomainService"></property>
 	</bean>
 	
 </beans>
