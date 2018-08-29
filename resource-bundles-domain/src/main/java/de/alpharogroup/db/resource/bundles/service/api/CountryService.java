@@ -4,6 +4,9 @@ import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.service.domain.DomainService;
 
+/**
+ * The interface {@link CountryService}
+ */
 public interface CountryService extends DomainService<Integer, Country>
 {
 

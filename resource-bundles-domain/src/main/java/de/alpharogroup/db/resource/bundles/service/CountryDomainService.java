@@ -37,7 +37,7 @@ import de.alpharogroup.db.resource.bundles.service.api.CountryService;
 import de.alpharogroup.service.domain.AbstractDomainService;
 
 /**
- * The class {@link CountyDomainService}.
+ * The class {@link CountryDomainService}
  */
 @Transactional
 @Service("countryDomainService")

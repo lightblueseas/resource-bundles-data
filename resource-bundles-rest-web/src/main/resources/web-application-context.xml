@@ -16,7 +16,7 @@
 			<ref bean="countriesResource" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
-			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+			<bean class="de.alpharogroup.service.rs.providers.CustomTypeModulesRegistrationProvider" />
 		</jaxrs:providers>
 	</jaxrs:server>
 	

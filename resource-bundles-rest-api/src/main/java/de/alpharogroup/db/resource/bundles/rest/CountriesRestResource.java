@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.db.resource.bundles.rest.api.CountriesResource;
-import de.alpharogroup.db.resource.bundles.service.CountryDomainService;
+import de.alpharogroup.db.resource.bundles.service.api.CountryService;
 import de.alpharogroup.service.rs.AbstractRestfulResource;
 
 /**
@@ -15,7 +15,7 @@ import de.alpharogroup.service.rs.AbstractRestfulResource;
  */
 public class CountriesRestResource
 	extends
-		AbstractRestfulResource<Integer, Country, CountryDomainService>
+		AbstractRestfulResource<Integer, Country, CountryService>
 	implements
 		CountriesResource
 {
