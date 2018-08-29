@@ -28,7 +28,7 @@ import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.service.api.BusinessService;
 
 /**
- * The interface {@link CountriesService}.
+ * The interface {@link CountriesService}
  */
 public interface CountriesService extends BusinessService<Countries, Integer>
 {

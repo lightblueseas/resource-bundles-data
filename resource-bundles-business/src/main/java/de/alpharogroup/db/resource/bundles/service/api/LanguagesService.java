@@ -28,7 +28,7 @@ import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.service.api.BusinessService;
 
 /**
- * The interface {@link LanguagesService}.
+ * The interface {@link LanguagesService}
  */
 public interface LanguagesService extends BusinessService<Languages, Integer>
 {

@@ -33,6 +33,9 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
 
+/**
+ * The interface {@link BundleNamesService}
+ */
 public interface BundleNamesService extends BusinessService<BundleNames, Integer>
 {
 

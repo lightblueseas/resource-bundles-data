@@ -26,63 +26,63 @@ package de.alpharogroup.db.resource.bundles.service.api;
 
 import java.util.Set;
 
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
-import de.alpharogroup.db.resource.bundles.entities.BundleNames;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
-import de.alpharogroup.db.service.api.BusinessService;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.service.domain.DomainService;
 import lombok.NonNull;
 
 /**
- * The interface {@link BundleApplicationsService}
+ * The interface {@link BundleApplicationService}
  */
-public interface BundleApplicationsService extends BusinessService<BundleApplications, Integer>
+public interface BundleApplicationService extends DomainService<Integer, BundleApplication>
 {
 
 	/**
-	 * Find all {@link BundleNames} objects from the given {@link BundleApplications} object.
+	 * Find all {@link BundleName} objects from the given {@link BundleApplication} object.
 	 *
 	 * @param owner
 	 *            the owner
-	 * @return the list of found {@link BundleNames} objects or null if not.
+	 * @return the list of found {@link BundleName} objects or null if not.
 	 */
-	Set<BundleNames> find(final BundleApplications owner);
+	Set<BundleName> find(final BundleApplication owner);
 
 	/**
-	 * Find the {@link BundleApplications} object from the given name.
+	 * Find the {@link BundleApplication} object from the given name.
 	 *
 	 * @param name
 	 *            the name
 	 *
-	 * @return the found {@link BundleApplications} object or null if not.
+	 * @return the found {@link BundleApplication} object or null if not.
 	 */
-	BundleApplications find(final String name);
+	BundleApplication find(final String name);
 
 	/**
-	 * Find the {@link BundleApplications} object from the given {@link BundleNames} object.
+	 * Find the {@link BundleApplication} object from the given {@link BundleName} object.
 	 *
 	 * @param bundleName
 	 *            the bundle name
-	 * @return the bundle applications
+	 * @return the found {@link BundleApplication} object
 	 */
-	BundleApplications get(BundleNames bundleName);
+	BundleApplication get(BundleName bundleName);
 
 	/**
-	 * Gets the {@link BundleApplications} object from the given name or creates a new
-	 * {@link BundleApplications} object if not found.
+	 * Gets the {@link BundleApplication} object from the given name or creates a new
+	 * {@link BundleApplication} object if not found.
 	 *
 	 *
 	 * @param name
 	 *            the name
 	 * @param defaultLocale
 	 *            the default locale
-	 * @return the existing or a new {@link BundleApplications} object
+	 * @return the existing or a new {@link BundleApplication} object
 	 */
-	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
-		@NonNull final LanguageLocales defaultLocale);
+	BundleApplication getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocale defaultLocale);
 
 	/**
-	 * Gets the {@link BundleApplications} object from the given name or creates a new
-	 * {@link BundleApplications} object if not found.
+	 * Gets the {@link BundleApplication} object from the given name or creates a new
+	 * {@link BundleApplication} object if not found.
 	 *
 	 * @param name
 	 *            the name
@@ -90,10 +90,10 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 *            the default locale
 	 * @param supportedLocales
 	 *            the supported locales
-	 * @return the existing or a new {@link BundleApplications} object
+	 * @return the existing or a new {@link BundleApplication} object
 	 */
-	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
-		@NonNull final LanguageLocales defaultLocale,
-		@NonNull final Set<LanguageLocales> supportedLocales);
+	BundleApplication getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final LanguageLocale defaultLocale,
+		@NonNull final Set<LanguageLocale> supportedLocales);
 
 }

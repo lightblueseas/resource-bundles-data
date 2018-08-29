@@ -37,7 +37,7 @@ import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.api.BusinessService;
 
 /**
- * The interface {@link ResourcebundlesService}.
+ * The interface {@link ResourcebundlesService}
  */
 public interface ResourcebundlesService extends BusinessService<Resourcebundles, Integer>
 {

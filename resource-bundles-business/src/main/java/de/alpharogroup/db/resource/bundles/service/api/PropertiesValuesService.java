@@ -27,6 +27,9 @@ package de.alpharogroup.db.resource.bundles.service.api;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.service.api.NameEntityService;
 
+/**
+ * The interface {@link PropertiesValuesService}
+ */
 public interface PropertiesValuesService extends NameEntityService<PropertiesValues, Integer>
 {
 
