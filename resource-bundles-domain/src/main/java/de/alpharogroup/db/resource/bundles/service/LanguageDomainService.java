@@ -16,7 +16,7 @@ import de.alpharogroup.service.domain.AbstractDomainService;
  * The service class {@link LanguagesDomainService}
  */
 @Transactional
-@Service("languageService")
+@Service("languageDomainService")
 public class LanguageDomainService
 	extends
 		AbstractDomainService<java.lang.Integer, Language, Languages, LanguagesRepository, LanguagesMapper>

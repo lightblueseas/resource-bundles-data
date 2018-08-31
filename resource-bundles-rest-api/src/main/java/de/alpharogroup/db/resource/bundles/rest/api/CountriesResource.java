@@ -35,7 +35,7 @@ public interface CountriesResource extends RestfulResource<Integer, Country>
 	 */
 	@GET
 	@Path("/find/by/name/{iso3166A2name}")
-	Response find(@PathParam("iso3166A2name")String name);
+	Response findByName(@PathParam("iso3166A2name")String name);
 
 
 }

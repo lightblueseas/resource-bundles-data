@@ -34,7 +34,7 @@ public class CountriesRestResource
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Response find(String name)
+	public Response findByName(String name)
 	{
 		Country country = getDomainService().find(name);
 		return Response.ok(country).build();

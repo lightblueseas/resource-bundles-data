@@ -26,7 +26,7 @@ import de.alpharogroup.service.domain.AbstractDomainService;
  * The service class {@link BundleNamesDomainService}
  */
 @Transactional
-@Service("bundleNameService")
+@Service("bundleNameDomainService")
 public class BundleNameDomainService 
 	extends 
 		AbstractDomainService<java.lang.Integer, BundleName, BundleNames, BundleNamesRepository, BundleNamesMapper>	

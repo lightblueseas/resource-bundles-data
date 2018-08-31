@@ -68,13 +68,13 @@ public class CountriesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link CountriesRestResource#find(String)}
+	 * Test method for {@link CountriesRestResource#findByName(String)}
 	 */
 	@Test(enabled = false)
-	public void testFind()
+	public void testFindByName()
 	{
 		// http://localhost:8080/country/find/by/name/DE
-		Response response = countriesResource.find("DE");
+		Response response = countriesResource.findByName("DE");
 		Country viewModel = response.readEntity(Country.class);
 		assertNotNull(viewModel);
 		assertEquals(viewModel.getName() ,"Germany");
