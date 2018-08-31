@@ -39,10 +39,29 @@ public interface LanguagesService extends BusinessService<Languages, Integer>
 	 * @param name
 	 *            the name
 	 * @param iso639Dash1
-	 *            the iso639Dash1
+	 *            the specific code for the representation for the name of language
 	 * 
 	 * @return the found {@link Languages} object or null if not.
 	 */
 	Languages find(final String name, final String iso639Dash1);
+
+	/**
+	 * Find the {@link Languages} object from the name of the language
+	 *
+	 * @param name
+	 *            the name of the language
+	 * @return the found {@link Languages} object or null if not.
+	 */
+	Languages findByName(final String name);
+
+	/**
+	 * Find the {@link Languages} object from the specific code of the language
+	 *
+	 * @param name
+	 * @param iso639Dash1
+	 *            the specific code for the representation for the name of language
+	 * @return the found {@link Languages} object or null if not.
+	 */
+	Languages findByIso639Dash1(final String iso639Dash1);
 
 }

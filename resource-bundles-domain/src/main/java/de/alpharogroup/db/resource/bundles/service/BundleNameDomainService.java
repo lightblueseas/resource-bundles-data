@@ -11,7 +11,10 @@ import de.alpharogroup.db.resource.bundles.domain.BaseName;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.db.resource.bundles.entities.BaseNames;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.mapper.BundleNamesMapper;
 import de.alpharogroup.db.resource.bundles.mapper.LanguageLocalesMapper;
 import de.alpharogroup.db.resource.bundles.repositories.BundleNamesRepository;
@@ -30,9 +33,6 @@ public class BundleNameDomainService
 	implements 
 		BundleNameService
 {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
 	
 	/** The {@link BundleNamesService} object */
 	@Autowired
@@ -63,66 +63,87 @@ public class BundleNameDomainService
 	@Override
 	public List<BundleName> find(BundleApplication owner)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		List<BundleNames> set = bundleNamesService.find(entity);
+		List<BundleName> list = getMapper().map(set, BundleName.class);
+		return list;
 	}
 
 	@Override
 	public List<BundleName> find(BundleApplication owner, BaseName baseName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		BaseNames baseNames = getMapper().map(baseName, BaseNames.class);
+		List<BundleNames> bundleNames = bundleNamesService.find(entity, baseNames);
+		List<BundleName> list = getMapper().map(bundleNames, BundleName.class);
+		return list;
 	}
 
 	@Override
 	public BundleName find(BundleApplication owner, BaseName baseName,
 		LanguageLocale languageLocales)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		BaseNames baseNamesEntity = getMapper().map(baseName, BaseNames.class);
+		LanguageLocales languageLocalesEntity = getMapper().map(languageLocales, LanguageLocales.class);
+		BundleNames bundleNames = bundleNamesService.find(entity, baseNamesEntity, languageLocalesEntity);
+		BundleName domainObject = getMapper().toDomainObject(bundleNames);
+		return domainObject;
 	}
 
 	@Override
 	public List<BundleName> find(BundleApplication owner, String baseName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		List<BundleNames> bundleNames = bundleNamesService.find(entity, baseName);
+		List<BundleName> list = getMapper().map(bundleNames, BundleName.class);
+		return list;
 	}
 
 	@Override
 	public BundleName find(BundleApplication owner, String baseName, Locale locale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		BundleNames bundleNames = bundleNamesService.find(entity, baseName, locale);
+		BundleName domainObject = getMapper().toDomainObject(bundleNames);
+		return domainObject;
 	}
 
 	@Override
 	public List<BundleName> find(BundleApplication owner, String baseName, String locale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		List<BundleNames> bundleNames = bundleNamesService.find(entity, baseName, locale);
+		List<BundleName> list = getMapper().map(bundleNames, BundleName.class);
+		return list;
 	}
 
 	@Override
 	public LanguageLocale getDefaultLocale(BundleApplication owner, String baseName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		LanguageLocales languageLocales = bundleNamesService.getDefaultLocale(entity, baseName);
+		LanguageLocale languageLocale = getMapper().map(languageLocales, LanguageLocale.class);
+		return languageLocale;
 	}
 
 	@Override
-	public LanguageLocale getDefaultLocale(BundleName bundleNames)
+	public LanguageLocale getDefaultLocale(BundleName bundleName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleNames bundleNames = getMapper().toEntity(bundleName);
+		LanguageLocales defaultLocale = bundleNamesService.getDefaultLocale(bundleNames);
+		LanguageLocale languageLocale = getMapper().map(defaultLocale, LanguageLocale.class);
+		return languageLocale;
 	}
 
 	@Override
 	public BundleName getOrCreateNewBundleName(BundleApplication owner, String baseName,
 		Locale locale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().map(owner, BundleApplications.class);
+		BundleNames newBundleNames = bundleNamesService.getOrCreateNewBundleNames(entity, baseName, locale);
+		BundleName domainObject = getMapper().toDomainObject(newBundleNames);
+		return domainObject;
 	}
 
 }

@@ -24,17 +24,21 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import java.util.Locale;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.alpharogroup.collections.CollectionExtensions;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.mapper.BundleApplicationsMapper;
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationService;
@@ -77,38 +81,49 @@ public class BundleApplicationDomainService
 	@Override
 	public Set<BundleName> find(BundleApplication owner)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = getMapper().toEntity(owner);
+		Set<BundleNames> set = bundleApplicationsService.find(entity);
+		List<BundleName> list = getMapper().map(set, BundleName.class);
+		return SetFactory.newLinkedHashSet(list);
 	}
 
 	@Override
 	public BundleApplication find(String name)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleApplications entity = bundleApplicationsService.find(name);
+		BundleApplication domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
 	}
 
 	@Override
 	public BundleApplication get(BundleName bundleName)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		BundleNames bundleNamesEntity = getMapper().map(bundleName, BundleNames.class);
+		BundleApplications entity = bundleApplicationsService.get(bundleNamesEntity);
+		BundleApplication domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
 	}
 
 	@Override
 	public BundleApplication getOrCreateNewBundleApplications(String name,
 		LanguageLocale defaultLocale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return getOrCreateNewBundleApplications(name, defaultLocale, null);
 	}
 
 	@Override
 	public BundleApplication getOrCreateNewBundleApplications(String name,
 		LanguageLocale defaultLocale, Set<LanguageLocale> supportedLocales)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		LanguageLocales languageLocalesEntity =	getMapper().map(defaultLocale, LanguageLocales.class);
+		Set<LanguageLocales> supportedLocalesEntities = null;
+		if(CollectionExtensions.isNotEmpty(supportedLocales)) {
+			List<LanguageLocales> supportedLocalesEntitiesList = getMapper().map(supportedLocales, LanguageLocales.class);
+			supportedLocalesEntities = SetFactory.newLinkedHashSet(supportedLocalesEntitiesList);
+		}
+		BundleApplications entity = bundleApplicationsService.getOrCreateNewBundleApplications(name, languageLocalesEntity, supportedLocalesEntities);
+		BundleApplication domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
 	}
 
 }

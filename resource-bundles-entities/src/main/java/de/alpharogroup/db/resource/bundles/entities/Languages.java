@@ -51,7 +51,7 @@ public class Languages extends VersionableExtraSmallUniqueNameEntity<Integer> im
 	private static final long serialVersionUID = 1L;
 
 	/** The iso639_1 code with two characters. */
-	@Column(name = "iso639_1", length = 2)
+	@Column(unique=true, name = "iso639_1", length = 2)
 	private String iso639Dash1;
 
 	/**

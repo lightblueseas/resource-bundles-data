@@ -102,11 +102,11 @@ public interface BundleNameService extends DomainService<Integer, BundleName>
 	/**
 	 * Gets the default locale from the given {@link BaseName} object.
 	 *
-	 * @param bundleNames
-	 *            the bundle names
+	 * @param bundleName
+	 *            the bundle name
 	 * @return the default locale from the given {@link BaseName} object or null if not set.
 	 */
-	LanguageLocale getDefaultLocale(BundleName bundleNames);
+	LanguageLocale getDefaultLocale(BundleName bundleName);
 
 	/**
 	 * Gets the or creates a new {@link BundleName} object.

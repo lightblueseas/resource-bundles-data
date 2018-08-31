@@ -54,6 +54,9 @@ public class LanguagesBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	@SuppressWarnings("unchecked")
 	public Languages find(final String name, final String iso639Dash1)
@@ -73,6 +76,29 @@ public class LanguagesBusinessService
 		return ListExtensions.getFirst(languages);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Languages findByIso639Dash1(String iso639Dash1)
+	{
+		return find(null, iso639Dash1);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Languages findByName(final String name)
+	{
+		return find(name, null);
+	}
+
+	/**
+	 * Sets the languages repository.
+	 *
+	 * @param repository the new languages repository
+	 */
 	@Autowired
 	public void setLanguagesRepository(final LanguagesRepository repository)
 	{

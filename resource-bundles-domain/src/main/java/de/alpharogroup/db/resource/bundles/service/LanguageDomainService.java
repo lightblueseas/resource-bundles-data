@@ -17,20 +17,17 @@ import de.alpharogroup.service.domain.AbstractDomainService;
  */
 @Transactional
 @Service("languageService")
-public class LanguageDomainService 
-	extends 
-		AbstractDomainService<java.lang.Integer, Language, Languages, LanguagesRepository, LanguagesMapper>	
-	implements 
+public class LanguageDomainService
+	extends
+		AbstractDomainService<java.lang.Integer, Language, Languages, LanguagesRepository, LanguagesMapper>
+	implements
 		LanguageService
 {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-		
 	/** The {@link LanguagesService} object */
 	@Autowired
 	private LanguagesService languagesService;
-	
+
 	/**
 	 * Sets the specific {@link LanguagesMapper}
 	 *
@@ -46,11 +43,42 @@ public class LanguageDomainService
 	/**
 	 * Sets the specific repository
 	 *
-	 * @param repository the repository
+	 * @param repository
+	 *            the repository
 	 */
 	@Autowired
-	public void setLanguagesRepository(LanguagesRepository repository) {
+	public void setLanguagesRepository(LanguagesRepository repository)
+	{
 		setRepository(repository);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Language find(final String name, final String iso639Dash1)
+	{
+		Languages entity = languagesService.find(name, iso639Dash1);
+		Language domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Language findByName(String name)
+	{
+		return find(name, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Language findByIso639Dash1(String iso639Dash1)
+	{
+		return find(null, iso639Dash1);
 	}
 
 }

@@ -74,29 +74,33 @@ public class LanguageLocaleDomainService
 	@Override
 	public LanguageLocale find(Locale locale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		LanguageLocales languageLocales = languageLocalesService.find(locale);
+		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
+		return domainObject;
 	}
 
 	@Override
 	public LanguageLocale find(String locale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		LanguageLocales languageLocales = languageLocalesService.find(locale);
+		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
+		return domainObject;
 	}
 
 	@Override
 	public LanguageLocale getOrCreateNewLanguageLocales(Locale locale)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
+		return domainObject;
 	}
 
 	@Override
 	public Locale resolveLocale(LanguageLocale languageLocales)
 	{
-		// TODO Auto-generated method stub
-		return null;
+		LanguageLocales entity = getMapper().toEntity(languageLocales);
+		Locale locale = languageLocalesService.resolveLocale(entity);
+		return locale;
 	}
 
 
