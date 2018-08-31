@@ -51,7 +51,7 @@ public class ResourcebundlesRestClientTest
 {
 
 	/** The resourcebundles resource. */
-	private ResourcebundlesResource resourcebundlesResource;
+	private ResourcebundlesResource resource;
 
 	/** The rest client. */
 	private ResourcebundlesRestClient restClient;
@@ -68,8 +68,8 @@ public class ResourcebundlesRestClientTest
 		if (restClient == null)
 		{
 			restClient = new ResourcebundlesRestClient();
-			resourcebundlesResource = restClient.getResourcebundlesResource();
-			assertNotNull(resourcebundlesResource);
+			resource = restClient.getResource();
+			assertNotNull(resource);
 		}
 	}
 
@@ -91,7 +91,7 @@ public class ResourcebundlesRestClientTest
 	public void testFind()
 	{
 		// http://localhost:8080/resourcebundle/find/base-bundle-application/base-resource-bundles/de_DE/resource.bundles.test.label
-		final Resourcebundle resourcebundle2 = resourcebundlesResource.find(
+		final Resourcebundle resourcebundle2 = resource.find(
 			"base-bundle-application", "base-resource-bundles", "de",
 			"resource.bundles.test.label");
 		assertNotNull(resourcebundle2);
@@ -106,7 +106,7 @@ public class ResourcebundlesRestClientTest
 	public void testfindAllBundleApplications()
 	{
 		// http://localhost:8080/resourcebundle/get/r/all/apps
-		final Response response = resourcebundlesResource.findAllBundleApplications();
+		final Response response = resource.findAllBundleApplications();
 		final List<BundleApplication> bundleApplications = response.readEntity(List.class);
 		assertNotNull(bundleApplications);
 		assertEquals(2, bundleApplications.size());
@@ -119,7 +119,7 @@ public class ResourcebundlesRestClientTest
 	public void testGet()
 	{
 		// http://localhost:8080/resourcebundle/get/1
-		final Resourcebundle resourcebundle1 = resourcebundlesResource
+		final Resourcebundle resourcebundle1 = resource
 			.get(Integer.valueOf(1).toString());
 		assertNotNull(resourcebundle1);
 		assertEquals("Erstes label", resourcebundle1.getValue().getName());
@@ -132,7 +132,7 @@ public class ResourcebundlesRestClientTest
 	public void testGetBundleApp()
 	{
 		// http://localhost:8080/resourcebundle/get/r/app/base-bundle-application
-		final Response response = resourcebundlesResource.getBundleApp("base-bundle-application");
+		final Response response = resource.getBundleApp("base-bundle-application");
 		final BundleApplication bundleApplication = response.readEntity(BundleApplication.class);
 		assertNotNull(bundleApplication);
 		assertEquals("base-bundle-application", bundleApplication.getName());
@@ -147,7 +147,7 @@ public class ResourcebundlesRestClientTest
 		Response response;
 		Properties properties;
 		// http://localhost:8080/resourcebundle/get/properties/base-bundle-application/base-resource-bundles/de
-		response = resourcebundlesResource.getProperties("base-bundle-application",
+		response = resource.getProperties("base-bundle-application",
 			"base-resource-bundles", "de");
 
 		properties = response.readEntity(Properties.class);
@@ -156,7 +156,7 @@ public class ResourcebundlesRestClientTest
 			properties.getProperty("resource.bundles.test.label"));
 
 		// http://localhost:8080/resourcebundle/get/properties/base-bundle-application/test/de_DE
-		response = resourcebundlesResource.getProperties("base-bundle-application", "test",
+		response = resource.getProperties("base-bundle-application", "test",
 			"en_US");
 		properties = response.readEntity(Properties.class);
 		assertNotNull(properties);
@@ -171,7 +171,7 @@ public class ResourcebundlesRestClientTest
 	public void testGetResponseString()
 	{
 		// http://localhost:8080/resourcebundle/get/r/string/base-bundle-application/base-resource-bundles/de/resource.bundles.test.label
-		final Response response = resourcebundlesResource.getResponseString(
+		final Response response = resource.getResponseString(
 			"base-bundle-application", "base-resource-bundles", "de",
 			"resource.bundles.test.label");
 		final KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
@@ -187,7 +187,7 @@ public class ResourcebundlesRestClientTest
 	public void testGetString()
 	{
 		// http://localhost:8080/resourcebundle/get/string/base-bundle-application/base-resource-bundles/de_DE/resource.bundles.test.label
-		final Response response = resourcebundlesResource.getString("base-bundle-application",
+		final Response response = resource.getString("base-bundle-application",
 			"base-resource-bundles", "de", "resource.bundles.test.label");
 		final KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
 		assertNotNull(keyValuePair);
@@ -205,7 +205,7 @@ public class ResourcebundlesRestClientTest
 		final String[] paramsGerman = { "Fritz", "Deutschland" };
 		final String baseName = "test";
 
-		Response response = resourcebundlesResource.getString("base-bundle-application", baseName,
+		Response response = resource.getString("base-bundle-application", baseName,
 			"de_DE", "com.example.gui.prop.with.params.label", paramsGerman);
 
 		KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
@@ -215,7 +215,7 @@ public class ResourcebundlesRestClientTest
 
 		// http://localhost:8080/resourcebundle/get/string/base-bundle-application/test/en_US/com.example.gui.prop.with.params.label/parameters?parameter=Fritz&parameter=Germany
 		final String[] paramsBritain = { "Fritz", "Germany" };
-		response = resourcebundlesResource.getString("base-bundle-application", baseName, "en_US",
+		response = resource.getString("base-bundle-application", baseName, "en_US",
 			"com.example.gui.prop.with.params.label", paramsBritain);
 		keyValuePair = response.readEntity(KeyValuePair.class);
 		assertNotNull(keyValuePair);

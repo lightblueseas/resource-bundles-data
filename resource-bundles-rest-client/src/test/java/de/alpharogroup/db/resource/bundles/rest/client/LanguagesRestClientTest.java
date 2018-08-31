@@ -19,7 +19,7 @@ import de.alpharogroup.db.resource.bundles.rest.api.LanguagesResource;
 public class LanguagesRestClientTest
 {
 
-	private LanguagesResource languagesResource;
+	private LanguagesResource resource;
 
 	/** The rest client. */
 	private LanguagesRestClient restClient;
@@ -36,8 +36,8 @@ public class LanguagesRestClientTest
 		if (restClient == null)
 		{
 			restClient = new LanguagesRestClient();
-			languagesResource = restClient.getLanguagesResource();
-			AssertJUnit.assertNotNull(languagesResource);
+			resource = restClient.getResource();
+			AssertJUnit.assertNotNull(resource);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class LanguagesRestClientTest
 	public void testFindAll() throws Exception
 	{
 		// http://localhost:8080/language/find/all
-		Response response = languagesResource.findAll();
+		Response response = resource.findAll();
 		final List<Language> list = response.readEntity(List.class);
 		assertNotNull(list);
 		assertEquals(185, list.size());
@@ -73,7 +73,7 @@ public class LanguagesRestClientTest
 	public void testFindByName()
 	{
 		// http://localhost:8080/language/find/by/name/German
-		Response response = languagesResource.findByName("German");
+		Response response = resource.findByName("German");
 		Language viewModel = response.readEntity(Language.class);
 		assertNotNull(viewModel);
 		assertEquals(viewModel.getName() ,"German");
@@ -87,7 +87,7 @@ public class LanguagesRestClientTest
 	public void testFindByCode()
 	{
 		// http://localhost:8080/language/find/by/code/de
-		Response response = languagesResource.findByCode("de");
+		Response response = resource.findByCode("de");
 		Language viewModel = response.readEntity(Language.class);
 		assertNotNull(viewModel);
 		assertEquals(viewModel.getName() ,"German");

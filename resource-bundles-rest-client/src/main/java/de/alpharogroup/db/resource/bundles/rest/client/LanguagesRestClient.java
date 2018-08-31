@@ -39,7 +39,7 @@ public class LanguagesRestClient extends AbstractRestClient
 	 * The {@link LanguagesResource}.
 	 */
 	@Getter
-	private final LanguagesResource languagesResource;
+	private final LanguagesResource resource;
 
 	/**
 	 * Instantiates a new {@link LanguagesRestClient} with the default base url.
@@ -58,7 +58,7 @@ public class LanguagesRestClient extends AbstractRestClient
 	public LanguagesRestClient(final String baseUrl)
 	{
 		super(baseUrl);
-		languagesResource = newResource(LanguagesResource.class);
+		resource = newResource(LanguagesResource.class);
 	}
 
 }

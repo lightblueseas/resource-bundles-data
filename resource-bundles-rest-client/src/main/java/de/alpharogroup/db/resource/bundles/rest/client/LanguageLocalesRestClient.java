@@ -25,40 +25,40 @@
 package de.alpharogroup.db.resource.bundles.rest.client;
 
 import de.alpharogroup.cxf.rest.client.AbstractRestClient;
-import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
+import de.alpharogroup.db.resource.bundles.rest.api.LanguageLocalesResource;
 import lombok.Getter;
 
 /**
- * The class {@link ResourcebundlesRestClient} is a rest client for the resource-bundles that are
+ * The class {@link LanguageLocalesRestClient} is a rest client for the resource-bundles that are
  * persists in the database.
  */
-public class ResourcebundlesRestClient extends AbstractRestClient
+public class LanguageLocalesRestClient extends AbstractRestClient
 {
 
 	/**
-	 * The {@link ResourcebundlesResource}.
+	 * The {@link LanguageLocalesResource}.
 	 */
 	@Getter
-	private final ResourcebundlesResource resource;
+	private final LanguageLocalesResource resource;
 
 	/**
-	 * Instantiates a new {@link ResourcebundlesRestClient} with the default base url.
+	 * Instantiates a new {@link LanguageLocalesRestClient} with the default base url.
 	 */
-	public ResourcebundlesRestClient()
+	public LanguageLocalesRestClient()
 	{
 		this(DEFAULT_BASE_HTTP_URL);
 	}
 
 	/**
-	 * Instantiates a new {@link ResourcebundlesRestClient}.
+	 * Instantiates a new {@link LanguageLocalesRestClient}.
 	 *
 	 * @param baseUrl
 	 *            the base url
 	 */
-	public ResourcebundlesRestClient(final String baseUrl)
+	public LanguageLocalesRestClient(final String baseUrl)
 	{
 		super(baseUrl);
-		resource = newResource(ResourcebundlesResource.class);
+		resource = newResource(LanguageLocalesResource.class);
 	}
 
 }

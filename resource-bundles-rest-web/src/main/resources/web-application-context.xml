@@ -15,6 +15,7 @@
 			<ref bean="resourcebundlesResource" />
 			<ref bean="countriesResource" />
 			<ref bean="languagesResource" />
+			<ref bean="languageLocalesResource" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
 			<bean class="de.alpharogroup.service.rs.providers.CustomTypeModulesRegistrationProvider" />
@@ -30,6 +31,9 @@
 	</bean>
 	<bean id="languagesResource" class="de.alpharogroup.db.resource.bundles.rest.LanguagesRestResource">
 		<property name="domainService" ref="languageDomainService"></property>
+	</bean>
+	<bean id="languageLocalesResource" class="de.alpharogroup.db.resource.bundles.rest.LanguageLocalesRestResource">
+		<property name="domainService" ref="languageLocaleDomainService"></property>
 	</bean>
 	
 </beans>

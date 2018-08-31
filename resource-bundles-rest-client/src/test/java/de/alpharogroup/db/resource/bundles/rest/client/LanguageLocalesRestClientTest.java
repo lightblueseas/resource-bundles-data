@@ -12,17 +12,17 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.db.resource.bundles.domain.Country;
-import de.alpharogroup.db.resource.bundles.rest.CountriesRestResource;
-import de.alpharogroup.db.resource.bundles.rest.api.CountriesResource;
+import de.alpharogroup.db.resource.bundles.domain.LanguageLocale;
+import de.alpharogroup.db.resource.bundles.rest.LanguageLocalesRestResource;
+import de.alpharogroup.db.resource.bundles.rest.api.LanguageLocalesResource;
 
-public class CountriesRestClientTest
+public class LanguageLocalesRestClientTest
 {
 
-	private CountriesResource resource;
+	private LanguageLocalesResource resource;
 
 	/** The rest client. */
-	private CountriesRestClient restClient;
+	private LanguageLocalesRestClient restClient;
 
 	/**
 	 * Sets the up method.
@@ -35,7 +35,7 @@ public class CountriesRestClientTest
 	{
 		if (restClient == null)
 		{
-			restClient = new CountriesRestClient();
+			restClient = new LanguageLocalesRestClient();
 			resource = restClient.getResource();
 			AssertJUnit.assertNotNull(resource);
 		}
@@ -54,29 +54,29 @@ public class CountriesRestClientTest
 	
 
 	/**
-	 * Test method for {@link CountriesRestResource#findAll()}
+	 * Test method for {@link LanguageLocalesRestResource#findAll()}
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(enabled = false)
 	public void testFindAll() throws Exception
 	{
-		// http://localhost:8080/country/find/all
+		// http://localhost:8080/language/locale/find/all
 		Response response = resource.findAll();
-		final List<Country> list = response.readEntity(List.class);
+		final List<LanguageLocale> list = response.readEntity(List.class);
 		assertNotNull(list);
-		assertEquals(250, list.size());
+		assertEquals(18, list.size());
 	}
 
 	/**
-	 * Test method for {@link CountriesRestResource#findByName(String)}
+	 * Test method for {@link LanguageLocalesRestResource#find(String)}
 	 */
 	@Test(enabled = false)
 	public void testFindByName()
 	{
-		// http://localhost:8080/country/find/by/name/DE
-		Response response = resource.findByName("DE");
-		Country viewModel = response.readEntity(Country.class);
+		// http://localhost:8080/language/locale/find/by/locale/de
+		Response response = resource.find("de");
+		LanguageLocale viewModel = response.readEntity(LanguageLocale.class);
 		assertNotNull(viewModel);
-		assertEquals(viewModel.getName() ,"Germany");
+		assertEquals(viewModel.getLocale() ,"de");
 	}
 }

@@ -39,7 +39,7 @@ public class CountriesRestClient extends AbstractRestClient
 	 * The {@link CountriesResource}.
 	 */
 	@Getter
-	private final CountriesResource countriesResource;
+	private final CountriesResource resource;
 
 	/**
 	 * Instantiates a new {@link CountriesRestClient} with the default base url.
@@ -58,7 +58,7 @@ public class CountriesRestClient extends AbstractRestClient
 	public CountriesRestClient(final String baseUrl)
 	{
 		super(baseUrl);
-		countriesResource = newResource(CountriesResource.class);
+		resource = newResource(CountriesResource.class);
 	}
 
 }
