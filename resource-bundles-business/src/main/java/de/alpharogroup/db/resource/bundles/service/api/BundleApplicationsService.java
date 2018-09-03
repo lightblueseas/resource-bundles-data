@@ -84,6 +84,20 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	 * Gets the {@link BundleApplications} object from the given name or creates a new
 	 * {@link BundleApplications} object if not found.
 	 *
+	 *
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @return the existing or a new {@link BundleApplications} object
+	 */
+	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final String defaultLocale);
+
+	/**
+	 * Gets the {@link BundleApplications} object from the given name or creates a new
+	 * {@link BundleApplications} object if not found.
+	 *
 	 * @param name
 	 *            the name
 	 * @param defaultLocale

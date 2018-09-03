@@ -65,6 +65,15 @@ public interface LanguageLocalesService extends BusinessService<LanguageLocales,
 	LanguageLocales getOrCreateNewLanguageLocales(final Locale locale);
 
 	/**
+	 * Gets the or creates a new {@link LanguageLocales} object.
+	 *
+	 * @param locale
+	 *            the locale
+	 * @return the {@link LanguageLocales} object
+	 */
+	LanguageLocales getOrCreateNewLanguageLocales(final String locale);
+
+	/**
 	 * Resolves the {@link Locale} object from the given {@link LanguageLocales}.
 	 *
 	 * @param languageLocales

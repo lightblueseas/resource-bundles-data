@@ -43,6 +43,7 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
@@ -70,6 +71,10 @@ public class BundleApplicationsBusinessService
 	/** The resourcebundles service. */
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
+
+	/** The language locales service. */
+	@Autowired
+	private LanguageLocalesService languageLocalesService;
 
 	/**
 	 * {@inheritDoc}
@@ -126,7 +131,17 @@ public class BundleApplicationsBusinessService
 	{
 		return bundleName.getOwner();
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name, @NonNull final String defaultLocale)
+	{
+		LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(defaultLocale);
+		return getOrCreateNewBundleApplications(name, languageLocales);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

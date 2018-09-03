@@ -41,6 +41,15 @@ public interface LanguageLocaleService extends DomainService<Integer, LanguageLo
 	LanguageLocale getOrCreateNewLanguageLocales(final Locale locale);
 
 	/**
+	 * Gets the or creates a new {@link LanguageLocale} object.
+	 *
+	 * @param locale
+	 *            the locale
+	 * @return the {@link LanguageLocale} object
+	 */
+	LanguageLocale getOrCreateNewLanguageLocales(final String locale);
+
+	/**
 	 * Resolves the {@link Locale} object from the given {@link LanguageLocale}.
 	 *
 	 * @param languageLocales

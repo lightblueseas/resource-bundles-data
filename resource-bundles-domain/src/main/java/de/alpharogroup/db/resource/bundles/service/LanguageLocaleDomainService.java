@@ -103,5 +103,12 @@ public class LanguageLocaleDomainService
 		return locale;
 	}
 
+	@Override
+	public LanguageLocale getOrCreateNewLanguageLocales(String locale)
+	{
+		LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
+		return domainObject;
+	}
 
 }

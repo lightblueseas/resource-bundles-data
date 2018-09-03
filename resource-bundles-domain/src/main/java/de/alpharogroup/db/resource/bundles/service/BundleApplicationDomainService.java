@@ -126,4 +126,12 @@ public class BundleApplicationDomainService
 		return domainObject;
 	}
 
+	@Override
+	public BundleApplication getOrCreateNewBundleApplications(String name, String defaultLocale)
+	{
+		BundleApplications entity = bundleApplicationsService.getOrCreateNewBundleApplications(name, defaultLocale);
+		BundleApplication domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
+	}
+
 }

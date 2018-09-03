@@ -96,6 +96,21 @@ public class LanguageLocalesBusinessService
 		return expected;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public LanguageLocales getOrCreateNewLanguageLocales(final String locale)
+	{
+		LanguageLocales expected = find(locale);
+		if (expected == null)
+		{
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(locale);
+			expected = merge(expected);
+		}
+		return expected;
+	}
+
 	@Override
 	public Locale resolveLocale(LanguageLocales languageLocales)
 	{
