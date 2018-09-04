@@ -36,11 +36,15 @@ import de.alpharogroup.collections.CollectionExtensions;
 import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.mapper.ResourcebundlesMapper;
 import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
+import de.alpharogroup.db.resource.bundles.service.api.BundleNameService;
+import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
@@ -63,6 +67,9 @@ public class ResourcebundleDomainService
 
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
+	/** The {@link BundleNamesService} object */
+	@Autowired
+	private BundleNameService bundleNameDomainService;
 
 	@Override
 	public Resourcebundle contains(final BundleApplication bundleApplication, final String baseName,
@@ -282,6 +289,14 @@ public class ResourcebundleDomainService
 		List<BundleApplications> allBundleApplications = resourcebundlesService.findAllBundleApplications();
 		List<BundleApplication> domainObjects = getMapper().map(allBundleApplications, BundleApplication.class);
 		return domainObjects;
+	}
+	
+//	@Override
+	public BundleName getOrCreateNewBundleName(BundleApplication owner, String baseName,
+		Locale locale)
+	{
+		BundleName domainObject = bundleNameDomainService.getOrCreateNewBundleName(owner, baseName, locale);
+		return domainObject;
 	}
 
 }

@@ -13,6 +13,7 @@
 	<jaxrs:server id="service" address="/">
 		<jaxrs:serviceBeans>
 			<ref bean="resourcebundlesResource" />
+			<ref bean="bundleApplicationsResource" />
 			<ref bean="countriesResource" />
 			<ref bean="languagesResource" />
 			<ref bean="languageLocalesResource" />
@@ -25,6 +26,9 @@
 	<!-- web resources -->
 	<bean id="resourcebundlesResource" class="de.alpharogroup.db.resource.bundles.rest.ResourcebundlesRestResource">
 		<property name="domainService" ref="resourcebundleDomainService"></property>
+	</bean>
+	<bean id="bundleApplicationsResource" class="de.alpharogroup.db.resource.bundles.rest.BundleApplicationsRestResource">
+		<property name="domainService" ref="bundleApplicationDomainService"></property>
 	</bean>
 	<bean id="countriesResource" class="de.alpharogroup.db.resource.bundles.rest.CountriesRestResource">
 		<property name="domainService" ref="countryDomainService"></property>

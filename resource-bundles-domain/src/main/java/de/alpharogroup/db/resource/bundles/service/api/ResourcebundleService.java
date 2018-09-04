@@ -29,6 +29,7 @@ import java.util.Locale;
 import java.util.Properties;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.resourcebundle.locale.BundleKey;
 import de.alpharogroup.service.domain.DomainService;
@@ -263,5 +264,19 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @return the list of the found {@link BundleApplication} objects.
 	 */
 	List<BundleApplication> findAllBundleApplications();
+
+	/**
+	 * Gets the or creates a new {@link BundleName} object.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the or create new bundle names
+	 */
+	BundleName getOrCreateNewBundleName(BundleApplication owner, final String baseName,
+		final Locale locale);
 	
 }

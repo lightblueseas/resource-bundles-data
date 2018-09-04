@@ -32,6 +32,7 @@ import javax.ws.rs.core.Response;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
@@ -143,6 +144,15 @@ public class ResourcebundlesRestResource
 		final ResourcebundleService resourcebundleService = getDomainService();
 		List<BundleApplication> allBundleApplications = resourcebundleService.findAllBundleApplications();
 		return Response.ok(allBundleApplications).build();
+	}
+
+	@Override
+	public Response getOrCreateNewBundleName(String bundleappname, String baseName, String locale)
+	{
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final Locale loc = LocaleResolver.resolveLocale(locale);
+		BundleName bundleName = getDomainService().getOrCreateNewBundleName(bundleApplication, baseName, loc);
+		return Response.ok(bundleName).build();
 	}
 
 }

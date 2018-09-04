@@ -37,6 +37,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.service.rs.RestfulResource;
 
@@ -176,6 +178,22 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	Response getString(@PathParam("bundleappname") String bundleappname,
 		@PathParam("basename") String baseName, @PathParam("locale") String locale,
 		@PathParam("key_and_parameters") String key,
-		@QueryParam("parameter") final String[] params);
+		@QueryParam("parameter") final String[] params);	
+
+	/**
+	 * Gets the or creates a new {@link BundleName} object.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the or create new bundle names
+	 */
+	@GET
+	@Path("/get/or/create/bundlename/{bundleappname}/{basename}/{locale}")
+	Response getOrCreateNewBundleName(@PathParam("bundleappname") String bundleappname, final @PathParam("basename") String baseName,
+		final  @PathParam("locale") String locale);
 
 }
