@@ -29,6 +29,7 @@ import java.util.Properties;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -37,7 +38,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
-import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.service.rs.RestfulResource;
@@ -195,5 +196,49 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	@Path("/get/or/create/bundlename/{bundleappname}/{basename}/{locale}")
 	Response getOrCreateNewBundleName(@PathParam("bundleappname") String bundleappname, final @PathParam("basename") String baseName,
 		final  @PathParam("locale") String locale);
+	
+	@POST
+	@Path("/update/bundlename")
+	Response updateProperties(Quattro<Properties, String, String, Locale> quattro);
+	
+
+	/**
+	 * Save or update the given resource bundle entry.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @param update
+	 *            the update
+	 * @return the {@link Response} object 
+	 */
+	@GET
+	@Path("/save/or/update/resourcebundle/{bundleappname}/{basename}/{locale}/{key}/{value}")
+	Response saveOrUpdateEntry(@PathParam("bundleappname") String bundleappname, final @PathParam("basename") String baseName,
+		final  @PathParam("locale") String locale,
+		final @PathParam("key") String key, final @PathParam("value")String value);	
+
+	/**
+	 * Find resource bundles from the given parameters.
+	 *
+	 * @param bundleApplication
+	 *            the bundle application
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the list
+	 */
+	@GET
+	@Path("/find/resourcebundles/{bundleappname}/{basename}/{locale}")
+	Response findResourceBundles(@PathParam("bundleappname") String bundleappname,
+		@PathParam("basename") String baseName, @PathParam("locale") String locale);
 
 }

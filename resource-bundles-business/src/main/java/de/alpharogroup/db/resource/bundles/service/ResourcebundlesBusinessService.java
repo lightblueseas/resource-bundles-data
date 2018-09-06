@@ -39,7 +39,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.check.Check;
 import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
@@ -63,6 +62,7 @@ import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -464,17 +464,16 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames updateProperties(final BundleApplications owner, final Properties properties,
-		final String baseName, final Locale locale)
+	public BundleNames updateProperties(final @NonNull  BundleApplications owner, final @NonNull Properties properties,
+		final @NonNull String baseName, final @NonNull Locale locale)
 	{
 		return updateProperties(owner, properties, baseName, locale, true);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public BundleNames updateProperties(final BundleApplications owner, final Properties properties,
-		final String baseName, final Locale locale, final boolean update)
+	public BundleNames updateProperties(final @NonNull BundleApplications owner, final @NonNull Properties properties,
+		final @NonNull String baseName, final @NonNull Locale locale, final boolean update)
 	{
-		Check.get().notEmpty(baseName, "baseName").notNull(locale, "locale");
 		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(owner, baseName,
 			locale);
 		final Properties dbProperties = getProperties(bundleName);
@@ -515,6 +514,15 @@ public class ResourcebundlesBusinessService
 	public List<BundleApplications> findAllBundleApplications()
 	{
 		return bundleApplicationsService.findAll();
+	}
+
+	@Override
+	public BundleNames updateProperties(final @NonNull Properties properties, final @NonNull String owner, final @NonNull String baseName,
+		final @NonNull String localeCode)
+	{
+		BundleApplications bundleApplications = bundleApplicationsService.find(owner);
+		Locale locale = LocaleResolver.resolveLocale(localeCode, false);
+		return updateProperties(bundleApplications, properties, baseName, locale);
 	}
 
 }

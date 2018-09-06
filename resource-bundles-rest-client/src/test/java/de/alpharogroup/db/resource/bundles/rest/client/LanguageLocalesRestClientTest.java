@@ -57,7 +57,7 @@ public class LanguageLocalesRestClientTest
 	 * Test method for {@link LanguageLocalesRestResource#findAll()}
 	 */
 	@SuppressWarnings("unchecked")
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindAll() throws Exception
 	{
 		// http://localhost:8080/language/locale/find/all
@@ -70,7 +70,7 @@ public class LanguageLocalesRestClientTest
 	/**
 	 * Test method for {@link LanguageLocalesRestResource#find(String)}
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindByName()
 	{
 		// http://localhost:8080/language/locale/find/by/locale/de

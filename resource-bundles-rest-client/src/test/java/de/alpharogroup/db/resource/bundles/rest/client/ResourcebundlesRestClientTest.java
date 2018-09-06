@@ -29,6 +29,7 @@ import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.ws.rs.core.Response;
@@ -38,7 +39,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
@@ -221,6 +224,34 @@ public class ResourcebundlesRestClientTest
 		assertNotNull(keyValuePair);
 		assertEquals("Hello i am Fritz and i come from Germany.",
 			keyValuePair.getValue());
+	}
+	
+	/**
+	 * Test method for {@link ResourcebundlesResource#updateProperties(Quattro)}
+	 */
+	@Test(enabled = false)
+	public void testUpdateProperties() {
+		Properties properties;
+		String ownerName;
+		String baseName;
+		Locale locale;
+		properties = new Properties();
+		properties.setProperty("utest.one", "one val");
+		properties.setProperty("utest.two", "two val");
+		properties.setProperty("utest.three", "three val");
+		ownerName = "base-bundle-application";
+		baseName = "testbase";
+		locale = Locale.GERMAN;
+		Quattro<Properties, String, String, Locale> quattro =  Quattro.<Properties, String, String, Locale>builder()
+			.topLeft(properties)
+			.topRight(ownerName)
+			.bottomLeft(baseName)
+			.bottomRight(locale)
+			.build();
+		Response response = resource.updateProperties(quattro);
+		BundleName bundleName = response.readEntity(BundleName.class);
+		assertNotNull(bundleName);
+		assertEquals(baseName, bundleName.getBaseName().getName());
 	}
 
 }

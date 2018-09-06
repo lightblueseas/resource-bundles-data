@@ -42,7 +42,7 @@ create table languages (
        id int4 not null,
         version int4,
         name varchar(64) unique,
-        iso639_1 varchar(2),
+        iso639_1 varchar(2) unique,
         primary key (id)
     );
 create table properties_keys (

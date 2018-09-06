@@ -527,3 +527,5 @@ INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id
 INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (18, 1, 8, 18, 6);
 INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (19, 1, 9, 19, 6);
 INSERT INTO resourcebundles (id, version, properties_key_id, properties_value_id, bundlename_id) VALUES (20, 1, 10, 20, 6);
+
+alter sequence hibernate_sequence restart with 30;

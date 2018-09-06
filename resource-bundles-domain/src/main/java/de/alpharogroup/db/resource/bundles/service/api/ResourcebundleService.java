@@ -28,6 +28,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
+import javax.xml.ws.Response;
+
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
@@ -254,7 +256,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @param locale
 	 *            the locale
 	 */
-	void updateProperties(BundleApplication bundleApplication, Properties properties,
+	 BundleName updateProperties(BundleApplication bundleApplication, Properties properties,
 		String baseName, Locale locale);
 
 
@@ -278,5 +280,27 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 */
 	BundleName getOrCreateNewBundleName(BundleApplication owner, final String baseName,
 		final Locale locale);
+	
+
+	/**
+	 * Save or update the given resource bundle entry.
+	 *
+	 * @param bundleName
+	 *            the bundle name
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @param update
+	 *            the update
+	 * @return the {@link Response} object 
+	 */
+	Resourcebundle saveOrUpdateEntry(final String bundleappname, final String baseName,
+		final  String locale,
+		final String key, final String value);
 	
 }

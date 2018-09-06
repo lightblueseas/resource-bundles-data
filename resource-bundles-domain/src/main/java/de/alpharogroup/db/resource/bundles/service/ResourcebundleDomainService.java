@@ -276,11 +276,13 @@ public class ResourcebundleDomainService
 	}
 
 	@Override
-	public void updateProperties(final BundleApplication bundleApplication,
+	public BundleName updateProperties(final BundleApplication bundleApplication,
 		final Properties properties, final String baseName, final Locale locale)
 	{
 		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
-		resourcebundlesService.updateProperties(owner, properties, baseName, locale);
+		BundleNames entity = resourcebundlesService.updateProperties(owner, properties, baseName, locale);
+		BundleName domainObject = getMapper().map(entity, BundleName.class);
+		return domainObject;
 	}
 
 	@Override
@@ -296,6 +298,19 @@ public class ResourcebundleDomainService
 		Locale locale)
 	{
 		BundleName domainObject = bundleNameDomainService.getOrCreateNewBundleName(owner, baseName, locale);
+		return domainObject;
+	}
+
+	@Override
+	public Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName, String locale,
+		String key, String value)
+	{
+		final BundleApplication owner = find(bundleappname);
+		Locale resolvedLocale = LocaleResolver.resolveLocale(locale, false);
+		BundleName bundleName = bundleNameDomainService.find(owner, baseName, resolvedLocale);
+		BundleNames bundleNames = getMapper().map(bundleName, BundleNames.class);
+		Resourcebundles entity = resourcebundlesService.saveOrUpdateEntry(bundleNames, baseName, resolvedLocale, key, value, true);
+		Resourcebundle domainObject = getMapper().toDomainObject(entity);
 		return domainObject;
 	}
 

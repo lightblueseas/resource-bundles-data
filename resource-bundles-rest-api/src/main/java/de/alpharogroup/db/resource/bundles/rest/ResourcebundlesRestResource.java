@@ -31,6 +31,7 @@ import java.util.Properties;
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
@@ -142,7 +143,8 @@ public class ResourcebundlesRestResource
 	public Response findAllBundleApplications()
 	{
 		final ResourcebundleService resourcebundleService = getDomainService();
-		List<BundleApplication> allBundleApplications = resourcebundleService.findAllBundleApplications();
+		List<BundleApplication> allBundleApplications = resourcebundleService
+			.findAllBundleApplications();
 		return Response.ok(allBundleApplications).build();
 	}
 
@@ -151,8 +153,49 @@ public class ResourcebundlesRestResource
 	{
 		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
 		final Locale loc = LocaleResolver.resolveLocale(locale);
-		BundleName bundleName = getDomainService().getOrCreateNewBundleName(bundleApplication, baseName, loc);
+		BundleName bundleName = getDomainService().getOrCreateNewBundleName(bundleApplication,
+			baseName, loc);
 		return Response.ok(bundleName).build();
+	}
+
+	/**
+	 * Update the given {@link Properties} object to the underlying database with the given owner
+	 * and the given baseName and the given {@link Locale} object that are encapsulated in the
+	 * {@link Quattro} object.
+	 *
+	 * @param quattro
+	 *            the owner
+	 * @return the updated {@link BundleName} object
+	 */
+	@Override
+	public Response updateProperties(Quattro<Properties, String, String, Locale> quattro)
+	{
+		Properties properties = quattro.getTopLeft();
+		String bundleappname = quattro.getTopRight();
+		String baseName = quattro.getBottomLeft();
+		Locale locale = quattro.getBottomRight();
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		BundleName bundleName = getDomainService().updateProperties(bundleApplication, properties,
+			baseName, locale);
+		return Response.ok(bundleName).build();
+	}
+
+	@Override
+	public Response saveOrUpdateEntry(String bundleappname, String baseName, String locale,
+		String key, String value)
+	{
+		Resourcebundle domainObject = getDomainService().saveOrUpdateEntry(bundleappname, baseName,
+			locale, key, value);
+		return Response.ok(domainObject).build();
+	}
+
+	@Override
+	public Response findResourceBundles(String bundleappname, String baseName, String locale)
+	{
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final Locale loc = LocaleResolver.resolveLocale(locale);
+		List<Resourcebundle> resourceBundles = getDomainService().findResourceBundles(bundleApplication, baseName, loc);
+		return Response.ok(resourceBundles).build();
 	}
 
 }

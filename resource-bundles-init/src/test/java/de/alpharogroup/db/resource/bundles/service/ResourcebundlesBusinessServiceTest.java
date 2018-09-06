@@ -53,7 +53,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	@Transactional
 	public void testCountries() throws IOException
 	{
