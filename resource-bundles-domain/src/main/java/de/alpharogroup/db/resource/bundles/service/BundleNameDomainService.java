@@ -58,6 +58,14 @@ public class BundleNameDomainService
 		BundleNameService
 {
 
+	@Override
+	public BundleName delete(Integer id)
+	{
+		BundleName domainObject = getMapper().toDomainObject(bundleNamesService.get(id));
+		bundleNamesService.delete(bundleNamesService.get(id));
+		return domainObject;
+	}
+
 	/** The {@link BundleNamesService} object */
 	@Autowired
 	private BundleNamesService bundleNamesService;

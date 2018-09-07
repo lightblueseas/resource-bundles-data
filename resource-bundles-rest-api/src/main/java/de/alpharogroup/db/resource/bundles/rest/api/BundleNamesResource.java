@@ -38,6 +38,6 @@ import de.alpharogroup.service.rs.RestfulResource;
 @Path("/bundle/names/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public interface BundleNamesResource extends RestfulResource<java.lang.Integer, BundleName>
+public interface BundleNamesResource extends RestfulResource<Integer, BundleName>
 {
 }

@@ -40,12 +40,14 @@ import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.BundleNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
@@ -75,6 +77,8 @@ public class BundleNamesBusinessService
 	/** The language locales service. */
 	@Autowired
 	private LanguageLocalesService languageLocalesService;
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
 
 	/**
 	 * {@inheritDoc}
@@ -82,6 +86,8 @@ public class BundleNamesBusinessService
 	@Override
 	public void delete(BundleNames bundleNames)
 	{
+		List<Resourcebundles> list = resourcebundlesService.find(bundleNames);
+		resourcebundlesService.delete(list);
 		bundleNames.setBaseName(null);
 		bundleNames.setLocale(null);
 		bundleNames.setOwner(null);
