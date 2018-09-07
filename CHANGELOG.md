@@ -1,6 +1,19 @@
 ## Change log
 ----------------------
 
+Version 5.4-SNAPSHOT
+-------------
+
+ADDED:
+
+- all rest services for all entities created
+- unit tests for rest services created
+
+CHANGED:
+
+- update of parent version to 6.4
+- removed unneeded .0 at the end of version
+
 Version 5.3.0
 -------------
 
