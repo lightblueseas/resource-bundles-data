@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,8 +29,8 @@ import de.alpharogroup.db.resource.bundles.rest.api.LanguagesResource;
 import lombok.Getter;
 
 /**
- * The class {@link LanguagesRestClient} is a rest client for the resource-bundles that are
- * persists in the database.
+ * The class {@link LanguagesRestClient} is a rest client for the resource-bundles that are persists
+ * in the database.
  */
 public class LanguagesRestClient extends AbstractRestClient
 {

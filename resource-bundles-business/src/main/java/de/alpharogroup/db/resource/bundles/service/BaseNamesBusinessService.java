@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -50,6 +50,15 @@ public class BaseNamesBusinessService
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BaseNames newNameEntity(String value)
+	{
+		return ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(value);
+	}
+
+	/**
 	 * Sets the repository.
 	 *
 	 * @param repository
@@ -59,15 +68,6 @@ public class BaseNamesBusinessService
 	public void setBaseNamesRepository(final BaseNamesRepository repository)
 	{
 		setRepository(repository);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public BaseNames newNameEntity(String value)
-	{
-		return ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(value);
 	}
 
 }

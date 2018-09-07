@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -85,6 +85,10 @@ public class ResourcebundlesBusinessService
 	@Autowired
 	private BaseNamesService baseNamesService;
 
+	/** The bundle applications service. */
+	@Autowired
+	private BundleApplicationsService bundleApplicationsService;
+
 	/** The Bundle names service. */
 	@Autowired
 	private BundleNamesService bundleNamesService;
@@ -96,14 +100,10 @@ public class ResourcebundlesBusinessService
 	/** The properties keys service. */
 	@Autowired
 	private PropertiesKeysService propertiesKeysService;
-	
+
 	/** The properties values service. */
 	@Autowired
 	private PropertiesValuesService propertiesValuesService;
-
-	/** The bundle applications service. */
-	@Autowired
-	private BundleApplicationsService bundleApplicationsService;
 
 	/**
 	 * {@inheritDoc}
@@ -206,6 +206,12 @@ public class ResourcebundlesBusinessService
 		return bundleApplicationsService.find(name);
 	}
 
+	@Override
+	public List<BundleApplications> findAllBundleApplications()
+	{
+		return bundleApplicationsService.findAll();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -248,7 +254,8 @@ public class ResourcebundlesBusinessService
 		final List<Resourcebundles> resourcebundles = findResourceBundles(owner, baseName, locale);
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue().getName());
+			properties.setProperty(resourcebundle.getKey().getName(),
+				resourcebundle.getValue().getName());
 		}
 		return properties;
 	}
@@ -272,7 +279,8 @@ public class ResourcebundlesBusinessService
 		final List<Resourcebundles> resourcebundles = findResourceBundles(bundleName);
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			properties.setProperty(resourcebundle.getKey().getName(), resourcebundle.getValue().getName());
+			properties.setProperty(resourcebundle.getKey().getName(),
+				resourcebundle.getValue().getName());
 		}
 		return properties;
 	}
@@ -447,8 +455,8 @@ public class ResourcebundlesBusinessService
 		else
 		{
 			final PropertiesKeys pkey = propertiesKeysService.getOrCreateNewNameEntity(key);
-			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey).value(pvalue)
-				.build();
+			resourcebundle = Resourcebundles.builder().bundleName(bundleName).key(pkey)
+				.value(pvalue).build();
 		}
 		resourcebundle = merge(resourcebundle);
 		return resourcebundle;
@@ -464,15 +472,17 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
-	public BundleNames updateProperties(final @NonNull  BundleApplications owner, final @NonNull Properties properties,
-		final @NonNull String baseName, final @NonNull Locale locale)
+	public BundleNames updateProperties(final @NonNull BundleApplications owner,
+		final @NonNull Properties properties, final @NonNull String baseName,
+		final @NonNull Locale locale)
 	{
 		return updateProperties(owner, properties, baseName, locale, true);
 	}
 
 	@Transactional(propagation = Propagation.REQUIRES_NEW)
-	public BundleNames updateProperties(final @NonNull BundleApplications owner, final @NonNull Properties properties,
-		final @NonNull String baseName, final @NonNull Locale locale, final boolean update)
+	public BundleNames updateProperties(final @NonNull BundleApplications owner,
+		final @NonNull Properties properties, final @NonNull String baseName,
+		final @NonNull Locale locale, final boolean update)
 	{
 		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(owner, baseName,
 			locale);
@@ -511,13 +521,8 @@ public class ResourcebundlesBusinessService
 	}
 
 	@Override
-	public List<BundleApplications> findAllBundleApplications()
-	{
-		return bundleApplicationsService.findAll();
-	}
-
-	@Override
-	public BundleNames updateProperties(final @NonNull Properties properties, final @NonNull String owner, final @NonNull String baseName,
+	public BundleNames updateProperties(final @NonNull Properties properties,
+		final @NonNull String owner, final @NonNull String baseName,
 		final @NonNull String localeCode)
 	{
 		BundleApplications bundleApplications = bundleApplicationsService.find(owner);

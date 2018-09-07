@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -27,8 +27,6 @@ package de.alpharogroup.db.resource.bundles.service.api;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
-
-import javax.xml.ws.Response;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
@@ -102,6 +100,13 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	BundleApplication find(final String name);
 
 	/**
+	 * Finds all bundle applications.
+	 *
+	 * @return the list of the found {@link BundleApplication} objects.
+	 */
+	List<BundleApplication> findAllBundleApplications();
+
+	/**
 	 * Find resource bundles from the given parameters.
 	 *
 	 * @param bundleApplication
@@ -114,6 +119,20 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 */
 	List<Resourcebundle> findResourceBundles(BundleApplication bundleApplication, String baseName,
 		Locale locale);
+
+	/**
+	 * Gets the or creates a new {@link BundleName} object.
+	 *
+	 * @param owner
+	 *            the owner
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the or create new bundle names
+	 */
+	BundleName getOrCreateNewBundleName(BundleApplication owner, final String baseName,
+		final Locale locale);
 
 	/**
 	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
@@ -224,6 +243,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	String getString(BundleApplication bundleApplication, String baseName, String locale,
 		String key, final String defaultValue);
 
+
 	/**
 	 * Gets the resource {@link String} from the given arguments.
 	 *
@@ -245,6 +265,25 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 		String key, final String defaultValue, Object[] parameters);
 
 	/**
+	 * Save or update the given resource bundle entry
+	 *
+	 * @param bundleappname
+	 *            the name of the bundle application
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @param key
+	 *            the key
+	 * @param value
+	 *            the value
+	 * @return the {@link Resourcebundle} object
+	 */
+	Resourcebundle saveOrUpdateEntry(final String bundleappname, final String baseName,
+		final String locale, final String key, final String value);
+
+
+	/**
 	 * Update the given properties to the db.
 	 *
 	 * @param bundleApplication
@@ -256,51 +295,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 * @param locale
 	 *            the locale
 	 */
-	 BundleName updateProperties(BundleApplication bundleApplication, Properties properties,
+	BundleName updateProperties(BundleApplication bundleApplication, Properties properties,
 		String baseName, Locale locale);
 
-
-	/**
-	 * Finds all bundle applications.
-	 *
-	 * @return the list of the found {@link BundleApplication} objects.
-	 */
-	List<BundleApplication> findAllBundleApplications();
-
-	/**
-	 * Gets the or creates a new {@link BundleName} object.
-	 *
-	 * @param owner
-	 *            the owner
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @return the or create new bundle names
-	 */
-	BundleName getOrCreateNewBundleName(BundleApplication owner, final String baseName,
-		final Locale locale);
-	
-
-	/**
-	 * Save or update the given resource bundle entry.
-	 *
-	 * @param bundleName
-	 *            the bundle name
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @param key
-	 *            the key
-	 * @param value
-	 *            the value
-	 * @param update
-	 *            the update
-	 * @return the {@link Response} object 
-	 */
-	Resourcebundle saveOrUpdateEntry(final String bundleappname, final String baseName,
-		final  String locale,
-		final String key, final String value);
-	
 }

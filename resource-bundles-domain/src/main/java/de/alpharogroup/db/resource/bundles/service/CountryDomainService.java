@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -51,6 +51,22 @@ public class CountryDomainService
 	@Autowired
 	private CountriesService countriesService;
 
+	@Override
+	public Country find(String iso3166a2name)
+	{
+		Countries entity = countriesService.find(iso3166a2name);
+		Country domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
+	}
+
+	@Override
+	public Country find(String name, String iso3166a2name)
+	{
+		Countries entity = countriesService.find(name, iso3166a2name);
+		Country domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
+	}
+
 	/**
 	 * Sets the specific {@link CountriesMapper}.
 	 *
@@ -67,22 +83,6 @@ public class CountryDomainService
 	public void setCountriesRepository(final CountriesRepository repository)
 	{
 		setRepository(repository);
-	}
-
-	@Override
-	public Country find(String iso3166a2name)
-	{
-		Countries entity = countriesService.find(iso3166a2name);
-		Country domainObject = getMapper().toDomainObject(entity);
-		return domainObject;
-	}
-
-	@Override
-	public Country find(String name, String iso3166a2name)
-	{
-		Countries entity = countriesService.find(name, iso3166a2name);
-		Country domainObject = getMapper().toDomainObject(entity);
-		return domainObject;
 	}
 
 }

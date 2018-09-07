@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -84,20 +84,6 @@ public interface BundleApplicationService extends DomainService<Integer, BundleA
 	 * Gets the {@link BundleApplication} object from the given name or creates a new
 	 * {@link BundleApplication} object if not found.
 	 *
-	 *
-	 * @param name
-	 *            the name
-	 * @param defaultLocale
-	 *            the default locale
-	 * @return the existing or a new {@link BundleApplication} object
-	 */
-	BundleApplication getOrCreateNewBundleApplications(@NonNull final String name,
-		@NonNull final String defaultLocale);
-
-	/**
-	 * Gets the {@link BundleApplication} object from the given name or creates a new
-	 * {@link BundleApplication} object if not found.
-	 *
 	 * @param name
 	 *            the name
 	 * @param defaultLocale
@@ -109,5 +95,19 @@ public interface BundleApplicationService extends DomainService<Integer, BundleA
 	BundleApplication getOrCreateNewBundleApplications(@NonNull final String name,
 		@NonNull final LanguageLocale defaultLocale,
 		@NonNull final Set<LanguageLocale> supportedLocales);
+
+	/**
+	 * Gets the {@link BundleApplication} object from the given name or creates a new
+	 * {@link BundleApplication} object if not found.
+	 *
+	 *
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @return the existing or a new {@link BundleApplication} object
+	 */
+	BundleApplication getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final String defaultLocale);
 
 }

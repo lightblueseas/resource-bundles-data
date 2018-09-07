@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -106,6 +106,13 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	BundleApplications find(final String name);
 
 	/**
+	 * Finds all bundle applications.
+	 *
+	 * @return the list of the found {@link BundleApplications} objects.
+	 */
+	List<BundleApplications> findAllBundleApplications();
+
+	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
 	 * {@link Locale} object.
 	 *
@@ -119,14 +126,7 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	List<Resourcebundles> findResourceBundles(final BundleApplications owner, final String baseName,
 		final Locale locale);
-		
-	/**
-	 * Finds all bundle applications.
-	 *
-	 * @return the list of the found {@link BundleApplications} objects.
-	 */
-	List<BundleApplications> findAllBundleApplications();
-	
+
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName, the given
 	 * {@link Locale} object and the given properties key.
@@ -271,11 +271,11 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 *            the name of the bundle application
 	 * @param baseName
 	 *            the base name
-	 * @param locale
-	 *            the locale
+	 * @param localeCode
+	 *            the locale code
 	 * @return the updated {@link BundleNames} object
 	 */
-	BundleNames updateProperties(final Properties properties, final String owner, 
+	BundleNames updateProperties(final Properties properties, final String owner,
 		final String baseName, final String localeCode);
 
 }

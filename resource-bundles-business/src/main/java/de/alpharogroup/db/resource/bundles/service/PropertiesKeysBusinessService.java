@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -49,12 +49,6 @@ public class PropertiesKeysBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	public void setPropertiesKeysRepository(final PropertiesKeysRepository repository)
-	{
-		setRepository(repository);
-	}
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -62,6 +56,12 @@ public class PropertiesKeysBusinessService
 	public PropertiesKeys newNameEntity(String value)
 	{
 		return ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(value);
+	}
+
+	@Autowired
+	public void setPropertiesKeysRepository(final PropertiesKeysRepository repository)
+	{
+		setRepository(repository);
 	}
 
 }

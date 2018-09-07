@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -64,25 +64,25 @@ import lombok.ToString;
 public class BundleNames extends VersionableBaseEntity<Integer> implements Cloneable
 {
 
-	/** Serial Version UID */
-	private static final long serialVersionUID = 1L;
-
 	/** The Constant for the named query for find BundleNames by the owner. */
 	public static final String NQ_FIND_BY_OWNER = "BundleNames." + "findByOwner";
+
+	/** Serial Version UID */
+	private static final long serialVersionUID = 1L;
 
 	/** The base name of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "base_name_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_BASE_NAME_ID"))
 	private BaseNames baseName;
 
+	/** The optional filepath from this resource bunlde. */
+	@Column(name = "filepath", length = 4096)
+	private String filepath;
+
 	/** The locale of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_LOCALE_ID"))
 	private LanguageLocales locale;
-
-	/** The optional filepath from this resource bunlde. */
-	@Column(name = "filepath", length = 4096)
-	private String filepath;
 
 	/** The {@link BundleApplications} that owns this {@link BundleNames} object. */
 	@ManyToOne(fetch = FetchType.LAZY)

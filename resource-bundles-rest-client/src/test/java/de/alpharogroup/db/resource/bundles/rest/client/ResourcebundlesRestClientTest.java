@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -28,7 +28,6 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -94,25 +93,10 @@ public class ResourcebundlesRestClientTest
 	public void testFind()
 	{
 		// http://localhost:8080/resourcebundle/find/base-bundle-application/base-resource-bundles/de_DE/resource.bundles.test.label
-		final Resourcebundle resourcebundle2 = resource.find(
-			"base-bundle-application", "base-resource-bundles", "de",
-			"resource.bundles.test.label");
+		final Resourcebundle resourcebundle2 = resource.find("base-bundle-application",
+			"base-resource-bundles", "de", "resource.bundles.test.label");
 		assertNotNull(resourcebundle2);
 		assertEquals("Erstes label", resourcebundle2.getValue().getName());
-	}
-
-	/**
-	 * Test method for {@link ResourcebundlesResource#findAllBundleApplications()}
-	 */
-	@SuppressWarnings("unchecked")
-	@Test(enabled = false)
-	public void testfindAllBundleApplications()
-	{
-		// http://localhost:8080/resourcebundle/get/r/all/apps
-		final Response response = resource.findAllBundleApplications();
-		final List<BundleApplication> bundleApplications = response.readEntity(List.class);
-		assertNotNull(bundleApplications);
-		assertEquals(2, bundleApplications.size());
 	}
 
 	/**
@@ -122,8 +106,7 @@ public class ResourcebundlesRestClientTest
 	public void testGet()
 	{
 		// http://localhost:8080/resourcebundle/get/1
-		final Resourcebundle resourcebundle1 = resource
-			.get(Integer.valueOf(1).toString());
+		final Resourcebundle resourcebundle1 = resource.get(Integer.valueOf(1).toString());
 		assertNotNull(resourcebundle1);
 		assertEquals("Erstes label", resourcebundle1.getValue().getName());
 	}
@@ -150,17 +133,14 @@ public class ResourcebundlesRestClientTest
 		Response response;
 		Properties properties;
 		// http://localhost:8080/resourcebundle/get/properties/base-bundle-application/base-resource-bundles/de
-		response = resource.getProperties("base-bundle-application",
-			"base-resource-bundles", "de");
+		response = resource.getProperties("base-bundle-application", "base-resource-bundles", "de");
 
 		properties = response.readEntity(Properties.class);
 		assertNotNull(properties);
-		assertEquals("Erstes label",
-			properties.getProperty("resource.bundles.test.label"));
+		assertEquals("Erstes label", properties.getProperty("resource.bundles.test.label"));
 
 		// http://localhost:8080/resourcebundle/get/properties/base-bundle-application/test/de_DE
-		response = resource.getProperties("base-bundle-application", "test",
-			"en_US");
+		response = resource.getProperties("base-bundle-application", "test", "en_US");
 		properties = response.readEntity(Properties.class);
 		assertNotNull(properties);
 		assertTrue(properties.size() == 4);
@@ -174,9 +154,8 @@ public class ResourcebundlesRestClientTest
 	public void testGetResponseString()
 	{
 		// http://localhost:8080/resourcebundle/get/r/string/base-bundle-application/base-resource-bundles/de/resource.bundles.test.label
-		final Response response = resource.getResponseString(
-			"base-bundle-application", "base-resource-bundles", "de",
-			"resource.bundles.test.label");
+		final Response response = resource.getResponseString("base-bundle-application",
+			"base-resource-bundles", "de", "resource.bundles.test.label");
 		final KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
 		assertNotNull(keyValuePair);
 		assertEquals("Erstes label", keyValuePair.getValue());
@@ -208,13 +187,12 @@ public class ResourcebundlesRestClientTest
 		final String[] paramsGerman = { "Fritz", "Deutschland" };
 		final String baseName = "test";
 
-		Response response = resource.getString("base-bundle-application", baseName,
-			"de_DE", "com.example.gui.prop.with.params.label", paramsGerman);
+		Response response = resource.getString("base-bundle-application", baseName, "de_DE",
+			"com.example.gui.prop.with.params.label", paramsGerman);
 
 		KeyValuePair<String, String> keyValuePair = response.readEntity(KeyValuePair.class);
 		assertNotNull(keyValuePair);
-		assertEquals("Hallo ich bin Fritz und komme aus Deutschland.",
-			keyValuePair.getValue());
+		assertEquals("Hallo ich bin Fritz und komme aus Deutschland.", keyValuePair.getValue());
 
 		// http://localhost:8080/resourcebundle/get/string/base-bundle-application/test/en_US/com.example.gui.prop.with.params.label/parameters?parameter=Fritz&parameter=Germany
 		final String[] paramsBritain = { "Fritz", "Germany" };
@@ -222,15 +200,15 @@ public class ResourcebundlesRestClientTest
 			"com.example.gui.prop.with.params.label", paramsBritain);
 		keyValuePair = response.readEntity(KeyValuePair.class);
 		assertNotNull(keyValuePair);
-		assertEquals("Hello i am Fritz and i come from Germany.",
-			keyValuePair.getValue());
+		assertEquals("Hello i am Fritz and i come from Germany.", keyValuePair.getValue());
 	}
-	
+
 	/**
 	 * Test method for {@link ResourcebundlesResource#updateProperties(Quattro)}
 	 */
 	@Test(enabled = false)
-	public void testUpdateProperties() {
+	public void testUpdateProperties()
+	{
 		Properties properties;
 		String ownerName;
 		String baseName;
@@ -242,12 +220,9 @@ public class ResourcebundlesRestClientTest
 		ownerName = "base-bundle-application";
 		baseName = "testbase";
 		locale = Locale.GERMAN;
-		Quattro<Properties, String, String, Locale> quattro =  Quattro.<Properties, String, String, Locale>builder()
-			.topLeft(properties)
-			.topRight(ownerName)
-			.bottomLeft(baseName)
-			.bottomRight(locale)
-			.build();
+		Quattro<Properties, String, String, Locale> quattro = Quattro
+			.<Properties, String, String, Locale> builder().topLeft(properties).topRight(ownerName)
+			.bottomLeft(baseName).bottomRight(locale).build();
 		Response response = resource.updateProperties(quattro);
 		BundleName bundleName = response.readEntity(BundleName.class);
 		assertNotNull(bundleName);

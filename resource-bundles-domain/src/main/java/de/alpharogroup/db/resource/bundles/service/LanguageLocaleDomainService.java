@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -47,29 +47,11 @@ public class LanguageLocaleDomainService
 	extends
 		AbstractDomainService<Integer, LanguageLocale, LanguageLocales, LanguageLocalesRepository, LanguageLocalesMapper>
 	implements
-	LanguageLocaleService
+		LanguageLocaleService
 {
 
 	@Autowired
 	private LanguageLocalesService languageLocalesService;
-
-	/**
-	 * Sets the specific {@link LanguageLocalesMapper}.
-	 *
-	 * @param mapper
-	 *            the new {@link LanguageLocalesMapper}.
-	 */
-	@Autowired
-	public void setLanguageLocalesMapper(final LanguageLocalesMapper mapper)
-	{
-		setMapper(mapper);
-	}
-
-	@Autowired
-	public void setLanguageLocalesRepository(final LanguageLocalesRepository repository)
-	{
-		setRepository(repository);
-	}
 
 	@Override
 	public LanguageLocale find(Locale locale)
@@ -90,7 +72,17 @@ public class LanguageLocaleDomainService
 	@Override
 	public LanguageLocale getOrCreateNewLanguageLocales(Locale locale)
 	{
-		LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(locale);
+		LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(locale);
+		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
+		return domainObject;
+	}
+
+	@Override
+	public LanguageLocale getOrCreateNewLanguageLocales(String locale)
+	{
+		LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(locale);
 		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
 		return domainObject;
 	}
@@ -103,12 +95,22 @@ public class LanguageLocaleDomainService
 		return locale;
 	}
 
-	@Override
-	public LanguageLocale getOrCreateNewLanguageLocales(String locale)
+	/**
+	 * Sets the specific {@link LanguageLocalesMapper}.
+	 *
+	 * @param mapper
+	 *            the new {@link LanguageLocalesMapper}.
+	 */
+	@Autowired
+	public void setLanguageLocalesMapper(final LanguageLocalesMapper mapper)
 	{
-		LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(locale);
-		LanguageLocale domainObject = getMapper().toDomainObject(languageLocales);
-		return domainObject;
+		setMapper(mapper);
+	}
+
+	@Autowired
+	public void setLanguageLocalesRepository(final LanguageLocalesRepository repository)
+	{
+		setRepository(repository);
 	}
 
 }

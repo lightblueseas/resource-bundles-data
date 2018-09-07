@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -65,11 +65,11 @@ public class ResourcebundleDomainService
 		ResourcebundleService
 {
 
-	@Autowired
-	private ResourcebundlesService resourcebundlesService;
 	/** The {@link BundleNamesService} object */
 	@Autowired
 	private BundleNameService bundleNameDomainService;
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
 
 	@Override
 	public Resourcebundle contains(final BundleApplication bundleApplication, final String baseName,
@@ -133,6 +133,16 @@ public class ResourcebundleDomainService
 	}
 
 	@Override
+	public List<BundleApplication> findAllBundleApplications()
+	{
+		List<BundleApplications> allBundleApplications = resourcebundlesService
+			.findAllBundleApplications();
+		List<BundleApplication> domainObjects = getMapper().map(allBundleApplications,
+			BundleApplication.class);
+		return domainObjects;
+	}
+
+	@Override
 	public List<Resourcebundle> findResourceBundles(final BundleApplication bundleApplication,
 		final String baseName, final Locale locale)
 	{
@@ -144,6 +154,15 @@ public class ResourcebundleDomainService
 			return getMapper().toDomainObjects(list);
 		}
 		return ListFactory.newArrayList();
+	}
+
+	// @Override
+	public BundleName getOrCreateNewBundleName(BundleApplication owner, String baseName,
+		Locale locale)
+	{
+		BundleName domainObject = bundleNameDomainService.getOrCreateNewBundleName(owner, baseName,
+			locale);
+		return domainObject;
 	}
 
 	@Override
@@ -217,7 +236,7 @@ public class ResourcebundleDomainService
 		if (resourcebundles != null)
 		{
 			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
-			value = domainObject.getValue().getName();			
+			value = domainObject.getValue().getName();
 			value = ResourceBundleExtensions.format(value, parameters);
 		}
 		return value;
@@ -251,10 +270,24 @@ public class ResourcebundleDomainService
 		if (resourcebundles != null)
 		{
 			Resourcebundle domainObject = getMapper().toDomainObject(resourcebundles);
-			value = domainObject.getValue().getName();			
+			value = domainObject.getValue().getName();
 			value = ResourceBundleExtensions.format(value, parameters);
 		}
 		return value;
+	}
+
+	@Override
+	public Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName, String locale,
+		String key, String value)
+	{
+		final BundleApplication owner = find(bundleappname);
+		Locale resolvedLocale = LocaleResolver.resolveLocale(locale, false);
+		BundleName bundleName = bundleNameDomainService.find(owner, baseName, resolvedLocale);
+		BundleNames bundleNames = getMapper().map(bundleName, BundleNames.class);
+		Resourcebundles entity = resourcebundlesService.saveOrUpdateEntry(bundleNames, baseName,
+			resolvedLocale, key, value, true);
+		Resourcebundle domainObject = getMapper().toDomainObject(entity);
+		return domainObject;
 	}
 
 	/**
@@ -280,37 +313,9 @@ public class ResourcebundleDomainService
 		final Properties properties, final String baseName, final Locale locale)
 	{
 		final BundleApplications owner = resourcebundlesService.find(bundleApplication.getName());
-		BundleNames entity = resourcebundlesService.updateProperties(owner, properties, baseName, locale);
+		BundleNames entity = resourcebundlesService.updateProperties(owner, properties, baseName,
+			locale);
 		BundleName domainObject = getMapper().map(entity, BundleName.class);
-		return domainObject;
-	}
-
-	@Override
-	public List<BundleApplication> findAllBundleApplications()
-	{
-		List<BundleApplications> allBundleApplications = resourcebundlesService.findAllBundleApplications();
-		List<BundleApplication> domainObjects = getMapper().map(allBundleApplications, BundleApplication.class);
-		return domainObjects;
-	}
-	
-//	@Override
-	public BundleName getOrCreateNewBundleName(BundleApplication owner, String baseName,
-		Locale locale)
-	{
-		BundleName domainObject = bundleNameDomainService.getOrCreateNewBundleName(owner, baseName, locale);
-		return domainObject;
-	}
-
-	@Override
-	public Resourcebundle saveOrUpdateEntry(String bundleappname, String baseName, String locale,
-		String key, String value)
-	{
-		final BundleApplication owner = find(bundleappname);
-		Locale resolvedLocale = LocaleResolver.resolveLocale(locale, false);
-		BundleName bundleName = bundleNameDomainService.find(owner, baseName, resolvedLocale);
-		BundleNames bundleNames = getMapper().map(bundleName, BundleNames.class);
-		Resourcebundles entity = resourcebundlesService.saveOrUpdateEntry(bundleNames, baseName, resolvedLocale, key, value, true);
-		Resourcebundle domainObject = getMapper().toDomainObject(entity);
 		return domainObject;
 	}
 

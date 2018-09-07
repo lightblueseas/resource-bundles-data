@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -46,37 +46,19 @@ import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService
 import de.alpharogroup.service.domain.AbstractDomainService;
 
 /**
- * The service class {@link BundleApplicationsDomainService}
+ * The service class {@link BundleApplicationDomainService}
  */
 @Transactional
 @Service("bundleApplicationDomainService")
-public class BundleApplicationDomainService 
-	extends 
-		AbstractDomainService<java.lang.Integer, BundleApplication, BundleApplications, BundleApplicationsRepository, BundleApplicationsMapper>	
-	implements 
+public class BundleApplicationDomainService
+	extends
+		AbstractDomainService<java.lang.Integer, BundleApplication, BundleApplications, BundleApplicationsRepository, BundleApplicationsMapper>
+	implements
 		BundleApplicationService
 {
 
 	@Autowired
 	private BundleApplicationsService bundleApplicationsService;
-
-	/**
-	 * Sets the specific {@link BundleApplicationsMapper}.
-	 *
-	 * @param mapper
-	 *            the new {@link BundleApplicationsMapper}.
-	 */
-	@Autowired
-	public void setBundleApplicationsMapper(final BundleApplicationsMapper mapper)
-	{
-		setMapper(mapper);
-	}
-
-	@Autowired
-	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
-	{
-		setRepository(repository);
-	}
 
 	@Override
 	public Set<BundleName> find(BundleApplication owner)
@@ -115,13 +97,17 @@ public class BundleApplicationDomainService
 	public BundleApplication getOrCreateNewBundleApplications(String name,
 		LanguageLocale defaultLocale, Set<LanguageLocale> supportedLocales)
 	{
-		LanguageLocales languageLocalesEntity =	getMapper().map(defaultLocale, LanguageLocales.class);
+		LanguageLocales languageLocalesEntity = getMapper().map(defaultLocale,
+			LanguageLocales.class);
 		Set<LanguageLocales> supportedLocalesEntities = null;
-		if(CollectionExtensions.isNotEmpty(supportedLocales)) {
-			List<LanguageLocales> supportedLocalesEntitiesList = getMapper().map(supportedLocales, LanguageLocales.class);
+		if (CollectionExtensions.isNotEmpty(supportedLocales))
+		{
+			List<LanguageLocales> supportedLocalesEntitiesList = getMapper().map(supportedLocales,
+				LanguageLocales.class);
 			supportedLocalesEntities = SetFactory.newLinkedHashSet(supportedLocalesEntitiesList);
 		}
-		BundleApplications entity = bundleApplicationsService.getOrCreateNewBundleApplications(name, languageLocalesEntity, supportedLocalesEntities);
+		BundleApplications entity = bundleApplicationsService.getOrCreateNewBundleApplications(name,
+			languageLocalesEntity, supportedLocalesEntities);
 		BundleApplication domainObject = getMapper().toDomainObject(entity);
 		return domainObject;
 	}
@@ -129,9 +115,28 @@ public class BundleApplicationDomainService
 	@Override
 	public BundleApplication getOrCreateNewBundleApplications(String name, String defaultLocale)
 	{
-		BundleApplications entity = bundleApplicationsService.getOrCreateNewBundleApplications(name, defaultLocale);
+		BundleApplications entity = bundleApplicationsService.getOrCreateNewBundleApplications(name,
+			defaultLocale);
 		BundleApplication domainObject = getMapper().toDomainObject(entity);
 		return domainObject;
+	}
+
+	/**
+	 * Sets the specific {@link BundleApplicationsMapper}.
+	 *
+	 * @param mapper
+	 *            the new {@link BundleApplicationsMapper}.
+	 */
+	@Autowired
+	public void setBundleApplicationsMapper(final BundleApplicationsMapper mapper)
+	{
+		setMapper(mapper);
+	}
+
+	@Autowired
+	public void setBundleApplicationsRepository(final BundleApplicationsRepository repository)
+	{
+		setRepository(repository);
 	}
 
 }

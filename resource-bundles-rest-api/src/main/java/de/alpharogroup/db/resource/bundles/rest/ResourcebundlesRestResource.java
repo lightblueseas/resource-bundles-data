@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -62,6 +62,16 @@ public class ResourcebundlesRestResource
 		return getDomainService().find(bundleApplication, baseName, loc, key);
 	}
 
+	@Override
+	public Response findResourceBundles(String bundleappname, String baseName, String locale)
+	{
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final Locale loc = LocaleResolver.resolveLocale(locale);
+		List<Resourcebundle> resourceBundles = getDomainService()
+			.findResourceBundles(bundleApplication, baseName, loc);
+		return Response.ok(resourceBundles).build();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -71,6 +81,24 @@ public class ResourcebundlesRestResource
 		final ResourcebundleService resourcebundleService = getDomainService();
 		final Resourcebundle resourcebundle = resourcebundleService.read(Integer.valueOf(id));
 		return resourcebundle;
+	}
+
+	@Override
+	public Response getBundleApp(String name)
+	{
+		final ResourcebundleService resourcebundleService = getDomainService();
+		final BundleApplication bundleApplication = resourcebundleService.find(name);
+		return Response.ok(bundleApplication).build();
+	}
+
+	@Override
+	public Response getOrCreateNewBundleName(String bundleappname, String baseName, String locale)
+	{
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final Locale loc = LocaleResolver.resolveLocale(locale);
+		BundleName bundleName = getDomainService().getOrCreateNewBundleName(bundleApplication,
+			baseName, loc);
+		return Response.ok(bundleName).build();
 	}
 
 	/**
@@ -132,30 +160,12 @@ public class ResourcebundlesRestResource
 	}
 
 	@Override
-	public Response getBundleApp(String name)
+	public Response saveOrUpdateEntry(String bundleappname, String baseName, String locale,
+		String key, String value)
 	{
-		final ResourcebundleService resourcebundleService = getDomainService();
-		final BundleApplication bundleApplication = resourcebundleService.find(name);
-		return Response.ok(bundleApplication).build();
-	}
-
-	@Override
-	public Response findAllBundleApplications()
-	{
-		final ResourcebundleService resourcebundleService = getDomainService();
-		List<BundleApplication> allBundleApplications = resourcebundleService
-			.findAllBundleApplications();
-		return Response.ok(allBundleApplications).build();
-	}
-
-	@Override
-	public Response getOrCreateNewBundleName(String bundleappname, String baseName, String locale)
-	{
-		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
-		final Locale loc = LocaleResolver.resolveLocale(locale);
-		BundleName bundleName = getDomainService().getOrCreateNewBundleName(bundleApplication,
-			baseName, loc);
-		return Response.ok(bundleName).build();
+		Resourcebundle domainObject = getDomainService().saveOrUpdateEntry(bundleappname, baseName,
+			locale, key, value);
+		return Response.ok(domainObject).build();
 	}
 
 	/**
@@ -178,24 +188,6 @@ public class ResourcebundlesRestResource
 		BundleName bundleName = getDomainService().updateProperties(bundleApplication, properties,
 			baseName, locale);
 		return Response.ok(bundleName).build();
-	}
-
-	@Override
-	public Response saveOrUpdateEntry(String bundleappname, String baseName, String locale,
-		String key, String value)
-	{
-		Resourcebundle domainObject = getDomainService().saveOrUpdateEntry(bundleappname, baseName,
-			locale, key, value);
-		return Response.ok(domainObject).build();
-	}
-
-	@Override
-	public Response findResourceBundles(String bundleappname, String baseName, String locale)
-	{
-		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
-		final Locale loc = LocaleResolver.resolveLocale(locale);
-		List<Resourcebundle> resourceBundles = getDomainService().findResourceBundles(bundleApplication, baseName, loc);
-		return Response.ok(resourceBundles).build();
 	}
 
 }

@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -68,13 +68,13 @@ public class BundleApplicationsBusinessService
 	@Autowired
 	private BundleNamesService bundleNamesService;
 
-	/** The resourcebundles service. */
-	@Autowired
-	private ResourcebundlesService resourcebundlesService;
-
 	/** The language locales service. */
 	@Autowired
 	private LanguageLocalesService languageLocalesService;
+
+	/** The resourcebundles service. */
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
 
 	/**
 	 * {@inheritDoc}
@@ -131,17 +131,7 @@ public class BundleApplicationsBusinessService
 	{
 		return bundleName.getOwner();
 	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name, @NonNull final String defaultLocale)
-	{
-		LanguageLocales languageLocales = languageLocalesService.getOrCreateNewLanguageLocales(defaultLocale);
-		return getOrCreateNewBundleApplications(name, languageLocales);
-	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -168,6 +158,18 @@ public class BundleApplicationsBusinessService
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final String defaultLocale)
+	{
+		LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(defaultLocale);
+		return getOrCreateNewBundleApplications(name, languageLocales);
 	}
 
 	/**

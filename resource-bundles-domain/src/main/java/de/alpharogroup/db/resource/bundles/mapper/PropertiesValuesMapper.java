@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -34,6 +34,8 @@ import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
  * The class {@link PropertiesValuesMapper}.
  */
 @Component
-public class PropertiesValuesMapper extends AbstractEntityDOMapper<PropertiesValues, PropertiesValue>
+public class PropertiesValuesMapper
+	extends
+		AbstractEntityDOMapper<PropertiesValues, PropertiesValue>
 {
 }

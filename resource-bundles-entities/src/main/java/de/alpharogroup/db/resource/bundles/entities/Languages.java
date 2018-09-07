@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -51,7 +51,7 @@ public class Languages extends VersionableExtraSmallUniqueNameEntity<Integer> im
 	private static final long serialVersionUID = 1L;
 
 	/** The iso639_1 code with two characters. */
-	@Column(unique=true, name = "iso639_1", length = 2)
+	@Column(unique = true, name = "iso639_1", length = 2)
 	private String iso639Dash1;
 
 	/**

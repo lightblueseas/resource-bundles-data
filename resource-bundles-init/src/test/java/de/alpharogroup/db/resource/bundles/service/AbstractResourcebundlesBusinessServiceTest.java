@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -83,9 +83,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
 {
 
-	/** The resourcebundles service. */
 	@Autowired
-	protected ResourcebundlesService resourcebundlesService;
+	protected BaseNamesService baseNamesService;
 
 	@Autowired
 	protected BundleApplicationsService bundleApplicationsService;
@@ -94,10 +93,18 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	protected BundleNamesService bundleNamesService;
 
 	@Autowired
-	protected BaseNamesService baseNamesService;
+	protected CountriesService countriesService;
+
+	private DatabaseInitialization databaseInitialization;
+
+	@PersistenceUnit
+	protected EntityManagerFactory entityManagerFactory;
 
 	@Autowired
 	protected LanguageLocalesService languageLocalesService;
+
+	@Autowired
+	protected LanguagesService languagesService;
 
 	/** The properties keys service. */
 	@Autowired
@@ -107,16 +114,9 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	@Autowired
 	private PropertiesValuesService propertiesValuesService;
 
+	/** The resourcebundles service. */
 	@Autowired
-	protected LanguagesService languagesService;
-
-	@PersistenceUnit
-	protected EntityManagerFactory entityManagerFactory;
-
-	@Autowired
-	protected CountriesService countriesService;
-
-	private DatabaseInitialization databaseInitialization;
+	protected ResourcebundlesService resourcebundlesService;
 
 	private BundleApplications getOrCreateBundleApplication(final String applicationName,
 		final LanguageLocales defaultLocale)

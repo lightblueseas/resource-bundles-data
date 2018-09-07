@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -46,6 +46,15 @@ public interface LanguagesService extends BusinessService<Languages, Integer>
 	Languages find(final String name, final String iso639Dash1);
 
 	/**
+	 * Find the {@link Languages} object from the specific code of the language
+	 *
+	 * @param iso639Dash1
+	 *            the specific code for the representation for the name of language
+	 * @return the found {@link Languages} object or null if not.
+	 */
+	Languages findByIso639Dash1(final String iso639Dash1);
+
+	/**
 	 * Find the {@link Languages} object from the name of the language
 	 *
 	 * @param name
@@ -53,15 +62,5 @@ public interface LanguagesService extends BusinessService<Languages, Integer>
 	 * @return the found {@link Languages} object or null if not.
 	 */
 	Languages findByName(final String name);
-
-	/**
-	 * Find the {@link Languages} object from the specific code of the language
-	 *
-	 * @param name
-	 * @param iso639Dash1
-	 *            the specific code for the representation for the name of language
-	 * @return the found {@link Languages} object or null if not.
-	 */
-	Languages findByIso639Dash1(final String iso639Dash1);
 
 }

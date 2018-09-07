@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -46,10 +46,10 @@ import lombok.Setter;
 public class DatabaseListResourceBundle extends ListResourceBundle
 {
 
-	private String bundleApplicationName;
-
 	/** The base name. */
 	private String baseName;
+
+	private String bundleApplicationName;
 
 	/** The locale. */
 	private Locale locale;
@@ -112,7 +112,8 @@ public class DatabaseListResourceBundle extends ListResourceBundle
 		int i = 0;
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			all[i] = new Object[] { resourcebundle.getKey().getName(), resourcebundle.getValue().getName() };
+			all[i] = new Object[] { resourcebundle.getKey().getName(),
+					resourcebundle.getValue().getName() };
 			i++;
 		}
 		return all;

@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -72,6 +72,22 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 		@PathParam("key") String key);
 
 	/**
+	 * Find resource bundles from the given parameters.
+	 *
+	 * @param bundleappname
+	 *            the name of the bundle application
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the {@link Response} object
+	 */
+	@GET
+	@Path("/find/resourcebundles/{bundleappname}/{basename}/{locale}")
+	Response findResourceBundles(@PathParam("bundleappname") String bundleappname,
+		@PathParam("basename") String baseName, @PathParam("locale") String locale);
+
+	/**
 	 * Gets the {@link Resourcebundle} from the given id.
 	 *
 	 * @param id
@@ -83,8 +99,18 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	Resourcebundle get(@PathParam("id") String id);
 
 	/**
-	 * Get the {@link Properties} object from the given baseName and the given {@link Locale}
-	 * object.
+	 * Gets the bundle application over the given name
+	 *
+	 * @param bundleappname
+	 *            the name of the bundle application
+	 * @return the bundle app
+	 */
+	@GET
+	@Path("/get/r/app/{bundleappname}")
+	Response getBundleApp(@PathParam("bundleappname") String bundleappname);
+
+	/**
+	 * Gets the or creates a new {@link BundleName} object
 	 *
 	 * @param bundleappname
 	 *            the name of the bundle application
@@ -92,7 +118,23 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	 *            the base name
 	 * @param locale
 	 *            the locale
-	 * @return the found {@link Properties} object as a {@link Response} object.
+	 * @return the or create new bundle names
+	 */
+	@GET
+	@Path("/get/or/create/bundlename/{bundleappname}/{basename}/{locale}")
+	Response getOrCreateNewBundleName(@PathParam("bundleappname") String bundleappname,
+		final @PathParam("basename") String baseName, final @PathParam("locale") String locale);
+
+	/**
+	 * Get the {@link Properties} object from the given baseName and the given {@link Locale} object
+	 *
+	 * @param bundleappname
+	 *            the name of the bundle application
+	 * @param baseName
+	 *            the base name
+	 * @param locale
+	 *            the locale
+	 * @return the found {@link Properties} object as a {@link Response} object
 	 */
 	@GET
 	@Path("/get/properties/{bundleappname}/{basename}/{locale}")
@@ -117,28 +159,6 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	Response getResponseString(@PathParam("bundleappname") String bundleappname,
 		@PathParam("basename") String baseName, @PathParam("locale") String locale,
 		@PathParam("key") String key);
-
-	/**
-	 * Gets the bundle application over the given name
-	 *
-	 * @param bundleappname
-	 *            the name of the bundle application
-	 * @return the bundle app
-	 */
-	@GET
-	@Path("/get/r/app/{bundleappname}")
-	Response getBundleApp(@PathParam("bundleappname") String bundleappname);
-	
-	/**
-	 * Gets the bundle application over the given name
-	 *
-	 * @param bundleappname
-	 *            the name of the bundle application
-	 * @return the bundle app
-	 */
-	@GET
-	@Path("/get/r/all/apps")
-	Response findAllBundleApplications();
 
 	/**
 	 * Find the {@link String} from the given arguments.
@@ -179,34 +199,13 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	Response getString(@PathParam("bundleappname") String bundleappname,
 		@PathParam("basename") String baseName, @PathParam("locale") String locale,
 		@PathParam("key_and_parameters") String key,
-		@QueryParam("parameter") final String[] params);	
+		@QueryParam("parameter") final String[] params);
 
 	/**
-	 * Gets the or creates a new {@link BundleName} object.
+	 * Save or update the given resource bundle entry
 	 *
-	 * @param owner
-	 *            the owner
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @return the or create new bundle names
-	 */
-	@GET
-	@Path("/get/or/create/bundlename/{bundleappname}/{basename}/{locale}")
-	Response getOrCreateNewBundleName(@PathParam("bundleappname") String bundleappname, final @PathParam("basename") String baseName,
-		final  @PathParam("locale") String locale);
-	
-	@POST
-	@Path("/update/bundlename")
-	Response updateProperties(Quattro<Properties, String, String, Locale> quattro);
-	
-
-	/**
-	 * Save or update the given resource bundle entry.
-	 *
-	 * @param bundleName
-	 *            the bundle name
+	 * @param bundleappname
+	 *            the name of the bundle application
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -215,30 +214,25 @@ public interface ResourcebundlesResource extends RestfulResource<Integer, Resour
 	 *            the key
 	 * @param value
 	 *            the value
-	 * @param update
-	 *            the update
-	 * @return the {@link Response} object 
+	 * @return the {@link Response} object
 	 */
 	@GET
 	@Path("/save/or/update/resourcebundle/{bundleappname}/{basename}/{locale}/{key}/{value}")
-	Response saveOrUpdateEntry(@PathParam("bundleappname") String bundleappname, final @PathParam("basename") String baseName,
-		final  @PathParam("locale") String locale,
-		final @PathParam("key") String key, final @PathParam("value")String value);	
+	Response saveOrUpdateEntry(@PathParam("bundleappname") String bundleappname,
+		final @PathParam("basename") String baseName, final @PathParam("locale") String locale,
+		final @PathParam("key") String key, final @PathParam("value") String value);
 
 	/**
-	 * Find resource bundles from the given parameters.
+	 * Update the given {@link Properties} object to the underlying database with the given owner
+	 * and the given baseName and the given {@link Locale} object that is encapsulated in the given
+	 * {@link Quattro} object
 	 *
-	 * @param bundleApplication
-	 *            the bundle application
-	 * @param baseName
-	 *            the base name
-	 * @param locale
-	 *            the locale
-	 * @return the list
+	 * @param quattro
+	 *            the quattro
+	 * @return the {@link Response} object with the updated {@link BundleName} object
 	 */
-	@GET
-	@Path("/find/resourcebundles/{bundleappname}/{basename}/{locale}")
-	Response findResourceBundles(@PathParam("bundleappname") String bundleappname,
-		@PathParam("basename") String baseName, @PathParam("locale") String locale);
+	@POST
+	@Path("/update/bundlename")
+	Response updateProperties(Quattro<Properties, String, String, Locale> quattro);
 
 }
