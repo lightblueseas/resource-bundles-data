@@ -50,6 +50,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.db.init.AbstractDatabaseInitialization;
+import de.alpharogroup.db.resource.bundles.application.DatabaseListResourceBundle;
 import de.alpharogroup.db.resource.bundles.db.init.DatabaseInitialization;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;

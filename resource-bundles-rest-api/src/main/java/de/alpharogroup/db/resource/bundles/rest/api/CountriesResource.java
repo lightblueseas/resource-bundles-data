@@ -33,7 +33,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.db.resource.bundles.domain.Country;
-import de.alpharogroup.service.rs.RestfulResource;
+import de.alpharogroup.service.rs.api.RestfulResource;
 
 @Path("/country/")
 @Produces(MediaType.APPLICATION_JSON)

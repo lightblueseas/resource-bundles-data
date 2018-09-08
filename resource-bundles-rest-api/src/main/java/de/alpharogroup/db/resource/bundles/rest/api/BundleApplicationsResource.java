@@ -35,7 +35,7 @@ import javax.ws.rs.core.Response;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.service.rs.RestfulResource;
+import de.alpharogroup.service.rs.api.RestfulResource;
 import lombok.NonNull;
 
 /**

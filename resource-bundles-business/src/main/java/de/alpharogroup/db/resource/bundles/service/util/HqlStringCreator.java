@@ -386,11 +386,11 @@ public class HqlStringCreator
 			sb.append(" ");
 			if (!baseNameIsNotNull && !localeIsNotNull && !keyIsNotNull)
 			{
-				sb.append("where rb.value=:value");
+				sb.append("where rb.value.name=:value");
 			}
 			else
 			{
-				sb.append("and rb.value=:value");
+				sb.append("and rb.value.name=:value");
 			}
 		}
 		return sb.toString();

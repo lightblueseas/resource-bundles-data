@@ -44,7 +44,6 @@ import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsReposi
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 import lombok.NonNull;
@@ -72,10 +71,6 @@ public class BundleApplicationsBusinessService
 	@Autowired
 	private LanguageLocalesService languageLocalesService;
 
-	/** The resourcebundles service. */
-	@Autowired
-	private ResourcebundlesService resourcebundlesService;
-
 	/**
 	 * {@inheritDoc}
 	 */
@@ -85,9 +80,10 @@ public class BundleApplicationsBusinessService
 		List<BundleNames> bundleNames = bundleNamesService.find(bundleApplications);
 		for (BundleNames bundleName : bundleNames)
 		{
-			resourcebundlesService.delete(bundleName);
+			bundleNamesService.delete(bundleName);
 		}
 		bundleApplications.setDefaultLocale(null);
+		bundleApplications.getSupportedLocales().clear();
 		BundleApplications merged = merge(bundleApplications);
 		super.delete(merged);
 	}

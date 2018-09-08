@@ -30,7 +30,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
-import de.alpharogroup.service.rs.RestfulResource;
+import de.alpharogroup.service.rs.api.RestfulResource;
 
 /**
  * The interface {@link BundleNamesResource} provides rest methods

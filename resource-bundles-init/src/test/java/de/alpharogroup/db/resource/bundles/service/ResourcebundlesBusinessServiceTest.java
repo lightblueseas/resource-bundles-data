@@ -53,7 +53,7 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
-	@Test(enabled = false)
+	@Test(enabled = true)
 	@Transactional
 	public void testCountries() throws IOException
 	{
@@ -95,6 +95,13 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 		// countriesService.merge(countries);
 		// }
 		// }
+	}
+
+	@Override
+	@Test(enabled = true)
+	public void testDeleteBundleApplications()
+	{
+		super.testDeleteBundleApplications();
 	}
 
 	@Override

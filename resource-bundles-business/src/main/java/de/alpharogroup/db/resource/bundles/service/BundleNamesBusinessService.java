@@ -88,11 +88,25 @@ public class BundleNamesBusinessService
 	{
 		List<Resourcebundles> list = resourcebundlesService.find(bundleNames);
 		resourcebundlesService.delete(list);
+		BaseNames baseName = bundleNames.getBaseName();
 		bundleNames.setBaseName(null);
 		bundleNames.setLocale(null);
 		bundleNames.setOwner(null);
 		final BundleNames merged = super.merge(bundleNames);
 		super.delete(merged);
+		if (0 == find(baseName).size())
+		{
+			baseNamesService.delete(baseName);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<BundleNames> find(BaseNames baseName)
+	{
+		return find(null, baseName != null ? baseName.getName() : null, (String)null);
 	}
 
 	/**
@@ -170,7 +184,8 @@ public class BundleNamesBusinessService
 	public List<BundleNames> find(final BundleApplications owner, final String baseName,
 		final String locale)
 	{
-		final String hqlString = HqlStringCreator.forBundleNames(owner.getName(), baseName, locale);
+		final String hqlString = HqlStringCreator
+			.forBundleNames(owner != null ? owner.getName() : null, baseName, locale);
 		final Query query = getQuery(hqlString);
 		if (owner != null)
 		{

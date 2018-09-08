@@ -58,17 +58,25 @@ public class BundleNameDomainService
 		BundleNameService
 {
 
-	@Override
-	public BundleName delete(Integer id)
-	{
-		BundleName domainObject = getMapper().toDomainObject(bundleNamesService.get(id));
-		bundleNamesService.delete(bundleNamesService.get(id));
-		return domainObject;
-	}
-
 	/** The {@link BundleNamesService} object */
 	@Autowired
 	private BundleNamesService bundleNamesService;
+
+	@Override
+	public void delete(BundleName domainObject)
+	{
+		BundleNames entity = getMapper().toEntity(domainObject);
+		bundleNamesService.delete(entity);
+	}
+
+	@Override
+	public BundleName delete(Integer id)
+	{
+		BundleNames entity = bundleNamesService.get(id);
+		BundleName domainObject = getMapper().toDomainObject(entity);
+		bundleNamesService.delete(entity);
+		return domainObject;
+	}
 
 	@Override
 	public List<BundleName> find(BundleApplication owner)

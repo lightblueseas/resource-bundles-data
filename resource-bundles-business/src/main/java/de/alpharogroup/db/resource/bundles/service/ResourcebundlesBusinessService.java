@@ -145,11 +145,21 @@ public class ResourcebundlesBusinessService
 	@Override
 	public void delete(Resourcebundles resourcebundles)
 	{
+		PropertiesKeys key = resourcebundles.getKey();
+		PropertiesValues value = resourcebundles.getValue();
 		resourcebundles.setBundleName(null);
 		resourcebundles.setKey(null);
 		resourcebundles.setValue(null);
 		resourcebundles = super.merge(resourcebundles);
 		super.delete(resourcebundles);
+		if (0 == find(key).size())
+		{
+			propertiesKeysService.delete(key);
+		}
+		if (0 == find(value).size())
+		{
+			propertiesValuesService.delete(value);
+		}
 	}
 
 	/**
@@ -160,8 +170,8 @@ public class ResourcebundlesBusinessService
 	public List<Resourcebundles> find(BundleApplications owner, String baseName, String locale,
 		String key, String value)
 	{
-		final String hqlString = HqlStringCreator.forResourcebundles(owner.getName(), baseName,
-			locale, key, value);
+		final String hqlString = HqlStringCreator.forResourcebundles(
+			owner != null ? owner.getName() : null, baseName, locale, key, value);
 		final Query query = getQuery(hqlString);
 		if (owner != null)
 		{
@@ -195,6 +205,24 @@ public class ResourcebundlesBusinessService
 	{
 		return find(bundleName.getOwner(), bundleName.getBaseName().getName(),
 			bundleName.getLocale().getLocale(), null, null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundles> find(PropertiesKeys key)
+	{
+		return find(null, null, null, key.getName(), null);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Resourcebundles> find(PropertiesValues value)
+	{
+		return find(null, null, null, null, value.getName());
 	}
 
 	/**

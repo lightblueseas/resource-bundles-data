@@ -41,7 +41,7 @@ import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
-import de.alpharogroup.service.rs.RestfulResource;
+import de.alpharogroup.service.rs.api.RestfulResource;
 
 /**
  * The interface {@link ResourcebundlesResource} provides methods for resolving resource bundles.

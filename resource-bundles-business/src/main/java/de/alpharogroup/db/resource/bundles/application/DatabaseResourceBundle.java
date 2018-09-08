@@ -28,7 +28,6 @@ import java.util.Enumeration;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 
 /**

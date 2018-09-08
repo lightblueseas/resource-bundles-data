@@ -57,8 +57,25 @@ public class BundleApplicationDomainService
 		BundleApplicationService
 {
 
+
 	@Autowired
 	private BundleApplicationsService bundleApplicationsService;
+
+	@Override
+	public void delete(BundleApplication domainObject)
+	{
+		BundleApplications entity = getMapper().toEntity(domainObject);
+		bundleApplicationsService.delete(entity);
+	}
+
+	@Override
+	public BundleApplication delete(Integer id)
+	{
+		BundleApplications entity = bundleApplicationsService.get(id);
+		BundleApplication domainObject = getMapper().toDomainObject(entity);
+		bundleApplicationsService.delete(entity);
+		return domainObject;
+	}
 
 	@Override
 	public Set<BundleName> find(BundleApplication owner)

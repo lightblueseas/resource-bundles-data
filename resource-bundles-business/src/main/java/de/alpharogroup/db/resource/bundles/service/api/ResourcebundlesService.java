@@ -33,6 +33,8 @@ import java.util.Properties;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.api.BusinessService;
 
@@ -94,6 +96,25 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the list of the found {@link Resourcebundles} objects.
 	 */
 	List<Resourcebundles> find(BundleNames bundleName);
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link PropertiesKeys} object.
+	 *
+	 * @param key
+	 *            the properties key
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> find(PropertiesKeys key);
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link PropertiesKeys}
+	 * PropertiesValues.
+	 *
+	 * @param value
+	 *            the properties value
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> find(PropertiesValues value);
 
 	/**
 	 * Find the {@link BundleApplications} object from the given name.

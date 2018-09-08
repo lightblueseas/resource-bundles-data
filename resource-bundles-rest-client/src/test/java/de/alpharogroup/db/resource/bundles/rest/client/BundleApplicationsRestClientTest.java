@@ -26,6 +26,7 @@ package de.alpharogroup.db.resource.bundles.rest.client;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.List;
 import java.util.Set;
@@ -71,6 +72,27 @@ public class BundleApplicationsRestClientTest
 			resource = restClient.getResource();
 			AssertJUnit.assertNotNull(resource);
 		}
+	}
+
+	/**
+	 * Test method for {@link ResourcebundlesResource#delete(BundleApplication)}
+	 */
+	@Test(enabled = true)
+	public void testDelete()
+	{
+		BundleApplication entity;
+		// DELETE
+		// http://localhost:8080/bundle/applications/delete/
+		String owner = "foo-bar.com";
+		Response response = resource.find(owner);
+
+		entity = response.readEntity(BundleApplication.class);
+		assertNotNull(entity);
+		assertEquals(entity.getName(), owner);
+
+		resource.delete(entity);
+		response = resource.find(owner);
+		assertTrue(response.getLength() == 0);
 	}
 
 	/**

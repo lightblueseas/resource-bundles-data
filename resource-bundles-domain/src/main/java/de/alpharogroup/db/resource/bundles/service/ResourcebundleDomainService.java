@@ -68,6 +68,7 @@ public class ResourcebundleDomainService
 	/** The {@link BundleNamesService} object */
 	@Autowired
 	private BundleNameService bundleNameDomainService;
+
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
@@ -83,6 +84,22 @@ public class ResourcebundleDomainService
 			return getMapper().toDomainObject(resourcebundles);
 		}
 		return null;
+	}
+
+	@Override
+	public Resourcebundle delete(Integer id)
+	{
+		Resourcebundles entity = resourcebundlesService.get(id);
+		Resourcebundle domainObject = getMapper().toDomainObject(entity);
+		resourcebundlesService.delete(entity);
+		return domainObject;
+	}
+
+	@Override
+	public void delete(Resourcebundle domainObject)
+	{
+		Resourcebundles entity = getMapper().toEntity(domainObject);
+		resourcebundlesService.delete(entity);
 	}
 
 	@Override

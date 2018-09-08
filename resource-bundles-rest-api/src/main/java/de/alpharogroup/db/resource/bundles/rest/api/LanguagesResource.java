@@ -33,7 +33,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.db.resource.bundles.domain.Language;
-import de.alpharogroup.service.rs.RestfulResource;
+import de.alpharogroup.service.rs.api.RestfulResource;
 
 /**
  * The rest interface {@link LanguagesResource}
