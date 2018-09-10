@@ -263,21 +263,27 @@ public class BundleNamesBusinessService
 	{
 		BaseNames dbBaseName;
 		dbBaseName = get(object.getId()).getBaseName();
-		// check if basename have changed
-		if (!dbBaseName.equals(object.getBaseName())) {
-			// find all bundlenames with the same basename
-			List<BundleNames> applicationBundleNames = find(object.getOwner(), dbBaseName);
-			// get or create new name entity
-			BaseNames newBaseName = baseNamesService.getOrCreateNewNameEntity(object.getBaseName().getName());
-			// update this bundlenames object with the new basename
-			object.setBaseName(newBaseName);
-			// update all other bundlenames object with the same basename
-			for (BundleNames bn : applicationBundleNames)
+		if (dbBaseName != null)
+		{
+			// check if basename have changed
+			if (!dbBaseName.equals(object.getBaseName()))
 			{
-				bn.setBaseName(newBaseName);
-				if(!bn.equals(object)) {
-					super.merge(bn);
-				}					
+				// find all bundlenames with the same basename
+				List<BundleNames> applicationBundleNames = find(object.getOwner(), dbBaseName);
+				// get or create new name entity
+				BaseNames newBaseName = baseNamesService
+					.getOrCreateNewNameEntity(object.getBaseName().getName());
+				// update this bundlenames object with the new basename
+				object.setBaseName(newBaseName);
+				// update all other bundlenames object with the same basename
+				for (BundleNames bn : applicationBundleNames)
+				{
+					bn.setBaseName(newBaseName);
+					if (!bn.equals(object))
+					{
+						super.merge(bn);
+					}
+				}
 			}
 		}
 		return super.merge(object);

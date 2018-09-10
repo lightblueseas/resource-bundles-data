@@ -40,4 +40,5 @@ import de.alpharogroup.service.rs.api.RestfulResource;
 @Consumes(MediaType.APPLICATION_JSON)
 public interface BundleNamesResource extends RestfulResource<Integer, BundleName>
 {
+
 }

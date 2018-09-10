@@ -42,16 +42,13 @@ import org.springframework.transaction.annotation.Transactional;
 import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.collections.properties.PropertiesExtensions;
-import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.ResourcebundlesRepository;
-import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
@@ -80,10 +77,6 @@ public class ResourcebundlesBusinessService
 
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-
-	/** The base names service. */
-	@Autowired
-	private BaseNamesService baseNamesService;
 
 	/** The bundle applications service. */
 	@Autowired
@@ -161,8 +154,6 @@ public class ResourcebundlesBusinessService
 			propertiesValuesService.delete(value);
 		}
 	}
-	
-	
 
 	/**
 	 * {@inheritDoc}
@@ -356,17 +347,23 @@ public class ResourcebundlesBusinessService
 		PropertiesKeys key;
 		PropertiesValues value;
 		Resourcebundles dbEntity = get(resourcebundles.getId());
-		key = dbEntity.getKey();
-		value = dbEntity.getValue();
-		if(!key.equals(resourcebundles.getKey()) && 1<find(key).size()) {
-			key = PropertiesKeys.builder().name(resourcebundles.getKey().getName()).build();
-			PropertiesKeys merged = propertiesKeysService.merge(key);
-			resourcebundles.setKey(merged);
-		}
-		if(!value.equals(resourcebundles.getValue()) && 1<find(value).size()) {
-			value = PropertiesValues.builder().name(resourcebundles.getValue().getName()).build();
-			PropertiesValues merged = propertiesValuesService.merge(value);
-			resourcebundles.setValue(merged);
+		if (dbEntity != null)
+		{
+			key = dbEntity.getKey();
+			value = dbEntity.getValue();
+			if (!key.equals(resourcebundles.getKey()) && 1 < find(key).size())
+			{
+				key = PropertiesKeys.builder().name(resourcebundles.getKey().getName()).build();
+				PropertiesKeys merged = propertiesKeysService.merge(key);
+				resourcebundles.setKey(merged);
+			}
+			if (!value.equals(resourcebundles.getValue()) && 1 < find(value).size())
+			{
+				value = PropertiesValues.builder().name(resourcebundles.getValue().getName())
+					.build();
+				PropertiesValues merged = propertiesValuesService.merge(value);
+				resourcebundles.setValue(merged);
+			}
 		}
 		try
 		{
@@ -375,48 +372,7 @@ public class ResourcebundlesBusinessService
 		catch (final Exception e)
 		{
 			log.error("merge fail with super.merge(resourcebundles)", e);
-			BaseNames baseName = baseNamesService
-				.find(resourcebundles.getBundleName().getBaseName().getName());
-			if (baseName == null)
-			{
-				baseName = ResourceBundlesDomainObjectFactory.getInstance()
-					.newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
-				baseName = baseNamesService.merge(baseName);
-			}
-
-			LanguageLocales languageLocales = languageLocalesService
-				.find(resourcebundles.getBundleName().getLocale().getLocale());
-
-			if (languageLocales == null)
-			{
-				languageLocales = ResourceBundlesDomainObjectFactory.getInstance()
-					.newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
-				languageLocales = languageLocalesService.merge(languageLocales);
-			}
-
-			BundleNames bundleNames = bundleNamesService
-				.find(resourcebundles.getBundleName().getOwner(), baseName, languageLocales);
-			if (bundleNames == null)
-			{
-				bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
-					resourcebundles.getBundleName().getOwner(),
-					resourcebundles.getBundleName().getBaseName(),
-					resourcebundles.getBundleName().getLocale());
-				bundleNames.setBaseName(baseName);
-				bundleNames.setLocale(languageLocales);
-				bundleNames = bundleNamesService.merge(bundleNames);
-			}
-
-			PropertiesKeys propertiesKeys = propertiesKeysService
-				.find(resourcebundles.getKey().getName());
-			if (propertiesKeys == null)
-			{
-				propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance()
-					.newPropertiesKeys(resourcebundles.getKey().getName());
-				propertiesKeys = propertiesKeysService.merge(propertiesKeys);
-			}
-			resourcebundles.setBundleName(bundleNames);
-			resourcebundles.setKey(propertiesKeys);
+			initialize(resourcebundles);
 			return super.merge(resourcebundles);
 		}
 	}
@@ -433,50 +389,27 @@ public class ResourcebundlesBusinessService
 		}
 		catch (final Exception e)
 		{
-			BaseNames baseName = baseNamesService
-				.find(resourcebundles.getBundleName().getBaseName().getName());
-			if (baseName == null)
-			{
-				baseName = ResourceBundlesDomainObjectFactory.getInstance()
-					.newBaseNames(resourcebundles.getBundleName().getBaseName().getName());
-				baseName = baseNamesService.merge(baseName);
-			}
-
-			LanguageLocales languageLocales = languageLocalesService
-				.find(resourcebundles.getBundleName().getLocale().getLocale());
-
-			if (languageLocales == null)
-			{
-				languageLocales = ResourceBundlesDomainObjectFactory.getInstance()
-					.newLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
-				languageLocales = languageLocalesService.merge(languageLocales);
-			}
-
-			BundleNames bundleNames = bundleNamesService
-				.find(resourcebundles.getBundleName().getOwner(), baseName, languageLocales);
-			if (bundleNames == null)
-			{
-				bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(
-					resourcebundles.getBundleName().getOwner(),
-					resourcebundles.getBundleName().getBaseName(),
-					resourcebundles.getBundleName().getLocale());
-				bundleNames.setBaseName(baseName);
-				bundleNames.setLocale(languageLocales);
-				bundleNames = bundleNamesService.merge(bundleNames);
-			}
-
-			PropertiesKeys propertiesKeys = propertiesKeysService
-				.find(resourcebundles.getKey().getName());
-			if (propertiesKeys == null)
-			{
-				propertiesKeys = ResourceBundlesDomainObjectFactory.getInstance()
-					.newPropertiesKeys(resourcebundles.getKey().getName());
-				propertiesKeys = propertiesKeysService.merge(propertiesKeys);
-			}
-			resourcebundles.setBundleName(bundleNames);
-			resourcebundles.setKey(propertiesKeys);
+			log.error("save or update fail with super.saveOrUpdate(resourcebundles)", e);
+			initialize(resourcebundles);
 			super.saveOrUpdate(resourcebundles);
 		}
+	}
+
+	private void initialize(final Resourcebundles resourcebundles)
+	{
+		LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
+
+		BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(
+			resourcebundles.getBundleName().getOwner(),
+			resourcebundles.getBundleName().getBaseName().getName(),
+			languageLocalesService.resolveLocale(languageLocales));
+		
+		PropertiesKeys propertiesKeys = propertiesKeysService
+			.getOrCreateNewNameEntity(resourcebundles.getKey().getName());
+
+		resourcebundles.setBundleName(bundleNames);
+		resourcebundles.setKey(propertiesKeys);
 	}
 
 	/**

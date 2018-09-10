@@ -77,19 +77,20 @@ public class BundleApplicationsRestClientTest
 	/**
 	 * Test method for {@link ResourcebundlesResource#delete(BundleApplication)}
 	 */
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testDelete()
 	{
 		BundleApplication entity;
-		// DELETE
-		// http://localhost:8080/bundle/applications/delete/
+		
 		String owner = "foo-bar.com";
 		Response response = resource.find(owner);
 
 		entity = response.readEntity(BundleApplication.class);
 		assertNotNull(entity);
 		assertEquals(entity.getName(), owner);
-
+		
+		// POST
+		// http://localhost:8080/bundle/applications/delete/
 		resource.delete(entity);
 		response = resource.find(owner);
 		assertTrue(response.getLength() == 0);

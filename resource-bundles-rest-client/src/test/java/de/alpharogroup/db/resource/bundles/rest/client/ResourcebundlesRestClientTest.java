@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.db.resource.bundles.rest.client;
 
+import static org.testng.AssertJUnit.assertNull;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertTrue;
@@ -45,7 +46,7 @@ import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 
 /**
- * The class {@link ResourcebundlesRestClientTest}.
+ * The class {@link ResourcebundlesRestClientTest}
  *
  * Note: you have to start a rest server to test this or you have to mock it.
  */
@@ -87,7 +88,7 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link ResourcebundlesResource#find(String, String, String)}.
+	 * Test method for {@link ResourcebundlesResource#find(String, String, String)}
 	 */
 	@Test(enabled = false)
 	public void testFind()
@@ -100,15 +101,37 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link ResourcebundlesResource#get(String)}.
+	 * Test method for {@link ResourcebundlesResource#get(String)}
 	 */
 	@Test(enabled = false)
 	public void testGet()
 	{
+		Resourcebundle entity;
+		Integer id = Integer.valueOf(1);
 		// http://localhost:8080/resourcebundle/get/1
-		final Resourcebundle resourcebundle1 = resource.get(Integer.valueOf(1).toString());
-		assertNotNull(resourcebundle1);
-		assertEquals("Erstes label", resourcebundle1.getValue().getName());
+		entity = resource.get(id.toString());
+		assertNotNull(entity);
+		assertEquals("Erstes label", entity.getValue().getName());
+	}
+
+	/**
+	 * Test method for {@link ResourcebundlesResource#delete(Resourcebundle)}
+	 */
+	@Test(enabled = false)
+	public void testDelete()
+	{
+		Resourcebundle entity;
+		Integer id = Integer.valueOf(1);
+		// http://localhost:8080/resourcebundle/get/1
+		entity = resource.get(id.toString());
+		assertNotNull(entity);
+		assertEquals("Erstes label", entity.getValue().getName());
+		
+		// POST
+		// http://localhost:8080/resourcebundle/delete/
+		resource.delete(entity);
+		entity = resource.get(id.toString());
+		assertNull(entity);
 	}
 
 	/**
@@ -125,7 +148,7 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link ResourcebundlesResource#getProperties(String, String, String)}.
+	 * Test method for {@link ResourcebundlesResource#getProperties(String, String, String)}
 	 */
 	@Test(enabled = false)
 	public void testGetProperties()
@@ -147,7 +170,7 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link ResourcebundlesResource#getResponseString(String, String, String)}.
+	 * Test method for {@link ResourcebundlesResource#getResponseString(String, String, String)}
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(enabled = false)
@@ -162,7 +185,7 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}.
+	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(enabled = false)
@@ -177,7 +200,7 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
-	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}.
+	 * Test method for {@link ResourcebundlesResource#getString(String, String, String)}
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(enabled = false)
