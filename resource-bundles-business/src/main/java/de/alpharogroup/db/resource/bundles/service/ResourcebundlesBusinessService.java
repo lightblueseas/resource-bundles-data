@@ -161,6 +161,8 @@ public class ResourcebundlesBusinessService
 			propertiesValuesService.delete(value);
 		}
 	}
+	
+	
 
 	/**
 	 * {@inheritDoc}
@@ -351,6 +353,21 @@ public class ResourcebundlesBusinessService
 	@Override
 	public Resourcebundles merge(final Resourcebundles resourcebundles)
 	{
+		PropertiesKeys key;
+		PropertiesValues value;
+		Resourcebundles dbEntity = get(resourcebundles.getId());
+		key = dbEntity.getKey();
+		value = dbEntity.getValue();
+		if(!key.equals(resourcebundles.getKey()) && 1<find(key).size()) {
+			key = PropertiesKeys.builder().name(resourcebundles.getKey().getName()).build();
+			PropertiesKeys merged = propertiesKeysService.merge(key);
+			resourcebundles.setKey(merged);
+		}
+		if(!value.equals(resourcebundles.getValue()) && 1<find(value).size()) {
+			value = PropertiesValues.builder().name(resourcebundles.getValue().getName()).build();
+			PropertiesValues merged = propertiesValuesService.merge(value);
+			resourcebundles.setValue(merged);
+		}
 		try
 		{
 			return super.merge(resourcebundles);
