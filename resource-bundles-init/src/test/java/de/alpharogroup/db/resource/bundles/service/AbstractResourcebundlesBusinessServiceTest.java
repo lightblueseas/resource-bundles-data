@@ -383,13 +383,13 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 		// check if baseNames exists...
-		BaseNames expected = baseNamesService.find(baseName);
+		BaseNames expected = baseNamesService.findFirst(baseName);
 		if (expected == null)
 		{
 			expected = ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(baseName);
 			expected = baseNamesService.merge(expected);
 		}
-		final BaseNames actual = baseNamesService.find(baseName);
+		final BaseNames actual = baseNamesService.findFirst(baseName);
 		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}

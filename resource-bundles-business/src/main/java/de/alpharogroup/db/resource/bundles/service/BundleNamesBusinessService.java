@@ -261,10 +261,11 @@ public class BundleNamesBusinessService
 	@Override
 	public BundleNames merge(BundleNames object)
 	{
-		BaseNames dbBaseName;
-		dbBaseName = get(object.getId()).getBaseName();
-		if (dbBaseName != null)
+		BundleNames dbBundleNames = get(object.getId());
+		if (dbBundleNames != null)
 		{
+			BaseNames dbBaseName;
+			dbBaseName = dbBundleNames.getBaseName();
 			// check if basename have changed
 			if (!dbBaseName.equals(object.getBaseName()))
 			{

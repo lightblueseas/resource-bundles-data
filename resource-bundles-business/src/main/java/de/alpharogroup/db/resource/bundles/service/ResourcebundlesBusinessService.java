@@ -338,6 +338,23 @@ public class ResourcebundlesBusinessService
 		return list;
 	}
 
+	private void initialize(final Resourcebundles resourcebundles)
+	{
+		LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
+
+		BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(
+			resourcebundles.getBundleName().getOwner(),
+			resourcebundles.getBundleName().getBaseName().getName(),
+			languageLocalesService.resolveLocale(languageLocales));
+
+		PropertiesKeys propertiesKeys = propertiesKeysService
+			.getOrCreateNewNameEntity(resourcebundles.getKey().getName());
+
+		resourcebundles.setBundleName(bundleNames);
+		resourcebundles.setKey(propertiesKeys);
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -393,23 +410,6 @@ public class ResourcebundlesBusinessService
 			initialize(resourcebundles);
 			super.saveOrUpdate(resourcebundles);
 		}
-	}
-
-	private void initialize(final Resourcebundles resourcebundles)
-	{
-		LanguageLocales languageLocales = languageLocalesService
-			.getOrCreateNewLanguageLocales(resourcebundles.getBundleName().getLocale().getLocale());
-
-		BundleNames bundleNames = bundleNamesService.getOrCreateNewBundleNames(
-			resourcebundles.getBundleName().getOwner(),
-			resourcebundles.getBundleName().getBaseName().getName(),
-			languageLocalesService.resolveLocale(languageLocales));
-		
-		PropertiesKeys propertiesKeys = propertiesKeysService
-			.getOrCreateNewNameEntity(resourcebundles.getKey().getName());
-
-		resourcebundles.setBundleName(bundleNames);
-		resourcebundles.setKey(propertiesKeys);
 	}
 
 	/**

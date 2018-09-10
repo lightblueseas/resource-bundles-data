@@ -24,9 +24,9 @@
  */
 package de.alpharogroup.db.resource.bundles.rest.client;
 
-import static org.testng.AssertJUnit.assertNull;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+import static org.testng.AssertJUnit.assertNull;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.util.Locale;
@@ -88,6 +88,26 @@ public class ResourcebundlesRestClientTest
 	}
 
 	/**
+	 * Test method for {@link ResourcebundlesResource#delete(Resourcebundle)}
+	 */
+	@Test(enabled = false)
+	public void testDelete()
+	{
+		Resourcebundle entity;
+		Integer id = Integer.valueOf(1);
+		// http://localhost:8080/resourcebundle/get/1
+		entity = resource.get(id.toString());
+		assertNotNull(entity);
+		assertEquals("Erstes label", entity.getValue().getName());
+
+		// POST
+		// http://localhost:8080/resourcebundle/delete/
+		resource.delete(entity);
+		entity = resource.get(id.toString());
+		assertNull(entity);
+	}
+
+	/**
 	 * Test method for {@link ResourcebundlesResource#find(String, String, String)}
 	 */
 	@Test(enabled = false)
@@ -112,26 +132,6 @@ public class ResourcebundlesRestClientTest
 		entity = resource.get(id.toString());
 		assertNotNull(entity);
 		assertEquals("Erstes label", entity.getValue().getName());
-	}
-
-	/**
-	 * Test method for {@link ResourcebundlesResource#delete(Resourcebundle)}
-	 */
-	@Test(enabled = false)
-	public void testDelete()
-	{
-		Resourcebundle entity;
-		Integer id = Integer.valueOf(1);
-		// http://localhost:8080/resourcebundle/get/1
-		entity = resource.get(id.toString());
-		assertNotNull(entity);
-		assertEquals("Erstes label", entity.getValue().getName());
-		
-		// POST
-		// http://localhost:8080/resourcebundle/delete/
-		resource.delete(entity);
-		entity = resource.get(id.toString());
-		assertNull(entity);
 	}
 
 	/**

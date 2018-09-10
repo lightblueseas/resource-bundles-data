@@ -81,14 +81,14 @@ public class BundleApplicationsRestClientTest
 	public void testDelete()
 	{
 		BundleApplication entity;
-		
+
 		String owner = "foo-bar.com";
 		Response response = resource.find(owner);
 
 		entity = response.readEntity(BundleApplication.class);
 		assertNotNull(entity);
 		assertEquals(entity.getName(), owner);
-		
+
 		// POST
 		// http://localhost:8080/bundle/applications/delete/
 		resource.delete(entity);

@@ -76,7 +76,7 @@
 	</bean>
 
 	<bean id="databaseResources"
-		class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
+		class="de.alpharogroup.db.resource.bundles.application.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
 
