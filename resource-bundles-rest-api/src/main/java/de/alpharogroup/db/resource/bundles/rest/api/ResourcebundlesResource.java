@@ -46,11 +46,13 @@ import de.alpharogroup.service.rs.api.RestfulResource;
 /**
  * The interface {@link ResourcebundlesResource} provides methods for resolving resource bundles.
  */
-@Path("/resourcebundle/")
+@Path(ResourcebundlesResource.PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface ResourcebundlesResource extends RestfulResource<Integer, Resourcebundle>
 {
+
+	public static final String PATH = "/resourcebundle/";
 
 	/**
 	 * Find the {@link Resourcebundle} from the given arguments.

@@ -38,11 +38,13 @@ import de.alpharogroup.service.rs.api.RestfulResource;
 /**
  * The rest interface {@link LanguagesResource}
  */
-@Path("/language/")
+@Path(LanguagesResource.PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface LanguagesResource extends RestfulResource<Integer, Language>
 {
+
+	public static final String PATH = "/language/";
 
 	/**
 	 * Find all {@link Language} objects.

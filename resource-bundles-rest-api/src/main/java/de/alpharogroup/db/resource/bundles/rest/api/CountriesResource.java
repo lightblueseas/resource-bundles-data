@@ -35,11 +35,13 @@ import javax.ws.rs.core.Response;
 import de.alpharogroup.db.resource.bundles.domain.Country;
 import de.alpharogroup.service.rs.api.RestfulResource;
 
-@Path("/country/")
+@Path(CountriesResource.PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface CountriesResource extends RestfulResource<Integer, Country>
 {
+
+	public static final String PATH = "/country/";
 
 	/**
 	 * Find all {@link Country} objects.

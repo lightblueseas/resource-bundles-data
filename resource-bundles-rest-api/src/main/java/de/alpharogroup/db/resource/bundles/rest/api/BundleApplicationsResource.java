@@ -41,11 +41,13 @@ import lombok.NonNull;
 /**
  * The interface {@link BundleApplicationsResource} provides rest methods
  */
-@Path("/bundle/applications/")
+@Path(BundleApplicationsResource.PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface BundleApplicationsResource extends RestfulResource<Integer, BundleApplication>
 {
+
+	public static final String PATH = "/bundle/applications/";
 
 	/**
 	 * Find the {@link BundleApplication} object from the given name.

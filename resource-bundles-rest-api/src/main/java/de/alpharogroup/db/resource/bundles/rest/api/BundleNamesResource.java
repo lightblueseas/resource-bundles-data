@@ -35,10 +35,12 @@ import de.alpharogroup.service.rs.api.RestfulResource;
 /**
  * The interface {@link BundleNamesResource} provides rest methods
  */
-@Path("/bundle/names/")
+@Path(BundleNamesResource.PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface BundleNamesResource extends RestfulResource<Integer, BundleName>
 {
+
+	public static final String PATH = "/bundle/names/";
 
 }

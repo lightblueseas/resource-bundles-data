@@ -38,11 +38,13 @@ import de.alpharogroup.service.rs.api.RestfulResource;
 /**
  * The interface {@link LanguageLocalesResource} provides rest methods
  */
-@Path("/language/locale/")
+@Path(LanguageLocalesResource.PATH)
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public interface LanguageLocalesResource extends RestfulResource<Integer, LanguageLocale>
 {
+
+	public static final String PATH = "/language/locale/";
 
 	/**
 	 * Find the {@link LanguageLocale} object from the given locale.
