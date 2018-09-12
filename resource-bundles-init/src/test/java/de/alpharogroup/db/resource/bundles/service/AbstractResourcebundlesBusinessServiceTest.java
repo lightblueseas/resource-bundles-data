@@ -534,25 +534,25 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final String applicationName = "foo-dating.com";
 		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName,
 			languageLocales);
-
+		Locale dl;
+		final BundleNames bundleNames = bundleNamesService
+			.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
+		final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
+		if (loc != null)
+		{
+			dl = LocaleResolver.resolveLocale(loc.getLocale());
+		}
+		else
+		{
+			dl = defaultLocale;
+		}
 		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet())
 		{
 			final File propertiesFile = entry.getKey();
 			Locale locale = entry.getValue();
 			if (locale == null)
 			{
-				final BundleNames bundleNames = bundleNamesService
-					.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
-				bundleApplication = bundleApplicationsService.merge(bundleApplication);
-				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
-				if (loc != null)
-				{
-					locale = LocaleResolver.resolveLocale(loc.getLocale());
-				}
-				else
-				{
-					locale = defaultLocale;
-				}
+				locale = dl;
 			}
 			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
 			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
@@ -561,7 +561,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
-		assertEquals(633, rb.size());
+		assertEquals(627, rb.size());
 	}
 
 }

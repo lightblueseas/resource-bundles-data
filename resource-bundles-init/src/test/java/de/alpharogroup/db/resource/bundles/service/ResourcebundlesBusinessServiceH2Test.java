@@ -57,7 +57,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	@Transactional
 	public void testCountries() throws IOException
 	{
@@ -128,7 +128,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	}
 
 	@Override
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();

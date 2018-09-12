@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 
 import javax.persistence.Query;
@@ -359,6 +358,7 @@ public class ResourcebundlesBusinessService
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Transactional
 	public Resourcebundles merge(final Resourcebundles resourcebundles)
 	{
 		PropertiesKeys key;
@@ -457,7 +457,7 @@ public class ResourcebundlesBusinessService
 		return updateProperties(owner, properties, baseName, locale, true);
 	}
 
-	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	@Transactional
 	public BundleNames updateProperties(final @NonNull BundleApplications owner,
 		final @NonNull Properties properties, final @NonNull String baseName,
 		final @NonNull Locale locale, final boolean update)
@@ -465,36 +465,20 @@ public class ResourcebundlesBusinessService
 		final BundleNames bundleName = bundleNamesService.getOrCreateNewBundleNames(owner, baseName,
 			locale);
 		final Properties dbProperties = getProperties(bundleName);
-		final String bundName = bundleName.getBaseName().getName();
-		log.info("===============================================================");
-		log.info("Processing bundle: " + bundName);
-		log.info("===============================================================");
-		for (final Map.Entry<Object, Object> element : properties.entrySet())
-		{
+
+		properties.entrySet().parallelStream().forEach(element -> {
 			final String key = element.getKey().toString().trim();
 			final String value = element.getValue().toString().trim();
 			if (dbProperties.containsKey(key))
 			{
 				final String dbValue = dbProperties.getProperty(key);
-				if (value.equals(dbValue))
+				if (!value.equals(dbValue))
 				{
-					continue;
+					return;
 				}
 			}
-			log.info("===============================================================");
-			log.info("Processing bundle: " + bundName);
-			log.info("===============================================================");
-			log.info("===============================================================");
-			log.info("Processing key: " + key + "");
-			log.info("===============================================================");
-			log.info("===============================================================");
-			log.info("Processing value: " + value + "");
-			log.info("===============================================================");
 			saveOrUpdateEntry(bundleName, baseName, locale, key, value, update);
-		}
-		log.info("===============================================================");
-		log.info("Finish of processing: " + bundleName.getBaseName().getName());
-		log.info("===============================================================");
+		});
 		return bundleName;
 	}
 

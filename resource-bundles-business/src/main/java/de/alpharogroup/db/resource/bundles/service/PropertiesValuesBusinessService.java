@@ -26,6 +26,7 @@ package de.alpharogroup.db.resource.bundles.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
@@ -46,8 +47,19 @@ public class PropertiesValuesBusinessService
 		PropertiesValuesService
 {
 
+
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public PropertiesValues getOrCreateNewNameEntity(String value)
+	{
+		return PropertiesValuesService.super.getOrCreateNewNameEntity(value);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -63,5 +75,4 @@ public class PropertiesValuesBusinessService
 	{
 		setRepository(repository);
 	}
-
 }
