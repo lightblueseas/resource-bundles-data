@@ -51,7 +51,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testBundleApplicationsWithSameNameResourceBundles()
 	{
 		super.testBundleApplicationsWithSameNameResourceBundles();
@@ -79,41 +79,41 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testDeleteBundleApplications()
 	{
 		super.testDeleteBundleApplications();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindBundleApplications()
 	{
 		super.testFindBundleApplications();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindBundleNames()
 	{
 		super.testFindBundleNames();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindLanguageLocales()
 	{
 		super.testFindLanguageLocales();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindResourceBundles()
 	{
 		super.testFindResourceBundles();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	@Override
 	public void testSupportedLanguageLocales()
 	{
@@ -121,14 +121,14 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testUpdateProperties() throws URISyntaxException, IOException
 	{
 		super.testUpdateProperties();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();
