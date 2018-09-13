@@ -10,4 +10,5 @@
 <stringAttribute key="org.eclipse.jdt.launching.MAIN_TYPE" value="de.alpharogroup.db.resource.bundles.ApplicationJettyRunner"/>
 <stringAttribute key="org.eclipse.jdt.launching.PROJECT_ATTR" value="resource-bundles-rest-web"/>
 <stringAttribute key="org.eclipse.jdt.launching.SOURCE_PATH_PROVIDER" value="org.eclipse.m2e.launchconfig.sourcepathProvider"/>
+<stringAttribute key="org.eclipse.jdt.launching.VM_ARGUMENTS" value="-Djava.util.concurrent.ForkJoinPool.common.parallelism=4"/>
 </launchConfiguration>
