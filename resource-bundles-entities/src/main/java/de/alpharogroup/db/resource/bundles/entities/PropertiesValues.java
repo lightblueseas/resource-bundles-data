@@ -35,8 +35,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The entity class {@link PropertiesValues} holds the data only for the properties values. </br>
- * </br>
+ * The entity class {@link PropertiesValues} holds the data only for the properties values. <br>
+ * <br>
  */
 @Entity
 @Table(name = "properties_values")

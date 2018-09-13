@@ -36,8 +36,8 @@ import lombok.ToString;
 
 /**
  * The entity class {@link PropertiesKeys} holds the data only for the properties keys not the
- * values. </br>
- * </br>
+ * values. <br>
+ * <br>
  * Note: The values of the properties keys is in the entity class {@link PropertiesValues}.
  */
 @Entity

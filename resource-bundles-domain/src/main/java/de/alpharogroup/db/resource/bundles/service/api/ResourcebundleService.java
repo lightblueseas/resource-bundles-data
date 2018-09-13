@@ -294,6 +294,7 @@ public interface ResourcebundleService extends DomainService<Integer, Resourcebu
 	 *            the base name
 	 * @param locale
 	 *            the locale
+	 * @return the bundle name
 	 */
 	BundleName updateProperties(BundleApplication bundleApplication, Properties properties,
 		String baseName, Locale locale);
