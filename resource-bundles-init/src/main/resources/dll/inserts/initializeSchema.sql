@@ -42,7 +42,7 @@ create table languages (
        id int4 not null,
         version int4,
         name varchar(64) unique,
-        iso639_1 varchar(2),
+        iso639_1 varchar(2) unique,
         primary key (id)
     );
 create table properties_keys (
@@ -51,12 +51,18 @@ create table properties_keys (
         name varchar(1024),
         primary key (id)
     );
+create table properties_values (
+       id int4 not null,
+        version int4,
+        name varchar(4096) unique,
+        primary key (id)
+    );
 create table resourcebundles (
        id int4 not null,
         version int4,
-        value varchar(2048),
         bundlename_id int4,
         properties_key_id int4,
+        properties_value_id int4,
         primary key (id)
     );
 
@@ -69,4 +75,5 @@ alter table bundlenames add constraint FKF230A80614CE514F foreign key (owner_id)
 alter table bundlenames add constraint FKF230A80663C76715 foreign key (base_name_id) references basenames;
 alter table resourcebundles add constraint FKD0A7106365054731 foreign key (properties_key_id) references properties_keys;
 alter table resourcebundles add constraint FKD0A71063BE71D570 foreign key (bundlename_id) references bundlenames;
+alter table resourcebundles add constraint FKD0A71063D970898D foreign key (properties_value_id) references properties_values;
 create sequence hibernate_sequence;

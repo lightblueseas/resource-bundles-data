@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -60,9 +60,10 @@ public class ApplicationJettyRunner
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 * @throws ClassNotFoundException
-	 *             the class not found exception
+	 *             is thrown if the Class was not found or could not be located
 	 * @throws SQLException
-	 *             the SQL exception
+	 *             is thrown if a database access error occurs or this method is called on a closed
+	 *             connection
 	 */
 	protected static boolean existsPostgreSQLDatabase()
 		throws IOException, ClassNotFoundException, SQLException

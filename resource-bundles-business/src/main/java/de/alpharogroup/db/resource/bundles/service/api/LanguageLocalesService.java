@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,6 +29,9 @@ import java.util.Locale;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
 
+/**
+ * The interface {@link LanguageLocalesService}
+ */
 public interface LanguageLocalesService extends BusinessService<LanguageLocales, Integer>
 {
 
@@ -60,6 +63,15 @@ public interface LanguageLocalesService extends BusinessService<LanguageLocales,
 	 * @return the {@link LanguageLocales} object
 	 */
 	LanguageLocales getOrCreateNewLanguageLocales(final Locale locale);
+
+	/**
+	 * Gets the or creates a new {@link LanguageLocales} object.
+	 *
+	 * @param locale
+	 *            the locale
+	 * @return the {@link LanguageLocales} object
+	 */
+	LanguageLocales getOrCreateNewLanguageLocales(final String locale);
 
 	/**
 	 * Resolves the {@link Locale} object from the given {@link LanguageLocales}.

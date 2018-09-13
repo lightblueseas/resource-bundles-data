@@ -72,7 +72,7 @@
 		<property name="databasePlatform" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
 	</bean>	
 
-	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
+	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.application.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
 
@@ -98,6 +98,6 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
 	
 </beans>

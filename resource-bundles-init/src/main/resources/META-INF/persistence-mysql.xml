@@ -13,6 +13,7 @@
 		<class>de.alpharogroup.db.resource.bundles.entities.Languages</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.LanguageLocales</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.PropertiesKeys</class>
+		<class>de.alpharogroup.db.resource.bundles.entities.PropertiesValues</class>
 		<class>de.alpharogroup.db.resource.bundles.entities.Resourcebundles</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 

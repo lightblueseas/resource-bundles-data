@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -28,7 +28,7 @@ import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.service.api.BusinessService;
 
 /**
- * The interface {@link CountriesService}.
+ * The interface {@link CountriesService}
  */
 public interface CountriesService extends BusinessService<Countries, Integer>
 {

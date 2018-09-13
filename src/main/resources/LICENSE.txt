@@ -1,6 +1,6 @@
 The MIT License
 
-Copyright (C) ${year} ${owner}
+Copyright (C) 2007 - ${year} ${owner}
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

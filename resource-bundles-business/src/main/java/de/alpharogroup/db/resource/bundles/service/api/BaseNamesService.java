@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,30 +25,11 @@
 package de.alpharogroup.db.resource.bundles.service.api;
 
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
-import de.alpharogroup.db.service.api.BusinessService;
+import de.alpharogroup.service.api.NameEntityService;
 
 /**
  * The interface {@link BaseNamesService}.
  */
-public interface BaseNamesService extends BusinessService<BaseNames, Integer>
+public interface BaseNamesService extends NameEntityService<BaseNames, Integer>
 {
-
-	/**
-	 * Find the {@link BaseNames} object from the given baseName.
-	 *
-	 * @param baseName
-	 *            the base name
-	 *
-	 * @return the found {@link BaseNames} object or null if not.
-	 */
-	BaseNames find(final String baseName);
-
-	/**
-	 * Gets the or creates a new {@link BaseNames} object.
-	 *
-	 * @param baseName
-	 *            the base name
-	 * @return the {@link BaseNames} object
-	 */
-	BaseNames getOrCreateNewBaseNames(final String baseName);
 }

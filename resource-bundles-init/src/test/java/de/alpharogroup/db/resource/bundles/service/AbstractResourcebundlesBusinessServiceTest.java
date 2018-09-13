@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -50,6 +50,7 @@ import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 
 import de.alpharogroup.collections.properties.PropertiesExtensions;
 import de.alpharogroup.db.init.AbstractDatabaseInitialization;
+import de.alpharogroup.db.resource.bundles.application.DatabaseListResourceBundle;
 import de.alpharogroup.db.resource.bundles.db.init.DatabaseInitialization;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
@@ -57,6 +58,7 @@ import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
@@ -66,12 +68,13 @@ import de.alpharogroup.db.resource.bundles.service.api.CountriesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguagesService;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
+import de.alpharogroup.db.resource.bundles.service.api.PropertiesValuesService;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
-import de.alpharogroup.exception.ExceptionExtensions;
 import de.alpharogroup.lang.ClassExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.resourcebundle.locale.Locales;
 import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
+import de.alpharogroup.string.StringExtensions;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -81,9 +84,8 @@ import lombok.extern.slf4j.Slf4j;
 public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
 {
 
-	/** The resourcebundles service. */
 	@Autowired
-	protected ResourcebundlesService resourcebundlesService;
+	protected BaseNamesService baseNamesService;
 
 	@Autowired
 	protected BundleApplicationsService bundleApplicationsService;
@@ -92,25 +94,30 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 	protected BundleNamesService bundleNamesService;
 
 	@Autowired
-	protected BaseNamesService baseNamesService;
+	protected CountriesService countriesService;
 
-	@Autowired
-	protected LanguageLocalesService languageLocalesService;
-
-	/** The properties keys service. */
-	@Autowired
-	protected PropertiesKeysService propertiesKeysService;
-
-	@Autowired
-	protected LanguagesService languagesService;
+	private DatabaseInitialization databaseInitialization;
 
 	@PersistenceUnit
 	protected EntityManagerFactory entityManagerFactory;
 
 	@Autowired
-	protected CountriesService countriesService;
+	protected LanguageLocalesService languageLocalesService;
 
-	private DatabaseInitialization databaseInitialization;
+	@Autowired
+	protected LanguagesService languagesService;
+
+	/** The properties keys service. */
+	@Autowired
+	protected PropertiesKeysService propertiesKeysService;
+
+	/** The properties values service. */
+	@Autowired
+	private PropertiesValuesService propertiesValuesService;
+
+	/** The resourcebundles service. */
+	@Autowired
+	protected ResourcebundlesService resourcebundlesService;
 
 	private BundleApplications getOrCreateBundleApplication(final String applicationName,
 		final LanguageLocales defaultLocale)
@@ -160,14 +167,17 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
 			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");
+		String value = null;
 		if (resourcebundles == null)
 		{
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
+			value = "Erstes label";
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "Erstes label");
+				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundlesService.saveOrUpdate(resourcebundles);
 		}
 
@@ -179,9 +189,11 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
+			value = "First label";
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "First label");
+				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}
@@ -198,14 +210,17 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			.getOrCreateNewBundleApplications(applicationName, languageLocales);
 		Resourcebundles resourcebundles = resourcebundlesService.contains(bundleApplication,
 			"resource.bundles", Locale.GERMAN, "resource.bundles.test.label");
+		String value = null;
 		if (resourcebundles == null)
 		{
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.GERMAN);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
+			value = "Erstes label";
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "Erstes label");
+				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundlesService.merge(resourcebundles);
 		}
 
@@ -217,9 +232,11 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			final BundleNames bundleName = bundleNamesService
 				.getOrCreateNewBundleNames(bundleApplication, "resource.bundles", Locale.UK);
 			final PropertiesKeys pkey = propertiesKeysService
-				.getOrCreateNewPropertiesKeys("resource.bundles.test.label");
+				.getOrCreateNewNameEntity("resource.bundles.test.label");
+			value = "First label";
+			PropertiesValues pvalue = propertiesValuesService.getOrCreateNewNameEntity(value);
 			resourcebundles = ResourceBundlesDomainObjectFactory.getInstance()
-				.newResourcebundles(bundleName, pkey, "First label");
+				.newResourcebundles(bundleName, pkey, pvalue);
 			resourcebundles = resourcebundlesService.merge(resourcebundles);
 		}
 	}
@@ -265,7 +282,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			}
 			catch (ClassNotFoundException | SQLException | IOException e)
 			{
-				log.error(ExceptionExtensions.toString(databaseInitialization), e);
+				log.error(StringExtensions.toString(databaseInitialization), e);
 			}
 		}
 	}
@@ -366,13 +383,13 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 		// check if baseNames exists...
-		BaseNames expected = baseNamesService.find(baseName);
+		BaseNames expected = baseNamesService.findFirst(baseName);
 		if (expected == null)
 		{
 			expected = ResourceBundlesDomainObjectFactory.getInstance().newBaseNames(baseName);
 			expected = baseNamesService.merge(expected);
 		}
-		final BaseNames actual = baseNamesService.find(baseName);
+		final BaseNames actual = baseNamesService.findFirst(baseName);
 		assertNotNull(actual);
 		assertEquals(expected, actual);
 	}
@@ -400,7 +417,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		// The base Name
 		final String baseName = "ApplicationBasePage";
 
-		final BaseNames actual = baseNamesService.getOrCreateNewBaseNames(baseName);
+		final BaseNames actual = baseNamesService.getOrCreateNewNameEntity(baseName);
 		assertNotNull(actual);
 		final LanguageLocales languageLocales = languageLocalesService
 			.getOrCreateNewLanguageLocales(Locale.GERMANY);
@@ -517,25 +534,25 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 		final String applicationName = "foo-dating.com";
 		BundleApplications bundleApplication = getOrCreateBundleApplication(applicationName,
 			languageLocales);
-
+		Locale dl;
+		final BundleNames bundleNames = bundleNamesService
+			.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
+		final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
+		if (loc != null)
+		{
+			dl = LocaleResolver.resolveLocale(loc.getLocale());
+		}
+		else
+		{
+			dl = defaultLocale;
+		}
 		for (final Entry<File, Locale> entry : fileToLocaleMap.entrySet())
 		{
 			final File propertiesFile = entry.getKey();
 			Locale locale = entry.getValue();
 			if (locale == null)
 			{
-				final BundleNames bundleNames = bundleNamesService
-					.getOrCreateNewBundleNames(bundleApplication, bundlename, defaultLocale);
-				bundleApplication = bundleApplicationsService.merge(bundleApplication);
-				final LanguageLocales loc = bundleNamesService.getDefaultLocale(bundleNames);
-				if (loc != null)
-				{
-					locale = LocaleResolver.resolveLocale(loc.getLocale());
-				}
-				else
-				{
-					locale = defaultLocale;
-				}
+				locale = dl;
 			}
 			final Properties properties = PropertiesExtensions.loadProperties(propertiesFile);
 			resourcebundlesService.updateProperties(bundleApplication, properties, bundlename,
@@ -544,7 +561,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 
 		final Set<Resourcebundles> rb = new HashSet<>(resourcebundlesService.findAll());
 
-		assertEquals(633, rb.size());
+		assertEquals(627, rb.size());
 	}
 
 }

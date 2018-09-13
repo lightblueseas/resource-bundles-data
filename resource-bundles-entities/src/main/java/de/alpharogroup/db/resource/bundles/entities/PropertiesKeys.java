@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -36,7 +36,9 @@ import lombok.ToString;
 
 /**
  * The entity class {@link PropertiesKeys} holds the data only for the properties keys not the
- * values. Note: The values of the properties keys is in the entity class {@link Resourcebundles}.
+ * values. <br>
+ * <br>
+ * Note: The values of the properties keys is in the entity class {@link PropertiesValues}.
  */
 @Entity
 @Table(name = "properties_keys")

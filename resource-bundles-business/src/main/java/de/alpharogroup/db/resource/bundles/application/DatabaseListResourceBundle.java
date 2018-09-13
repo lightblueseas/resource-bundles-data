@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -22,7 +22,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.db.resource.bundles.service;
+package de.alpharogroup.db.resource.bundles.application;
 
 import java.util.List;
 import java.util.ListResourceBundle;
@@ -38,51 +38,49 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * The Class {@link BundleApplicationListResourceBundle}.
+ * The Class {@link DatabaseListResourceBundle}.
  */
 @Getter
 @Setter
 @NoArgsConstructor
-public class BundleApplicationListResourceBundle extends ListResourceBundle
+public class DatabaseListResourceBundle extends ListResourceBundle
 {
 
 	/** The base name. */
 	private String baseName;
 
+	private String bundleApplicationName;
+
 	/** The locale. */
 	private Locale locale;
-
-	private BundleApplications owner;
 
 	/** The resourcebundles service. */
 	@Autowired
 	private ResourcebundlesService resourcebundlesService;
 
 	/**
-	 * Instantiates a new {@link BundleApplicationListResourceBundle} object from the given
-	 * parameters.
+	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
 	 *
-	 * @param owner
-	 *            the owner
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
 	 *            the locale
 	 */
-	public BundleApplicationListResourceBundle(final BundleApplications owner,
-		final String baseName, final Locale locale)
+	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName,
+		final Locale locale)
 	{
-		setOwner(owner);
-		setBaseName(baseName);
-		setLocale(locale);
+		this.bundleApplicationName = bundleApplicationName;
+		this.baseName = baseName;
+		this.locale = locale;
 	}
 
 	/**
-	 * Instantiates a new {@link BundleApplicationListResourceBundle} object from the given
-	 * parameters.
+	 * Instantiates a new {@link DatabaseListResourceBundle} object from the given parameters.
 	 *
-	 * @param owner
-	 *            the owner
+	 * @param bundleApplicationName
+	 *            the bundle application name
 	 * @param baseName
 	 *            the base name
 	 * @param locale
@@ -90,14 +88,13 @@ public class BundleApplicationListResourceBundle extends ListResourceBundle
 	 * @param resourcebundlesService
 	 *            the resourcebundles service
 	 */
-	public BundleApplicationListResourceBundle(final BundleApplications owner,
-		final String baseName, final Locale locale,
-		final ResourcebundlesService resourcebundlesService)
+	public DatabaseListResourceBundle(final String bundleApplicationName, final String baseName,
+		final Locale locale, final ResourcebundlesService resourcebundlesService)
 	{
 		setResourcebundlesService(resourcebundlesService);
-		setOwner(owner);
-		setBaseName(baseName);
-		setLocale(locale);
+		this.bundleApplicationName = bundleApplicationName;
+		this.baseName = baseName;
+		this.locale = locale;
 	}
 
 	/**
@@ -106,13 +103,17 @@ public class BundleApplicationListResourceBundle extends ListResourceBundle
 	@Override
 	protected Object[][] getContents()
 	{
+		final BundleApplications bundleApplication = resourcebundlesService
+			.find(bundleApplicationName);
+
 		final List<Resourcebundles> resourcebundles = resourcebundlesService
-			.findResourceBundles(owner, baseName, locale);
+			.findResourceBundles(bundleApplication, baseName, locale);
 		final Object[][] all = new Object[resourcebundles.size()][2];
 		int i = 0;
 		for (final Resourcebundles resourcebundle : resourcebundles)
 		{
-			all[i] = new Object[] { resourcebundle.getKey().getName(), resourcebundle.getValue() };
+			all[i] = new Object[] { resourcebundle.getKey().getName(),
+					resourcebundle.getValue().getName() };
 			i++;
 		}
 		return all;

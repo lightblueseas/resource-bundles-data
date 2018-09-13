@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -51,13 +51,13 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testBundleApplicationsWithSameNameResourceBundles()
 	{
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	@Transactional
 	public void testCountries() throws IOException
 	{
@@ -79,41 +79,41 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testDeleteBundleApplications()
 	{
 		super.testDeleteBundleApplications();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindBundleApplications()
 	{
 		super.testFindBundleApplications();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindBundleNames()
 	{
 		super.testFindBundleNames();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindLanguageLocales()
 	{
 		super.testFindLanguageLocales();
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testFindResourceBundles()
 	{
 		super.testFindResourceBundles();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	@Override
 	public void testSupportedLanguageLocales()
 	{
@@ -121,7 +121,7 @@ public class ResourcebundlesBusinessServiceH2Test extends AbstractResourcebundle
 	}
 
 	@Override
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testUpdateProperties() throws URISyntaxException, IOException
 	{
 		super.testUpdateProperties();

@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -35,7 +35,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.alpharogroup.collections.list.ListExtensions;
-import de.alpharogroup.collections.set.SetExtensions;
+import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
@@ -43,7 +43,7 @@ import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObject
 import de.alpharogroup.db.resource.bundles.repositories.BundleApplicationsRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
-import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
+import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 import lombok.NonNull;
@@ -67,9 +67,9 @@ public class BundleApplicationsBusinessService
 	@Autowired
 	private BundleNamesService bundleNamesService;
 
-	/** The resourcebundles service. */
+	/** The language locales service. */
 	@Autowired
-	private ResourcebundlesService resourcebundlesService;
+	private LanguageLocalesService languageLocalesService;
 
 	/**
 	 * {@inheritDoc}
@@ -80,9 +80,10 @@ public class BundleApplicationsBusinessService
 		List<BundleNames> bundleNames = bundleNamesService.find(bundleApplications);
 		for (BundleNames bundleName : bundleNames)
 		{
-			resourcebundlesService.delete(bundleName);
+			bundleNamesService.delete(bundleName);
 		}
 		bundleApplications.setDefaultLocale(null);
+		bundleApplications.getSupportedLocales().clear();
 		BundleApplications merged = merge(bundleApplications);
 		super.delete(merged);
 	}
@@ -98,7 +99,7 @@ public class BundleApplicationsBusinessService
 			.setParameter("owner", owner);
 
 		final List<BundleNames> bundleNames = typedQuery.getResultList();
-		return SetExtensions.newHashSet(bundleNames);
+		return SetFactory.newHashSet(bundleNames);
 	}
 
 	/**
@@ -153,6 +154,18 @@ public class BundleApplicationsBusinessService
 			baseBundleApplication = merge(baseBundleApplication);
 		}
 		return baseBundleApplication;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final String defaultLocale)
+	{
+		LanguageLocales languageLocales = languageLocalesService
+			.getOrCreateNewLanguageLocales(defaultLocale);
+		return getOrCreateNewBundleApplications(name, languageLocales);
 	}
 
 	/**

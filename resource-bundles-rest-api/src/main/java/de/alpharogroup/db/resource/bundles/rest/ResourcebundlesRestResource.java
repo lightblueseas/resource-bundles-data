@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,13 +24,16 @@
  */
 package de.alpharogroup.db.resource.bundles.rest;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
 import javax.ws.rs.core.Response;
 
 import de.alpharogroup.collections.pairs.KeyValuePair;
+import de.alpharogroup.collections.pairs.Quattro;
 import de.alpharogroup.db.resource.bundles.domain.BundleApplication;
+import de.alpharogroup.db.resource.bundles.domain.BundleName;
 import de.alpharogroup.db.resource.bundles.domain.Resourcebundle;
 import de.alpharogroup.db.resource.bundles.rest.api.ResourcebundlesResource;
 import de.alpharogroup.db.resource.bundles.service.api.ResourcebundleService;
@@ -59,6 +62,16 @@ public class ResourcebundlesRestResource
 		return getDomainService().find(bundleApplication, baseName, loc, key);
 	}
 
+	@Override
+	public Response findResourceBundles(String bundleappname, String baseName, String locale)
+	{
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final Locale loc = LocaleResolver.resolveLocale(locale);
+		List<Resourcebundle> resourceBundles = getDomainService()
+			.findResourceBundles(bundleApplication, baseName, loc);
+		return Response.ok(resourceBundles).build();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -70,13 +83,32 @@ public class ResourcebundlesRestResource
 		return resourcebundle;
 	}
 
+	@Override
+	public Response getBundleApp(String name)
+	{
+		final ResourcebundleService resourcebundleService = getDomainService();
+		final BundleApplication bundleApplication = resourcebundleService.find(name);
+		return Response.ok(bundleApplication).build();
+	}
+
+	@Override
+	public Response getOrCreateNewBundleName(String bundleappname, String baseName, String locale)
+	{
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final Locale loc = LocaleResolver.resolveLocale(locale);
+		BundleName bundleName = getDomainService().getOrCreateNewBundleName(bundleApplication,
+			baseName, loc);
+		return Response.ok(bundleName).build();
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Response getProperties(String bundleappname, String baseName, String locale)
 	{
-		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		final ResourcebundleService resourcebundleService = getDomainService();
+		final BundleApplication bundleApplication = resourcebundleService.find(bundleappname);
 		Properties properties = getDomainService().getProperties(bundleApplication, baseName,
 			locale);
 		if (properties == null)
@@ -127,5 +159,35 @@ public class ResourcebundlesRestResource
 		return Response.ok(KeyValuePair.builder().key(key).value(result).build()).build();
 	}
 
+	@Override
+	public Response saveOrUpdateEntry(String bundleappname, String baseName, String locale,
+		String key, String value)
+	{
+		Resourcebundle domainObject = getDomainService().saveOrUpdateEntry(bundleappname, baseName,
+			locale, key, value);
+		return Response.ok(domainObject).build();
+	}
+
+	/**
+	 * Update the given {@link Properties} object to the underlying database with the given owner
+	 * and the given baseName and the given {@link Locale} object that are encapsulated in the
+	 * {@link Quattro} object.
+	 *
+	 * @param quattro
+	 *            the owner
+	 * @return the updated {@link BundleName} object
+	 */
+	@Override
+	public Response updateProperties(Quattro<Properties, String, String, Locale> quattro)
+	{
+		Properties properties = quattro.getTopLeft();
+		String bundleappname = quattro.getTopRight();
+		String baseName = quattro.getBottomLeft();
+		Locale locale = quattro.getBottomRight();
+		final BundleApplication bundleApplication = getDomainService().find(bundleappname);
+		BundleName bundleName = getDomainService().updateProperties(bundleApplication, properties,
+			baseName, locale);
+		return Response.ok(bundleName).build();
+	}
 
 }

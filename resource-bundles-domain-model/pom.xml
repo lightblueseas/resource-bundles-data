@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>resource-bundles-data</artifactId>
-		<version>5.3.0</version>
+		<version>5.4</version>
 	</parent>
 	<artifactId>resource-bundles-domain-model</artifactId>
 
@@ -24,6 +24,12 @@
 		<dependency>
 			<groupId>org.meanbean</groupId>
 			<artifactId>meanbean</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- JOBJECT-EVALUATE DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>jobject-evaluate</artifactId>
 			<scope>test</scope>
 		</dependency>
 

@@ -19,10 +19,11 @@
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.repositories" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.entities" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.mapper" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.api" />
-	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service.mapper" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.service" />
 	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest.api" />
+	<context:component-scan base-package="de.alpharogroup.db.resource.bundles.rest" />
 
 	<bean id="propertyPlaceholder"
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
@@ -60,7 +61,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 
-	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.service.DatabaseListResourceBundle">
+	<bean id="databaseResources" class="de.alpharogroup.db.resource.bundles.application.DatabaseListResourceBundle">
 		<property name="resourcebundlesService" ref="resourcebundlesService"></property>
 	</bean>
 
@@ -92,6 +93,6 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven proxy-target-class="true" transaction-manager="transactionManager" />
 
 </beans>

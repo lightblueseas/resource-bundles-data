@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -40,12 +40,14 @@ import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.BundleNamesRepository;
 import de.alpharogroup.db.resource.bundles.service.api.BaseNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleApplicationsService;
 import de.alpharogroup.db.resource.bundles.service.api.BundleNamesService;
 import de.alpharogroup.db.resource.bundles.service.api.LanguageLocalesService;
+import de.alpharogroup.db.resource.bundles.service.api.ResourcebundlesService;
 import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
@@ -65,16 +67,19 @@ public class BundleNamesBusinessService
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	@Autowired
-	private BundleApplicationsService bundleApplicationsService;
-
 	/** The base names service. */
 	@Autowired
 	private BaseNamesService baseNamesService;
 
+	@Autowired
+	private BundleApplicationsService bundleApplicationsService;
+
 	/** The language locales service. */
 	@Autowired
 	private LanguageLocalesService languageLocalesService;
+
+	@Autowired
+	private ResourcebundlesService resourcebundlesService;
 
 	/**
 	 * {@inheritDoc}
@@ -82,11 +87,27 @@ public class BundleNamesBusinessService
 	@Override
 	public void delete(BundleNames bundleNames)
 	{
+		List<Resourcebundles> list = resourcebundlesService.find(bundleNames);
+		resourcebundlesService.delete(list);
+		BaseNames baseName = bundleNames.getBaseName();
 		bundleNames.setBaseName(null);
 		bundleNames.setLocale(null);
 		bundleNames.setOwner(null);
 		final BundleNames merged = super.merge(bundleNames);
 		super.delete(merged);
+		if (0 == find(baseName).size())
+		{
+			baseNamesService.delete(baseName);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<BundleNames> find(BaseNames baseName)
+	{
+		return find(null, baseName != null ? baseName.getName() : null, (String)null);
 	}
 
 	/**
@@ -164,7 +185,8 @@ public class BundleNamesBusinessService
 	public List<BundleNames> find(final BundleApplications owner, final String baseName,
 		final String locale)
 	{
-		final String hqlString = HqlStringCreator.forBundleNames(owner.getName(), baseName, locale);
+		final String hqlString = HqlStringCreator
+			.forBundleNames(owner != null ? owner.getName() : null, baseName, locale);
 		final Query query = getQuery(hqlString);
 		if (owner != null)
 		{
@@ -221,7 +243,7 @@ public class BundleNamesBusinessService
 		{
 			final LanguageLocales dbLocale = languageLocalesService
 				.getOrCreateNewLanguageLocales(locale);
-			final BaseNames bn = baseNamesService.getOrCreateNewBaseNames(baseName);
+			final BaseNames bn = baseNamesService.getOrCreateNewNameEntity(baseName);
 			bundleNames = ResourceBundlesDomainObjectFactory.getInstance().newBundleName(owner, bn,
 				dbLocale);
 			bundleNames = merge(bundleNames);
@@ -234,6 +256,39 @@ public class BundleNamesBusinessService
 			}
 		}
 		return bundleNames;
+	}
+
+	@Override
+	public BundleNames merge(BundleNames object)
+	{
+		BundleNames dbBundleNames = get(object.getId());
+		if (dbBundleNames != null)
+		{
+			BaseNames dbBaseName;
+			dbBaseName = dbBundleNames.getBaseName();
+			// check if basename have changed
+			if (!dbBaseName.equals(object.getBaseName()))
+			{
+				// find all bundlenames with the same basename
+				List<BundleNames> applicationBundleNames = find(object.getOwner(), dbBaseName);
+				// get or create new name entity
+				BaseNames newBaseName = baseNamesService
+					.getOrCreateNewNameEntity(object.getBaseName().getName());
+				// update this bundlenames object with the new basename
+				object.setBaseName(newBaseName);
+				// update all other bundlenames object with the same basename
+				for (BundleNames bn : applicationBundleNames)
+				{
+					bn.setBaseName(newBaseName);
+					if (!bn.equals(object))
+					{
+						super.merge(bn);
+					}
+				}
+			}
+		}
+		return super.merge(object);
+
 	}
 
 	@Autowired

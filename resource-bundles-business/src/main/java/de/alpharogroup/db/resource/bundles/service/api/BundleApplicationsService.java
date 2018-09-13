@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -32,6 +32,9 @@ import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
 import de.alpharogroup.db.service.api.BusinessService;
 import lombok.NonNull;
 
+/**
+ * The interface {@link BundleApplicationsService}
+ */
 public interface BundleApplicationsService extends BusinessService<BundleApplications, Integer>
 {
 
@@ -92,5 +95,19 @@ public interface BundleApplicationsService extends BusinessService<BundleApplica
 	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
 		@NonNull final LanguageLocales defaultLocale,
 		@NonNull final Set<LanguageLocales> supportedLocales);
+
+	/**
+	 * Gets the {@link BundleApplications} object from the given name or creates a new
+	 * {@link BundleApplications} object if not found.
+	 *
+	 *
+	 * @param name
+	 *            the name
+	 * @param defaultLocale
+	 *            the default locale
+	 * @return the existing or a new {@link BundleApplications} object
+	 */
+	BundleApplications getOrCreateNewBundleApplications(@NonNull final String name,
+		@NonNull final String defaultLocale);
 
 }

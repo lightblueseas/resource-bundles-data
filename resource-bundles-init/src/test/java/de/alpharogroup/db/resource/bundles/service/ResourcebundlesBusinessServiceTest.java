@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -43,17 +43,15 @@ import de.alpharogroup.file.search.PathFinder;
 @ContextConfiguration(locations = "classpath:test-applicationContext.xml")
 public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesBusinessServiceTest
 {
-	static final boolean DISABLED = false;
-	static final boolean ENABLED = true;
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testBundleApplicationsWithSameNameResourceBundles()
 	{
 		super.testBundleApplicationsWithSameNameResourceBundles();
 	}
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	@Transactional
 	public void testCountries() throws IOException
 	{
@@ -62,7 +60,6 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 		final File projectDir = PathFinder.getProjectDirectory();
 		final File iso3166A2ToCountryNameFile = PathFinder.getRelativePathTo(projectDir, "/",
 			"src/main/resources", "iso3166_a2_countries_names_en.txt");
-		List<Countries> list = countriesService.findAll();
 
 		List<String> linesInList = ReadFileExtensions.readLinesInList(iso3166A2ToCountryNameFile);
 
@@ -81,11 +78,9 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 			{
 				country = Countries.builder().iso3166a2name(iso3166A2name).name(name).build();
 			}
-			Countries merged = countriesService.merge(country);
+			countriesService.merge(country);
 
 		}
-
-
 		// List<Countries> availableCountries = DataObjectFactory.newCountries();
 		// for (Countries countries : availableCountries)
 		// {
@@ -98,49 +93,56 @@ public class ResourcebundlesBusinessServiceTest extends AbstractResourcebundlesB
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
+	public void testDeleteBundleApplications()
+	{
+		super.testDeleteBundleApplications();
+	}
+
+	@Override
+	@Test(enabled = false)
 	public void testDeleteBundleName() throws URISyntaxException, IOException
 	{
 		super.testDeleteBundleName();
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testFindBundleApplications()
 	{
 		super.testFindBundleApplications();
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testFindBundleNames()
 	{
 		super.testFindBundleNames();
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testFindLanguageLocales()
 	{
 		super.testFindLanguageLocales();
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testFindResourceBundles()
 	{
 		super.testFindResourceBundles();
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testUpdateProperties() throws URISyntaxException, IOException
 	{
 		super.testUpdateProperties();
 	}
 
 	@Override
-	@Test(enabled = DISABLED)
+	@Test(enabled = false)
 	public void testUpdatePropertiesUpdate() throws URISyntaxException, IOException
 	{
 		super.testUpdatePropertiesUpdate();

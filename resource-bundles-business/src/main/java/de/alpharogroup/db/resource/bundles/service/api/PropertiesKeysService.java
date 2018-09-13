@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,26 +25,11 @@
 package de.alpharogroup.db.resource.bundles.service.api;
 
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
-import de.alpharogroup.db.service.api.BusinessService;
+import de.alpharogroup.service.api.NameEntityService;
 
-public interface PropertiesKeysService extends BusinessService<PropertiesKeys, Integer>
+/**
+ * The interface {@link PropertiesKeysService}
+ */
+public interface PropertiesKeysService extends NameEntityService<PropertiesKeys, Integer>
 {
-
-	/**
-	 * Find the {@link PropertiesKeys} object from the given properties key.
-	 * 
-	 * @param propertiesKey
-	 *            the properties key
-	 * @return the found {@link PropertiesKeys} object or null if not.
-	 */
-	PropertiesKeys find(final String propertiesKey);
-
-	/**
-	 * Gets the or creates a new {@link PropertiesKeys} object
-	 *
-	 * @param key
-	 *            the key
-	 * @return the {@link PropertiesKeys} object
-	 */
-	PropertiesKeys getOrCreateNewPropertiesKeys(final String key);
 }

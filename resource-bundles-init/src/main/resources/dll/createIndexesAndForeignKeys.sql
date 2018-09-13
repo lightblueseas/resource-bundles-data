@@ -6,4 +6,5 @@ alter table bundlenames add constraint FKF230A80614CE514F foreign key (owner_id)
 alter table bundlenames add constraint FKF230A80663C76715 foreign key (base_name_id) references basenames;
 alter table resourcebundles add constraint FKD0A7106365054731 foreign key (properties_key_id) references properties_keys;
 alter table resourcebundles add constraint FKD0A71063BE71D570 foreign key (bundlename_id) references bundlenames;
+alter table resourcebundles add constraint FKD0A71063D970898D foreign key (properties_value_id) references properties_values;
 create sequence hibernate_sequence;

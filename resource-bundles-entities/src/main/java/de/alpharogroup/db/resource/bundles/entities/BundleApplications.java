@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -73,17 +73,17 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 		Cloneable
 {
 
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
-	public static final String NQ_FIND_SUPPORTED_LANGUAGE_LOCALE = "BundleApplications."
-		+ "findSupportedLanguageLocale";
-	public static final String NQ_FIND_JOIN_SUPPORTED_LANGUAGE_LOCALE = "BundleApplications."
-		+ "findWithJoinSupportedLanguageLocale";
-
-
 	/** The Constant BASE_BUNDLE_APPLICATION is the base name of the initial bundle application. */
 	public static final String BASE_BUNDLE_APPLICATION = "base-bundle-application";
+
+	public static final String NQ_FIND_JOIN_SUPPORTED_LANGUAGE_LOCALE = "BundleApplications."
+		+ "findWithJoinSupportedLanguageLocale";
+	public static final String NQ_FIND_SUPPORTED_LANGUAGE_LOCALE = "BundleApplications."
+		+ "findSupportedLanguageLocale";
+
+
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The default locale of this bundle application.

@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -39,7 +39,7 @@ public class ResourcebundlesRestClient extends AbstractRestClient
 	 * The {@link ResourcebundlesResource}.
 	 */
 	@Getter
-	private final ResourcebundlesResource resourcebundlesResource;
+	private final ResourcebundlesResource resource;
 
 	/**
 	 * Instantiates a new {@link ResourcebundlesRestClient} with the default base url.
@@ -58,7 +58,7 @@ public class ResourcebundlesRestClient extends AbstractRestClient
 	public ResourcebundlesRestClient(final String baseUrl)
 	{
 		super(baseUrl);
-		resourcebundlesResource = newResource(ResourcebundlesResource.class);
+		resource = newResource(ResourcebundlesResource.class);
 	}
 
 }

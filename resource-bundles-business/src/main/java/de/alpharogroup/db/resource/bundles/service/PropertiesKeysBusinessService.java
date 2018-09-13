@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -24,20 +24,15 @@
  */
 package de.alpharogroup.db.resource.bundles.service;
 
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.factories.ResourceBundlesDomainObjectFactory;
 import de.alpharogroup.db.resource.bundles.repositories.PropertiesKeysRepository;
 import de.alpharogroup.db.resource.bundles.service.api.PropertiesKeysService;
-import de.alpharogroup.db.resource.bundles.service.util.HqlStringCreator;
 import de.alpharogroup.db.service.AbstractBusinessService;
 
 /**
@@ -58,30 +53,20 @@ public class PropertiesKeysBusinessService
 	/**
 	 * {@inheritDoc}
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public PropertiesKeys find(String propertiesKey)
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
+	public PropertiesKeys getOrCreateNewNameEntity(String value)
 	{
-		final String hqlString = HqlStringCreator.forPropertiesKeys(propertiesKey);
-		final Query query = getQuery(hqlString);
-		if (propertiesKey != null && !propertiesKey.isEmpty())
-		{
-			query.setParameter("propertiesKey", propertiesKey);
-		}
-		final List<PropertiesKeys> propertiesKeys = query.getResultList();
-		return ListExtensions.getFirst(propertiesKeys);
+		return PropertiesKeysService.super.getOrCreateNewNameEntity(value);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
-	public PropertiesKeys getOrCreateNewPropertiesKeys(final String key)
+	public PropertiesKeys newNameEntity(String value)
 	{
-		PropertiesKeys pkey = find(key);
-		if (pkey == null)
-		{
-			pkey = ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(key);
-			pkey = merge(pkey);
-		}
-		return pkey;
+		return ResourceBundlesDomainObjectFactory.getInstance().newPropertiesKeys(value);
 	}
 
 	@Autowired

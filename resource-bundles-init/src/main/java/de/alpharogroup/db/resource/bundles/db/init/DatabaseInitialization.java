@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -29,17 +29,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.db.init.AbstractDatabaseInitialization;
 
 /**
- * The class {@link DatabaseInitialization} gets the SQL script and executes them.
+ * The class {@link DatabaseInitialization} gets the SQL script and executes them
  */
 public class DatabaseInitialization extends AbstractDatabaseInitialization
 {
 
 	/**
-	 * Instantiates a new {@link DatabaseInitialization}.
+	 * Instantiates a new {@link DatabaseInitialization}
 	 *
 	 * @param databaseProperties
 	 *            the database properties
@@ -60,8 +59,7 @@ public class DatabaseInitialization extends AbstractDatabaseInitialization
 		scriptFiles.add(new File(insertsDir, "insert_countries.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_languages.sql"));
 		scriptFiles.add(new File(insertsDir, "insert_resourcebundles.sql"));
-		// return scriptFiles;
-		return ListExtensions.newArrayList();
+		return scriptFiles;
 	}
 
 }

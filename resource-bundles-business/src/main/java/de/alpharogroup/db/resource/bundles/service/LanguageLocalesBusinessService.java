@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -86,6 +86,21 @@ public class LanguageLocalesBusinessService
 	 */
 	@Override
 	public LanguageLocales getOrCreateNewLanguageLocales(final Locale locale)
+	{
+		LanguageLocales expected = find(locale);
+		if (expected == null)
+		{
+			expected = ResourceBundlesDomainObjectFactory.getInstance().newLanguageLocales(locale);
+			expected = merge(expected);
+		}
+		return expected;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public LanguageLocales getOrCreateNewLanguageLocales(final String locale)
 	{
 		LanguageLocales expected = find(locale);
 		if (expected == null)

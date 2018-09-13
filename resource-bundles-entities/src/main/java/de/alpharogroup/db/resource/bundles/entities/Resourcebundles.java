@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -25,7 +25,6 @@
 package de.alpharogroup.db.resource.bundles.entities;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
 import javax.persistence.JoinColumn;
@@ -69,6 +68,7 @@ public class Resourcebundles extends VersionableBaseEntity<Integer> implements C
 	private PropertiesKeys key;
 
 	/** The value for the properties key. */
-	@Column(name = "value", length = 2048)
-	private String value;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "properties_value_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_VALUE_ID"))
+	private PropertiesValues value;
 }

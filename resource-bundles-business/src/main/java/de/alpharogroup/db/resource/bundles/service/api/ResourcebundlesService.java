@@ -1,7 +1,7 @@
 /**
  * The MIT License
  *
- * Copyright (C) 2015 Asterios Raptis
+ * Copyright (C) 2007 - 2015 Asterios Raptis
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -33,11 +33,13 @@ import java.util.Properties;
 import de.alpharogroup.collections.pairs.KeyValuePair;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
 import de.alpharogroup.db.service.api.BusinessService;
 
 /**
- * The interface {@link ResourcebundlesService}.
+ * The interface {@link ResourcebundlesService}
  */
 public interface ResourcebundlesService extends BusinessService<Resourcebundles, Integer>
 {
@@ -96,6 +98,25 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	List<Resourcebundles> find(BundleNames bundleName);
 
 	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link PropertiesKeys} object.
+	 *
+	 * @param key
+	 *            the properties key
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> find(PropertiesKeys key);
+
+	/**
+	 * Find a list of {@link Resourcebundles} objects from the given {@link PropertiesKeys}
+	 * PropertiesValues.
+	 *
+	 * @param value
+	 *            the properties value
+	 * @return the list of the found {@link Resourcebundles} objects.
+	 */
+	List<Resourcebundles> find(PropertiesValues value);
+
+	/**
 	 * Find the {@link BundleApplications} object from the given name.
 	 *
 	 * @param name
@@ -104,6 +125,13 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 * @return the found {@link BundleApplications} object or null if not.
 	 */
 	BundleApplications find(final String name);
+
+	/**
+	 * Finds all bundle applications.
+	 *
+	 * @return the list of the found {@link BundleApplications} objects.
+	 */
+	List<BundleApplications> findAllBundleApplications();
 
 	/**
 	 * Find a list of {@link Resourcebundles} objects from the given baseName and the given
@@ -253,5 +281,22 @@ public interface ResourcebundlesService extends BusinessService<Resourcebundles,
 	 */
 	BundleNames updateProperties(final BundleApplications owner, final Properties properties,
 		final String baseName, final Locale locale);
+
+	/**
+	 * Update the given {@link Properties} object to the underlying database with the given owner
+	 * and the given baseName and the given locale as {@link String} object.
+	 *
+	 * @param properties
+	 *            the properties
+	 * @param owner
+	 *            the name of the bundle application
+	 * @param baseName
+	 *            the base name
+	 * @param localeCode
+	 *            the locale code
+	 * @return the updated {@link BundleNames} object
+	 */
+	BundleNames updateProperties(final Properties properties, final String owner,
+		final String baseName, final String localeCode);
 
 }

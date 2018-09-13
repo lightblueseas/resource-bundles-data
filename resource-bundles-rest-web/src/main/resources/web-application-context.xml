@@ -12,14 +12,34 @@
 
 	<jaxrs:server id="service" address="/">
 		<jaxrs:serviceBeans>
+			<ref bean="bundleApplicationsResource" />
+			<ref bean="bundleNamesResource" />
+			<ref bean="countriesResource" />
+			<ref bean="languageLocalesResource" />
+			<ref bean="languagesResource" />
 			<ref bean="resourcebundlesResource" />
 		</jaxrs:serviceBeans>
 		<jaxrs:providers>
-			<bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+			<bean class="de.alpharogroup.service.rs.providers.CustomTypeModulesRegistrationProvider" />
 		</jaxrs:providers>
 	</jaxrs:server>
 	
 	<!-- web resources -->
+	<bean id="bundleApplicationsResource" class="de.alpharogroup.db.resource.bundles.rest.BundleApplicationsRestResource">
+		<property name="domainService" ref="bundleApplicationDomainService"></property>
+	</bean>
+	<bean id="bundleNamesResource" class="de.alpharogroup.db.resource.bundles.rest.BundleNamesRestResource">
+		<property name="domainService" ref="bundleNameDomainService"></property>
+	</bean>
+	<bean id="countriesResource" class="de.alpharogroup.db.resource.bundles.rest.CountriesRestResource">
+		<property name="domainService" ref="countryDomainService"></property>
+	</bean>
+	<bean id="languageLocalesResource" class="de.alpharogroup.db.resource.bundles.rest.LanguageLocalesRestResource">
+		<property name="domainService" ref="languageLocaleDomainService"></property>
+	</bean>
+	<bean id="languagesResource" class="de.alpharogroup.db.resource.bundles.rest.LanguagesRestResource">
+		<property name="domainService" ref="languageDomainService"></property>
+	</bean>
 	<bean id="resourcebundlesResource" class="de.alpharogroup.db.resource.bundles.rest.ResourcebundlesRestResource">
 		<property name="domainService" ref="resourcebundleDomainService"></property>
 	</bean>
