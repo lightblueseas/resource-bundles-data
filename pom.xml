@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>persistence-api</artifactId>
-		<version>6.5</version>
+		<version>6.6-SNAPSHOT</version>
 		<relativePath></relativePath>
 	</parent>
 
@@ -22,7 +23,7 @@
 		providing resource bundles also for the web and can be used also with other languages than java.</description>
 
 	<url>https://github.com/lightblueseas/resource-bundles-data</url>
-	
+
 	<modules>
 		<module>resource-bundles-entities</module>
 		<module>resource-bundles-business</module>
@@ -97,6 +98,12 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-rest-api</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>resource-bundles-view-model</artifactId>
+				<version>1.1-SNAPSHOT</version>
 			</dependency>
 
 		</dependencies>

@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.persistence.Query;
 
@@ -59,12 +60,12 @@ import de.alpharogroup.db.service.AbstractBusinessService;
 import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import lombok.NonNull;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link ResourcebundlesBusinessService}.
  */
-@Slf4j
+@Log
 @Transactional
 @Service("resourcebundlesService")
 public class ResourcebundlesBusinessService
@@ -388,7 +389,7 @@ public class ResourcebundlesBusinessService
 		}
 		catch (final Exception e)
 		{
-			log.error("merge fail with super.merge(resourcebundles)", e);
+			log.log(Level.SEVERE, "merge fail with super.merge(resourcebundles)", e);
 			initialize(resourcebundles);
 			return super.merge(resourcebundles);
 		}
@@ -406,7 +407,7 @@ public class ResourcebundlesBusinessService
 		}
 		catch (final Exception e)
 		{
-			log.error("save or update fail with super.saveOrUpdate(resourcebundles)", e);
+			log.log(Level.SEVERE, "save or update fail with super.saveOrUpdate(resourcebundles)", e);
 			initialize(resourcebundles);
 			super.saveOrUpdate(resourcebundles);
 		}

@@ -25,9 +25,9 @@
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>resource-bundles-domain-model</artifactId>
+				<artifactId>resource-bundles-view-model</artifactId>
 		</dependency>
-
+		
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>resource-bundles-business</artifactId>

@@ -43,7 +43,6 @@ import de.alpharogroup.jetty9.runner.config.Jetty9RunConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletContextHandlerConfiguration;
 import de.alpharogroup.jetty9.runner.config.ServletHolderConfiguration;
 import de.alpharogroup.jetty9.runner.factories.ServletContextHandlerFactory;
-import de.alpharogroup.log.LoggerExtensions;
 import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
 
 /**
@@ -126,8 +125,8 @@ public class ApplicationJettyRunner
 			}
 		}
 		// Add a file appender to the logger programatically
-		LoggerExtensions.addFileAppender(Logger.getRootLogger(),
-			LoggerExtensions.newFileAppender(logfile.getAbsolutePath()));
+//		LoggerExtensions.addFileAppender(Logger.getRootLogger(),
+//			LoggerExtensions.newFileAppender(logfile.getAbsolutePath()));
 
 		final ServletContextHandler servletContextHandler = ServletContextHandlerFactory
 			.getNewServletContextHandler(ServletContextHandlerConfiguration.builder()
