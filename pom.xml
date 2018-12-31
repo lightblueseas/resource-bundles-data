@@ -31,7 +31,6 @@
 		<module>resource-bundles-rest-web</module>
 		<module>resource-bundles-rest-client</module>
 		<module>resource-bundles-domain</module>
-		<module>resource-bundles-domain-model</module>
 	</modules>
 
 	<licenses>
@@ -85,12 +84,6 @@
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-domain</artifactId>
-				<version>${project.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>resource-bundles-domain-model</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 
