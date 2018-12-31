@@ -41,6 +41,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
+import java.util.logging.Level;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -75,12 +76,12 @@ import de.alpharogroup.resourcebundle.locale.LocaleResolver;
 import de.alpharogroup.resourcebundle.locale.Locales;
 import de.alpharogroup.resourcebundle.properties.PropertiesFileExtensions;
 import de.alpharogroup.string.StringExtensions;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 /**
  * The class {@link AbstractResourcebundlesBusinessServiceTest}.
  */
-@Slf4j
+@Log
 public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSpringContextTests
 {
 
@@ -271,7 +272,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			}
 			catch (final IOException e)
 			{
-				log.error("IOException", e);
+				log.log(Level.SEVERE, "IOException", e);
 			}
 		}
 		if (databaseInitialization != null)
@@ -282,7 +283,7 @@ public class AbstractResourcebundlesBusinessServiceTest extends AbstractTestNGSp
 			}
 			catch (ClassNotFoundException | SQLException | IOException e)
 			{
-				log.error(StringExtensions.toString(databaseInitialization), e);
+				log.log(Level.SEVERE, StringExtensions.toString(databaseInitialization), e);
 			}
 		}
 	}
