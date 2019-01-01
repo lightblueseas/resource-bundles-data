@@ -14,29 +14,29 @@ Class-Path: xml-apis-1.4.01.jar resource-bundles-rest-api.jar rest-api
   dom4j-2.1.1.jar hibernate-commons-annotations-5.1.0.Final.jar jaxb-a
  pi-2.3.1.jar jaxb-runtime-2.3.1.jar txw2-2.3.1.jar istack-commons-run
  time-3.0.7.jar stax-ex-1.8.jar FastInfoset-1.2.15.jar ent-api-1.jar e
- nt-core-1.jar spring-data-jpa-2.1.3.RELEASE.jar spring-data-commons-2
- .1.3.RELEASE.jar spring-core-4.3.18.RELEASE.jar spring-beans-4.3.18.R
- ELEASE.jar spring-orm-4.3.18.RELEASE.jar spring-jdbc-4.3.18.RELEASE.j
- ar spring-tx-4.3.18.RELEASE.jar spring-context-4.3.18.RELEASE.jar spr
- ing-aop-4.3.18.RELEASE.jar spring-expression-4.3.18.RELEASE.jar aspec
- tjrt-1.9.1.jar jcommons-lang-5.1.jar commons-collections4-4.2.jar com
- mons-io-2.6.jar commons-codec-1.11.jar commons-lang3-3.7.jar model-co
- re-1.6.1.jar silly-collections-5.jar jobject-compare-2.5.jar commons-
- beanutils-1.9.3.jar commons-collections-3.2.2.jar jobject-core-2.5.ja
- r jobject-diff-2.5.jar xml-extensions-5.jar xercesImpl-2.12.0.jar xml
- beans-3.0.2.jar jettison-1.4.0.jar xstream-1.4.11.1.jar xmlpull-1.1.3
- .1.jar xpp3_min-1.1.4c.jar json-20180813.jar file-worker-4.22.jar zip
- 4j-1.3.2.jar crypt-api-5.7.jar jobject-clone-2.5.jar jobject-copy-2.5
- .jar dozer-5.5.1.jar jobject-merge-2.5.jar resource-bundles-view-mode
- l-1.1-SNAPSHOT.jar resource-bundles-business.jar business-api-6.6-SNA
- PSHOT.jar base-service-api-6.6-SNAPSHOT.jar resource-bundles-entities
- .jar resourcebundle-inspector-3.0.1.jar nv-i18n-1.23.jar javax.servle
- t-api-3.1.0.jar javax.el-api-3.0.0.jar spring-web-4.3.18.RELEASE.jar 
- cxf-rt-frontend-jaxrs-3.2.7.jar cxf-core-3.2.7.jar woodstox-core-5.0.
- 3.jar stax2-api-3.1.4.jar xmlschema-core-2.2.3.jar javax.annotation-a
- pi-1.3.jar cxf-rt-transports-http-3.2.7.jar hibernate-entitymanager-5
- .4.0.Final.jar hibernate-ehcache-5.4.0.Final.jar ehcache-2.10.6.jar s
- lf4j-api-1.7.25.jar cglib-3.2.10.jar asm-7.0.jar ant-1.10.3.jar ant-l
- auncher-1.10.3.jar postgresql-42.2.4.jar h2-1.4.197.jar jetty-jmx-9.4
- .11.v20180605.jar
+ nt-core-1.1.jar spring-data-jpa-2.1.3.RELEASE.jar spring-data-commons
+ -2.1.3.RELEASE.jar spring-core-4.3.18.RELEASE.jar spring-beans-4.3.18
+ .RELEASE.jar spring-orm-4.3.18.RELEASE.jar spring-jdbc-4.3.18.RELEASE
+ .jar spring-tx-4.3.18.RELEASE.jar spring-context-4.3.18.RELEASE.jar s
+ pring-aop-4.3.18.RELEASE.jar spring-expression-4.3.18.RELEASE.jar asp
+ ectjrt-1.9.1.jar jcommons-lang-5.1.jar commons-collections4-4.2.jar c
+ ommons-io-2.6.jar commons-codec-1.11.jar commons-lang3-3.7.jar model-
+ core-1.6.1.jar silly-collections-5.jar jobject-compare-2.5.jar common
+ s-beanutils-1.9.3.jar commons-collections-3.2.2.jar jobject-core-2.5.
+ jar jobject-diff-2.5.jar xml-extensions-5.jar xercesImpl-2.12.0.jar x
+ mlbeans-3.0.2.jar jettison-1.4.0.jar xstream-1.4.11.1.jar xmlpull-1.1
+ .3.1.jar xpp3_min-1.1.4c.jar json-20180813.jar file-worker-4.22.jar z
+ ip4j-1.3.2.jar crypt-api-5.7.jar jobject-clone-2.5.jar jobject-copy-2
+ .5.jar dozer-5.5.1.jar jobject-merge-2.5.jar resource-bundles-view-mo
+ del-1.1-SNAPSHOT.jar resource-bundles-business.jar business-api-6.6-S
+ NAPSHOT.jar base-service-api-6.6-SNAPSHOT.jar resource-bundles-entiti
+ es.jar resourcebundle-inspector-3.0.1.jar nv-i18n-1.23.jar javax.serv
+ let-api-3.1.0.jar javax.el-api-3.0.0.jar spring-web-4.3.18.RELEASE.ja
+ r cxf-rt-frontend-jaxrs-3.2.7.jar cxf-core-3.2.7.jar woodstox-core-5.
+ 0.3.jar stax2-api-3.1.4.jar xmlschema-core-2.2.3.jar javax.annotation
+ -api-1.3.jar cxf-rt-transports-http-3.2.7.jar hibernate-entitymanager
+ -5.4.0.Final.jar hibernate-ehcache-5.4.0.Final.jar ehcache-2.10.6.jar
+  slf4j-api-1.7.25.jar cglib-3.2.10.jar asm-7.0.jar ant-1.10.3.jar ant
+ -launcher-1.10.3.jar postgresql-42.2.4.jar h2-1.4.197.jar jetty-jmx-9
+ .4.11.v20180605.jar
 
