@@ -3,12 +3,17 @@
 ##################
 *.class
 
+
 ##################
 # intellij files #
 ##################
 *.iml
-.idea
-*/.idea
+!.idea/runConfigurations
+.idea/inspectionProfiles
+.idea/libraries
+.idea/dataSources
+.idea/artifacts
+.idea/*.*
 
 #################
 # eclipse files #
