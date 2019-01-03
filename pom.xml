@@ -23,6 +23,11 @@
 		providing resource bundles also for the web and can be used also with other languages than java.</description>
 
 	<url>https://github.com/lightblueseas/${project.artifactId}</url>
+	
+	<properties>
+		<!-- JETTY-RUNNER version -->
+		<jetty-runner.version>3.16.1</jetty-runner.version>
+	</properties>
 
 	<modules>
 		<module>resource-bundles-entities</module>
