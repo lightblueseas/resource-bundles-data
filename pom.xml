@@ -23,10 +23,11 @@
 		providing resource bundles also for the web and can be used also with other languages than java.</description>
 
 	<url>https://github.com/lightblueseas/${project.artifactId}</url>
-	
+
 	<properties>
 		<!-- JETTY-RUNNER version -->
 		<jetty-runner.version>3.16.1</jetty-runner.version>
+		<resource-bundles-view-model.version>1</resource-bundles-view-model.version>
 	</properties>
 
 	<modules>
@@ -77,6 +78,7 @@
 		<url>https://travis-ci.org/lightblueseas/${project.artifactId}</url>
 	</ciManagement>
 
+
 	<dependencyManagement>
 
 		<dependencies>
@@ -108,7 +110,7 @@
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>resource-bundles-view-model</artifactId>
-				<version>1.1-SNAPSHOT</version>
+				<version>${resource-bundles-view-model.version}</version>
 			</dependency>
 
 		</dependencies>

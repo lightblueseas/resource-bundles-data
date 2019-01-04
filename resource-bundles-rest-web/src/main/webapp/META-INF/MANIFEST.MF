@@ -25,17 +25,17 @@ Class-Path: xml-apis-1.4.01.jar resource-bundles-rest-api.jar rest-api
  .2.jar jobject-core-2.5.jar jobject-diff-2.5.jar xml-extensions-5.jar
   xercesImpl-2.12.0.jar xmlbeans-3.0.2.jar jettison-1.4.0.jar xstream-
  1.4.11.1.jar xmlpull-1.1.3.1.jar xpp3_min-1.1.4c.jar json-20180813.ja
- r file-worker-4.22.jar zip4j-1.3.2.jar crypt-api-5.7.jar jobject-clon
+ r file-worker-4.22.jar zip4j-1.3.2.jar crypt-api-5.6.jar jobject-clon
  e-2.5.jar jobject-copy-2.5.jar dozer-5.5.1.jar jobject-merge-2.5.jar 
- resource-bundles-view-model-1.1-SNAPSHOT.jar resource-bundles-busines
- s.jar business-api-6.6.jar base-service-api-6.6.jar resource-bundles-
- entities.jar resourcebundle-inspector-3.0.1.jar nv-i18n-1.23.jar java
- x.servlet-api-3.1.0.jar javax.el-api-3.0.0.jar spring-web-4.3.18.RELE
- ASE.jar cxf-rt-frontend-jaxrs-3.2.7.jar cxf-core-3.2.7.jar woodstox-c
- ore-5.0.3.jar stax2-api-3.1.4.jar xmlschema-core-2.2.3.jar javax.anno
- tation-api-1.3.jar cxf-rt-transports-http-3.2.7.jar hibernate-entitym
- anager-5.4.0.Final.jar hibernate-ehcache-5.4.0.Final.jar ehcache-2.10
- .6.jar slf4j-api-1.7.25.jar cglib-3.2.10.jar asm-7.0.jar ant-1.10.3.j
- ar ant-launcher-1.10.3.jar postgresql-42.2.4.jar h2-1.4.197.jar jetty
- -jmx-9.4.11.v20180605.jar
+ resource-bundles-view-model-1.jar resource-bundles-business.jar busin
+ ess-api-6.6.jar base-service-api-6.6.jar resource-bundles-entities.ja
+ r resourcebundle-inspector-3.0.1.jar nv-i18n-1.23.jar javax.servlet-a
+ pi-3.1.0.jar javax.el-api-3.0.0.jar spring-web-4.3.18.RELEASE.jar cxf
+ -rt-frontend-jaxrs-3.2.7.jar cxf-core-3.2.7.jar woodstox-core-5.0.3.j
+ ar stax2-api-3.1.4.jar xmlschema-core-2.2.3.jar javax.annotation-api-
+ 1.3.jar cxf-rt-transports-http-3.2.7.jar hibernate-entitymanager-5.4.
+ 0.Final.jar hibernate-ehcache-5.4.0.Final.jar ehcache-2.10.6.jar slf4
+ j-api-1.7.25.jar cglib-3.2.10.jar asm-7.0.jar ant-1.10.3.jar ant-laun
+ cher-1.10.3.jar postgresql-42.2.4.jar h2-1.4.197.jar jetty-jmx-9.4.11
+ .v20180605.jar
 
