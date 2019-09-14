@@ -31,7 +31,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-import de.alpharogroup.db.entity.name.unique.ExtraSmallUniqueNameEntity;
+import de.alpharogroup.db.entity.name.UniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,7 +46,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Countries extends ExtraSmallUniqueNameEntity<Integer> implements Cloneable
+public class Countries extends UniqueNameEntity<Integer> implements Cloneable
 {
 
 	/** The serial Version UID. */

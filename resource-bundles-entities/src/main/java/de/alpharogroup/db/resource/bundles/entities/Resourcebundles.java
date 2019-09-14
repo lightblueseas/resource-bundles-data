@@ -59,16 +59,16 @@ public class Resourcebundles extends VersionableBaseEntity<Integer> implements C
 
 	/** The bundleName from this {@link BundleNames} object. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_BUNDLENAME_ID"))
+	@JoinColumn(name = "bundlename_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_resourcebundles_bundlename_id"))
 	private BundleNames bundleName;
 
 	/** The properties key from this {@link BundleNames} object. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "properties_key_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_KEY_ID"))
+	@JoinColumn(name = "properties_key_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_resourcebundles_properties_key_id"))
 	private PropertiesKeys key;
 
 	/** The value for the properties key. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "properties_value_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_RESOURCEBUNDLES_PROPERTIES_VALUE_ID"))
+	@JoinColumn(name = "properties_value_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_resourcebundles_properties_value_id"))
 	private PropertiesValues value;
 }

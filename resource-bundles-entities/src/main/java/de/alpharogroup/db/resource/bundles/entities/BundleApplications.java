@@ -39,7 +39,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.versionable.unique.VersionableExtraLargeUniqueNameEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableUniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -68,7 +68,7 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<Integer>
+public class BundleApplications extends VersionableUniqueNameEntity<Integer>
 	implements
 		Cloneable
 {
@@ -89,7 +89,7 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 	 * The default locale of this bundle application.
 	 */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "default_locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLE_APPLICATIONS_DEFAULT_LOCALE_ID"))
+	@JoinColumn(name = "default_locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bundle_applications_default_locale_id"))
 	private LanguageLocales defaultLocale;
 
 	/**
@@ -97,8 +97,8 @@ public class BundleApplications extends VersionableExtraLargeUniqueNameEntity<In
 	 */
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "bundle_application_language_locales", joinColumns = {
-			@JoinColumn(name = "application_id", referencedColumnName = "id") }, inverseJoinColumns = {
-					@JoinColumn(name = "language_locales_id", referencedColumnName = "id") })
+			@JoinColumn(name = "application_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bundle_application_id")) }, inverseJoinColumns = {
+					@JoinColumn(name = "language_locales_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bundle_application_language_locales_id")) })
 	private Set<LanguageLocales> supportedLocales = new HashSet<>();
 
 	/**

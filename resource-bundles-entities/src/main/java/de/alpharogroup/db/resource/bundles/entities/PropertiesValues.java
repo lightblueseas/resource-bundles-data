@@ -27,7 +27,7 @@ package de.alpharogroup.db.resource.bundles.entities;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.versionable.unique.VersionableXXXLUNameEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableUniqueNameEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,7 +44,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @NoArgsConstructor
-public class PropertiesValues extends VersionableXXXLUNameEntity<Integer> implements Cloneable
+public class PropertiesValues extends VersionableUniqueNameEntity<Integer> implements Cloneable
 {
 
 	/** Serial Version UID */

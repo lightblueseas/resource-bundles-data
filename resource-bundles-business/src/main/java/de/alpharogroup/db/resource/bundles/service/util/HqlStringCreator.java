@@ -24,7 +24,6 @@
  */
 package de.alpharogroup.db.resource.bundles.service.util;
 
-import de.alpharogroup.db.entity.name.JpqlStringFactory;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
 import de.alpharogroup.db.resource.bundles.entities.Countries;
@@ -33,6 +32,7 @@ import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
+import de.alpharogroup.service.api.JpqlStringFactory;
 
 /**
  * The class {@link HqlStringCreator} creates hql queries as string objects.

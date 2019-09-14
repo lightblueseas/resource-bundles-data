@@ -1,5 +1,5 @@
 /**
- * The MIT License
+ µ·…\} * The MIT License
  *
  * Copyright (C) 2007 - 2015 Asterios Raptis
  *
@@ -72,7 +72,7 @@ public class BundleNames extends VersionableBaseEntity<Integer> implements Clone
 
 	/** The base name of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "base_name_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_BASE_NAME_ID"))
+	@JoinColumn(name = "base_name_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bundlenames_base_name_id"))
 	private BaseNames baseName;
 
 	/** The optional filepath from this resource bunlde. */
@@ -81,12 +81,12 @@ public class BundleNames extends VersionableBaseEntity<Integer> implements Clone
 
 	/** The locale of this bundle. */
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_LOCALE_ID"))
+	@JoinColumn(name = "locale_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bundlenames_locale_id"))
 	private LanguageLocales locale;
 
 	/** The {@link BundleApplications} that owns this {@link BundleNames} object. */
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "owner_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "FK_BUNDLENAMES_OWNER_ID"))
+	@JoinColumn(name = "owner_id", nullable = true, referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_bundlenames_owner_id"))
 	private BundleApplications owner;
 
 }

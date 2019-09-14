@@ -27,11 +27,9 @@ package de.alpharogroup.db.resource.bundles.entities;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import de.alpharogroup.db.entity.name.versionable.VersionableLargeNameEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableNameEntity;
 import lombok.Builder;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -40,11 +38,9 @@ import lombok.ToString;
  */
 @Entity
 @Table(name = "basenames")
-@Getter
-@Setter
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class BaseNames extends VersionableLargeNameEntity<Integer> implements Cloneable
+public class BaseNames extends VersionableNameEntity<Integer> implements Cloneable
 {
 
 	/**

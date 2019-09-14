@@ -25,7 +25,7 @@
 			<property name="hibernate.connection.url"
 				value="jdbc:postgresql://localhost:5432/resourcebundles" />
 			<property name="hibernate.connection.user" value="postgres" />
-			<property name="hibernate.connection.password" value="r2SB2FvFKHLcnyL0" />
+			<property name="hibernate.connection.password" value="postgres" />
 			
 			<!-- YES IT IS DEPRECATED and DO NOT CHANCE it, it's needed for generation of dll scripts -->
 			<!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL82Dialect" /> -->			
