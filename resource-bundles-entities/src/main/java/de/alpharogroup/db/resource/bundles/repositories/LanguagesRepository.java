@@ -24,15 +24,17 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
+import de.alpharogroup.db.resource.bundles.entities.Languages;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.repository.AbstractRepository;
-import de.alpharogroup.db.resource.bundles.entities.Languages;
+import java.util.UUID;
 
-@Repository("languagesRepository")
-public class LanguagesRepository extends AbstractRepository<Languages, Integer>
+@Repository
+public interface LanguagesRepository extends JpaRepository<Languages, UUID>
 {
+	Languages findDistinctByIso639Dash1(String iso639Dash1);
 
-	private static final long serialVersionUID = 1L;
-
+	Languages findDistinctByName(String name);
 }
+

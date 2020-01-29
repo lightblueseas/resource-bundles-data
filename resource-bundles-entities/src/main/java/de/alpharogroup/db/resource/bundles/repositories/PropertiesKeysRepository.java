@@ -24,19 +24,15 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
+import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.repository.AbstractRepository;
-import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
+import java.util.List;
+import java.util.UUID;
 
-/**
- * The class {@link PropertiesKeysRepository}.
- */
-@Repository("propertiesKeysRepository")
-public class PropertiesKeysRepository extends AbstractRepository<PropertiesKeys, Integer>
+@Repository
+public interface PropertiesKeysRepository extends JpaRepository<PropertiesKeys, UUID>
 {
-	/**
-	 * The serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+	List<PropertiesKeys> findByName(String name);
 }

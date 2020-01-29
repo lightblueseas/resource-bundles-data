@@ -24,42 +24,37 @@
  */
 package de.alpharogroup.db.resource.bundles.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import de.alpharogroup.db.entity.name.versionable.VersionableUniqueNameEntity;
-import lombok.Builder;
+import de.alpharogroup.db.entity.enums.DatabasePrefix;
+import de.alpharogroup.db.entity.name.NameEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableNameUUIDEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  * The entity class {@link PropertiesValues} holds the data only for the properties values. <br>
  * <br>
  */
 @Entity
-@Table(name = "properties_values")
+@Table(name = PropertiesValues.TABLE_NAME, indexes = { @Index(name = DatabasePrefix.INDEX_PREFIX
+	+ PropertiesValues.TABLE_NAME + DatabasePrefix.UNDERSCORE
+	+ NameEntity.COLUMN_NAME_NAME, columnList = NameEntity.COLUMN_NAME_NAME) })
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class PropertiesValues extends VersionableUniqueNameEntity<Integer> implements Cloneable
+@SuperBuilder
+public class PropertiesValues extends VersionableNameUUIDEntity implements Cloneable
 {
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
-
-	/**
-	 * Instantiates a new {@link PropertiesValues} entity object.
-	 *
-	 * @param name
-	 *            the name
-	 */
-	@Builder
-	PropertiesValues(String name)
-	{
-		super(name);
-	}
+	public static final String TABLE_NAME = "properties_values";
 
 }

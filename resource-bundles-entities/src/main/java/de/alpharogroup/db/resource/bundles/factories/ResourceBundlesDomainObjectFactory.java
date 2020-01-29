@@ -25,10 +25,7 @@
 package de.alpharogroup.db.resource.bundles.factories;
 
 import java.io.Serializable;
-import java.util.Locale;
-import java.util.Set;
 
-import de.alpharogroup.collections.set.SetFactory;
 import de.alpharogroup.db.resource.bundles.entities.BaseNames;
 import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
@@ -37,7 +34,6 @@ import de.alpharogroup.db.resource.bundles.entities.Languages;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesKeys;
 import de.alpharogroup.db.resource.bundles.entities.PropertiesValues;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
-import de.alpharogroup.resourcebundle.locale.LocaleExtensions;
 
 /**
  * A factory for creating Domain objects for the resource bundles.
@@ -85,43 +81,6 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 	}
 
 	/**
-	 * Factory method for create a new {@link BundleApplications}.
-	 *
-	 * @param name
-	 *            the name
-	 * @param defaultLocale
-	 *            the default locale
-	 * @return the new {@link BundleApplications}
-	 */
-	public BundleApplications newBundleApplications(final String name,
-		final LanguageLocales defaultLocale)
-	{
-		return newBundleApplications(name, defaultLocale, SetFactory.newHashSet(defaultLocale));
-	}
-
-	/**
-	 * Factory method for create a new {@link BundleApplications}.
-	 *
-	 * @param name
-	 *            the name
-	 * @param defaultLocale
-	 *            the default locale
-	 * @return the new {@link BundleApplications}
-	 */
-	public BundleApplications newBundleApplications(final String name,
-		final LanguageLocales defaultLocale, Set<LanguageLocales> supportedLocales)
-	{
-		if (supportedLocales == null)
-		{
-			supportedLocales = SetFactory.newHashSet();
-		}
-		supportedLocales.add(defaultLocale);
-		final BundleApplications bundleApplications = BundleApplications.builder().name(name)
-			.defaultLocale(defaultLocale).supportedLocales(supportedLocales).build();
-		return bundleApplications;
-	}
-
-	/**
 	 * Factory method for create a new {@link BundleNames}.
 	 *
 	 * @param owner
@@ -138,21 +97,6 @@ public class ResourceBundlesDomainObjectFactory implements Serializable
 		final BundleNames bundleNames = BundleNames.builder().owner(owner).baseName(baseName)
 			.locale(locale).build();
 		return bundleNames;
-	}
-
-	/**
-	 * Factory method for create a new {@link LanguageLocales}.
-	 *
-	 * @param locale
-	 *            the {@link Locale} object.
-	 *
-	 * @return the new {@link LanguageLocales}
-	 */
-	public LanguageLocales newLanguageLocales(final Locale locale)
-	{
-		final LanguageLocales languageLocales = LanguageLocales.builder()
-			.locale(LocaleExtensions.getLocaleFilenameSuffix(locale)).build();
-		return languageLocales;
 	}
 
 	/**

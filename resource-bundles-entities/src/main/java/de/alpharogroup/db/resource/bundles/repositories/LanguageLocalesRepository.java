@@ -24,19 +24,15 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
+
+import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.repository.AbstractRepository;
-import de.alpharogroup.db.resource.bundles.entities.LanguageLocales;
+import java.util.UUID;
 
-/**
- * The class {@link LanguageLocalesRepository}.
- */
-@Repository("languageLocalesRepository")
-public class LanguageLocalesRepository extends AbstractRepository<LanguageLocales, Integer>
+@Repository
+public interface LanguageLocalesRepository extends JpaRepository<LanguageLocales, UUID>
 {
-	/**
-	 * The serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+	LanguageLocales findDistinctByLocale(String locale);
 }

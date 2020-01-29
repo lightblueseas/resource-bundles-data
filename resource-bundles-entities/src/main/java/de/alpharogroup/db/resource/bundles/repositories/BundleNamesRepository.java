@@ -24,19 +24,38 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
-import org.springframework.stereotype.Repository;
-
-import de.alpharogroup.db.repository.AbstractRepository;
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
 import de.alpharogroup.db.resource.bundles.entities.BundleNames;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * The class {@link BundleNamesRepository}.
- */
-@Repository("bundleNamesRepository")
-public class BundleNamesRepository extends AbstractRepository<BundleNames, Integer>
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface BundleNamesRepository extends JpaRepository<BundleNames, UUID>
 {
-	/**
-	 * The serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+
+	@Transactional
+	@Query("select bn from BundleNames bn where bn.baseName.name=:basename")
+	List<BundleNames> findByBaseName(@Param("basename") String basename);
+
+	@Transactional
+	@Query("select bn from BundleNames bn " + "where bn.owner=:owner ")
+	List<BundleNames> findByOwner(@Param("owner") final BundleApplications owner);
+
+	@Transactional
+	@Query("select bn from BundleNames bn " + "where bn.owner.name=:owner "
+		+ "and bn.baseName.name=:basename")
+	List<BundleNames> findByOwnerAndBaseName(@Param("owner") String owner,
+		@Param("basename") String basename);
+
+	@Transactional
+	@Query("select bn from BundleNames bn " + "where bn.owner.name=:owner "
+		+ "and bn.baseName.name=:basename " + "and bn.locale.locale=:locale ")
+	BundleNames findDistinctByOwnerAndBaseNameAndLocale(@Param("owner") String owner,
+		@Param("basename") String basename, final @Param("locale") String locale);
 }

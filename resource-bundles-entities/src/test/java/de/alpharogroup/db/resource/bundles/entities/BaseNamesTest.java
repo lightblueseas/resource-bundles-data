@@ -25,7 +25,7 @@
 package de.alpharogroup.db.resource.bundles.entities;
 
 /**
- * The class {@link BaseNamesTest}.
+ * The class {@link BaseNamesTest}
  */
 public class BaseNamesTest
 {

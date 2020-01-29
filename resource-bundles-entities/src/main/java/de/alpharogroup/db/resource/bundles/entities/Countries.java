@@ -24,50 +24,49 @@
  */
 package de.alpharogroup.db.resource.bundles.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-
-import de.alpharogroup.db.entity.name.UniqueNameEntity;
-import lombok.Builder;
+import de.alpharogroup.db.entity.enums.DatabasePrefix;
+import de.alpharogroup.db.entity.name.NameEntity;
+import de.alpharogroup.db.entity.name.NameUUIDEntity;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.*;
 
 /**
  * The entity class {@link Countries} is keeping the information for all countries in the world
  */
 @Entity
-@Table(name = "countries")
-@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+@Table(name = Countries.TABLE_NAME, uniqueConstraints = {
+	@UniqueConstraint(name = DatabasePrefix.UNIQUE_CONSTRAINT_PREFIX + Countries.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ NameEntity.COLUMN_NAME_NAME, columnNames = NameEntity.COLUMN_NAME_NAME),
+	@UniqueConstraint(name = DatabasePrefix.UNIQUE_CONSTRAINT_PREFIX + Countries.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ Countries.COLUMN_NAME_ISO_3166_A2_NAME, columnNames = Countries.COLUMN_NAME_ISO_3166_A2_NAME) }, indexes = {
+	@Index(name = DatabasePrefix.INDEX_PREFIX + Countries.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ NameEntity.COLUMN_NAME_NAME, columnList = NameEntity.COLUMN_NAME_NAME),
+	@Index(name = DatabasePrefix.INDEX_PREFIX + Countries.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ Countries.COLUMN_NAME_ISO_3166_A2_NAME, columnList = Countries.COLUMN_NAME_ISO_3166_A2_NAME) })
 @Getter
 @Setter
 @NoArgsConstructor
-public class Countries extends UniqueNameEntity<Integer> implements Cloneable
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@SuperBuilder
+public class Countries extends NameUUIDEntity implements Cloneable
 {
 
+	public static final String COLUMN_NAME_ISO_3166_A2_NAME = "iso3166_a2name";
 	/** The serial Version UID. */
 	private static final long serialVersionUID = 1L;
+	public static final String TABLE_NAME = "countries";
 	/** The iso3166 name with two characters. */
 	@Column(name = "iso3166_a2name", length = 2)
-	private String iso3166A2name;
-
-	/**
-	 * Instantiates a new countries.
-	 *
-	 * @param name
-	 *            the name
-	 * @param iso3166a2name
-	 *            the iso 3166 a 2 name
-	 */
-	@Builder
-	public Countries(String name, String iso3166a2name)
-	{
-		super(name);
-		iso3166A2name = iso3166a2name;
-	}
+	String iso3166a2name;
 
 }

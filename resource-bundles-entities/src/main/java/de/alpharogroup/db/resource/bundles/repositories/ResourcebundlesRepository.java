@@ -24,19 +24,38 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
-import org.springframework.stereotype.Repository;
-
-import de.alpharogroup.db.repository.AbstractRepository;
 import de.alpharogroup.db.resource.bundles.entities.Resourcebundles;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-/**
- * The class {@link ResourcebundlesRepository}.
- */
-@Repository("resourcebundlesRepository")
-public class ResourcebundlesRepository extends AbstractRepository<Resourcebundles, Integer>
+import java.util.List;
+import java.util.UUID;
+
+@Repository
+public interface ResourcebundlesRepository extends JpaRepository<Resourcebundles, UUID>
 {
-	/**
-	 * The serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+	@Transactional
+	@Query("select rb from Resourcebundles rb " + "where rb.bundleName.owner.name=:owner "
+		+ "and rb.bundleName.baseName.name=:basename " + "and rb.bundleName.locale.locale=:locale")
+	List<Resourcebundles> findByOwnerAndBaseNameAndLocale(@Param("owner") String owner,
+		@Param("basename") String baseName, @Param("locale") String locale);
+
+	@Transactional
+	@Query("select rb from Resourcebundles rb " + "where rb.bundleName.owner.name=:owner "
+		+ "and rb.bundleName.baseName.name=:basename " + "and rb.bundleName.locale.locale=:locale "
+		+ "and rb.key.name=:pkey ")
+	List<Resourcebundles> findByOwnerAndBaseNameAndLocaleAndKeyAndValue(
+		@Param("owner") String owner, @Param("basename") String baseName,
+		@Param("locale") String locale, @Param("pkey") String key);
+
+	@Transactional
+	@Query("select distinct rb from Resourcebundles rb " + "where rb.bundleName.owner.name=:owner "
+		+ "and rb.bundleName.baseName.name=:basename " + "and rb.bundleName.locale.locale=:locale "
+		+ "and rb.key.name=:pkey ")
+	Resourcebundles findDistinctByOwnerAndBaseNameAndLocaleAndKeyAndValue(
+		@Param("owner") String owner, @Param("basename") String baseName,
+		@Param("locale") String locale, @Param("pkey") String key);
 }

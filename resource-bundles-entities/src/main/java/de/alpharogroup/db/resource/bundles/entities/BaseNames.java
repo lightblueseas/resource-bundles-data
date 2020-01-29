@@ -24,23 +24,29 @@
  */
 package de.alpharogroup.db.resource.bundles.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-import de.alpharogroup.db.entity.name.versionable.VersionableNameEntity;
-import lombok.Builder;
+import de.alpharogroup.db.entity.enums.DatabasePrefix;
+import de.alpharogroup.db.entity.name.NameEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableNameUUIDEntity;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.SuperBuilder;
+
+import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Table;
 
 /**
  * Entity class for saving in database base names of the resource bundles. The base name if you see
  * it from the properties file view the name of the properties file without the locale suffix.
  */
 @Entity
-@Table(name = "basenames")
+@Table(name = BaseNames.TABLE_NAME, indexes = { @Index(name = DatabasePrefix.INDEX_PREFIX
+	+ BaseNames.TABLE_NAME + DatabasePrefix.UNDERSCORE
+	+ NameEntity.COLUMN_NAME_NAME, columnList = NameEntity.COLUMN_NAME_NAME) })
 @ToString(callSuper = true)
 @NoArgsConstructor
-public class BaseNames extends VersionableNameEntity<Integer> implements Cloneable
+@SuperBuilder
+public class BaseNames extends VersionableNameUUIDEntity implements Cloneable
 {
 
 	/**
@@ -48,15 +54,5 @@ public class BaseNames extends VersionableNameEntity<Integer> implements Cloneab
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Instantiates a new {@link BaseNames} entity object.
-	 *
-	 * @param name
-	 *            the name
-	 */
-	@Builder
-	BaseNames(String name)
-	{
-		super(name);
-	}
+	public static final String TABLE_NAME = "basenames";
 }

@@ -24,49 +24,50 @@
  */
 package de.alpharogroup.db.resource.bundles.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import de.alpharogroup.db.entity.enums.DatabasePrefix;
+import de.alpharogroup.db.entity.name.NameEntity;
+import de.alpharogroup.db.entity.name.versionable.VersionableNameUUIDEntity;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
-import de.alpharogroup.db.entity.name.versionable.VersionableUniqueNameEntity;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import javax.persistence.*;
 
 /**
  * The entity class {@link LanguageLocales} holds the data for the languages.
  */
 @Entity
-@Table(name = "languages")
+@Table(name = Languages.TABLE_NAME, uniqueConstraints = {
+	@UniqueConstraint(name = DatabasePrefix.UNIQUE_CONSTRAINT_PREFIX + Languages.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ NameEntity.COLUMN_NAME_NAME, columnNames = NameEntity.COLUMN_NAME_NAME),
+	@UniqueConstraint(name = DatabasePrefix.UNIQUE_CONSTRAINT_PREFIX + Languages.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ Languages.COLUMN_NAME_ISO_639_DASH1, columnNames = Languages.COLUMN_NAME_ISO_639_DASH1) }, indexes = {
+	@Index(name = DatabasePrefix.INDEX_PREFIX + Languages.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ NameEntity.COLUMN_NAME_NAME, columnList = NameEntity.COLUMN_NAME_NAME),
+	@Index(name = DatabasePrefix.INDEX_PREFIX + Languages.TABLE_NAME
+		+ DatabasePrefix.UNDERSCORE
+		+ Languages.COLUMN_NAME_ISO_639_DASH1, columnList = Languages.COLUMN_NAME_ISO_639_DASH1) })
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
-public class Languages extends VersionableUniqueNameEntity<Integer> implements Cloneable
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@SuperBuilder
+public class Languages extends VersionableNameUUIDEntity implements Cloneable
 {
+
+	public static final String COLUMN_NAME_ISO_639_DASH1 = "iso639_1";
 
 	/** Serial Version UID */
 	private static final long serialVersionUID = 1L;
+	public static final String TABLE_NAME = "languages";
 
 	/** The iso639_1 code with two characters. */
-	@Column(unique = true, name = "iso639_1", length = 2)
-	private String iso639Dash1;
-
-	/**
-	 * Instantiates a new {@link Languages} entity object.
-	 *
-	 * @param name
-	 *            the name
-	 * @param iso639Dash1
-	 *            the iso 639 dash 1
-	 */
-	@Builder
-	Languages(String name, String iso639Dash1)
-	{
-		super(name);
-		this.iso639Dash1 = iso639Dash1;
-	}
+	@Column(name = "iso639_1", length = 2)
+	String iso639Dash1;
 
 }
+

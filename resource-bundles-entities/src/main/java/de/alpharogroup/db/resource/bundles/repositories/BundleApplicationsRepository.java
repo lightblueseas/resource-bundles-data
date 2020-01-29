@@ -24,15 +24,17 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
+import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.repository.AbstractRepository;
-import de.alpharogroup.db.resource.bundles.entities.BundleApplications;
+import java.util.List;
+import java.util.UUID;
 
-@Repository("bundleApplicationsRepository")
-public class BundleApplicationsRepository extends AbstractRepository<BundleApplications, Integer>
+@Repository
+public interface BundleApplicationsRepository extends JpaRepository<BundleApplications, UUID>
 {
+	List<BundleApplications> findByName(String name);
 
-	private static final long serialVersionUID = 1L;
-
+	BundleApplications findDistinctByName(String name);
 }

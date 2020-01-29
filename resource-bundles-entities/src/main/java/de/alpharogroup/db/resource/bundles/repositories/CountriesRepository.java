@@ -24,15 +24,20 @@
  */
 package de.alpharogroup.db.resource.bundles.repositories;
 
+import de.alpharogroup.db.resource.bundles.entities.Countries;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import de.alpharogroup.db.repository.AbstractRepository;
-import de.alpharogroup.db.resource.bundles.entities.Countries;
+import java.util.UUID;
 
-@Repository("countriesRepository")
-public class CountriesRepository extends AbstractRepository<Countries, Integer>
+@Repository
+public interface CountriesRepository extends JpaRepository<Countries, UUID>
 {
+	Countries findByIso3166a2name(@Param("iso3166a2name") String iso3166a2name);
 
-	private static final long serialVersionUID = 1L;
+	Countries findByNameAndIso3166a2name(@Param("name") String name,
+		@Param("iso3166a2name") String iso3166a2name);
 
+	Countries findDistinctByName(@Param("name") String name);
 }
